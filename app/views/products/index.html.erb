@@ -1,0 +1,42 @@
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div id="title">SPECIAL JAMES CAMERON</div>
+  <div id="titles-wrap">
+    <div class="top"></div>
+    <% @products.collect do |product| %>
+    <%= render :partial => 'products/index/movie_detail', :locals => {:product => product} %>
+    <% end %>
+    <!-- AFFICHER LES 10 DVD SUIVANTS -->
+    <a href="#" id="next10">AFFICHER LES 10 DVD SUIVANTS</a>	
+    <!-- View Options -->	
+    <ul id="views">
+      <li><%= link_to "Grid View", '', {:id => 'grid-view'} %></li>
+      <li><%= link_to "List View", '', {:id => 'list-view', :class => 'active'} %></li>
+      <li><%= link_to "Details View", '', {:id => 'details-view'} %></li>
+    </ul>
+    <div class="end"></div>
+  </div>
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->
+<!--   ==============   LEFT COLUMN   ==============   -->
+<div id="leftcolumn">
+  <form method="post" action="" id="search">
+    <input type="text" id="s" value="Rechercher" /> <button type="submit" class="like-btn">Search</button>
+  </form>
+  <ul id="left-nav">
+    <li><%= link_to 'Les tops' %></li>
+    <li><%= link_to 'Catégories' %></li>
+    <li><%= link_to 'Thèmes' %></li>
+  </ul>
+  <p id="special">
+    SPECIAL <br />
+    JAMES CAMERON
+  </p>
+  <ul id="left-links">
+    <li><%= link_to 'Enquête de satisfaction' %></li>
+    <li><%= link_to 'Parrainer un ami' %></li>
+    <li><%= link_to 'Offrir un chèque cadeau', '', {:id => 'gift'} %></li>
+    <li><%= link_to 'Proposer un DVD' %></li>
+  </ul>
+</div>
+<!--   ==============   END LEFT COLUMN   ==============   -->

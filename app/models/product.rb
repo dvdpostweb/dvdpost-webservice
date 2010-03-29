@@ -12,6 +12,6 @@ class Product < ActiveRecord::Base
   named_scope :by_kind, lambda {|kind| {:conditions => {:products_type => KINDS[kind]}}}
 
   def description
-    descriptions.by_language(I18n.locale.to_s)
+    descriptions.by_language(I18n.locale.to_s).first
   end
 end
