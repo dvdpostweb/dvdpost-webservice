@@ -1,0 +1,166 @@
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div id="detail-wrap">
+    <div class="top"></div>
+    <!-- Detail -->
+    <div id="breadcrumb"><a href="#">Emotion/drame</a> &rsaquo; Destin</div>
+    <h2><%= "#{@product.title} (#{@product.year})" %></h2>
+    <div class="box">
+      <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
+        <div id="details">
+          <div id="movie-info">
+            <ul>
+              <li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li>
+              <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
+              <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
+              <li><strong>Genre :</strong> <%= @product.categories.collect{|category| category.name}.join(', ') %></li>
+              <li><strong>Pays :</strong> United Kingdom</li>
+              <li><strong>Public :</strong> <img src="/images/al.gif" alt="All" /></li>
+            </ul>
+            <p class="links"><a href="#" class="trailer">Bande-annonce</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="link">Site officiel</a></p>
+            <p>Audio : <img src="/images/fr-yes.png" alt="" /> <img src="/images/en-yes.png" alt="" /> Sous-titres : <img src="/images/fr-no.png" alt="" /></p>
+            <p id="oscars">
+              <strong>Académie des Oscars 2009</strong><br />
+              Oscar du Meilleur Film<br />
+              Oscar du Meilleur Réalisateur<br />
+              <a href="#">Lire la suite</a>
+            </p>
+            <p>
+              <strong>Image :</strong> 16/9 (2.35:1) anamorphic<br />
+              <strong>Détail du son :</strong> - Dolby Digital - DTS -
+            </p>
+            <div class="cover">
+              <span id="dvd"><img src="/images/poster.jpg" alt="Slumdog Millionaire ( 2008 )" />
+                <span class="new"></span>
+              </span>
+              <a href="#" class="like-btn">Ajouter à ma liste</a>
+            </div>
+          </div>
+          <div class="action">
+            <div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>
+            <div align="center"><strong>Cotez ce film</strong></div>
+            <ul>
+              <li class="stars"><img src="/images/star-on.jpg" alt="" /><img src="/images/star-on.jpg" alt="" /><img src="/images/star-on.jpg" alt="" /><img src="/images/star-on.jpg" alt="" /><img src="/images/star-off.jpg" alt="" /></li>
+              <li class="links"><a href="#">Déjà Vu</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="interest">Pas intéressé</a></li>
+            </ul>
+            <a href="#" class="like-btn" id="bluray-btn">Disponible en Blu-ray Disc</a>
+            <div id="buy"><a href="#" class="like-btn" id="acheter-btn">Acheter</a> 7.95 &euro;</div>
+          </div>
+          <div class="clear"></div>
+          <div id="sinopsis">
+            <h3>Synopsis</h3>
+            <p>Jamal Malik, 18 ans, orphelin vivant dans les taudis de Mumbai, est sur le point de remporter la somme colossale de 20 millions de roupies lors de la version indienne de l'émission Qui veut gagner des millions? Il n'est plus qu'à une question de la victoire lorsque la police l'arrête sur un soupçon de tricherie...</p>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Detail -->
+
+    <!-- Critique -->
+    <ul class="tabs">
+      <li><a href="#tab1">CRITIQUES DES MEMBRES DVDPOST </a></li>
+      <li><a href="#tab2">LA CRITIQUE DE CINOPSIS.BE</a></li>
+    </ul>			
+
+    <div class="box">
+      <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
+        <div class="tab_container">
+          <div id="tab1" class="tab_content">
+            <div class="numbers">
+              <a href="#">Ecrire une critique</a>
+              6 Critique(s)
+            </div>
+            <div class="critique">
+              <div class="name"><span class="right">3 membres sur 3 ont trouvés cette critique pertinente</span>
+                <a href="#">Anne-Claire</a><span><img src="/images/delimiter.gif" alt="" /></span>Publié le 04/02/2009 <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+              </div>
+              <p>Film inclassable! A la fois palpitant et dramatique, extraordinairement bien filmé, un film dont on n'arrive pas à décrocher ! Les personnages sont attachants (les enfants adorables), les acteurs jouent très bien, et si ce film nous montre une situation sociale qui fait réfléchir, il reste un film pour tout public. Un vraiment bon moment de cinéma...</p>				
+              <p class="yn">Cette critique est-elle pertinente ? <a href="#">OUI</a> - <a href="#">NON</a></p>
+            </div>
+            <div class="critique">
+              <div class="name"><span class="right">1 membres sur 1 ont trouvés cette critique pertinente</span>
+                <a href="#">PHILIPPE</a><span><img src="/images/delimiter.gif" alt="" /></span>Publié le 02/11/2009 <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+              </div>
+              <p>Vraiment très beau film. Belle ouverture vers ce pays que l'on connaît trop peu. Intéressant et délassant. A voir.</p>				
+              <p class="yn">Cette critique est-elle pertinente ? <a href="#">OUI</a> - <a href="#">NON</a></p>
+            </div>
+            <div class="links">
+              <a href="#" class="right">Critiques suivantes &raquo;</a>
+              <a href="#">&laquo; Critiques précédentes</a>
+            </div>
+          </div>
+          <div id="tab2" class="tab_content">
+            Tab2
+          </div>
+        </div>
+      </div>
+    </div><!-- End Critique -->
+    <!-- Carousel -->
+    <div id="carousel-wrap">
+      <h2>LES MEMBRES ONT AUSSI LOUé</h2>
+      <div id="carousel">
+        <ul>
+          <li>
+            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+            <span class="dvd"><img src="/images/poster-mid.jpg" alt="" /><span class="new"></span></span>
+            <a href="#" class="like-btn">Ajouter</a>
+            Public Enemies
+          </li>
+          <li>
+            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
+            <a href="#" class="like-btn">Ajouter</a>
+            Les Noces Rebelles
+          </li>
+          <li>
+            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
+            <a href="#" class="like-btn">Ajouter</a>
+            L'Etrange Histoire de Benjamin Button
+          </li>
+          <li>
+            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
+            <a href="#" class="like-btn">Ajouter</a>
+            Les Noces Rebelles
+          </li>
+          <li>
+            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
+            <a href="#" class="like-btn">Ajouter</a>
+            Les Noces Rebelles
+          </li>
+          <li>
+            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
+            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
+            <a href="#" class="like-btn">Ajouter</a>
+            Les Noces Rebelles
+          </li>
+        </ul>
+        <a href="#" class="like-btn" id="prev">Previous</a>
+        <a href="#" class="like-btn" id="next">Next</a>
+      </div>
+    </div>
+    <!-- End Carousel -->
+    <div class="end"></div>
+  </div>
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->
+<!--   ==============   LEFT COLUMN   ==============   -->
+<div id="leftcolumn">
+  <form method="post" action="" id="search">
+    <input type="text" id="s" value="Rechercher" />
+    <button type="submit" class="like-btn">Search</button>
+  </form>
+  <ul id="left-nav">
+    <li><a href="#">LES TOPS</a></li>
+    <li><a href="#">CATéGORIES</a></li>
+    <li><a href="#">thèmes</a></li>
+  </ul>
+  <ul id="left-links">
+    <li><a href="#">Enquête de satisfaction</a></li>
+    <li><a href="#">Parrainer un ami</a></li>
+    <li><a href="#" id="gift">Offrir un chèque cadeau</a></li>
+    <li><a href="#">Proposer un DVD</a></li>
+  </ul>
+</div>
+<!--   ==============   END LEFT COLUMN   ==============   -->
