@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
   alias_attribute :title,   :products_title
   alias_attribute :year,    :products_year
   alias_attribute :runtime, :products_runtime
+  alias_attribute :rating,  :products_rating
 
   belongs_to :director, :foreign_key => :products_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id

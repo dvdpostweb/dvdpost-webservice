@@ -1,0 +1,22 @@
+<!--   ==============   LEFT COLUMN   ==============   -->
+<div id="leftcolumn">
+  <form method="post" action="" id="search">
+    <input type="text" id="s" value="Rechercher" /> <button type="submit" class="like-btn">Search</button>
+  </form>
+  <ul id="left-nav">
+    <li><%= link_to 'Les tops' %></li>
+    <li><%= link_to 'Catégories' %></li>
+    <li><%= link_to 'Thèmes' %></li>
+  </ul>
+  <p id="special">
+    SPECIAL <br />
+    JAMES CAMERON
+  </p>
+  <ul id="left-links">
+    <li><%= link_to 'Enquête de satisfaction' %></li>
+    <li><%= link_to 'Parrainer un ami' %></li>
+    <li><%= link_to 'Offrir un chèque cadeau', '', {:id => 'gift'} %></li>
+    <li><%= link_to 'Proposer un DVD' %></li>
+  </ul>
+</div>
+<!--   ==============   END LEFT COLUMN   ==============   -->

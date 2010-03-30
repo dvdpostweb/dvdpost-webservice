@@ -34,8 +34,9 @@
               <strong>Détail du son :</strong> <%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
             </p>
             <div class="cover">
-              <span id="dvd"><img src="/images/poster.jpg" alt="Slumdog Millionaire ( 2008 )" />
-                <span class="new"></span>
+              <span id="dvd">
+                <%= image_tag "/images/poster.jpg", :alt => "#{@product.title} (#{@product.year})" %>
+                <%= content_tag(:span, '', :class => 'new') if true %>
               </span>
               <a href="#" class="like-btn">Ajouter à ma liste</a>
             </div>
@@ -44,7 +45,14 @@
             <div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
-              <li class="stars"><img src="/images/star-on.jpg" alt="" /><img src="/images/star-on.jpg" alt="" /><img src="/images/star-on.jpg" alt="" /><img src="/images/star-on.jpg" alt="" /><img src="/images/star-off.jpg" alt="" /></li>
+              <li class="stars">
+                <% @product.rating.times do |i| %>
+                  <%= image_tag 'star-on.jpg' %>
+                <% end %>
+                <% (5-@product.rating).times do |i| %>
+                  <%= image_tag 'star-off.jpg' %>
+                <% end %>
+              </li>
               <li class="links"><a href="#">Déjà Vu</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="interest">Pas intéressé</a></li>
             </ul>
             <a href="#" class="like-btn" id="bluray-btn">Disponible en Blu-ray Disc</a>
@@ -53,7 +61,7 @@
           <div class="clear"></div>
           <div id="sinopsis">
             <h3>Synopsis</h3>
-            <p>Jamal Malik, 18 ans, orphelin vivant dans les taudis de Mumbai, est sur le point de remporter la somme colossale de 20 millions de roupies lors de la version indienne de l'émission Qui veut gagner des millions? Il n'est plus qu'à une question de la victoire lorsque la police l'arrête sur un soupçon de tricherie...</p>
+            <p><%= @product.description.text %></p>
           </div>
         </div>
       </div>
@@ -63,7 +71,7 @@
     <ul class="tabs">
       <li><a href="#tab1">CRITIQUES DES MEMBRES DVDPOST </a></li>
       <li><a href="#tab2">LA CRITIQUE DE CINOPSIS.BE</a></li>
-    </ul>			
+    </ul>
 
     <div class="box">
       <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
@@ -149,22 +157,4 @@
   </div>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
-<!--   ==============   LEFT COLUMN   ==============   -->
-<div id="leftcolumn">
-  <form method="post" action="" id="search">
-    <input type="text" id="s" value="Rechercher" />
-    <button type="submit" class="like-btn">Search</button>
-  </form>
-  <ul id="left-nav">
-    <li><a href="#">LES TOPS</a></li>
-    <li><a href="#">CATéGORIES</a></li>
-    <li><a href="#">thèmes</a></li>
-  </ul>
-  <ul id="left-links">
-    <li><a href="#">Enquête de satisfaction</a></li>
-    <li><a href="#">Parrainer un ami</a></li>
-    <li><a href="#" id="gift">Offrir un chèque cadeau</a></li>
-    <li><a href="#">Proposer un DVD</a></li>
-  </ul>
-</div>
-<!--   ==============   END LEFT COLUMN   ==============   -->
+<%= render :partial => 'products/left_column' %>
