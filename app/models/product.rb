@@ -25,6 +25,7 @@ class Product < ActiveRecord::Base
   end
 
   def trailer
-    trailers.by_language(I18n.locale.to_s).first
+    localized_trailers = trailers.by_language(I18n.locale.to_s)
+    localized_trailers ? localized_trailers.first : nil
   end
 end

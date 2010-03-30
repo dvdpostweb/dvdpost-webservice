@@ -1,11 +1,11 @@
 <div class="dvd clearfix">
   <div class="movie-descr">
-    <h2><%= link_to product.title %></h2>
+    <h2><%= link_to product.title, product_path(product) %></h2>
     <p><%= product.description.text %></p>
     <p class="links">
-      <%= link_to 'Bande-annonce', '', :class => 'trailer' %>
+      <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
       <span><%= image_tag 'delimiter.gif' %></span>
-      <%= link_to 'En savoir', '', :class => 'more' %>
+      <%= link_to('En savoir', product.description.full_url, :class => 'more', :target => :_blank) unless product.description.url.empty? %>
     </p>
   </div>
   <div class="movie-info">
@@ -13,19 +13,30 @@
       <%= image_tag "fr-#{true ? 'yes' : 'no'}.png" %>
       <%= image_tag "en-#{true ? 'yes' : 'no'}.png" %>
       <%= image_tag "fr-#{false ? 'yes' : 'no'}.png" %>
-      <%= image_tag "#{'16'}.png" %>
+      <%= image_tag product.public.image, :alt => product.public.name %>
     </div>
     <div class="cast">
       <h3>Acteurs</h3>
-      <p>Arnold Schwarzenegger,  Michael Biehn, Linda Hamilton, Lance Henriksen</p>
+      <p><%= product.actors.collect{|actor| actor.name}.join(', ') %></p>
     </div>
     <h3>Réalisateur</h3>
-    <p>James Cameron</p>
+    <p><%= product.director.name %></p>
   </div>
   <div class="action">
     <h4>Action</h4>
-    <div class="stars"><img src="images/star-on.jpg" alt="" /><img src="images/star-on.jpg" alt="" /><img src="images/star-on.jpg" alt="" /><img src="images/star-on.jpg" alt="" /><img src="images/star-off.jpg" alt="" /></div>
-    <div class="links"><a href="#">Déjà Vu</a><span><img src="images/delimiter.gif" alt="" /></span><a href="#" class="interest">Pas intéressé</a></div>
+    <div class="stars">
+      <% product.rating.times do |i| %>
+        <%= image_tag 'star-on.jpg' %>
+      <% end %>
+      <% (5-product.rating).times do |i| %>
+        <%= image_tag 'star-off.jpg' %>
+      <% end %>
+    </div>
+    <div class="links">
+      <a href="#">Déjà Vu</a>
+      <span><img src="images/delimiter.gif" alt="" /></span>
+      <a href="#" class="interest">Pas intéressé</a>
+    </div>
     <a href="#" class="like-btn">Ajouter sur ma liste</a>
   </div>
   <div><span class="cover"><%= image_tag 'dvd-cover-1.jpg' %></span></div>

@@ -42,7 +42,7 @@ module DVDPost
 
     def trailer_broadcasts_urls
       HashWithIndifferentAccess.new.merge({
-        'DAILYMOTION' => 'http://www.dailymotion.com/video/',
+        'DAYLYMOTION' => 'http://www.dailymotion.com/video/',
         'YOUTUBE'     => 'http://www.youtube.com/watch?v=',
         'TRUVEO'      => 'http://www.truveo.com/_slug_/id/' # => There is a slug for this url: http://www.truveo.com/backstage-trailer-1/id/1191367212
       })

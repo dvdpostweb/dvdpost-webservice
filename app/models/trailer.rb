@@ -11,6 +11,7 @@ class Trailer < ActiveRecord::Base
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => DVDPost.product_languages[language]}}}
 
   def url
-    DVDPost.trailer_broadcasts_urls[broadcast_service] + remote_id
+    broadcast_url = DVDPost.trailer_broadcasts_urls[broadcast_service]
+    broadcast_url ? broadcast_url + remote_id : nil
   end
 end
