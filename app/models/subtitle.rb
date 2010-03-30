@@ -3,7 +3,7 @@ class Subtitle < ActiveRecord::Base
 
   set_primary_key :undertitles_id
 
-  alias_attribute :description, :undertitles_description
+  alias_attribute :name, :undertitles_description
 
   has_and_belongs_to_many :products, :join_table => :products_to_undertitles, :foreign_key => :products_undertitles_id, :association_foreign_key => :products_id
 
