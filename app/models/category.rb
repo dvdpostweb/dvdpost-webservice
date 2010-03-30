@@ -5,6 +5,6 @@ class Category < ActiveRecord::Base
   has_and_belongs_to_many :products, :join_table => :products_to_categories, :foreign_key => :categories_id, :association_foreign_key => :products_id
 
   def name
-    descriptions.by_language(I18n.locale.to_s).first.name
+    descriptions.by_language(I18n.locale).first.name
   end
 end

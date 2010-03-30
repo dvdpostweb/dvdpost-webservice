@@ -10,10 +10,8 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-      <%= image_tag "fr-#{true ? 'yes' : 'no'}.png" %>
-      <%= image_tag "en-#{true ? 'yes' : 'no'}.png" %>
-      <%= image_tag "fr-#{false ? 'yes' : 'no'}.png" %>
-      <%= image_tag product.public.image, :alt => product.public.name %>
+      <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
+      <%= image_tag product.public.image, :alt => product.public.description %>
     </div>
     <div class="cast">
       <h3>Acteurs</h3>
