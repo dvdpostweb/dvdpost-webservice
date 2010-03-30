@@ -1,7 +1,7 @@
 class CategoryDescription < ActiveRecord::Base
   LANGUAGES = {'fr' => 1, 'nl' => 2, 'en' => 3}
 
-  set_table_name 'categories_description'
+  set_table_name :categories_description
 
   alias_attribute :name, :categories_name
 

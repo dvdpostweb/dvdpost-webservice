@@ -14,7 +14,7 @@
               <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
               <li><strong>Genre :</strong> <%= @product.categories.collect{|category| category.name}.join(', ') %></li>
-              <li><strong>Pays :</strong> United Kingdom</li>
+              <li><strong>Pays :</strong> <%= @product.country.name %></li>
               <li><strong>Public :</strong> <img src="/images/al.gif" alt="All" /></li>
             </ul>
             <p class="links"><a href="#" class="trailer">Bande-annonce</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="link">Site officiel</a></p>
