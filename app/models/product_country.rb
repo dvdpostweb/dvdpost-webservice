@@ -5,5 +5,5 @@ class ProductCountry < ActiveRecord::Base
 
   alias_attribute :name, :countries_name
 
-  belongs_to :product
+  has_many :products, :foreign_key => :products_countries_id
 end

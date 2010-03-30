@@ -3,5 +3,5 @@ class Director < ActiveRecord::Base
 
   alias_attribute :name, :directors_name
 
-  belongs_to :product
+  has_many :products, :foreign_key => :products_directors_id
 end
