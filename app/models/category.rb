@@ -1,4 +1,6 @@
 class Category < ActiveRecord::Base
+  establish_connection :dvdpost_main
+
   set_primary_key :categories_id
 
   has_many :descriptions, :class_name => 'CategoryDescription', :foreign_key => :categories_id

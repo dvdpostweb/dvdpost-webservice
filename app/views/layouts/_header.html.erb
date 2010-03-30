@@ -1,7 +1,13 @@
 <div id="header" >
   <h1><a href="http://www.dvdpost.be/" class="like-btn">DVDPost - Online DVD rental</a></h1>
   <ul id="login" class="subnav">
-    <li class="first"><a href="#">Déconnexion</a></li>
+    <li class="first">
+      <% if current_user %>
+        <%= "#{link_to 'Déconnexion', sign_out_path} (#{current_user.email})" %>
+      <% else %>
+        <%= link_to 'Sign in', sign_in_path %>
+      <% end %>
+    </li>
     <li><a href="#">Aide</a></li>
     <li><a href="#" id="lang">Français </a> <span id="lang-box"> <a href="#">English</a> <a href="#">Dutch</a> </span> </li>
   </ul>

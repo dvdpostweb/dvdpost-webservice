@@ -1,4 +1,6 @@
 class CategoryDescription < ActiveRecord::Base
+  establish_connection :dvdpost_main
+
   set_table_name :categories_description
 
   alias_attribute :name, :categories_name

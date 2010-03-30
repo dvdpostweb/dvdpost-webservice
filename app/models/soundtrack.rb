@@ -1,4 +1,6 @@
 class Soundtrack < ActiveRecord::Base
+  establish_connection :dvdpost_main
+
   set_table_name :products_soundtracks
 
   set_primary_key :soundtracks_id

@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  establish_connection :dvdpost_main
+
   set_primary_key :products_id
 
   alias_attribute :kind,    :products_type

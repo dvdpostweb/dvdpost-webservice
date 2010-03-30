@@ -1,4 +1,6 @@
 class Language < ActiveRecord::Base
+  establish_connection :dvdpost_main
+
   set_table_name :products_languages
 
   set_primary_key :languages_id

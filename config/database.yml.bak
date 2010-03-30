@@ -1,0 +1,8 @@
+dvdpost_main:
+  adapter: mysql
+  encoding: utf8
+  database: dvdpost_be_prod
+  username: inspector
+  password: Gr4n1B1s
+  host: www.dvdpost.be
+  port: 43306
