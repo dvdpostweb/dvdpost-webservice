@@ -1,5 +1,9 @@
 module DVDPost
   class << self
+    def images_path
+      'http://www.dvdpost.be/images'
+    end
+
     def product_languages
       HashWithIndifferentAccess.new.merge({
         :fr => 1,

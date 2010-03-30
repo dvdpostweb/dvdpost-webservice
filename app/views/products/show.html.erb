@@ -18,9 +18,9 @@
               <li><strong>Public :</strong> <%= image_tag @product.public.image, :alt => @product.public.description %></li>
             </ul>
             <p class="links">
-              <%= link_to 'Bande-annonce', @product.trailer.url, {:class => 'trailer', :target => :_blank} %>
-              <span><img src="/images/delimiter.gif" alt="" /></span>
-              <%= link_to 'Site officiel', @product.description.full_url, {:class => 'link', :target => :_blank} %>
+              <%= link_to('Bande-annonce', @product.trailer.url, {:class => 'trailer', :target => :_blank}) if @product.trailer %>
+              <%= content_tag(:span, image_tag('delimiter.gif')) if @product.trailer && !@product.description.url.empty? %>
+              <%= link_to('Site officiel', @product.description.full_url, {:class => 'link', :target => :_blank}) unless @product.description.url.empty? %>
             </p>
             <p>
               Audio : <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{@product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
@@ -38,7 +38,7 @@
             </p>
             <div class="cover">
               <span id="dvd">
-                <%= image_tag "/images/poster.jpg", :alt => "#{@product.title} (#{@product.year})" %>
+                <%= image_tag @product.image, :width => 145, :height => 220, :alt => "#{@product.title} (#{@product.year})" %>
                 <%= content_tag(:span, '', :class => 'new') if true %>
               </span>
               <a href="#" class="like-btn">Ajouter à ma liste</a>

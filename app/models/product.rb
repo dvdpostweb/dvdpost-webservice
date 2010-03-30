@@ -30,4 +30,8 @@ class Product < ActiveRecord::Base
     localized_trailers = trailers.by_language(I18n.locale.to_s)
     localized_trailers ? localized_trailers.first : nil
   end
+
+  def image
+    File.join(DVDPost.images_path, products_image)
+  end
 end

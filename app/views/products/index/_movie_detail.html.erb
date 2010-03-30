@@ -4,7 +4,7 @@
     <p><%= product.description.text %></p>
     <p class="links">
       <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
-      <span><%= image_tag 'delimiter.gif' %></span>
+      <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && !product.description.url.empty? %>
       <%= link_to('En savoir', product.description.full_url, :class => 'more', :target => :_blank) unless product.description.url.empty? %>
     </p>
   </div>
@@ -37,5 +37,5 @@
     </div>
     <a href="#" class="like-btn">Ajouter sur ma liste</a>
   </div>
-  <div><span class="cover"><%= image_tag 'dvd-cover-1.jpg' %></span></div>
+  <div><span class="cover"><%= image_tag product.image, :width => 62, :height => 95  %></span></div>
 </div>
