@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.root :controller => :products, :action => :index # Temporary, should be a homepage action instead
+
   # Only the Clearance routes we actually need
   # Clearance::Routes.draw(map) # => If all Clearance routes are needed
   map.with_options :controller => 'clearance/sessions' do |clearance|
