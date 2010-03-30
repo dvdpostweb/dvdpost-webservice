@@ -30,7 +30,7 @@
               <a href="#">Lire la suite</a>
             </p>
             <p>
-              <strong>Image :</strong> 16/9 (2.35:1) anamorphic<br />
+              <strong>Image :</strong> <%= @product.picture_format.name %><br />
               <strong>Détail du son :</strong> <%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
             </p>
             <div class="cover">
