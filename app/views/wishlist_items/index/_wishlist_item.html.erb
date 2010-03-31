@@ -1,4 +1,4 @@
-<div class="<%= media_id(wishlist_item.product.media) %> clearfix">
+<div class="<%= product_media_id(wishlist_item.product.media) %> clearfix">
   <div class="title"><%= link_to wishlist_item.product.title, wishlist_item.product %></div>
   <div class="availability">&nbsp;</div>
   <% if false %><div class="availability short-wait"><%= 'Titre épuisé chez l\'éditeur' if false %>Short wait</div><% end %>

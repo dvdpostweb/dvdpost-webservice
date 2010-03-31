@@ -1,4 +1,4 @@
-<div class="dvd clearfix">
+<div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2><%= link_to product.title, product %></h2>
     <p><%= product.description.text %></p>
@@ -17,8 +17,10 @@
       <h3>Acteurs</h3>
       <p><%= product.actors.collect{|actor| actor.name}.join(', ') %></p>
     </div>
-    <h3>Réalisateur</h3>
-    <p><%= product.director.name %></p>
+    <% if product.director %>
+      <h3>Réalisateur</h3>
+      <p><%= product.director.name %></p>
+    <% end %>
   </div>
   <div class="action">
     <h4>Action</h4>

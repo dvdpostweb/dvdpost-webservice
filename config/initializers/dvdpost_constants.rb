@@ -24,6 +24,10 @@ module DVDPost
       })
     end
 
+    def local_product_publics
+      product_publics.invert
+    end
+
     def product_publics_images
       HashWithIndifferentAccess.new.merge({
         'all' => 'al.gif',
@@ -38,9 +42,20 @@ module DVDPost
 
     def product_kinds
       HashWithIndifferentAccess.new.merge({
-        :dvd          => 'DVD_NORM',
+        :normal       => 'DVD_NORM',
         :adult        => 'DVD_ADULT',
         :subscription => 'ABO'
+      })
+    end
+
+    def product_types
+      HashWithIndifferentAccess.new.merge({
+        :dvd    => 'DVD',
+        :bluray => 'BlueRay',
+        :hdd    => 'HDD',
+        :ps3    => 'PS3',
+        :wii    => 'Wii',
+        :xbox   => 'XBOX 360'
       })
     end
 

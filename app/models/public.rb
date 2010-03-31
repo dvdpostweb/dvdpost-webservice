@@ -10,7 +10,7 @@ class Public < ActiveRecord::Base
   belongs_to :product
 
   def name
-    DVDPost.product_publics.invert[to_param.to_i]
+    DVDPost.local_product_publics[to_param.to_i]
   end
 
   def image

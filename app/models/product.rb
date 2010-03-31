@@ -24,8 +24,9 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :subtitles, :join_table => :products_to_undertitles, :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :languages, :join_table => :products_to_languages, :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
 
-  named_scope :limit,   lambda {|limit| {:limit => limit}}
-  named_scope :by_kind, lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  named_scope :limit,    lambda {|limit| {:limit => limit}}
+  named_scope :by_kind,  lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  named_scope :by_media, lambda {|media| {:conditions => {:products_media => DVDPost.product_types[media]}}}
 
   def description
     descriptions.by_language(I18n.locale).first
@@ -37,6 +38,6 @@ class Product < ActiveRecord::Base
   end
 
   def image
-    File.join(DVDPost.images_path, products_image)
+    products_image ? File.join(DVDPost.images_path, products_image) : ''
   end
 end

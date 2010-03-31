@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.by_kind('dvd').limit(10)
+    @products = Product.by_kind(:normal).limit(10)
   end
 
   def show
