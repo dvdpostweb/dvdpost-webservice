@@ -1,8 +1,9 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="leftcolumn">
-  <form method="post" action="" id="search">
-    <input type="text" id="s" value="Rechercher" /> <button type="submit" class="like-btn">Search</button>
-  </form>
+  <% form_tag products_path, :method => :get, :id => 'search' do %>
+    <%= text_field_tag :search, 'Rechercher', :id => 's' %>
+    <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
+  <% end %>
   <ul id="left-nav">
     <li><%= link_to 'Les tops' %></li>
     <li><%= link_to 'Catégories' %></li>

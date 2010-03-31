@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.by_kind(:normal).limit(10)
+    @products = @products.search(params[:search]) if params[:search]
+    @products = @products.by_media(params[:media]) if params[:media]
   end
 
   def show

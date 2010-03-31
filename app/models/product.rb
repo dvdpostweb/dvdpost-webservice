@@ -27,6 +27,7 @@ class Product < ActiveRecord::Base
   named_scope :limit,    lambda {|limit| {:limit => limit}}
   named_scope :by_kind,  lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   named_scope :by_media, lambda {|media| {:conditions => {:products_media => DVDPost.product_types[media]}}}
+  named_scope :search,   lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
 
   def description
     descriptions.by_language(I18n.locale).first
