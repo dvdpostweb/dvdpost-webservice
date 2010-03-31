@@ -13,7 +13,7 @@ online videotheek, dvd verhuur, dvd huren, huurfilms, dvd verhuur Belgie, dvd hu
 <meta name="Revisit-after" content="14 days" />
 <meta name="Robots" content="all" />
 <meta name="google-site-verification" content="bVK9E1XaKKd3WZH2L9mVBBRLomFtP0zmex-k8Jzm7Sk" />
-<link rel="SHORTCUT ICON" href="/images/www3//favicon.ico" />
+<link rel="SHORTCUT ICON" href="/favicon.ico" />
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <%= stylesheet_link_tag 'style.css' %>
 <!--%= stylesheet_link_tag 'print.css', :media => 'print' %-->
@@ -38,7 +38,7 @@ online videotheek, dvd verhuur, dvd huren, huurfilms, dvd verhuur Belgie, dvd hu
 </script>
 <![endif]-->
 </head>
-<body>
+<body id="<%= @body_id || '' %>">
 <div id="wrap">
   <!--   ==============   HEADER   ==============   -->
   <%= render :partial => 'layouts/header' %>

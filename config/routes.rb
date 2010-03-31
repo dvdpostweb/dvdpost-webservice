@@ -10,4 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :products, :only => [:index, :show]
+  map.resources :wishlist_items, :only => [:index], :as => :wishlist
+  map.wishlist '/wishlist', :controller => :wishlist_items, :action => :index
 end

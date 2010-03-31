@@ -1,0 +1,15 @@
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div class="top"></div>
+  <!-- DVD chez vous ou en transit -->
+  <%= render :partial => 'wishlist_items/index/assigned_list', :locals => {:assigned_items => @assigned_items, :wishlist_items_count => @wishlist_items.count} %>
+  <!-- End DVD chez vous ou en transit -->
+  <!-- Ma liste de films -->
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies} %> 
+  <!-- End Ma liste de films -->
+  <!-- Ma liste de jeux -->
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'game', :wishlist_items => @wishlist_items.games} %>
+  <!-- End Ma liste de jeux -->
+  <div class="end"></div>
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->

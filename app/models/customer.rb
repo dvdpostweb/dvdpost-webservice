@@ -15,6 +15,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :suspension_status, :customers_abo_suspended
 
   has_many :wishlist_items, :foreign_key => :customers_id
+  has_many :assigned_items, :foreign_key => :customers_id
 
   def self.find_by_email(args)
     self.find_by_customers_email_address(args)

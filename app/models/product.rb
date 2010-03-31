@@ -3,11 +3,13 @@ class Product < ActiveRecord::Base
 
   set_primary_key :products_id
 
-  alias_attribute :kind,    :products_type
-  alias_attribute :title,   :products_title
-  alias_attribute :year,    :products_year
-  alias_attribute :runtime, :products_runtime
-  alias_attribute :rating,  :products_rating
+  alias_attribute :kind,         :products_type
+  alias_attribute :title,        :products_title
+  alias_attribute :year,         :products_year
+  alias_attribute :runtime,      :products_runtime
+  alias_attribute :rating,       :products_rating
+  alias_attribute :media,        :products_media
+  alias_attribute :product_type, :products_product_type
 
   belongs_to :director, :foreign_key => :products_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
@@ -22,7 +24,7 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :subtitles, :join_table => :products_to_undertitles, :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :languages, :join_table => :products_to_languages, :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
 
-  named_scope :limit, lambda {|limit| {:limit => limit}}
+  named_scope :limit,   lambda {|limit| {:limit => limit}}
   named_scope :by_kind, lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
 
   def description

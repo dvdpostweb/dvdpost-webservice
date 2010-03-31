@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
     customer = Customer.find_by_email(email)
     customer ? customer.active? : false
   end
+
+  def customer
+    Customer.find_by_email(email)
+  end
 end

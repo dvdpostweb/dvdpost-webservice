@@ -1,0 +1,17 @@
+<div class="list-ttl" id="<%= kind == 'game' ? 'access' : 'film' %>-list">
+  <a href="#" class="like-btn">Mettre à jour ma liste</a>
+  <h2>Ma liste de <%= kind == 'game' ? 'jeux' : 'films' %></h2>
+</div>
+<div class="box">
+  <div class="head clearfix">
+    <div class="title">Titres Disponibles</div>
+    <div class="availability">Disponibilités</div>
+    <ul class="HML">
+      <li>High</li>
+      <li>Med</li>
+      <li>Low</li>
+    </ul>
+    <span class="trash"><img src="images/trash-icon.gif" alt="Trash it" /></span>
+  </div>
+  <%= render :partial => 'wishlist_items/index/wishlist_item', :collection => wishlist_items %>
+</div>
