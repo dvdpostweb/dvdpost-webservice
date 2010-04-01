@@ -24,14 +24,7 @@
     <li><a href="#" id="n4">Mon compte</a></li>
     <li><a href="#" id="n5">News infos</a></li>
     <li id="indicator"><a href="#" id="n6">Indicator</a>
-    <ul id="indicator-tips" style="visibility:hidden;">
-      <li><h3>LIST INDICATOR</h3></li>
-      <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam</p></li>
-      <li class="indicator" id="ind0-10">de 0 à 10DVD dans la liste </li>
-      <li class="indicator" id="ind10-30">de 10 à 30DVD dans la liste  </li>
-      <li class="indicator" id="ind30-plus">de >30 DVD dans la liste</li>
-      <li id="close"><a href="#">FERMER</a></li>
-    </ul>
+      <%= render :partial => 'layouts/list_indicator' %>
     </li>
   </ul>
 </div>
