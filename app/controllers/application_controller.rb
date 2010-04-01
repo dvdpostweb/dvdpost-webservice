@@ -7,11 +7,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   before_filter :authenticate
+  before_filter :wishlist_size
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
   def current_customer
     current_user.customer if current_user
+  end
+
+  def wishlist_size
+    @wishlist_size = current_customer.wishlist_items.count || 0
   end
 end
