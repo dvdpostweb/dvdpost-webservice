@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def wishlist_size
-    @wishlist_size = current_customer.wishlist_items.count || 0
+    @wishlist_size = current_customer.wishlist_items.count || 0 unless current_customer.nil?
   end
 end
