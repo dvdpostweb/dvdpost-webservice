@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate
   before_filter :wishlist_size
+  before_filter :set_locale
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
   end
 
   def wishlist_size
-    @wishlist_size = current_customer.wishlist_items.count || 0 unless current_customer.nil?
+    (@wishlist_size = current_customer.wishlist_items.count || 0) if current_user
+  end
+
+  def set_locale
+    I18n.locale = params[:locale]
   end
 end

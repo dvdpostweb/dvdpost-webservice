@@ -9,7 +9,14 @@
       <% end %>
     </li>
     <li><a href="#">Aide</a></li>
-    <li><a href="#" id="lang">Français </a> <span id="lang-box"> <a href="#">English</a> <a href="#">Dutch</a> </span> </li>
+    <li>
+      <%= switch_locale_link I18n.locale, {:id => 'lang'} %>
+      <span id="lang-box">
+        <% I18n.available_locales.collect do |locale| %>
+          <%= switch_locale_link locale unless locale.to_s == I18n.locale.to_s %>
+        <% end %>
+      </span>
+    </li>
   </ul>
   <ul id="subnav" class="subnav">
     <li class="first"><a href="#"><strong>Louer</strong></a></li>

@@ -1,5 +1,5 @@
 <div class="<%= product_media_id(assigned_item.product.media) %> clearfix">
-  <div class="title"><%= link_to assigned_item.product.title, assigned_item.product %></div>
+  <div class="title"><%= link_to assigned_item.product.title, product_path(:id => assigned_item.product.to_param) %></div>
   <div class="status">
     <a href="#">Signaler un problème</a>
     <span class="ok"><%= "Expédié le #{assigned_item.assigned_at.strftime("%d/%m/%Y")}" %></span>
