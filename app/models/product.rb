@@ -39,6 +39,6 @@ class Product < ActiveRecord::Base
   end
 
   def image
-    products_image ? File.join(DVDPost.images_path, products_image) : ''
+    description && description.image ? File.join(DVDPost.images_path, description.image) : ''
   end
 end

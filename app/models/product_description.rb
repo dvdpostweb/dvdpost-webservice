@@ -5,6 +5,7 @@ class ProductDescription < ActiveRecord::Base
 
   alias_attribute :text, :products_description
   alias_attribute :url, :products_url
+  alias_attribute :image, :products_image_big
 
   belongs_to :product
 
