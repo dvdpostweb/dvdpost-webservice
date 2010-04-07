@@ -1,0 +1,18 @@
+<div class="critique">
+  <div class="name">
+    <span class="right"><%= "#{review.like_count} membres sur #{review.likeable_count} ont trouvés cette critique pertinente" %></span>
+    <a href="#"><%= review.customers_name %></a>
+    <span><img src="/images/delimiter.gif" alt="" /></span>
+    <%= "Publié le #{review.created_at.strftime("%d/%m/%Y")}" %>
+    <span class="stars">
+      <% review.rating.times do %>
+        <%= image_tag 'sm-star-on.png' %>
+      <% end %>
+      <% (5-review.rating).times do %>
+        <%= image_tag 'sm-star-off.png' %>
+      <% end %>
+    </span>
+  </div>
+  <p><%= review.text %></p>
+  <p class="yn">Cette critique est-elle pertinente ? <%= link_to 'OUI' %> - <%= link_to 'NON' %></p>
+</div>

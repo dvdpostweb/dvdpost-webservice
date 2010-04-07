@@ -44,12 +44,16 @@ fieldset {
   border: none;
 }
 
-.left {
+.left, .prev_page {
   float: left;
 }
 
-.right {
+.right, .next_page {
   float: right;
+}
+
+.disabled {
+  visibility: hidden;
 }
 
 .clear {

@@ -63,47 +63,34 @@
           </div>
         </div>
       </div>
-    </div><!-- End Detail -->
-
+    </div>
+    <!-- End Detail -->
     <!-- Critique -->
     <ul class="tabs">
-      <li><a href="#tab1">CRITIQUES DES MEMBRES DVDPOST </a></li>
+      <li><a href="#tab1">CRITIQUES DES MEMBRES DVDPOST</a></li>
       <li><a href="#tab2">LA CRITIQUE DE CINOPSIS.BE</a></li>
     </ul>
-
     <div class="box">
-      <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
+      <div class="box-content clearfix">
+        <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
           <div id="tab1" class="tab_content">
             <div class="numbers">
-              <a href="#">Ecrire une critique</a>
-              6 Critique(s)
+              <%= link_to 'Ecrire une critique' %>
+              <%= "#{@product.reviews.count} #{@product.reviews.count == 1 ? 'critique' : 'critiques'}" %>
             </div>
-            <div class="critique">
-              <div class="name"><span class="right">3 membres sur 3 ont trouvés cette critique pertinente</span>
-                <a href="#">Anne-Claire</a><span><img src="/images/delimiter.gif" alt="" /></span>Publié le 04/02/2009 <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              </div>
-              <p>Film inclassable! A la fois palpitant et dramatique, extraordinairement bien filmé, un film dont on n'arrive pas à décrocher ! Les personnages sont attachants (les enfants adorables), les acteurs jouent très bien, et si ce film nous montre une situation sociale qui fait réfléchir, il reste un film pour tout public. Un vraiment bon moment de cinéma...</p>				
-              <p class="yn">Cette critique est-elle pertinente ? <a href="#">OUI</a> - <a href="#">NON</a></p>
-            </div>
-            <div class="critique">
-              <div class="name"><span class="right">1 membres sur 1 ont trouvés cette critique pertinente</span>
-                <a href="#">PHILIPPE</a><span><img src="/images/delimiter.gif" alt="" /></span>Publié le 02/11/2009 <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              </div>
-              <p>Vraiment très beau film. Belle ouverture vers ce pays que l'on connaît trop peu. Intéressant et délassant. A voir.</p>				
-              <p class="yn">Cette critique est-elle pertinente ? <a href="#">OUI</a> - <a href="#">NON</a></p>
-            </div>
-            <div class="links">
-              <a href="#" class="right">Critiques suivantes &raquo;</a>
-              <a href="#">&laquo; Critiques précédentes</a>
-            </div>
+            <%= render :partial => 'products/index/review', :collection => @reviews %>
+            <%= will_paginate @reviews, :param_name => 'reviews_page', :previous_label => '&laquo; Critiques précédentes', :next_label => 'Critiques suivantes &raquo;', :page_links => false, :class => 'links' %>
+              <!--a href="#" class="right">Critiques suivantes &raquo;</a>
+              <a href="#">&laquo; Critiques précédentes</a-->
           </div>
           <div id="tab2" class="tab_content">
-            Tab2
+            LA CRITIQUE DE CINOPSIS.BE
           </div>
         </div>
       </div>
-    </div><!-- End Critique -->
+    </div>
+    <!-- End Critique -->
     <!-- Carousel -->
     <div id="carousel-wrap">
       <h2>LES MEMBRES ONT AUSSI LOUé</h2>
