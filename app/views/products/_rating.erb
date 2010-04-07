@@ -1,4 +1,4 @@
-<% star_count = product.rating_percent/20 %>
+<% star_count = (product.rating_percent/20).to_i %>
 <% star_count.times do |i| %>
   <%= image_tag 'star-on.jpg' %>
 <% end %>
