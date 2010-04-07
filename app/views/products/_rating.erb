@@ -1,13 +1,13 @@
-  <% star_count=product.rating_percent/20 %>
-  <% star_count.times do |i| %>
-    <%= image_tag 'star-on.jpg' %>
-  <% end %>
+<% star_count = product.rating_percent/20 %>
+<% star_count.times do |i| %>
+  <%= image_tag 'star-on.jpg' %>
+<% end %>
 
-  <% if(product.rating_percent % 20 > 0) then %>
-  	<%= image_tag 'star-half.jpg' %>
-	<% star_count+=1%>
-  <% end %>
+<% if product.rating_percent % 20 > 0 %>
+  <%= image_tag 'star-half.jpg' %>
+  <% star_count += 1%>
+<% end %>
 
-  <% (5-star_count).times do |i| %>
-    <%= image_tag 'star-off.jpg' %>
-  <% end %>
+<% (5-star_count).times do |i| %>
+  <%= image_tag 'star-off.jpg' %>
+<% end %>

@@ -41,10 +41,8 @@ class Product < ActiveRecord::Base
   def image
     description && description.image ? File.join(DVDPost.images_path, description.image) : ''
   end
-  
+
   def rating_percent
-    rating =(rating_users.to_f/rating_count.to_f)*20
-    rating = (rating/10).round
-    rating = (rating*10)
+    ((rating_users.to_f/rating_count.to_f)*20).round(-1)
   end
 end
