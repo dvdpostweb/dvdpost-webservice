@@ -2,6 +2,6 @@
   <div class="title"><%= link_to assigned_item.product.title, product_path(:id => assigned_item.product.to_param) %></div>
   <div class="status">
     <a href="#">Signaler un problème</a>
-    <span class="ok"><%= "Expédié le #{assigned_item.updated_at.strftime("%d/%m/%Y")}" %></span>
+    <span class="ok"><%= "Expédié le #{assigned_item.change_at.strftime("%d/%m/%Y")}" %></span>
   </div>
 </div>
