@@ -24,14 +24,9 @@
   </div>
   <div class="action">
     <h4>Action</h4>
-    <div class="stars">
-      <% product.rating.times do |i| %>
-        <%= image_tag 'star-on.jpg' %>
-      <% end %>
-      <% (5-product.rating).times do |i| %>
-        <%= image_tag 'star-off.jpg' %>
-      <% end %>
-    </div>
+	<div class="stars">
+   	  <%= render :partial => 'rating', :locals => {:product => product} %>
+	</div>
     <div class="links">
       <a href="#">Déjà Vu</a>
       <span><img src="images/delimiter.gif" alt="" /></span>

@@ -49,12 +49,7 @@
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
               <li class="stars">
-                <% @product.rating.times do |i| %>
-                  <%= image_tag 'star-on.jpg' %>
-                <% end %>
-                <% (5-@product.rating).times do |i| %>
-                  <%= image_tag 'star-off.jpg' %>
-                <% end %>
+                <%= render :partial => 'rating', :locals => {:product => @product} %>
               </li>
               <li class="links"><a href="#">Déjà Vu</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="interest">Pas intéressé</a></li>
             </ul>
