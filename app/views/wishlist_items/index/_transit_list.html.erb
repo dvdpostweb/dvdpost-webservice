@@ -1,7 +1,7 @@
 <div class="box" id="on-way">
   <ul>
     <li class="first">
-      <h2>DVD chez vous ou en transit : <span><%= "#{assigned_items.count} DVD" %></span></h2>
+      <h2>DVD chez vous ou en transit : <span><%= "#{transitted_items.count} DVD" %></span></h2>
     </li>
     <li>
       <h2>Votre liste contient : <span><%= "#{wishlist_items_count} DVD" %></span></h2>
@@ -11,7 +11,7 @@
     <div class="title">Titres </div>
     <div class="status">Statuts de mes locations </div>
   </div>
-  <%= render :partial => 'wishlist_items/index/assigned_item', :collection => assigned_items %>
+  <%= render :partial => 'wishlist_items/index/transitted_item', :collection => transitted_items %>
 </div>
 <ul id="on-way-nav">
   <li class="first">Voir mon historique de location</li>
