@@ -1,0 +1,18 @@
+fr:
+  layouts:
+    header:
+      fr: Français
+      nl: Néerlandais
+      en: Anglais
+nl:
+  layouts:
+    header:
+      fr: Frans
+      nl: Nederlands
+      en: Engels
+en:
+  layouts:
+    header:
+      fr: French
+      nl: Dutch
+      en: English

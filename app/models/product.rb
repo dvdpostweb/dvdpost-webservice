@@ -27,7 +27,7 @@ class Product < ActiveRecord::Base
 
   named_scope :limit,    lambda {|limit| {:limit => limit}}
   named_scope :by_kind,  lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  named_scope :by_media, lambda {|media| {:conditions => {:products_media => DVDPost.product_types[media]}}}
+  named_scope :by_media, lambda {|media| {:conditions => {:products_media => media.collect{|m| DVDPost.product_types[m]}}}}
   named_scope :search,   lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
 
   def description
@@ -40,6 +40,6 @@ class Product < ActiveRecord::Base
   end
 
   def image
-    products_image ? File.join(DVDPost.images_path, products_image) : ''
+    description && description.image ? File.join(DVDPost.images_path, description.image) : ''
   end
 end
