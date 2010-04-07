@@ -14,6 +14,6 @@ class Public < ActiveRecord::Base
   end
 
   def image
-    DVDPost.product_publics_images[name]
+    "#{name}.gif"
   end
 end

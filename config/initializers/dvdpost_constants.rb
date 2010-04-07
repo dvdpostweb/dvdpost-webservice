@@ -28,18 +28,6 @@ module DVDPost
       product_publics.invert
     end
 
-    def product_publics_images
-      HashWithIndifferentAccess.new.merge({
-        'all' => 'al.gif',
-        '12'  => '',
-        '16'  => '16.png',
-        '18'  => '',
-        '6'   => '',
-        '10'  => '',
-        '14'  => ''
-      })
-    end
-
     def product_kinds
       HashWithIndifferentAccess.new.merge({
         :normal       => 'DVD_NORM',
