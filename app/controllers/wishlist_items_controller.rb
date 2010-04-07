@@ -3,8 +3,7 @@ class WishlistItemsController < ApplicationController
 
   def index
     @wishlist_items = current_customer.wishlist_items.ordered.include_products
-    orders = current_customer.orders
-    @assigned_items = orders.find(:all,:conditions=> "orders_status in (1,2) " ).map(&:order_product)
+    @assigned_items = current_customer.orders.in_transit
   end
 
   private
