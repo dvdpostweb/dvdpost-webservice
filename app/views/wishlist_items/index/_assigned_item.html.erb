@@ -2,6 +2,6 @@
   <div class="title"><%= link_to assigned_item.product.title, assigned_item.product %></div>
   <div class="status">
     <a href="#">Signaler un problème</a>
-    <span class="ok"><%= "Expédié le #{assigned_item.assigned_at.strftime("%d/%m/%Y")}" %></span>
+    <span class="ok"><%= "Expédié le #{assigned_item.order.last_modified.strftime("%d/%m/%Y")}" %></span>
   </div>
 </div>
