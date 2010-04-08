@@ -11,7 +11,7 @@
   <div class="movie-info">
     <div class="subs">
       <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
-      <%= image_tag product.public.image, :alt => product.public.description %>
+      <%=  image_tag product.public.image, :alt => product.public.description %>
     </div>
     <div class="cast">
       <h3>Acteurs</h3>
@@ -34,5 +34,8 @@
     </div>
     <a href="#" class="like-btn">Ajouter sur ma liste</a>
   </div>
-  <div><span class="cover"><%= image_tag product.image, :width => 62, :height => 95  %></span></div>
+  <div><%  link_to product_path(:id => product.to_param) do %>
+    <span class="cover"><%= image_tag product.image, :width => 62, :height => 95  %></span>
+  <% end%>
+  </div>
 </div>
