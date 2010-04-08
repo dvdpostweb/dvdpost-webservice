@@ -1,4 +1,8 @@
 module ProductsHelper
+  def hide_wishlist_if_seen
+    session[:indicator_stored] ? javascript_tag("$('#indicator-tips').hide();") : ''
+  end
+
   def rating_image(rating, rating_customer, type='DVD_NORM')
     images = ""
     if rating_customer
