@@ -6,8 +6,8 @@ ActionController::Routing::Routes.draw do |map|
     # Clearance::Routes.draw(map) # => If all Clearance routes are needed
     localized.with_options :controller => 'clearance/sessions' do |clearance|
       clearance.resource :session,    :only   => [:new, :create, :destroy]
-      clearance.sign_in  'sign_in',   :action => :new
-      clearance.sign_out 'sign_out',  :action => :destroy, :conditions => {:method => :delete}
+      clearance.sign_in  'sign_in',   :action => :new, :conditions => {:method => :get}
+      clearance.sign_out 'sign_out',  :action => :destroy, :conditions => {:method => :get}
     end
 
     localized.with_options :controller => 'home' do |home|
