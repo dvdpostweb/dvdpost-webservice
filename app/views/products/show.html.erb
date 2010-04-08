@@ -75,14 +75,7 @@
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
           <div id="tab1" class="tab_content">
-            <div class="numbers">
-              <%= link_to 'Ecrire une critique' %>
-              <%= "#{@product.reviews.count} #{@product.reviews.count == 1 ? 'critique' : 'critiques'}" %>
-            </div>
-            <%= render :partial => 'products/index/review', :collection => @reviews %>
-            <%= will_paginate @reviews, :param_name => 'reviews_page', :previous_label => '&laquo; Critiques précédentes', :next_label => 'Critiques suivantes &raquo;', :page_links => false, :class => 'links' %>
-              <!--a href="#" class="right">Critiques suivantes &raquo;</a>
-              <a href="#">&laquo; Critiques précédentes</a-->
+            <%= render :partial => 'products/show/reviews', :locals => {:reviews_count => @product.reviews.count, :reviews => @reviews} %>
           </div>
           <div id="tab2" class="tab_content">
             LA CRITIQUE DE CINOPSIS.BE
@@ -92,7 +85,7 @@
     </div>
     <!-- End Critique -->
     <!-- Carousel -->
-    <div id="carousel-wrap">
+    <!--div id="carousel-wrap">
       <h2>LES MEMBRES ONT AUSSI LOUé</h2>
       <div id="carousel">
         <ul>
@@ -136,7 +129,7 @@
         <a href="#" class="like-btn" id="prev">Previous</a>
         <a href="#" class="like-btn" id="next">Next</a>
       </div>
-    </div>
+    </div-->
     <!-- End Carousel -->
     <div class="end"></div>
   </div>
