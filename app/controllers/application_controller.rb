@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  helper_method :current_customer
 
   before_filter :authenticate
   before_filter :wishlist_size
