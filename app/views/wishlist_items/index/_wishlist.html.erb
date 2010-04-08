@@ -11,7 +11,7 @@
       <li>Med</li>
       <li>Low</li>
     </ul>
-    <span class="trash"><img src="images/trash-icon.gif" alt="Trash it" /></span>
+    <span class="trash"><%= image_tag 'trash-icon.gif', :alt => 'Trash it' %></span>
   </div>
   <%= render :partial => 'wishlist_items/index/wishlist_item', :collection => wishlist_items %>
 </div>
