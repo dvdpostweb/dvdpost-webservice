@@ -13,7 +13,7 @@ $(function() {
     return false;
   });
 
-  $("#indicator #n6").click(function() {
+  $("#indicator #n7").click(function() {
     $("#indicator-tips").toggle(0);
     return false;
   });

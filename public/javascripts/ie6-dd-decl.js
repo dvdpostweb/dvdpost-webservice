@@ -1,0 +1,1 @@
+DD_belatedPNG.fix('#wrap, #n7, #indicator-tips, .title, .ok, .availability, .subs img, .dvd, .bluray, .cover, p.links a, .links a, .new, p img, a.like-btn, #tabs li a, .capt, .capt li a');

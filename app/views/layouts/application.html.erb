@@ -21,9 +21,7 @@ online videotheek, dvd verhuur, dvd huren, huurfilms, dvd verhuur Belgie, dvd hu
 <%= javascript_include_tag 'jquery.ba-url.min' %>  
 <!--[if IE 6]>
 <%= javascript_include_tag 'DD_belatedPNG' %>
-<script>
-  DD_belatedPNG.fix('#wrap, #n1, #n2, #n3, #n4, #n5, #n6, #indicator-tips, .subs img, .dvd, .bluray, .cover, p.links a');
-</script>
+<%= javascript_include_tag 'ie6-dd-decl' %>
 <![endif]-->
 </head>
 <body id="<%= @body_id || '' %>">
