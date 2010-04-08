@@ -14,6 +14,6 @@ class Public < ActiveRecord::Base
   end
 
   def image
-    "#{name}.gif"
+    "public_#{name}.gif"
   end
 end
