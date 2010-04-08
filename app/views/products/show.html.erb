@@ -19,7 +19,7 @@
             </ul>
             <p class="links">
               <%= link_to('Bande-annonce', @product.trailer.url, {:class => 'trailer', :target => :_blank}) if @product.trailer %>
-              <%= content_tag(:span, image_tag('delimiter.gif')) if @product.trailer && !@product.description.url.empty? %>
+              <%= content_tag(:span, image_tag('delimiter.gif')) if @product.trailer && @product.description.url %>
               <%= link_to('Site officiel', @product.description.full_url, {:class => 'link', :target => :_blank}) if @product.description.url %>
             </p>
             <p>
