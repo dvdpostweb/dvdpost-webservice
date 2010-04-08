@@ -10,7 +10,9 @@ ActionController::Routing::Routes.draw do |map|
       clearance.sign_out 'sign_out',  :action => :destroy, :method => :delete
     end
 
-    localized.resources :products, :only => [:index, :show]
+    localized.resources :products, :only => [:index, :show] do |product|
+      product.resource :rating, :only => :create
+    end
     localized.resources :wishlist_items, :only => [:index], :as => :wishlist
     localized.wishlist '/wishlist', :controller => :wishlist_items, :action => :index
   end

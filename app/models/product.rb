@@ -42,8 +42,27 @@ class Product < ActiveRecord::Base
   def image
     description && description.image ? File.join(DVDPost.images_path, description.image) : ''
   end
-
-  def rating_percent
-    ((rating_users.to_f/rating_count.to_f)*20).round(-1)
+  
+  
+   def get_rating(customers = nil,rating_customer= nil)
+    
+   if(customers and rating_customer)
+     rating =rating_customer.value.to_i*2
+   else
+      rating =(rating_users.to_f/rating_count.to_f)*20
+      rating = (rating/10).round
+    end
+  end
+  
+  def rating_by_customer(customers = nil)
+    rating=Rating.find(:first,:conditions => ['customers_id = ? and products_id =  ? ',customers, self.id])
+  end
+  
+  def is_new
+    if(self.products_availability>0 and self.products_date_added<=Time.now() and self.products_date_added > Time.now()-3.months and self.products_next==0)
+      true
+    else
+      false
+    end
   end
 end

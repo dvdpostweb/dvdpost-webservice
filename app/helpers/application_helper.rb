@@ -20,4 +20,8 @@ module ApplicationHelper
       else 'high'
     end
   end
+  
+  def truncate_title_wishlist(title)
+    truncate(title,:length => 25)
+  end 
 end
