@@ -14,4 +14,8 @@ class ProductDescription < ActiveRecord::Base
   def full_url
     File.join('http://', url)
   end
+
+  def url_present?
+    url? && !url.empty?
+  end
 end

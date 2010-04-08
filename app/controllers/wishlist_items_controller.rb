@@ -10,4 +10,9 @@ class WishlistItemsController < ApplicationController
   def set_body_id
     @body_id = 'mywhishlist'
   end
+
+  def create
+    wishlist = WishlistItem.new(params[:wishlist_item])
+    wishlist.save
+  end
 end
