@@ -39,7 +39,7 @@
             <div class="cover">
               <span id="<%= product_media_id(@product.media) %>">
                 <%= image_tag @product.image, :width => 145, :height => 220, :alt => "#{@product.title} (#{@product.year})" %>
-                <%= content_tag(:span, '', :class => 'new') if true %>
+                <%= content_tag(:span, '', :class => 'new') if @product.is_new %>
               </span>
               <a href="#" class="like-btn">Ajouter à ma liste</a>
             </div>
@@ -48,7 +48,7 @@
             <div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
-              <li class="stars">
+              <li class="stars" id="rating-stars">
                 <%= render :partial => 'rating', :locals => {:product => @product} %>
               </li>
               <li class="links"><a href="#">Déjà Vu</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="interest">Pas intéressé</a></li>

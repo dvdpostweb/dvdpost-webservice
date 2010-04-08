@@ -1,13 +1,4 @@
-<% star_count = (product.rating_percent/20).to_i %>
-<% star_count.times do %>
-  <%= image_tag 'star-on.jpg' %>
-<% end %>
-
-<% if product.rating_percent % 20 > 0 %>
-  <%= image_tag 'star-half.jpg' %>
-  <% star_count += 1 %>
-<% end %>
-
-<% (5-star_count).times do %>
-  <%= image_tag 'star-off.jpg' %>
+<% form_for(:rating, :url => product_rating_path(I18n.locale, product)) do |f| %>
+  <% rating=product.rating_by_customer(current_customer)%>
+  <%= rating_image(product.get_rating(current_customer,rating),rating) %>
 <% end %>
