@@ -7,6 +7,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @reviews = @product.reviews.paginate :page => params[:reviews_page]
+    @reviews = @product.reviews.paginate(:page => params[:reviews_page])
   end
 end

@@ -1,0 +1,6 @@
+<div class="numbers">
+  <%= link_to 'Ecrire une critique' %>
+  <%= "#{reviews_count} #{reviews_count == 1 ? 'critique' : 'critiques'}" %>
+</div>
+<%= render :partial => 'products/show/review', :collection => reviews %>
+<%= will_paginate reviews, :param_name => 'reviews_page', :previous_label => '&laquo; Critiques précédentes', :next_label => 'Critiques suivantes &raquo;', :page_links => false, :class => 'links', :id => 'pagination' %>
