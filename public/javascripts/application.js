@@ -42,39 +42,39 @@ $(function() {
   });
 
   $(".star").mouseover(function(){
-	nb_star=$(this).attr('id');
-	for(var i=1; i<=5;i++)
-	{
-		if(i<=nb_star)
-			$('#'+i).attr('src','/images/star-voted-on.jpg');
-		else
-			$('#'+i).attr('src','/images/star-voted-off.jpg');
-	}
-  });  
+    nb_star=$(this).attr('id');
+    for(var i=1; i<=5;i++)
+    {
+      if(i<=nb_star)
+      $('#'+i).attr('src','/images/star-voted-on.jpg');
+      else
+      $('#'+i).attr('src','/images/star-voted-off.jpg');
+    }
+  });
+
   $(".star").click(function(){
-	rate=$(this).attr('id');
-	data="rate="+rate;
-    $.post($(this).parents('form').attr('action'), data, null, "script");  
-    return false;  
- });
+    rate=$(this).attr('id');
+    data="rate="+rate;
+    $.post($(this).parents('form').attr('action'), data, null, "script");
+    return false;
+  });
 
   $(".star").mouseout(function(){
-	for(var i=1; i<=5;i++)
-	{
-		type=$('#'+i).attr('type');
-		switch(type)
-		{
-			case 'full':
-				$('#'+i).attr('src','/images/star-on.jpg');
-			break;
-			case 'half':
-				$('#'+i).attr('src','/images/star-half.jpg');
-			break;
-			case 'empty':
-				$('#'+i).attr('src','/images/star-off.jpg');
-			break;
-			
-		}
-	}
+    for(var i=1; i<=5;i++)
+    {
+      type=$('#'+i).attr('type');
+      switch(type)
+      {
+        case 'full':
+        $('#'+i).attr('src','/images/star-on.jpg');
+        break;
+        case 'half':
+        $('#'+i).attr('src','/images/star-half.jpg');
+        break;
+        case 'empty':
+        $('#'+i).attr('src','/images/star-off.jpg');
+        break;
+      }
+    }
   });
 });

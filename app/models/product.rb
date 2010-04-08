@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
   has_many :trailers, :foreign_key => :products_id
   has_many :wishlist_items
   has_many :reviews, :foreign_key => :products_id
+  has_many :ratings, :foreign_key => :products_id
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
@@ -42,22 +43,19 @@ class Product < ActiveRecord::Base
   def image
     description && description.image ? File.join(DVDPost.images_path, description.image) : ''
   end
-  
-  
-   def get_rating(customers = nil,rating_customer= nil)
-    
-   if(customers and rating_customer)
-     rating =rating_customer.value.to_i*2
-   else
-      rating =(rating_users.to_f/rating_count.to_f)*20
-      rating = (rating/10).round
+
+  def get_rating(customers=nil, rating_customer=nil)
+    if customers and rating_customer
+      rating_customer.value.to_i*2
+    else
+      ((p.rating_users.to_f/p.rating_count.to_f)*2).round
     end
   end
-  
-  def rating_by_customer(customers = nil)
-    rating=Rating.find(:first,:conditions => ['customers_id = ? and products_id =  ? ',customers, self.id])
+
+  def rating_by_customer(customer=nil)
+    ratings.by_customer(customer).first
   end
-  
+
   def is_new
     if(self.products_availability>0 and self.products_date_added<=Time.now() and self.products_date_added > Time.now()-3.months and self.products_next==0)
       true
