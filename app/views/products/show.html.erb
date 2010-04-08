@@ -20,7 +20,7 @@
             <p class="links">
               <%= link_to('Bande-annonce', @product.trailer.url, {:class => 'trailer', :target => :_blank}) if @product.trailer %>
               <%= content_tag(:span, image_tag('delimiter.gif')) if @product.trailer && !@product.description.url.empty? %>
-              <%= link_to('Site officiel', @product.description.full_url, {:class => 'link', :target => :_blank}) unless @product.description.url.empty? %>
+              <%= link_to('Site officiel', @product.description.full_url, {:class => 'link', :target => :_blank}) if @product.description.url %>
             </p>
             <p>
               Audio : <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{@product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
@@ -75,7 +75,11 @@
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div class="tab_container">
           <div id="tab1" class="tab_content">
-            <%= render :partial => 'products/show/reviews', :locals => {:reviews_count => @product.reviews.count, :reviews => @reviews} %>
+            <% if @reviews_count > 0 %>
+              <%= render :partial => 'products/show/reviews', :locals => {:reviews_count => @reviews_count, :reviews => @reviews} %>
+            <% else %>
+              <%= "Pas de critique d'utilisateur: #{ link_to "Soyez le premier à publier une critique de #{@product.title}!"}" %>
+            <% end %>
           </div>
           <div id="tab2" class="tab_content">
             LA CRITIQUE DE CINOPSIS.BE
