@@ -255,8 +255,16 @@ fieldset {
   z-index: 90;
 }
 
-#nav li a#n6 {
-  background-image: url(../images/indicator-bg.png);
+#nav li a#n6.low {
+  background-image: url(../images/indicator-bg_red.png);
+}
+
+#nav li a#n6.medium {
+  background-image: url(../images/indicator-bg_orange.png);
+}
+
+#nav li a#n6.high {
+  background-image: url(../images/indicator-bg_red.png);
 }
 
 #nav li#indicator #indicator-tips {

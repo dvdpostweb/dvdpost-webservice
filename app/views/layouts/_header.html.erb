@@ -29,8 +29,8 @@
     <li><a href="#" id="n3">Contact</a></li>
     <li><a href="#" id="n4">Mon compte</a></li>
     <li><a href="#" id="n5">News infos</a></li>
-    <li id="indicator"><a href="#" id="n6">Indicator</a>
-      <%= render :partial => 'layouts/list_indicator' %>
+    <li id="indicator">
+      <%= render :partial => 'layouts/list_indicator', :locals => {:wishlist_size => @wishlist_size} %>
     </li>
   </ul>
 </div>
