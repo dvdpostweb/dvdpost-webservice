@@ -45,10 +45,10 @@ class Product < ActiveRecord::Base
   end
 
   def get_rating(customers=nil, rating_customer=nil)
-    if customers and rating_customer
+    if customers && rating_customer
       rating_customer.value.to_i*2
     else
-      ((p.rating_users.to_f/p.rating_count.to_f)*2).round
+      ((rating_users.to_f/rating_count.to_f)*2).round
     end
   end
 
