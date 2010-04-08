@@ -5,9 +5,8 @@ $(function() {
   // hides the slickbox as soon as the DOM is ready
   // (a little sooner than page load)
   $('#lang-box').hide();
-  $('#indicator-tips').hide();
 
-  // toggles the slickbox on clicking the noted link  
+  // toggles the slickbox on clicking the noted link
   $('a#lang').click(function() {
     $('#lang-box').toggle(50);
     return false;
@@ -20,6 +19,7 @@ $(function() {
 
   $("#close").click(function() {
     $("#indicator-tips").hide();
+    $.getScript('/fr/home/indicator_closed');
     return false;
   });
 
