@@ -1,0 +1,12 @@
+<% form_for @wishlist_item do |f| %>
+  <flieldset>
+    <%= f.hidden_field :product_id %>
+    <%= f.label :priority_1, 'High' %>
+    <%= f.radio_button :priority, '1' %><br/>
+    <%= f.label :priority_2, 'Medium' %>
+    <%= f.radio_button :priority, '2', :checked => true %><br/>
+    <%= f.label :priority_3, 'Low' %>
+    <%= f.radio_button :priority, '3' %><br/>
+    <%= f.submit 'Add to wishlist' %>
+  </fieldset>
+<% end %>

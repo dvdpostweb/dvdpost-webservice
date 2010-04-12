@@ -41,18 +41,21 @@
                 <%= image_tag @product.image, :width => 145, :height => 220, :alt => "#{@product.title} (#{@product.year})" %>
                 <%= content_tag(:span, '', :class => 'new') if @product.is_new %>
               </span>
-              <a href="#" class="like-btn">Ajouter à ma liste</a>
+              <%= link_to 'Ajouter à ma liste', new_product_wishlist_item_path(:product_id => @product.to_param), :class => 'like-btn', :id => 'add_to_wishlist_button' %>
             </div>
           </div>
           <div class="action">
-			
             <%= '<div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>' if @product.is_dvdpostchoice %>
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
               <li class="stars" id="rating-stars">
                 <%= render :partial => 'rating', :locals => {:product => @product} %>
               </li>
-              <li class="links"><a href="#">Déjà Vu</a><span><img src="/images/delimiter.gif" alt="" /></span><a href="#" class="interest">Pas intéressé</a></li>
+              <li class="links">
+                <a href="#">Déjà Vu</a>
+                <span><img src="/images/delimiter.gif" alt="" /></span>
+                <a href="#" class="interest">Pas intéressé</a>
+              </li>
             </ul>
             <a href="#" class="like-btn" id="bluray-btn">Disponible en Blu-ray Disc</a>
             <div id="buy"><a href="#" class="like-btn" id="acheter-btn">Acheter</a> 7.95 &euro;</div>

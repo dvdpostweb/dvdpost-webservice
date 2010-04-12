@@ -3,7 +3,7 @@
   <div class="availability">&nbsp;</div>
   <% if false %><div class="availability short-wait"><%= 'Titre épuisé chez l\'éditeur' if false %>Short wait</div><% end %>
   <ul class="HML">
-    <% ["1","2","3"].collect do |priority| %>
+    <% [1,2,3].collect do |priority| %>
     <li>
       <%= radio_button_tag "wishlist_item_#{wishlist_item.to_param}", priority, wishlist_item.priority == priority %>
     </li>

@@ -80,4 +80,13 @@ $(function() {
       }
     }
   });
+
+  $("#add_to_wishlist_button").click(function() {
+    jQuery.facebox(function() {
+      $.getScript($("#add_to_wishlist_button").attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
 });
