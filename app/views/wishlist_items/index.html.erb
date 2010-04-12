@@ -5,10 +5,10 @@
   <%= render :partial => 'wishlist_items/index/transit_list', :locals => {:transitted_items => @transitted_items, :wishlist_items_count => @wishlist_items.count} %>
   <!-- End DVD chez vous ou en transit -->
   <!-- Ma liste de films -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies} %> 
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies.current} %> 
   <!-- End Ma liste de films -->
   <!-- Ma liste de films à venir -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'futur_movie', :wishlist_items => @wishlist_items.futur_movies} %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items.movies.future} %>
   <!-- End Ma liste de films à venir -->
   <div class="end"></div>
 </div>

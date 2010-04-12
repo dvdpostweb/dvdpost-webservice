@@ -71,4 +71,5 @@ class Product < ActiveRecord::Base
       false
     end
   end
+  
 end
