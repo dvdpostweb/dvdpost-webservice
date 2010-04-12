@@ -21,7 +21,6 @@ class WishlistItem < ActiveRecord::Base
 
   named_scope :ordered, :order => 'priority ASC'
   named_scope :movies,  :joins => :product, :conditions => {:products => {:products_product_type => 'Movie'}}
-
   named_scope :current,  :conditions => {:products => {:products_next => 0}}
   named_scope :future,   :conditions => {:products => {:products_next => 1}}
   named_scope :games,   :joins => :product, :conditions => {:products => {:products_product_type => 'Game'}}
