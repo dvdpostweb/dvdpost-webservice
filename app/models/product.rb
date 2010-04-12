@@ -29,6 +29,7 @@ class Product < ActiveRecord::Base
   named_scope :limit,    lambda {|limit| {:limit => limit}}
   named_scope :by_kind,  lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   named_scope :by_media, lambda {|media| {:conditions => {:products_media => media.collect{|m| DVDPost.product_types[m]}}}}
+  named_scope :bluray_for_dvd, lambda {|bluray_for_dvd| {:conditions => {:products_media => DVDPost.product_types[:bluray], :imdb_id => bluray_for_dvd}}}
   named_scope :search,   lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
 
   def description
@@ -65,11 +66,14 @@ class Product < ActiveRecord::Base
   end
   
   def is_dvdpostchoice
-    if(self.products_dvdpostchoice == 1)
+    products_dvdpostchoice == 1
+  end
+  
+  def is_a_dvd?
+    unless media == DVDPost.product_types[:bluray] or products_series_id > 0
       true
     else
       false
     end
-  end
-  
+  end 
 end
