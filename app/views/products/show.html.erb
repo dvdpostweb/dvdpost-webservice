@@ -41,7 +41,7 @@
                 <%= image_tag @product.image, :width => 145, :height => 220, :alt => "#{@product.title} (#{@product.year})" %>
                 <%= content_tag(:span, '', :class => 'new') if @product.is_new %>
               </span>
-              <%= link_to 'Ajouter à ma liste', new_product_wishlist_item_path(:product_id => @product.to_param), :class => 'like-btn', :id => 'add_to_wishlist_button' %>
+              <%= render :partial => 'products/wishlist', :locals => {:product => @product} %>
             </div>
           </div>
           <div class="action">
@@ -49,7 +49,7 @@
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
               <li class="stars" id="rating-stars">
-                <%= render :partial => 'rating', :locals => {:product => @product} %>
+                <%= render :partial => 'products/rating', :locals => {:product => @product} %>
               </li>
               <li class="links">
                 <a href="#">Déjà Vu</a>

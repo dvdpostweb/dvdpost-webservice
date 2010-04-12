@@ -54,5 +54,13 @@ module DVDPost
         'TRUVEO'      => 'http://www.truveo.com/_slug_/id/' # => There is a slug for this url: http://www.truveo.com/backstage-trailer-1/id/1191367212
       })
     end
+
+    def wishlist_priorities
+      HashWithIndifferentAccess.new.merge({
+        :high   => 1,
+        :medium => 2,
+        :low    => 3
+      })
+    end
   end
 end

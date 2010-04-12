@@ -32,6 +32,7 @@ online videotheek, dvd verhuur, dvd huren, huurfilms, dvd verhuur Belgie, dvd hu
   <%= render :partial => 'layouts/header' %>
   <!--   ==============   END HEADER   ==============   -->
   <div class="container clearfix" >
+    <%= flash[:notice] %>
     <%= yield :layout %>
   </div>
 </div>
