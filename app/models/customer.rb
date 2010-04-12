@@ -39,4 +39,8 @@ class Customer < ActiveRecord::Base
       User.find_by_email(email) || User.create(:email => email, :password => password, :email_confirmed => 1)
     end
   end
+
+  def has_product_in_wishlist?(product)
+    wishlist_items.collect{|wishlist_item| wishlist_item.product}.include?(product)
+  end
 end

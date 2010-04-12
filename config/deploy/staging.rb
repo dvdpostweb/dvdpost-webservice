@@ -53,9 +53,9 @@ namespace :deploy do
     dvdpost_main:
       adapter: mysql
       encoding: utf8
-      database: dvdpost_be_prod
-      username: inspector
-      password: Gr4n1B1s
+      database: dvdpost_test
+      username: test_devuser
+      password: 1nterD3nt
       host: www.dvdpost.be
       port: 43306
     EOF

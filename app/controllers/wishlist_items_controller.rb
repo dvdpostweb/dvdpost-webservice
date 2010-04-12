@@ -6,6 +6,32 @@ class WishlistItemsController < ApplicationController
     @transitted_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
   end
 
+  def new
+    session[:return_to] = request.env["HTTP_REFERER"]
+    @wishlist_item = WishlistItem.new
+    product = Product.find(params[:product_id])
+    @wishlist_item.product_id = product.to_param if product
+    render :layout => false
+  end
+
+  def create
+    begin
+      @wishlist_item = WishlistItem.new(params[:wishlist_item])
+      @wishlist_item.customer = current_customer
+      @wishlist_item.save
+      flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
+      redirect_back_or @wishlist_item.product
+    rescue => e
+      if @wishlist && @wishlist.product
+        flash[:notice] = "#{@wishlist_item.product.title} could not added to your wishlist."
+        redirect_to @wishlist.product
+      else
+        flash[:notice] = "An unexpected problem happened when trying to add this product to your wishlist."
+        redirect_to wishlist_path
+      end
+    end
+  end
+
   private
   def set_body_id
     @body_id = 'mywhishlist'

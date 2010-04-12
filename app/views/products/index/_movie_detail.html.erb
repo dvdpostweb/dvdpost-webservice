@@ -25,14 +25,14 @@
   <div class="action">
     <h4>Action</h4>
     <div class="stars">
-      <%= render :partial => 'rating', :locals => {:product => product} %>
+      <%= render :partial => 'products/rating', :locals => {:product => product} %>
     </div>
     <div class="links">
       <a href="#">Déjà Vu</a>
       <span><img src="images/delimiter.gif" alt="" /></span>
       <a href="#" class="interest">Pas intéressé</a>
     </div>
-    <a href="#" class="like-btn">Ajouter sur ma liste</a>
+    <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
   </div>
   <div><%  link_to product_path(:id => product.to_param) do %>
     <span class="cover"><%= image_tag product.image, :width => 62, :height => 95  %></span>

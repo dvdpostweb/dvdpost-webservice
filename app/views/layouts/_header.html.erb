@@ -1,5 +1,5 @@
 <div id="header" >
-  <h1><a href="http://www.dvdpost.be/" class="like-btn">DVDPost - Online DVD rental</a></h1>
+  <h1><%= link_to 'DVDPost - Online DVD rental', root_path, :class => 'like-btn' %></h1>
   <ul id="login" class="subnav">
     <li class="first">
       <% if current_user %>
@@ -26,7 +26,7 @@
   <ul id="nav">
     <li><%= link_to 'Home', products_path, {:id => 'n1'} %></li>
     <li><%= link_to 'Explorer', products_path, {:id => 'n2'} %></li>
-    <li><%= link_to 'Ma liste', wishlist_items_path, {:id => 'n3'} %></li>
+    <li><%= link_to 'Ma liste', wishlist_path, {:id => 'n3'} %></li>
     <li><a href="#" id="n4">Contact</a></li>
     <li><a href="#" id="n5">Mon compte</a></li>
     <li><a href="#" id="n6">News infos</a></li>

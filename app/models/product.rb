@@ -64,7 +64,7 @@ class Product < ActiveRecord::Base
       false
     end
   end
-  
+
   def is_dvdpostchoice
     products_dvdpostchoice == 1
   end
