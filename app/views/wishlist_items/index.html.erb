@@ -7,9 +7,9 @@
   <!-- Ma liste de films -->
   <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies} %> 
   <!-- End Ma liste de films -->
-  <!-- Ma liste de jeux -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'game', :wishlist_items => @wishlist_items.games} %>
-  <!-- End Ma liste de jeux -->
+  <!-- Ma liste de films à venir -->
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'futur_movie', :wishlist_items => @wishlist_items.futur_movies} %>
+  <!-- End Ma liste de films à venir -->
   <div class="end"></div>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
