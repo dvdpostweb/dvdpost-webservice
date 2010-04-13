@@ -5,13 +5,15 @@ class Product < ActiveRecord::Base
   establish_connection :dvdpost_main
 
   set_primary_key :products_id
-
+  
+  alias_attribute :created_at,   :products_date_added
   alias_attribute :kind,         :products_type
   alias_attribute :year,         :products_year
   alias_attribute :runtime,      :products_runtime
   alias_attribute :rating,       :products_rating
   alias_attribute :media,        :products_media
   alias_attribute :product_type, :products_product_type
+  alias_attribute :availability, :products_availability
 
   belongs_to :director, :foreign_key => :products_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
@@ -63,8 +65,8 @@ class Product < ActiveRecord::Base
     ratings.by_customer(customer).first
   end
 
-  def is_new
-    products_availability > 0 and products_date_added <= Time.now() and products_date_added > Time.now()-3.months and products_next == 0
+  def is_new?
+    availability > 0 and created_at.between?(3.months.ago, Time.now) and products_next == 0
   end
 
   def is_dvdpostchoice
