@@ -6,8 +6,7 @@
     <% @products.collect do |product| %>
       <%= render :partial => 'products/index/movie_detail', :locals => {:product => product} %>
     <% end %>
-    <!-- AFFICHER LES 10 DVD SUIVANTS -->
-    <a href="#" id="next10">AFFICHER LES 10 DVD SUIVANTS</a>	
+    <%= will_paginate @products %>
     <!-- View Options -->	
     <ul id="views">
       <li><%= link_to "Grid View", '', {:id => 'grid-view'} %></li>

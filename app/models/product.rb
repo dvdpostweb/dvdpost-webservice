@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+  cattr_reader :per_page
+  @@per_page = 10
+
   establish_connection :dvdpost_main
 
   set_primary_key :products_id
@@ -25,7 +28,6 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :subtitles, :join_table => :products_to_undertitles, :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :languages, :join_table => :products_to_languages, :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
 
-  named_scope :limit,       lambda {|limit| {:limit => limit}}
   named_scope :by_kind,     lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   named_scope :by_media,    lambda {|media| {:conditions => {:products_media => (media.kind_of?(Array) ? media.collect{|m| DVDPost.product_types[m]} : DVDPost.product_types[media])}}}
   named_scope :by_language, lambda {|language| {:conditions => {(language.to_s == 'fr' ? :products_language_fr : :products_undertitle_nl) => 1}}}
