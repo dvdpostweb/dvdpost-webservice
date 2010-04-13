@@ -59,11 +59,7 @@ class Product < ActiveRecord::Base
     if customers && rating_customer
       rating_customer.value.to_i*2
     else
-      if rating_count == 0
-        0
-      else
-        ((rating_users.to_f/rating_count.to_f)*2).round
-      end
+      rating_count == 0 ? 0 : ((rating_users.to_f/rating_count.to_f)*2).round
     end
   end
 
