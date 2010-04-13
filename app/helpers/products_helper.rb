@@ -34,7 +34,11 @@ module ProductsHelper
       elsif product.bluray?
         dvd = Product.by_media(:dvd).find_by_imdb_id(product.imdb_id)
         link_to('Disponible en DVD', product_path(:id => dvd), :id => 'dvd-btn', :class => 'like-btn-NOTYET') if dvd
+      else
+        ''
       end
+    else
+      ''
     end
   end
 end
