@@ -25,12 +25,12 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :subtitles, :join_table => :products_to_undertitles, :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :languages, :join_table => :products_to_languages, :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
 
-  named_scope :limit,          lambda {|limit| {:limit => limit}}
-  named_scope :by_kind,        lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  named_scope :by_media,       lambda {|media| {:conditions => {:products_media => media.collect{|m| DVDPost.product_types[m]}}}}
-  named_scope :by_language,    lambda {|language| {:conditions => {(language.to_s == 'fr' ? :products_language_fr : :products_undertitle_nl) => 1}}}
-  named_scope :bluray_for_dvd, lambda {|imdb_id| {:conditions => {:products_media => DVDPost.product_types[:bluray], :imdb_id => imdb_id}}}
-  named_scope :search,         lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
+  named_scope :limit,       lambda {|limit| {:limit => limit}}
+  named_scope :by_kind,     lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  named_scope :by_media,    lambda {|media| {:conditions => {:products_media => (media.kind_of?(Array) ? media.collect{|m| DVDPost.product_types[m]} : DVDPost.product_types[media])}}}
+  named_scope :by_language, lambda {|language| {:conditions => {(language.to_s == 'fr' ? :products_language_fr : :products_undertitle_nl) => 1}}}
+  named_scope :by_imdb_id,  lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
+  named_scope :search,      lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
 
   def description
     descriptions.by_language(I18n.locale).first
@@ -75,6 +75,10 @@ class Product < ActiveRecord::Base
 
   def dvd?
     media == DVDPost.product_types[:dvd]
+  end
+
+  def bluray?
+    media == DVDPost.product_types[:bluray]
   end
 
   def series?

@@ -25,4 +25,16 @@ module ProductsHelper
     end 
     images
   end
+
+  def available_on_other_media(product)
+    unless product.series?
+      if product.dvd?
+        bluray = Product.by_media(:bluray).find_by_imdb_id(product.imdb_id)
+        link_to('Disponible en Blu-ray Disc', product_path(:id => bluray), :id => 'bluray-btn', :class => 'like-btn') if bluray
+      elsif product.bluray?
+        dvd = Product.by_media(:dvd).find_by_imdb_id(product.imdb_id)
+        link_to('Disponible en DVD', product_path(:id => dvd), :id => 'dvd-btn', :class => 'like-btn-NOTYET') if dvd
+      end
+    end
+  end
 end
