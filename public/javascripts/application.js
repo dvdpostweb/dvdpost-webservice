@@ -113,6 +113,7 @@ $(function() {
 
   $("#oscars a").click(function() {
     $("#oscars-text").css({'height':'inherit'});
+    $("#oscars").hide();
     return false;
   });
 });
