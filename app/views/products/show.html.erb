@@ -26,9 +26,9 @@
               Audio : <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{@product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
               Sous-titres : <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{@product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
             </p>
-			<p id="oscars-text">
-				<%= @product.description.products_awards %>
-			</p>
+            <p id="oscars-text">
+              <%= @product.description.products_awards %>
+            </p>
             <p id="oscars">
               <a href="#">Lire la suite</a>
             </p>
@@ -59,17 +59,18 @@
                 <a href="#" class="interest">Pas intéressé</a>
               </li>
             </ul>
-			<% if @product.dvd? && !@product.series? %>
-			<% 
-				bluray= Product.bluray_for_dvd(@product.imdb_id)
-				unless bluray.empty? 
-			%>
-				<%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id=>'bluray-btn', :class=>'like-btn' %>
-			 <% end %>
-			<% end %>
-			<% if @product.available_to_sale? %>
-            	<div id="buy"><a href="/product_info_shop.php?products_id=<%= @product.products_id%>" class="like-btn" id="acheter-btn">Acheter</a> <%= @product.products_sale_price %> &euro;</div>
-			<% end %>
+            <% if @product.dvd? && !@product.series? %>
+              <% bluray = Product.bluray_for_dvd(@product.imdb_id) %>
+              <% unless bluray.empty? %>
+                <%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id=>'bluray-btn', :class=>'like-btn' %>
+              <% end %>
+            <% end %>
+            <% if @product.available_to_sale? %>
+              <div id="buy">
+                <%= link_to 'Acheter', "/product_info_shop.php?products_id=#{@product.products_id}", :class => 'like-btn', :id => 'acheter-btn' %>
+                <%= "&euro; #{@product.products_sale_price} " %>
+              </div>
+            <% end %>
           </div>
           <div class="clear"></div>
           <div id="sinopsis">
