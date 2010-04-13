@@ -14,5 +14,5 @@
     </span>
   </div>
   <p><%= review.text %></p>
-  <p class="yn">Cette critique est-elle pertinente ? <%= link_to 'OUI' %> - <%= link_to 'NON' %></p>
+  <p class="yn">Cette critique est-elle pertinente ? <%= link_to 'OUI',"#", :class=>'yes',:review_id=>review.reviews_id,:product_id=>params['id'], :rate=>1 %> - <%= link_to 'NON',"#",:class=>"no" %></p>
 </div>

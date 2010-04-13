@@ -1,1 +1,1 @@
-page['rating-stars'].replace_html :partial => 'products/rating', :locals => {:product => @product}
+page['tab1'].replace_html :partial => 'products/show/reviews', :locals => {:reviews_count => @reviews_count, :reviews => @reviews}

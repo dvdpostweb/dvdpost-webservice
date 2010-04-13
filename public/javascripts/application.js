@@ -44,6 +44,7 @@ $(function() {
     $.getScript(this.href);
     return false;
   });
+//(show) rate a products
 
   $(".star").mouseover(function(){
     nb_star=$(this).attr('id');
@@ -55,7 +56,6 @@ $(function() {
       $('#'+i).attr('src','/images/star-voted-off.jpg');
     }
   });
-
   $(".star").click(function(){
     rate=$(this).attr('id');
     data="rate="+rate;
@@ -110,10 +110,30 @@ $(function() {
       }
     });
   });
-
+//see more awards (show products)
   $("#oscars a").click(function() {
     $("#oscars-text").css({'height':'inherit'});
     $("#oscars").hide();
     return false;
+  });
+//vote for a review
+  $(".yn .yes").click(function(){
+	$.ajax({
+      url: "/fr/reviews/"+$(this).attr('review_id')+"/review_rating/",
+      contentType: 'application/json; charset=utf-8',
+      type: 'POST',
+      data: JSON.stringify({"review_rating": {"rate": $(this).attr('rate')}}),
+      success: function(data) {
+        //html_item.html(data);
+      },
+      error: function() {
+        //html_item.html(content);
+      }
+    });
+	return false;
+  });
+
+  $(".yn .no").click(function(){
+	return false;
   });
 });
