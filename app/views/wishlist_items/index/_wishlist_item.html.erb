@@ -2,12 +2,8 @@
   <div class="title"><%= link_to truncate(wishlist_item.product.title, :length => 65), product_path(:id => wishlist_item.product.to_param) %></div>
   <div class="availability">&nbsp;</div>
   <% if false %><div class="availability short-wait"><%= 'Titre épuisé chez l\'éditeur' if false %>Short wait</div><% end %>
-  <ul class="HML">
-    <% [1,2,3].collect do |priority| %>
-    <li>
-      <%= radio_button_tag "wishlist_item_#{wishlist_item.to_param}", priority, wishlist_item.priority == priority %>
-    </li>
-    <% end %>
+  <ul class="HML" id="<%= wishlist_item.to_param %>">
+    <%= render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => wishlist_item} %>
   </ul>
   <span class="trash">
     <input name="" type="checkbox" value="" />

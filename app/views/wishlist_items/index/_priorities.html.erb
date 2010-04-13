@@ -1,0 +1,5 @@
+<% [1,2,3].collect do |priority| %>
+<li>
+  <%= radio_button_tag "wishlist_item_#{wishlist_item.to_param}", priority, wishlist_item.priority == priority, :id => wishlist_item.to_param, :class => 'wishlist_item_priority' %>
+</li>
+<% end %>
