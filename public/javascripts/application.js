@@ -7,11 +7,13 @@ $(function() {
   $('#lang-box').hide();
   $('body').click(function() {
     $('#indicator-tips').hide();
+    $.getScript('/fr/home/indicator_closed');
   });
 
   // toggles the slickbox on clicking the noted link
   $('a#lang').click(function() {
     $('#lang-box').toggle(50);
+    $.getScript('/fr/home/indicator_closed');
     return false;
   });
 
