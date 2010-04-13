@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   establish_connection :dvdpost_main
 
   set_primary_key :products_id
-  
+
   alias_attribute :created_at,   :products_date_added
   alias_attribute :kind,         :products_type
   alias_attribute :year,         :products_year
