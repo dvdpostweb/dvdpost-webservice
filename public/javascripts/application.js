@@ -7,7 +7,6 @@ $(function() {
   $('#lang-box').hide();
   $('body').click(function() {
     $('#indicator-tips').hide();
-    $.getScript('/fr/home/indicator_closed');
   });
 
   // toggles the slickbox on clicking the noted link
