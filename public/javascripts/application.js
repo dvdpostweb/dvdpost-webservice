@@ -109,5 +109,9 @@ $(function() {
         html_item.html(content);
       }
     });
+  
+  $("#oscars a").click(function() {
+    $("#oscars-text").css({'height':'inherit'});
+    return false;
   });
 });

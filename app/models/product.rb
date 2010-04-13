@@ -77,4 +77,9 @@ class Product < ActiveRecord::Base
   def series?
     products_series_id != 0
   end
+  
+  def available_to_sale?
+    quantity_to_sale > 0
+  end   
+
 end

@@ -4,7 +4,7 @@
     <div class="top"></div>
     <!-- Detail -->
     <div id="breadcrumb"><a href="#">Emotion/drame</a> &rsaquo; Destin</div>
-    <h2><%= "#{@product.title} (#{@product.year})" %></h2>
+    <h2><%= "#{@product.description.products_name} (#{@product.year})" %></h2>
     <div class="box">
       <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div id="details">
@@ -26,10 +26,10 @@
               Audio : <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{@product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
               Sous-titres : <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{@product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
             </p>
+			<p id="oscars-text">
+				<%= @product.description.products_awards %>
+			</p>
             <p id="oscars">
-              <strong>Académie des Oscars 2009</strong><br />
-              Oscar du Meilleur Film<br />
-              Oscar du Meilleur Réalisateur<br />
               <a href="#">Lire la suite</a>
             </p>
             <p>
@@ -59,13 +59,17 @@
                 <a href="#" class="interest">Pas intéressé</a>
               </li>
             </ul>
-            <% if @product.dvd? && !@product.series? %>
-              <% bluray = Product.by_language(I18n.locale).bluray_for_dvd(@product.imdb_id) %>
-              <% unless bluray.empty? %>
-                <%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id => 'bluray-btn', :class => 'like-btn' %>
-              <% end %>
-            <% end %>
-            <div id="buy"><a href="#" class="like-btn" id="acheter-btn">Acheter</a> 7.95 &euro;</div>
+			<% if @product.dvd? && !@product.series? %>
+			<% 
+				bluray= Product.bluray_for_dvd(@product.imdb_id)
+				unless bluray.empty? 
+			%>
+				<%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id=>'bluray-btn', :class=>'like-btn' %>
+			 <% end %>
+			<% end %>
+			<% if @product.available_to_sale? %>
+            	<div id="buy"><a href="/product_info_shop.php?products_id=<%= @product.products_id%>" class="like-btn" id="acheter-btn">Acheter</a> <%= @product.products_sale_price %> &euro;</div>
+			<% end %>
           </div>
           <div class="clear"></div>
           <div id="sinopsis">

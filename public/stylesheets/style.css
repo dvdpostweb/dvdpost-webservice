@@ -1152,6 +1152,11 @@ display: block;
   margin: 8px 0 22px;
   padding: 0;
 }
+#movie-info p#oscars-text {
+  height:59px;
+  overflow:hidden;
+  padding: 0;
+}
 
 #movie-info p#oscars a {
   background: url(../images/links-arrow.gif) 0 2px no-repeat;
