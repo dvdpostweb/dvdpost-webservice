@@ -59,9 +59,10 @@
                 <a href="#" class="interest">Pas intéressé</a>
               </li>
             </ul>
-            <% if @product.is_a_dvd? %>
-              <% unless Product.bluray_for_dvd(@product.imdb_id).empty? %>
-                <%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id=>'bluray-btn', :class=>'like-btn' %>
+            <% if @product.dvd? && !@product.series? %>
+              <% bluray = Product.by_language(I18n.locale).bluray_for_dvd(@product.imdb_id) %>
+              <% unless bluray.empty? %>
+                <%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id => 'bluray-btn', :class => 'like-btn' %>
               <% end %>
             <% end %>
             <div id="buy"><a href="#" class="like-btn" id="acheter-btn">Acheter</a> 7.95 &euro;</div>
@@ -88,7 +89,7 @@
             <% if @reviews_count > 0 %>
               <%= render :partial => 'products/show/reviews', :locals => {:reviews_count => @reviews_count, :reviews => @reviews} %>
             <% else %>
-              <%= "Pas de critique d'utilisateur: #{ link_to "Soyez le premier à publier une critique de #{@product.title}!"}" %>
+              <%= "Pas de critique d'utilisateur: #{link_to "Soyez le premier à publier une critique de #{@product.title}!"}" %>
             <% end %>
           </div>
           <div id="tab2" class="tab_content">
