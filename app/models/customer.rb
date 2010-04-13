@@ -18,6 +18,8 @@ class Customer < ActiveRecord::Base
   has_many :assigned_items, :foreign_key => :customers_id
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings, :foreign_key => :customers_id
+  has_many :uninteresteds, :foreign_key => :customers_id
+  has_many :uninterested_products, :through => :uninteresteds, :source => :product
 
   def self.find_by_email(args)
     self.find_by_customers_email_address(args)

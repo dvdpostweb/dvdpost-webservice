@@ -12,4 +12,8 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.count
   end
+
+  def uninterested
+    @product.uninterested.by_customer(current_customer)
+  end
 end
