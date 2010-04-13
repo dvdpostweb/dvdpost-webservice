@@ -46,8 +46,8 @@
           </div>
           <div class="action">
             <% if @product.is_dvdpostchoice %>
-	 				<div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>
-			<% end %>
+              <div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>
+            <% end %>
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
               <li class="stars" id="rating-stars">
@@ -59,15 +59,11 @@
                 <a href="#" class="interest">Pas intéressé</a>
               </li>
             </ul>
-			<% if @product.is_a_dvd? %>
-			<% 
-				bluray= Product.bluray_for_dvd(@product.imdb_id)
-				unless bluray.empty? 
-			%>
-				<%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id=>'bluray-btn', :class=>'like-btn' %>
-			 <% end %>
-			<% end %>
-			
+            <% if @product.is_a_dvd? %>
+              <% unless Product.bluray_for_dvd(@product.imdb_id).empty? %>
+                <%= link_to 'Disponible en Blu-ray Disc', product_path(:id => bluray.first), :id=>'bluray-btn', :class=>'like-btn' %>
+              <% end %>
+            <% end %>
             <div id="buy"><a href="#" class="like-btn" id="acheter-btn">Acheter</a> 7.95 &euro;</div>
           </div>
           <div class="clear"></div>
