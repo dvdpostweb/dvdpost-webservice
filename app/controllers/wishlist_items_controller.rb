@@ -42,6 +42,12 @@ class WishlistItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @wishlist_item = WishlistItem.find(params[:id])
+    flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
+    redirect_to wishlist_path
+  end
+
   private
   def set_body_id
     @body_id = 'mywhishlist'

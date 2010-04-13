@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
       product.resources :wishlist_items, :only => [:new, :create]
     end
 
-    localized.resources :wishlist_items, :only => [:new, :create, :update]
+    localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}
   end
 end
