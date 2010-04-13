@@ -4,7 +4,6 @@ class Product < ActiveRecord::Base
   set_primary_key :products_id
 
   alias_attribute :kind,         :products_type
-  alias_attribute :title,        :products_title
   alias_attribute :year,         :products_year
   alias_attribute :runtime,      :products_runtime
   alias_attribute :rating,       :products_rating
@@ -35,6 +34,10 @@ class Product < ActiveRecord::Base
 
   def description
     descriptions.by_language(I18n.locale).first
+  end
+
+  def title
+    description ? description.title : products_title
   end
 
   def trailer

@@ -1,7 +1,7 @@
 <div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
-    <h2><%= link_to product.description.products_name, product_path(:id => product.to_param) %></h2>
-    <p><%= truncate product.description.text,:lenght=>300 %></p>
+    <h2><%= link_to product.title, product_path(:id => product.to_param) %></h2>
+    <p><%= truncate product.description.text, :lenght => 300 %></p>
     <p class="links">
       <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
       <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && !product.description.url.empty? %>
@@ -36,6 +36,6 @@
   </div>
   <div><%  link_to product_path(:id => product.to_param) do %>
     <span class="cover"><%= image_tag product.image, :width => 62, :height => 95  %></span>
-  <% end%>
+  <% end %>
   </div>
 </div>
