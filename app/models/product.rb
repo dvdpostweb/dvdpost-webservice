@@ -64,11 +64,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_new
-    if (self.products_availability>0 and self.products_date_added<=Time.now() and self.products_date_added > Time.now()-3.months and self.products_next==0)
-      true
-    else
-      false
-    end
+    products_availability > 0 and products_date_added <= Time.now() and products_date_added > Time.now()-3.months and products_next == 0
   end
 
   def is_dvdpostchoice
