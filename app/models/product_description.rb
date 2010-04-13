@@ -3,10 +3,11 @@ class ProductDescription < ActiveRecord::Base
 
   set_table_name :products_description
 
-  alias_attribute :text, :products_description
-  alias_attribute :title, :products_name
-  alias_attribute :url, :products_url
-  alias_attribute :image, :products_image_big
+  alias_attribute :text,    :products_description
+  alias_attribute :title,   :products_name
+  alias_attribute :url,     :products_url
+  alias_attribute :image,   :products_image_big
+  alias_attribute :viewed,  :products_viewed
 
   belongs_to :product
 

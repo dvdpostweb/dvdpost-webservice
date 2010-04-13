@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @product.views_increment
     @reviews = @product.reviews.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.count
   end

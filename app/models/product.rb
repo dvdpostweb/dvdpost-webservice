@@ -90,4 +90,11 @@ class Product < ActiveRecord::Base
   def available_to_sale?
     quantity_to_sale > 0
   end
+
+  def views_increment
+    # Dirty raw sql.
+    # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
+    connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{to_param}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    description.viewed
+  end
 end
