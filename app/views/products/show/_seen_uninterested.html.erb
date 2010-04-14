@@ -1,4 +1,8 @@
-<%= link_to 'Déjà Vu' %>
+<% if current_customer.seen_products.include?(product) %>
+  <%= "You've already seen this" %>
+<% else %>
+  <%= link_to 'Déjà Vu', product_seen_path(:product_id => product), :class => 'seen' %>
+<% end %>
 <span><%= image_tag 'delimiter.gif' %></span>
 <% if current_customer.uninterested_products.include?(product) %>
   <%= "You're not interested" %>

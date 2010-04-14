@@ -23,4 +23,15 @@ class ProductsController < ApplicationController
       end
     end
   end
+
+  def seen
+    begin
+      @product = Product.find(params[:product_id])
+      @product.seen_customers << current_customer
+      respond_to do |format|
+        format.html {redirect_to product_path(:id => @product.to_param)}
+        format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      end
+    end
+  end
 end
