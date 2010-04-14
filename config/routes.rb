@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
       product.resources :reviews, :only => [:new, :create]
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
       product.seen 'seen', :controller => :products, :action => :seen
+      product.awards 'awards', :controller => :products, :action => :awards
     end
 
     localized.resources :reviews, :only => [] do |review|

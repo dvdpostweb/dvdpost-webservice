@@ -34,4 +34,12 @@ class ProductsController < ApplicationController
       end
     end
   end
+  
+  def awards
+  @product = Product.find(params[:product_id])
+  respond_to do |format|
+
+   format.js   {render :partial => 'products/show/awards', :locals => {:product => @product,:size=> 'full'}}
+  end
+  end
 end

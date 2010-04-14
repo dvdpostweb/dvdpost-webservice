@@ -14,7 +14,15 @@
     </span>
   </div>
   <p><%= review.text %></p>
-  <% if !review.rating_by_customer(current_customer) %>
+  <% 
+	customer_rating=review.rating_by_customer(current_customer)
+	if !customer_rating %>
   <p class="yn">Cette critique est-elle pertinente ? <%= link_to 'OUI',"#", :class=>'yes',:review_id=>review.reviews_id, :rate=>1 %> - <%= link_to 'NON',"#",:class=>"no",:review_id=>review.reviews_id,:rate=>0 %></p>
+  <% else %>
+	<%if customer_rating.value == 1 %>
+		<p class="yn">vous trouvez cette critique pertinente</p>
+	<% else %>
+		<p class="yn">vous ne trouvez pas cette critique pertinente</p>
+	<% end %>
   <% end %>
 </div>

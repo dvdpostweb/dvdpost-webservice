@@ -81,8 +81,22 @@ $(function() {
   });
 
   $("#oscars a").click(function() {
-    $("#oscars-text").css({'height':'inherit'});
-    $("#oscars").hide();
+    html_item=$('#oscars_text');
+  	content=html_item.html();
+  	$.ajax({
+      url: this.href,
+  	  dataType: 'script',
+      type: 'GET',
+  	  success: function(data) {
+       html_item.html(data);
+	   $("#oscars").hide();
+      },
+      error: function() {
+       html_item.html(content);
+	   $("#oscars").hide();
+      }
+    });
+    
     return false;
   });
 
