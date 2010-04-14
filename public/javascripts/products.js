@@ -1,29 +1,4 @@
 $(function() {
-  // hides the slickbox as soon as the DOM is ready
-  // (a little sooner than page load)
-  $('#lang-box').hide();
-  $('body').click(function() {
-    $('#indicator-tips').hide();
-  });
-
-  // toggles the slickbox on clicking the noted link
-  $('a#lang').click(function() {
-    $('#lang-box').toggle(50);
-    return false;
-  });
-
-  $("#indicator #n7").click(function() {
-    $("#indicator-tips").toggle(0);
-    $.getScript('/fr/home/indicator_closed');
-    return false;
-  });
-
-  $("#close").click(function() {
-    $("#indicator-tips").hide();
-    $.getScript('/fr/home/indicator_closed');
-    return false;
-  });
-
   // Ajax history, only works on the product.reviews for now
   $("#tab1 #pagination a").live("click", function() {
     $.setFragment({ reviews_page: $.queryString(this.href).reviews_page })
@@ -41,7 +16,6 @@ $(function() {
     $.getScript(this.href);
     return false;
   });
-//(show) rate a products
 
   $(".star").mouseover(function(){
     nb_star=$(this).attr('id');
@@ -53,6 +27,7 @@ $(function() {
       $('#'+i).attr('src','/images/star-voted-off.jpg');
     }
   });
+
   $(".star").click(function(){
     rate=$(this).attr('id');
     data="rate="+rate;
@@ -88,17 +63,13 @@ $(function() {
     return false;
   });
 
-  $(".wishlist_item_priority").live("click", function() {
-    html_item = $(this).parent().parent()
+  $(".interest").live("click", function() {
+    html_item = $(this).parent();
     content = html_item.html();
-    html_item.html("Updating...");
-    wishlist_item_id = this.id;
-    priority = this.value;
+    html_item.html("Saving...");
     $.ajax({
-      url: '/fr/wishlist_items/' + wishlist_item_id,
-      contentType: 'application/json; charset=utf-8',
-      type: 'PUT',
-      data: JSON.stringify({"wishlist_item": {"priority": priority}}),
+      url: this.href,
+      type: 'POST',
       success: function(data) {
         html_item.html(data);
       },
@@ -106,32 +77,12 @@ $(function() {
         html_item.html(content);
       }
     });
+    return false;
   });
-//see more awards (show products)
+
   $("#oscars a").click(function() {
     $("#oscars-text").css({'height':'inherit'});
     $("#oscars").hide();
     return false;
   });
-//vote for a review
-  $(".yn .yes").click(function(){
-	$.ajax({
-      url: "/fr/reviews/"+$(this).attr('review_id')+"/review_rating/",
-      contentType: 'application/json; charset=utf-8',
-      type: 'POST',
-      data: JSON.stringify({"review_rating": {"rate": $(this).attr('rate')}}),
-      success: function(data) {
-        //html_item.html(data);
-      },
-      error: function() {
-        //html_item.html(content);
-      }
-    });
-	return false;
-  });
-
-  $(".yn .no").click(function(){
-	return false;
-  });
-
 });

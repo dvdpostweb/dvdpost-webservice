@@ -53,10 +53,8 @@
               <li class="stars" id="rating-stars">
                 <%= render :partial => 'products/rating', :locals => {:product => @product} %>
               </li>
-              <li class="links">
-                <a href="#">Déjà Vu</a>
-                <span><img src="/images/delimiter.gif" alt="" /></span>
-                <a href="#" class="interest">Pas intéressé</a>
+              <li class="links" id="seen-uninterested">
+                <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
               </li>
             </ul>
             <%= available_on_other_media(@product) %>

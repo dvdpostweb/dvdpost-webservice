@@ -15,6 +15,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :suspension_status, :customers_abo_suspended
 
   has_many :wishlist_items, :foreign_key => :customers_id
+  has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings, :foreign_key => :customers_id
@@ -40,9 +41,5 @@ class Customer < ActiveRecord::Base
     if customer.authenticated?(password)
       User.find_by_email(email) || User.create(:email => email, :password => password, :email_confirmed => 1)
     end
-  end
-
-  def has_product_in_wishlist?(product)
-    wishlist_items.collect{|wishlist_item| wishlist_item.product}.include?(product)
   end
 end
