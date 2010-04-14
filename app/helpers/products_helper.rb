@@ -41,4 +41,31 @@ module ProductsHelper
       ''
     end
   end
+  
+  def awards(product)
+    content=''
+    
+    if !product.description.products_awards.empty?
+      awards=product.description.products_awards.split('<br>')
+      if count_awards(awards) >3
+          content+='<p id ="oscars_text">'
+          3.times do |i|
+            content+=awards[i]+'<br />'
+          end
+          content+='</p>'
+          content+="<p id=\"oscars\">#{link_to ("Lire la suite", product_awards_path(:product_id=>product.to_param))}</p>"
+      else
+        content+='<p>'+product.description.products_awards+'</p>'
+      end
+    end 
+  end
+  def count_awards (awards)
+    count=0;
+    awards.each do |award|
+      if !award.empty?
+        count+=1
+      end
+    end
+    count
+  end
 end
