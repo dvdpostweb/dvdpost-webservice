@@ -41,4 +41,12 @@ module ProductsHelper
       ''
     end
   end
+  
+  def product_description_text(product)
+    if product.description.nil? || product.description.text.nil?
+      ""
+    else
+      truncate product.description.text, :length => 300
+    end
+  end
 end
