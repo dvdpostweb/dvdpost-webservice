@@ -1,4 +1,4 @@
-<div class="critique">
+<div class="critique" id="critique<%= review.to_param%>">
   <div class="name">
     <span class="right"><%= "#{review.like_count} membres sur #{review.likeable_count} ont trouvés cette critique pertinente" %></span>
     <a href="#"><%= review.customers_name %></a>
@@ -14,5 +14,7 @@
     </span>
   </div>
   <p><%= review.text %></p>
-  <p class="yn">Cette critique est-elle pertinente ? <%= link_to 'OUI',"#", :class=>'yes',:review_id=>review.reviews_id,:product_id=>params['id'], :rate=>1 %> - <%= link_to 'NON',"#",:class=>"no" %></p>
+  <% if !review.rating_by_customer(current_customer) %>
+  <p class="yn">Cette critique est-elle pertinente ? <%= link_to 'OUI',"#", :class=>'yes',:review_id=>review.reviews_id, :rate=>1 %> - <%= link_to 'NON',"#",:class=>"no",:review_id=>review.reviews_id,:rate=>0 %></p>
+  <% end %>
 </div>
