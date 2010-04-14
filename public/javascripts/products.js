@@ -85,4 +85,14 @@ $(function() {
     $("#oscars").hide();
     return false;
   });
+
+  $(".yn .yes").click(function(){
+    $.ajax({
+      url: "/fr/reviews/"+$(this).attr('review_id')+"/review_rating/",
+      contentType: 'application/json; charset=utf-8',
+      type: 'POST',
+      data: JSON.stringify({"review_rating": {"rate": $(this).attr('rate')}})
+    });
+    return false;
+  });
 });
