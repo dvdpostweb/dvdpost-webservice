@@ -3,10 +3,8 @@
   <div id="title">SPECIAL JAMES CAMERON</div>
   <div id="titles-wrap">
     <div class="top"></div>
-    <% @products.collect do |product| %>
-      <%= render :partial => 'products/index/movie_detail', :locals => {:product => product} %>
-    <% end %>
-    <%= will_paginate @products %>
+    <%= render :partial => 'products/index/movie_detail', :collection => @products %>
+    <%= will_paginate @products, :previous_label => localized_image_tag('prec_on.gif'), :next_label => localized_image_tag('suivant_on.gif'), :page_links => false %>
     <!-- View Options -->	
     <ul id="views">
       <li><%= link_to "Grid View", '', {:id => 'grid-view'} %></li>

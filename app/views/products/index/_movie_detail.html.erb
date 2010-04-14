@@ -1,3 +1,4 @@
+<% product = movie_detail %>
 <div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2><%= link_to product.title, product_path(:id => product.to_param) %></h2>

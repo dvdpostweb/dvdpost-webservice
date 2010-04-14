@@ -20,4 +20,8 @@ module ApplicationHelper
       else 'high'
     end
   end
+
+  def localized_image_tag(source, options={})
+    image_tag File.join(I18n.locale.to_s, source), options
+  end
 end
