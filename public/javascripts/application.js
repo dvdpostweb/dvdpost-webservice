@@ -111,6 +111,23 @@ $(function() {
     });
   });
 
+  $(".interest").live("click", function() {
+    html_item = $(this).parent();
+    content = html_item.html();
+    html_item.html("Saving...");
+    $.ajax({
+      url: this.href,
+      type: 'POST',
+      success: function(data) {
+        html_item.html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
+
   $("#oscars a").click(function() {
     $("#oscars-text").css({'height':'inherit'});
     $("#oscars").hide();

@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :wishlist_items, :only => [:new, :create]
+      product.uninterested 'uninterested', :controller => :products, :action => :uninterested
     end
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
