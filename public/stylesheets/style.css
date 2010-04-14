@@ -659,7 +659,7 @@ cursor: default;
 }
 
 #titles-wrap .action .stars img {
-  margin: 0 1px;
+  padding: 0 1px;
 }
 
 #titles-wrap .action .links {

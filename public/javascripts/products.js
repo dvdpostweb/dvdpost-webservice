@@ -17,38 +17,42 @@ $(function() {
     return false;
   });
 
-  $(".star").mouseover(function(){
-    nb_star=$(this).attr('id');
-    for(var i=1; i<=5;i++)
-    {
-      if(i<=nb_star)
-      $('#'+i).attr('src','/images/star-voted-on.jpg');
-      else
-      $('#'+i).attr('src','/images/star-voted-off.jpg');
-    }
-  });
+  
 
   $(".star").click(function(){
-    rate=$(this).attr('id');
+    rate=$(this).attr('nb');
+	product_id = $(this).attr('product_id');
     data="rate="+rate;
+	$("#rating-stars"+product_id).html("<img src='/images/ajax-loader.gif' />")
     $.post($(this).parents('form').attr('action'), data, null, "script");
     return false;
   });
-
-  $(".star").mouseout(function(){
+  $(".star").mouseover(function(){
+    nb_star = $(this).attr('nb');
+	product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
-      type=$('#'+i).attr('type');
+      if(i<=nb_star)
+      $('#'+product_id+"_"+i).attr('src','/images/star-voted-on.jpg');
+      else
+      $('#'+product_id+"_"+i).attr('src','/images/star-voted-off.jpg');
+    }
+  });
+  $(".star").mouseout(function(){
+	product_id = $(this).attr('product_id');
+    for(var i=1; i<=5;i++)
+    {
+      type=$('#'+product_id+"_"+i).attr('type');
       switch(type)
       {
         case 'full':
-        $('#'+i).attr('src','/images/star-on.jpg');
+        $('#'+product_id+"_"+i).attr('src','/images/star-on.jpg');
         break;
         case 'half':
-        $('#'+i).attr('src','/images/star-half.jpg');
+        $('#'+product_id+"_"+i).attr('src','/images/star-half.jpg');
         break;
-        case 'empty':
-        $('#'+i).attr('src','/images/star-off.jpg');
+        case 'off':
+        $('#'+product_id+"_"+i).attr('src','/images/star-off.jpg');
         break;
       }
     }

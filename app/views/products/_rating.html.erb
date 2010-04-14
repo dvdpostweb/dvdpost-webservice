@@ -1,4 +1,4 @@
 <% form_for(:rating, :url => product_rating_path(I18n.locale, product)) do |f| %>
   <% rating = product.rating_by_customer(current_customer) %>
-  <%= rating_image(product.get_rating(current_customer, rating), rating) %>
+  <%= rating_image(product,product.get_rating(current_customer, rating), rating) %>
 <% end %>

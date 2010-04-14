@@ -3,7 +3,7 @@ module ProductsHelper
     session[:indicator_stored] ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
-  def rating_image(rating, rating_customer, type='DVD_NORM')
+  def rating_image(product,rating, rating_customer, type='DVD_NORM')
     images = ""
     if rating_customer
       name = "star-voted"
@@ -13,12 +13,13 @@ module ProductsHelper
       class_name = 'star'
     end
     5.times do |i|
+       id=product.to_param.to_s+'_'+(i+1).to_s
       if rating >= 2
-        images += image_tag "#{name}-on.jpg", :id => (i+1), :class => class_name, :type => 'full'
+        images += image_tag "#{name}-on.jpg", :id => id,:product_id =>product.to_param.to_s,:nb=>(i+1), :class => class_name, :type => 'full'
       elsif rating.odd?
-        images += image_tag "#{name}-half.jpg", :id => (i+1), :class => class_name, :type => 'half'
+        images += image_tag "#{name}-half.jpg", :id => id,:product_id =>product.to_param.to_s,:nb=>(i+1), :class => class_name, :type => 'half'
       else
-        images += image_tag "#{name}-off.jpg", :id => (i+1), :class => class_name, :type => 'off'
+        images += image_tag "#{name}-off.jpg", :id => id,:product_id =>product.to_param.to_s,:nb=>(i+1), :class => class_name, :type => 'off'
       end
       rating -= 2
       rating = 0 if rating < 0
