@@ -17,7 +17,7 @@ class Review < ActiveRecord::Base
   
   has_many :review_ratings, :foreign_key => :reviews_id
 
-  default_scope :order => 'customers_best_rating ASC, customers_bad_rating DESC'
+  default_scope :order => 'customers_best_rating DESC, customers_bad_rating ASC, date_added DESC'
 
   def likeable_count
     like_count + dislike_count
