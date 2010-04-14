@@ -17,11 +17,13 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
       product.resources :wishlist_items, :only => [:new, :create]
+      product.resources :reviews, :only => [:new, :create]
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
       product.seen 'seen', :controller => :products, :action => :seen
     end
-    localized.resources :reviews do |review|
-      review.resource :review_rating, :only=> :create
+
+    localized.resources :reviews, :only => [] do |review|
+      review.resource :review_rating, :only => :create
     end
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]

@@ -1,0 +1,9 @@
+<% form_for @review, :url => product_reviews_path(:product_id => @review.products_id) do |f| %>
+  <fieldset>
+    <%= f.label :text %>
+    <%= f.text_field :text %><br/>
+    <%= f.label :rating %>
+    <%= f.text_field :rating %><br/>
+    <%= f.submit 'Create' %>
+  </fieldset>
+<% end %>

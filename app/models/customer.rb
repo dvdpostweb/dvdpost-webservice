@@ -19,6 +19,7 @@ class Customer < ActiveRecord::Base
   has_many :assigned_items, :foreign_key => :customers_id
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings, :foreign_key => :customers_id
+  has_many :reviews, :foreign_key => :customers_id
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen
@@ -42,5 +43,9 @@ class Customer < ActiveRecord::Base
     if customer.authenticated?(password)
       User.find_by_email(email) || User.create(:email => email, :password => password, :email_confirmed => 1)
     end
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 end
