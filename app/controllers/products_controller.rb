@@ -14,6 +14,13 @@ class ProductsController < ApplicationController
   end
 
   def uninterested
-    @product.uninterested.by_customer(current_customer)
+    begin
+      @product = Product.find(params[:product_id])
+      @product.uninterested_customers << current_customer
+      respond_to do |format|
+        format.html {redirect_to product_path(:id => @product.to_param)}
+        format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      end
+    end
   end
 end
