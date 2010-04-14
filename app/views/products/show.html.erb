@@ -26,12 +26,7 @@
               Audio : <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{@product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
               Sous-titres : <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{@product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
             </p>
-            <p id="oscars-text">
-              <%= @product.description.products_awards %>
-            </p>
-            <p id="oscars">
-              <%= link_to 'Lire la suite' %>
-            </p>
+            <%= render :partial => 'products/show/awards', :locals => {:product => @product , :size=> 'small' } %>
             <p>
               <strong>Image :</strong> <%= @product.picture_format.name %><br />
               <strong>Détail du son :</strong> <%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
