@@ -18,6 +18,11 @@ class WishlistItemsController < ApplicationController
     begin
       @wishlist_item = WishlistItem.new(params[:wishlist_item])
       @wishlist_item.customer = current_customer
+      if AssignedItem.find(params[:wishlist_item][:product_id])
+        @wishlist_item.already_rented = 'YES'
+      else
+        @wishlist_item.already_rented = 'NO'
+      end
       @wishlist_item.save
       flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
       redirect_back_or @wishlist_item.product
