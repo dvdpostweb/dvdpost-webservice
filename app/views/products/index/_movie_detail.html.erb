@@ -28,10 +28,8 @@
     <div class="stars">
       <%= render :partial => 'products/rating', :locals => {:product => product} %>
     </div>
-    <div class="links">
-      <a href="#">Déjà Vu</a>
-      <span><img src="images/delimiter.gif" alt="" /></span>
-      <a href="#" class="interest">Pas intéressé</a>
+    <div class="links" id="seen-uninterested">
+      <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
     </div>
     <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
   </div>
