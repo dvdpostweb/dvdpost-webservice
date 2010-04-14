@@ -35,7 +35,7 @@ class Product < ActiveRecord::Base
 
   named_scope :by_kind,     lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   named_scope :by_media,    lambda {|media| {:conditions => {:products_media => (media.kind_of?(Array) ? media.collect{|m| DVDPost.product_types[m]} : DVDPost.product_types[media])}}}
-  named_scope :by_language, lambda {|language| {:conditions => {(language.to_s == 'fr' ? :products_language_fr : :products_undertitle_nl) => 1}}}
+  named_scope :by_language, lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
   named_scope :by_imdb_id,  lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :search,      lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
 
