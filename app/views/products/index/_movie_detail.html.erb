@@ -2,7 +2,7 @@
 <div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2><%= link_to product.title, product_path(:id => product.to_param) %></h2>
-    <p><%= truncate product.description.text, :length => 300 %></p>
+    <p><%= truncate product.description.text, :length => 300 unless product.description.text.nil? %></p>
     <p class="links">
       <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
       <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && (!product.description.url.nil? && !product.description.url.empty?) %>
