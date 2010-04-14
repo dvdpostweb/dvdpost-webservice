@@ -5,7 +5,7 @@
     <p><%= truncate product.description.text, :length => 300 %></p>
     <p class="links">
       <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
-      <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && !product.description.url.empty? %>
+      <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && (!product.description.url.nil? && !product.description.url.empty?) %>
       <%= link_to('En savoir +', product_path(:id => product.to_param), :class => 'more') %>
     </p>
   </div>
