@@ -53,7 +53,7 @@
             <%= available_on_other_media(@product) %>
             <% if @product.available_to_sale? %>
               <div id="buy">
-                <%= link_to 'Acheter', "/product_info_shop.php?products_id=#{@product.products_id}", :class => 'like-btn', :id => 'acheter-btn' %>
+                <%= link_to 'Acheter', "http://www.dvdpost.be/product_info_shop.php?products_id=#{@product.products_id}", :class => 'like-btn', :id => 'acheter-btn' , :target=> :_blank %>
                 <%= "&euro; #{@product.products_sale_price} " %>
               </div>
             <% end %>
