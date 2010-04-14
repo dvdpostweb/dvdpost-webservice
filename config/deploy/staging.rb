@@ -2,8 +2,8 @@
 #	Application
 #############################################################
 
-set :application, "dvdpost"
-set :deploy_to, "/home/webapps/dvdpost/staging"
+set :application, "dvdpostapp"
+set :deploy_to, "/home/webapps/dvdpostapp/staging"
 
 #############################################################
 #	Settings
@@ -19,8 +19,9 @@ set :rails_env, "staging"
 #	Servers
 #############################################################
 
-set :user, "dvdpost"
-set :domain, "dvdpost.redstorm.be"
+set :user, "dvdpostapp"
+set :domain, "staging.dvdpost.be"
+set :port, 22012
 server domain, :app, :web
 role :db, domain, :primary => true
 
@@ -56,8 +57,8 @@ namespace :deploy do
       database: dvdpost_test
       username: test_devuser
       password: 1nterD3nt
-      host: www.dvdpost.be
-      port: 43306
+      host: matadi
+      port: 3306
     EOF
     
     put db_config, "#{release_path}/config/database.yml"
