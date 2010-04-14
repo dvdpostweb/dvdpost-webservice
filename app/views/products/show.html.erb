@@ -45,9 +45,7 @@
             </div>
           </div>
           <div class="action">
-            <% if @product.is_dvdpostchoice %>
-              <div id="dvdpost-coup"><img src="/images/dvdpost-coup.png" alt="" /> Coup de coeur DVDPost</div>
-            <% end %>
+            <%= content_tag :div, "#{image_tag 'dvdpost-coup.png'} Coup de coeur DVDPost", :id => "dvdpost-coup" if @product.dvdposts_choice? %>
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
               <li class="stars" id="rating-stars">

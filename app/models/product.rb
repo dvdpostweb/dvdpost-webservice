@@ -72,7 +72,7 @@ class Product < ActiveRecord::Base
     availability > 0 and created_at.between?(3.months.ago, Time.now) and products_next == 0
   end
 
-  def is_dvdpostchoice
+  def dvdposts_choice?
     products_dvdpostchoice == 1
   end
 
