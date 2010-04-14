@@ -12,7 +12,9 @@ html, body{
   padding: 0;
   text-align: center;
 }
-
+img {
+	border:0px;
+}
 body {
   color: #454545;
   font-family: Arial, Helvetica, sans-serif;

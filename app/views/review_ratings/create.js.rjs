@@ -1,1 +1,0 @@
-page['critique'+@review.to_param].replace :partial => 'products/show/review', :locals => {:review => @review}
