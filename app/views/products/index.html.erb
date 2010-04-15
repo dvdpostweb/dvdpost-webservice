@@ -6,11 +6,13 @@
     <%= render :partial => 'products/index/movie_detail', :collection => @products %>
     <%= will_paginate @products, :previous_label => localized_image_tag('prec_on.gif'), :next_label => localized_image_tag('suivant_on.gif'), :page_links => false %>
     <!-- View Options -->	
+    <% if false %>
     <ul id="views">
       <li><%= link_to "Grid View", '', {:id => 'grid-view'} %></li>
       <li><%= link_to "List View", '', {:id => 'list-view', :class => 'active'} %></li>
       <li><%= link_to "Details View", '', {:id => 'details-view'} %></li>
     </ul>
+    <% end %>
     <div class="end"></div>
   </div>
 </div>
