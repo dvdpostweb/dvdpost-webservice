@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.views_increment
     @reviews = @product.reviews.paginate(:page => params[:reviews_page])
+    @already_see=AssignedItem.find(params[:id])
     @reviews_count = @product.reviews.count
   end
 
