@@ -4,11 +4,6 @@ class RatingsController < ApplicationController
     @product = Product.available.find(params[:product_id])
     @product.update_attribute(:rating_count, (@product.rating_count + 1))
     @product.update_attribute(:rating_users, (@product.rating_users + rate))
-    rating = Rating.create(:product => @product, 
-                           :customer => current_customer,
-                           :value => rate,
-                           :updated_at => Time.now,
-                           :type => @product.kind,
-                           :imdb_id => @product.imdb_id)
+    @product.ratings.create(:customer => current_customer, :value => rate)
   end
 end
