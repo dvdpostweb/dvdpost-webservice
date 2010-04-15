@@ -18,4 +18,24 @@ $(function() {
       }
     });
   });
+
+  $(".trash a").live("click", function() {
+    if (confirm('Are you sure?')) {
+      content = $(this).html();
+      parent = $(this).parent()
+      parent.html("<img src='/images/ajax-loader.gif' />");
+      $.ajax({
+        url: $(this).attr('href'),
+        type: 'DELETE',
+        success: function() {
+          alert('its gone!');
+          parent.parent().remove();
+        },
+        error: function() {
+          $(this).html(content);
+        }
+      });
+    };
+    return false;
+  });
 });

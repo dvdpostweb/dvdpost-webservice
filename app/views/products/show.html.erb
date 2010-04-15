@@ -10,11 +10,9 @@
         <div id="details">
           <div id="movie-info">
             <ul>
-              <% if @product.director %><li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li><% end %>
+              <li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li>
               <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
-              <% if @product.title != @product.original_title%>
-              <li><strong>titre original :</strong> <%= @product.original_title %>
-              <% end %>  
+              <%= "<li><strong>titre original :</strong> #{@product.original_title}" unless @product.title == @product.original_title %>
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
               <li><strong>Genre :</strong> <%= @product.categories.collect{|category| category.name}.join(', ') %></li>
               <li><strong>Pays :</strong> <%= @product.country.name %></li>
@@ -60,15 +58,12 @@
                 <%= "&euro; #{@product.products_sale_price} " %>
               </div>
             <% end %>
-			<% if @already_see %>
-				<%= image_tag('oeil.gif',:alt=>'already seen') %>
-			<% end %>
+            <%= image_tag 'oeil.gif', :alt => 'already seen' if @already_seen %>
           </div>
           <div class="clear"></div>
           <div id="sinopsis">
             <h3>Synopsis</h3>
             <p><%= @product.description.text %></p>
-
           </div>
         </div>
       </div>

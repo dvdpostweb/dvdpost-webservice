@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+  has_and_belongs_to_many :roles, :uniq => true
+
   def authenticated?(password)
     customer = Customer.find_by_email(email)
     customer ? customer.authenticated?(password) : false
@@ -17,5 +19,9 @@ class User < ActiveRecord::Base
 
   def customer
     Customer.find_by_email(email)
+  end
+
+  def has_role?(role)
+    roles.include?(role)
   end
 end

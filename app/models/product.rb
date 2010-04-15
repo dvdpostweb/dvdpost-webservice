@@ -15,7 +15,6 @@ class Product < ActiveRecord::Base
   alias_attribute :product_type, :products_product_type
   alias_attribute :availability, :products_availability
   alias_attribute :original_title, :products_title
-  
 
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
