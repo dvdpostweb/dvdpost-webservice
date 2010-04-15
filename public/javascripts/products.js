@@ -57,8 +57,9 @@ $(function() {
   });
 
   $("#add_to_wishlist_button").live("click", function() {
+    wishlist_item = $(this);
     jQuery.facebox(function() {
-      $.getScript($("#add_to_wishlist_button").attr('href'), function(data) {
+      $.getScript(wishlist_item.attr('href'), function(data) {
         jQuery.facebox(data);
       });
     });
