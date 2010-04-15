@@ -28,6 +28,7 @@ class Review < ActiveRecord::Base
   has_many :review_ratings, :foreign_key => :reviews_id
 
   default_scope :order => 'customers_best_rating DESC, customers_bad_rating ASC, date_added DESC'
+  named_scope :approved, :conditions => :reviews_check
 
   def likeable_count
     like_count + dislike_count
@@ -36,7 +37,7 @@ class Review < ActiveRecord::Base
   def likeability
     like_count - dislike_count
   end
-  
+
   def rating_by_customer(customer=nil)
     review_ratings.by_customer(customer).first
   end

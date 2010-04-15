@@ -84,7 +84,7 @@
             <% if @reviews_count > 0 %>
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
             <% else %>
-              <%= "Pas de critique d'utilisateur: #{link_to "Soyez le premier à publier une critique de #{@product.title}!"}" %>
+              <%= "Pas de critique d'utilisateur: #{link_to "Soyez le premier à publier une critique de #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'new_review'}" %>
             <% end %>
           </div>
           <div id="tab2" class="tab_content">

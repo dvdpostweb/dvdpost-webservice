@@ -9,9 +9,9 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @product.views_increment
-    @reviews = @product.reviews.paginate(:page => params[:reviews_page])
+    @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @already_see=AssignedItem.find(params[:id])
-    @reviews_count = @product.reviews.count
+    @reviews_count = @product.reviews.approved.count
   end
 
   def uninterested
@@ -39,8 +39,7 @@ class ProductsController < ApplicationController
   def awards
   @product = Product.find(params[:product_id])
   respond_to do |format|
-
-   format.js   {render :partial => 'products/show/awards', :locals => {:product => @product,:size=> 'full'}}
+    format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
   end
   end
 end
