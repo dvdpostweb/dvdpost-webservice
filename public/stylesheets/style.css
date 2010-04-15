@@ -48,10 +48,12 @@ fieldset {
 
 .left, .prev_page {
   float: left;
+  padding-top: 8px;
 }
 
 .right, .next_page {
   float: right;
+  padding-top: 8px;
 }
 
 .disabled {
