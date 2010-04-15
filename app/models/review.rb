@@ -37,7 +37,7 @@ class Review < ActiveRecord::Base
   def likeability
     like_count - dislike_count
   end
-  
+
   def rating_by_customer(customer=nil)
     review_ratings.by_customer(customer).first
   end
