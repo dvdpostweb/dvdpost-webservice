@@ -12,6 +12,9 @@
             <ul>
               <% if @product.director %><li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li><% end %>
               <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
+              <% if @product.title != @product.original_title%>
+              <li><strong>titre original :</strong> <%= @product.original_title %>
+              <% end %>  
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
               <li><strong>Genre :</strong> <%= @product.categories.collect{|category| category.name}.join(', ') %></li>
               <li><strong>Pays :</strong> <%= @product.country.name %></li>
@@ -43,10 +46,10 @@
             <%= content_tag :div, "#{image_tag 'dvdpost-coup.png'} Coup de coeur DVDPost", :id => "dvdpost-coup" if @product.dvdposts_choice? %>
             <div align="center"><strong>Cotez ce film</strong></div>
             <ul>
-              <li class="stars" id="rating-stars<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
+              <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
                 <%= render :partial => 'products/rating', :locals => {:product => @product} %>
               </li>
-              <li class="links" id="seen-uninterested">
+              <li class="links" id="seen-uninterested-<%= @product.to_param %>">
                 <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
               </li>
             </ul>

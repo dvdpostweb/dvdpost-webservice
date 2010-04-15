@@ -21,7 +21,7 @@ $(function() {
     rate=$(this).attr('nb');
 	product_id = $(this).attr('product_id');
     data="rate="+rate;
-	$("#rating-stars"+product_id).html("<img src='/images/ajax-loader.gif' />")
+	$("#rating-stars-"+product_id).html("<img src='/images/ajax-loader.gif' />")
     $.post($(this).parents('form').attr('action'), data, null, "script");
     return false;
   });
