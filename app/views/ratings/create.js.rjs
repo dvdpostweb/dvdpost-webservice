@@ -1,1 +1,2 @@
-page['rating-stars'+@product.to_param].replace_html :partial => 'products/rating', :locals => {:product => @product}
+page['rating-stars-'+@product.to_param].replace_html :partial => 'products/rating', :locals => {:product => @product}
+page['seen-uninterested-'+@product.to_param].replace_html :partial => 'products/show/seen_uninterested', :locals => {:product => @product}

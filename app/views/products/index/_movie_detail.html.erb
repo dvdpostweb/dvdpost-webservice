@@ -25,10 +25,10 @@
   </div>
   <div class="action">
     <h4>Action</h4>
-    <div class="stars" id="rating-stars<%= product.to_param %>" product_id ="<%= product.to_param %>">
+    <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
       <%= render :partial => 'products/rating', :locals => {:product => product} %>
     </div>
-    <div class="links" id="seen-uninterested">
+    <div class="links" id="seen-uninterested-<%= product.to_param %>">
       <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
     </div>
     <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
