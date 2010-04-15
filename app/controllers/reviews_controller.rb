@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
 
   def create
     begin
-      @product = Product.find(params[:product_id])
+      @product = Product.available.find(params[:product_id])
       review = @product.reviews.build(params[:review])
       review.customer = current_customer
       review.save

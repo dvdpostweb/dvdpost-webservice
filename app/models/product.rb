@@ -38,6 +38,7 @@ class Product < ActiveRecord::Base
   named_scope :by_language, lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
   named_scope :by_imdb_id,  lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :search,      lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
+  named_scope :available,   :conditions => ['products_status != ?', '-1']
 
   def description
     descriptions.by_language(I18n.locale).first

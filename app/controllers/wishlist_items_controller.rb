@@ -9,7 +9,7 @@ class WishlistItemsController < ApplicationController
   def new
     session[:return_to] = request.env["HTTP_REFERER"]
     @wishlist_item = WishlistItem.new
-    product = Product.find(params[:product_id])
+    product = Product.available.find(params[:product_id])
     @wishlist_item.product_id = product.to_param if product
     render :layout => false
   end

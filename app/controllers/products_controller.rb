@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.by_kind(:normal)
+    @products = Product.available.by_kind(:normal)
     @products = @products.search(params[:search]) if params[:search]
     @products = @products.by_media(params[:media].split(',')) if params[:media]
     @products = @products.paginate(:page => params[:page])
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.available.find(params[:id])
     @product.views_increment
     @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @already_see=AssignedItem.find(params[:id])
@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
 
   def uninterested
     begin
-      @product = Product.find(params[:product_id])
+      @product = Product.available.find(params[:product_id])
       @product.uninterested_customers << current_customer
       respond_to do |format|
         format.html {redirect_to product_path(:id => @product.to_param)}
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
 
   def seen
     begin
-      @product = Product.find(params[:product_id])
+      @product = Product.available.find(params[:product_id])
       @product.seen_customers << current_customer
       respond_to do |format|
         format.html {redirect_to product_path(:id => @product.to_param)}
@@ -37,9 +37,9 @@ class ProductsController < ApplicationController
   end
   
   def awards
-  @product = Product.find(params[:product_id])
-  respond_to do |format|
-    format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
-  end
+    @product = Product.available.find(params[:product_id])
+    respond_to do |format|
+      format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
+    end
   end
 end
