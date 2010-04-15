@@ -3,7 +3,12 @@ class WishlistItemsController < ApplicationController
 
   def index
     @wishlist_items = current_customer.wishlist_items.ordered.include_products
-    @transitted_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+    @transit_or_history = params[:transit_or_history] || 'transit'
+    if @transit_or_history == 'history'
+      @history_items = current_customer.assigned_items
+    else
+      @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+    end
   end
 
   def new
