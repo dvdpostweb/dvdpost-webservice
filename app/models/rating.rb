@@ -10,6 +10,7 @@ class Rating < ActiveRecord::Base
   alias_attribute :value,      :products_rating
 
   before_save :set_defaults
+  after_save :set_already_seen
 
   validates_presence_of :product
   validates_presence_of :customer
@@ -25,5 +26,9 @@ class Rating < ActiveRecord::Base
     self.updated_at = Time.now.to_s(:db)
     self.type = product.kind
     self.imdb_id = product.imdb_id
+  end
+
+  def set_already_seen
+    product.seen_customers << customer
   end
 end
