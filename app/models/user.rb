@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
   def customer
     Customer.find_by_email(email)
   end
+
+  def has_role?(role)
+    roles.include?(role)
+  end
 end
