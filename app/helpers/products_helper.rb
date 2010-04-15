@@ -61,7 +61,7 @@ module ProductsHelper
             content += "#{awards[i]}<br />"
           end
           content += '</p>'
-          content += "<p id=\"oscars\">#{link_to ("Lire la suite", product_awards_path(:product_id=>product.to_param))}</p>"
+          content += "<p id=\"oscars\">#{link_to 'Lire la suite', product_awards_path(:product_id => product.to_param)}</p>"
       else
         content += "<p>#{product.description.products_awards}</p>"
       end
