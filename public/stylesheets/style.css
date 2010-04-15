@@ -1219,6 +1219,17 @@ display: block;
   background: url(../images/bluray-btn.png) 0 100% no-repeat;
 }
 
+#detail-wrap .action #dvd-btn {
+  background: url(../images/dvd-btn.jpg) 0 0 no-repeat;
+  display: block;
+  height: 27px;
+  margin-bottom: 10px;
+}
+
+#detail-wrap .action #dvd-btn:hover {
+  background: url(../images/dvd-btn.jpg) 0 100% no-repeat;
+}
+
 #detail-wrap .action #buy {
   font-size: 1.33em;
   height: 28px;
