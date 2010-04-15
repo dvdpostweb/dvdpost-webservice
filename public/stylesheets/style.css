@@ -1289,10 +1289,23 @@ display: block;
   display: block;
   height: 38px;
   width: 166px;
+
 }
 
 #details .cover a.like-btn:hover {
   background: url(../images/ajouterbtn.png) 0 100% no-repeat;
+}
+#details .cover a.like-btn2 {
+  background: url(../images/allserie-btn.gif) 0 0 no-repeat;
+  display: block;
+  height: 38px;
+  width: 166px;
+  outline:medium none;
+  text-indent:-999em;
+}
+
+#details .cover a.like-btn2:hover {
+  background: url(../images/allserie-btn.gif) 0 100% no-repeat;
 }
 
 #details #sinopsis {
