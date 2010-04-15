@@ -12,7 +12,7 @@ class WishlistItem < ActiveRecord::Base
   belongs_to :product, :foreign_key => :product_id
 
   before_create :set_created_at
-  before_validation :set_type
+  before_validation :set_defaults
 
   validates_presence_of :product
   validates_presence_of :customer
@@ -31,7 +31,8 @@ class WishlistItem < ActiveRecord::Base
     self.created_at = Time.now.to_s(:db)
   end
 
-  def set_type
+  def set_defaults
     self.type = product.kind
+    self.already_rented = customer.assigned_products.include?(product) ? 'YES' : 'NO'
   end
 end

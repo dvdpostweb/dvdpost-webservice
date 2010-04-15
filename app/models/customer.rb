@@ -17,6 +17,7 @@ class Customer < ActiveRecord::Base
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
+  has_many :assigned_products, :through => :assigned_items, :source => :product
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings, :foreign_key => :customers_id
   has_many :reviews, :foreign_key => :customers_id
