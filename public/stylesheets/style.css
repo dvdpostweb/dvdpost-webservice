@@ -782,7 +782,11 @@ display: block;
 * html .container {
   padding-bottom: 24px;
 }
-
+.oeil{
+  vertical-align:top;
+  padding-left:5px;
+  width:18px;
+}
 #mywhishlist #maincontent .top, #mywhishlist #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end {
   background-image: url(../images/content-end-bg-wishlist.gif);
   background-position: 0 0;
