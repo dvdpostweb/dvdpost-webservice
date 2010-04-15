@@ -53,7 +53,7 @@ class Product < ActiveRecord::Base
   end
 
   def image
-    description && description.image ? File.join(DVDPost.images_path, description.image) : ''
+    File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
   end
 
   def get_rating(customers=nil, rating_customer=nil)

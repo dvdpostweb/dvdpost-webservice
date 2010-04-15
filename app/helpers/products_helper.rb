@@ -13,13 +13,13 @@ module ProductsHelper
       class_name = 'star'
     end
     5.times do |i|
-       id=product.to_param.to_s+'_'+(i+1).to_s
+       id = product.to_param.to_s+'_'+(i+1).to_s
       if rating >= 2
-        images += image_tag "#{name}-on.jpg", :id => id,:product_id =>product.to_param.to_s,:nb=>(i+1), :class => class_name, :type => 'full'
+        images += image_tag "#{name}-on.jpg", :id => id, :product_id =>product.to_param.to_s, :nb => (i+1), :class => class_name, :type => 'full'
       elsif rating.odd?
-        images += image_tag "#{name}-half.jpg", :id => id,:product_id =>product.to_param.to_s,:nb=>(i+1), :class => class_name, :type => 'half'
+        images += image_tag "#{name}-half.jpg", :id => id, :product_id =>product.to_param.to_s, :nb => (i+1), :class => class_name, :type => 'half'
       else
-        images += image_tag "#{name}-off.jpg", :id => id,:product_id =>product.to_param.to_s,:nb=>(i+1), :class => class_name, :type => 'off'
+        images += image_tag "#{name}-off.jpg", :id => id, :product_id =>product.to_param.to_s, :nb => (i+1), :class => class_name, :type => 'off'
       end
       rating -= 2
       rating = 0 if rating < 0
@@ -44,14 +44,18 @@ module ProductsHelper
   end
 
   def product_description_text(product)
-    product.description.nil? || product.description.text.nil? ? '' : truncate product.description.text, :length => 300
+    product.description.nil? || product.description.text.nil? ? '' : truncate(product.description.text, :length => 300)
+  end
+
+  def product_image_tag(source, options={})
+    image_tag (source || File.join(I18n.locale.to_s, 'image_not_found.gif')), options
   end
 
   def awards(product)
     content = ''
     if !product.description.products_awards.empty?
       awards = product.description.products_awards.split('<br>')
-      if count_awards(awards) >3
+      if count_awards(awards) > 3
           content += '<p id ="oscars_text">'
           3.times do |i|
             content += "#{awards[i]}<br />"

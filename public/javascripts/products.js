@@ -17,9 +17,7 @@ $(function() {
     return false;
   });
 
-  
-
-  $(".star").click(function(){
+  $(".star").click(function() {
     rate=$(this).attr('nb');
 	product_id = $(this).attr('product_id');
     data="rate="+rate;
@@ -38,7 +36,7 @@ $(function() {
       $('#'+product_id+"_"+i).attr('src','/images/star-voted-off.jpg');
     }
   });
-  $(".star").mouseout(function(){
+  $(".star").mouseout(function() {
 	product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
@@ -85,22 +83,21 @@ $(function() {
   });
 
   $("#oscars a").click(function() {
-    html_item=$('#oscars_text');
-  	content=html_item.html();
-  	$.ajax({
+    html_item = $('#oscars_text');
+    content = html_item.html();
+    $.ajax({
       url: this.href,
-  	  dataType: 'script',
+      dataType: 'script',
       type: 'GET',
-  	  success: function(data) {
-       html_item.html(data);
-	   $("#oscars").hide();
+      success: function(data) {
+        html_item.html(data);
+        $("#oscars").hide();
       },
       error: function() {
-       html_item.html(content);
-	   $("#oscars").hide();
+        html_item.html(content);
+        $("#oscars").hide();
       }
     });
-    
     return false;
   });
 });
