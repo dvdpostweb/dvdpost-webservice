@@ -45,7 +45,10 @@ class WishlistItemsController < ApplicationController
   def destroy
     @wishlist_item = WishlistItem.destroy(params[:id])
     flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
-    redirect_to wishlist_path
+    respond_to do |format|
+      format.html {redirect_to wishlist_path}
+      format.js   {render :status => :ok, :layout => false}
+    end
   end
 
   private
