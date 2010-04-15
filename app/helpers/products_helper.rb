@@ -42,41 +42,35 @@ module ProductsHelper
       ''
     end
   end
-  
+
   def product_description_text(product)
-    if product.description.nil? || product.description.text.nil?
-      ""
-    else
-      truncate product.description.text, :length => 300
-    end
+    product.description.nil? || product.description.text.nil? ? '' : truncate product.description.text, :length => 300
   end
-  
+
   def awards(product)
-    content=''
-    
+    content = ''
     if !product.description.products_awards.empty?
-      awards=product.description.products_awards.split('<br>')
+      awards = product.description.products_awards.split('<br>')
       if count_awards(awards) >3
-          content+='<p id ="oscars_text">'
+          content += '<p id ="oscars_text">'
           3.times do |i|
-            content+=awards[i]+'<br />'
+            content += "#{awards[i]}<br />"
           end
-          content+='</p>'
-          content+="<p id=\"oscars\">#{link_to ("Lire la suite", product_awards_path(:product_id=>product.to_param))}</p>"
+          content += '</p>'
+          content += "<p id=\"oscars\">#{link_to ("Lire la suite", product_awards_path(:product_id=>product.to_param))}</p>"
       else
-        content+='<p>'+product.description.products_awards+'</p>'
+        content += "<p>#{product.description.products_awards}</p>"
       end
     end 
   end
-  
-  def count_awards (awards)
-    count=0;
+
+  def count_awards(awards)
+    count = 0
     awards.each do |award|
       if !award.empty?
-        count+=1
+        count += 1
       end
     end
     count
   end
-  
 end
