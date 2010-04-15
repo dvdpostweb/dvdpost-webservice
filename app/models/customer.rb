@@ -21,8 +21,8 @@ class Customer < ActiveRecord::Base
   has_many :ratings, :foreign_key => :customers_id
   has_many :reviews, :foreign_key => :customers_id
   has_many :uninteresteds, :foreign_key => :customers_id
-  has_many :uninterested_products, :through => :uninteresteds, :source => :product
-  has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen
+  has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
+  has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
 
   def self.find_by_email(args)
     self.find_by_customers_email_address(args)
