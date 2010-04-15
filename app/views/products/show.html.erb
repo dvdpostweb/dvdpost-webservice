@@ -57,11 +57,15 @@
                 <%= "&euro; #{@product.products_sale_price} " %>
               </div>
             <% end %>
+			<% if @already_see %>
+				<%= image_tag('oeil.gif',:alt=>'already seen') %>
+			<% end %>
           </div>
           <div class="clear"></div>
           <div id="sinopsis">
             <h3>Synopsis</h3>
             <p><%= @product.description.text %></p>
+
           </div>
         </div>
       </div>
