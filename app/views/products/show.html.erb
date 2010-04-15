@@ -12,6 +12,9 @@
             <ul>
               <% if @product.director %><li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li><% end %>
               <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
+              <% if @product.title != @product.original_title%>
+              <li><strong>titre original :</strong> <%= @product.original_title %>
+              <% end %>  
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
               <li><strong>Genre :</strong> <%= @product.categories.collect{|category| category.name}.join(', ') %></li>
               <li><strong>Pays :</strong> <%= @product.country.name %></li>
