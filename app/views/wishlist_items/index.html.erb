@@ -4,16 +4,6 @@
   <!-- DVD chez vous ou en transit -->
   <% locals = @transit_or_history == 'history' ? {:transit_items => nil, :history_items => @history_items} : {:transit_items => @transit_items, :history_items => nil} %>
   <%= render :partial => 'wishlist_items/index/transit_history_list', :locals => locals.merge(:wishlist_items_count => @wishlist_items.count) %>
-  <ul id="on-way-nav">
-    <li class="first">
-      <% if @transit_or_history == 'history' %>
-        <%= link_to 'Voir les DVD chez vous ou en transit', wishlist_path(:transit_or_history => 'transit') %>
-      <% else %>  
-        <%= link_to 'Voir mon historique de location', wishlist_path(:transit_or_history => 'history') %>
-      <% end %>
-    </li>
-    <li><a href="#">Ajouter des titres à ma liste</a></li>
-  </ul>
   <!-- End DVD chez vous ou en transit -->
   <!-- Ma liste de films -->
   <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies.current} %>

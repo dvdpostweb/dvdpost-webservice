@@ -1,23 +1,35 @@
-<div class="box" id="on-way">
-  <ul>
+<div class="on-way-with-nav">
+  <div class="box" id="on-way">
+    <ul>
+      <li class="first">
+        <% if transit_items %>
+          <h2>DVD chez vous ou en transit : <span><%= "#{transit_items.count} DVD" %></span></h2>
+        <% elsif history_items %>
+          <h2>History : <span><%= "#{history_items.count} DVD" %></span></h2>
+        <% end %>
+      </li>
+      <li>
+        <h2>Votre liste contient : <span><%= "#{wishlist_items_count} DVD" %></span></h2>
+      </li>
+    </ul>
+    <div class="head clearfix">
+      <div class="title">Titres</div>
+      <div class="status">Statuts de mes locations</div>
+    </div>
+    <% if transit_items %>
+      <%= render :partial => 'wishlist_items/index/transit_item', :collection => transit_items %>
+    <% elsif history_items %>
+      <%= render :partial => 'wishlist_items/index/history_item', :collection => history_items %>
+    <% end %>
+  </div>
+  <ul id="on-way-nav">
     <li class="first">
-      <% if transit_items %>
-        <h2>DVD chez vous ou en transit : <span><%= "#{transit_items.count} DVD" %></span></h2>
-      <% elsif history_items %>
-        <h2>History : <span><%= "#{history_items.count} DVD" %></span></h2>
+      <% if history_items %>
+        <%= link_to 'Voir les DVD chez vous ou en transit', wishlist_path(:transit_or_history => 'transit'), :class => 'transit_or_history' %>
+      <% else %>
+        <%= link_to 'Voir mon historique de location', wishlist_path(:transit_or_history => 'history'), :class => 'transit_or_history' %>
       <% end %>
     </li>
-    <li>
-      <h2>Votre liste contient : <span><%= "#{wishlist_items_count} DVD" %></span></h2>
-    </li>
+    <li><a href="#">Ajouter des titres à ma liste</a></li>
   </ul>
-  <div class="head clearfix">
-    <div class="title">Titres</div>
-    <div class="status">Statuts de mes locations</div>
-  </div>
-  <% if transit_items %>
-    <%= render :partial => 'wishlist_items/index/transit_item', :collection => transit_items %>
-  <% elsif history_items %>
-    <%= render :partial => 'wishlist_items/index/history_item', :collection => history_items %>
-  <% end %>  
 </div>
