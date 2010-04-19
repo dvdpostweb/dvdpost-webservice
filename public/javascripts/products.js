@@ -3,7 +3,6 @@ $(function() {
   $("#tab1 #pagination a").live("click", function() {
     $.setFragment({ reviews_page: $.queryString(this.href).reviews_page })
   });
-  $.fragmentChange(true);
   $(document).bind("fragmentChange.reviews_page", function() {
     $.getScript($.queryString(document.location.href, { 'reviews_page': $.fragment().reviews_page }));
   });
@@ -18,16 +17,16 @@ $(function() {
   });
 
   $(".star").click(function() {
-    rate=$(this).attr('nb');
-	product_id = $(this).attr('product_id');
-    data="rate="+rate;
-	$("#rating-stars-"+product_id).html("<img src='/images/ajax-loader.gif' />")
+    rate = $(this).attr('nb');
+    product_id = $(this).attr('product_id');
+    data = "rate="+rate;
+    $("#rating-stars-"+product_id).html("<img src='/images/ajax-loader.gif' />")
     $.post($(this).parents('form').attr('action'), data, null, "script");
     return false;
   });
   $(".star").mouseover(function(){
     nb_star = $(this).attr('nb');
-	product_id = $(this).attr('product_id');
+    product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
       if(i<=nb_star)
@@ -37,7 +36,7 @@ $(function() {
     }
   });
   $(".star").mouseout(function() {
-	product_id = $(this).attr('product_id');
+	  product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
       type=$('#'+product_id+"_"+i).attr('type');
