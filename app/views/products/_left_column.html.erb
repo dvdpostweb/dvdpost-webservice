@@ -5,7 +5,20 @@
     <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
   <% end %>
   <ul id="left-nav">
-    <li><%= link_to 'Les tops' %></li>
+    <li><%= link_to 'Recommandations' %></li>
+    <li>
+      <%= link_to 'Les tops' %>
+      <ul>
+        <li><a href="#">Les plus drôles</a></li>
+        <li><a href="#">Les plus tristes</a></li>
+        <li><a href="#">Les plus effrayants</a></li>
+        <li><a href="#">Les plus surprenants</a></li>
+        <li><a href="#">Les plus étoilés</a></li>
+        <li><a href="#">Les plus regardés</a></li>
+        <li><a href="#">Les plus primés</a></li>
+        <li><a href="#">Les plus commentés</a></li>
+      </ul>
+    </li>
     <li><%= link_to 'Catégories' %></li>
     <li><%= link_to 'Thèmes' %></li>
   </ul>
@@ -13,6 +26,58 @@
     SPECIAL <br />
     JAMES CAMERON
   </p>
+  <div id="filters">
+    <h3>AFFINER MA RECHERCHE</h3>
+    <form method="post" action="">
+      <ul>
+        <li class="open"><a href="#">Technologie</a>
+          <div>
+            <label>
+            <input name="" type="checkbox" value="" />
+            DVD</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Blu-ray</label>
+          </div>
+        </li>
+        <li class="open"><a href="#">Type</a>
+          <div>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Film</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Documentaire</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Série</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Music &amp; Concerts</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Theatre</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Comic</label>
+            <label>
+            <input name="" type="checkbox" value="" />
+            Independent</label>
+          </div>
+        </li>
+        <li><a href="#" class="open">Public</a>
+          <div><img src="/images/filter-public.gif" alt="" /></div>
+        </li>
+        <li><a href="#">Son</a></li>
+        <li><a href="#">Formats</a></li>
+        <li><a href="#">Durée</a></li>
+        <li><a href="#">Prix</a></li>
+        <li class="open"><a href="#">Année</a>
+          <div><img src="/images/filter-annee.gif" alt="" /></div>
+        </li>
+      </ul>
+    </form>
+  </div>
   <ul id="left-links">
     <li><%= link_to 'Enquête de satisfaction' %></li>
     <li><%= link_to 'Parrainer un ami' %></li>
