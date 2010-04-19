@@ -36,10 +36,17 @@ class Product < ActiveRecord::Base
 
   named_scope :by_kind,     lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   named_scope :by_media,    lambda {|media| {:conditions => {:products_media => (media.kind_of?(Array) ? media.collect{|m| DVDPost.product_types[m]} : DVDPost.product_types[media])}}}
+  named_scope :by_year,     lambda {|year| {:conditions => {:products_year => year}}}
+  named_scope :by_period,   lambda {|min, max| {:conditions => {:products_year => min..max}}}
+  named_scope :by_duration, lambda {|min, max| {:conditions => {:products_runtime => min..max}}}
   named_scope :by_language, lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
   named_scope :by_imdb_id,  lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :search,      lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
   named_scope :available,   :conditions => ['products_status != ?', '-1']
+  named_scope :by_public,   lambda {|min, max|
+    ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
+    {:conditions => {:products_public => ages}}
+  }
 
   def description
     descriptions.by_language(I18n.locale).first
@@ -60,9 +67,9 @@ class Product < ActiveRecord::Base
 
   def get_rating(customers=nil, rating_customer=nil)
     if customers && rating_customer
-      rating_customer.value.to_i*2
+      rating_customer.value.to_i * 2
     else
-      rating_count == 0 ? 0 : ((rating_users.to_f/rating_count.to_f)*2).round
+      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count.to_f)  *2).round
     end
   end
 

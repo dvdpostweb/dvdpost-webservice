@@ -15,12 +15,12 @@ module DVDPost
     def product_publics
       HashWithIndifferentAccess.new.merge({
         'all' => 1,
-        '12'  => 2,
-        '16'  => 3,
-        '18'  => 4,
         '6'   => 5,
         '10'  => 6,
-        '14'  => 7
+        '12'  => 2,
+        '14'  => 7,
+        '16'  => 3,
+        '18'  => 4
       })
     end
 
