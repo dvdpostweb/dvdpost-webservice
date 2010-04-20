@@ -19,7 +19,14 @@
         <li><a href="#">Les plus commentés</a></li>
       </ul>
     </li>
-    <li><%= link_to 'Catégories' %></li>
+    <li>
+      <%= link_to 'Catégories' %>
+      <ul>
+        <% Category.movies.by_kind(:normal).roots.collect do |category| %>
+          <li><%= link_to category.name, category_path(:id => category) %></li>
+        <% end %>
+      </ul>
+    </li>
     <li><%= link_to 'Thèmes' %></li>
   </ul>
   <p id="special">

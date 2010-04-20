@@ -3,7 +3,12 @@
   <div id="detail-wrap">
     <div class="top"></div>
     <!-- Detail -->
-    <div id="breadcrumb"><a href="#">Emotion/drame</a> &rsaquo; Destin</div>
+    <% if @breadcrumb %>
+      <!-- @breadcrumb is not yet used. This should show the path on which you were able to find the product -->
+      <div id="breadcrumb">
+        <a href="#">Emotion/drame</a> &rsaquo; Destin
+      </div>
+    <% end %>
     <h2><%= "#{@product.title} (#{@product.year})" %></h2>
     <div class="box">
       <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
@@ -14,7 +19,7 @@
               <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
               <%= "<li><strong>titre original :</strong> #{@product.original_title}" unless @product.title == @product.original_title %>
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
-              <li><strong>Genre :</strong> <%= @product.categories.collect{|category| category.name}.join(', ') %></li>
+              <li><strong>Genre :</strong> <%= @product.categories.collect{|category| link_to category.name, category_path(:id => category)}.join(', ') %></li>
               <li><strong>Pays :</strong> <%= @product.country.name %></li>
               <li><strong>Public :</strong> <%= image_tag @product.public.image, :alt => @product.public.description %></li>
             </ul>

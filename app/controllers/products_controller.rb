@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.available.find(params[:id])
+    @categories = @product.categories
     @product.views_increment
     @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @already_seen = current_customer.assigned_products.include?(@product)
