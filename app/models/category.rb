@@ -1,6 +1,4 @@
 class Category < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_primary_key :categories_id
 
   belongs_to :parent, :class_name => 'Category', :foreign_key => :parent_id

@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  establish_connection :dvdpost_main
+  include Clearance::User
 
   set_table_name :customers
 
@@ -14,6 +14,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :language,          :customers_language
   alias_attribute :suspension_status, :customers_abo_suspended
 
+  has_one :user
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -40,10 +41,8 @@ class Customer < ActiveRecord::Base
   end
 
   def self.authenticate(email, password)
-    return nil unless customer = find_by_email(email)
-    if customer.authenticated?(password)
-      User.find_by_email(email) || User.create(:email => email, :password => password, :email_confirmed => 1)
-    end
+    return nil      unless customer = find_by_email(email)
+    return customer if     customer.authenticated?(password)
   end
 
   def name

@@ -1,6 +1,4 @@
 class Order < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_primary_key :orders_id
 
   alias_attribute :updated_at, :last_modified

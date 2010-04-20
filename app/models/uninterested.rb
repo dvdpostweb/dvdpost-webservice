@@ -1,6 +1,4 @@
 class Uninterested < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :products_uninterested
 
   set_primary_key :products_uninterested_id

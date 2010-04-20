@@ -1,6 +1,4 @@
 class PictureFormat < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :picture_format
 
   set_primary_key :picture_format_id

@@ -1,6 +1,4 @@
 class AssignedItem < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :wishlist_assigned
 
   set_primary_key :wl_assigned_id

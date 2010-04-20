@@ -1,6 +1,4 @@
 class ProductDescription < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :products_description
 
   alias_attribute :text,    :products_description
