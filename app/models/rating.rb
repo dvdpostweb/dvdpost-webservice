@@ -1,6 +1,4 @@
 class Rating < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :products_rating
 
   set_primary_key :products_rating_id

@@ -1,6 +1,4 @@
 class WishlistItem < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :wishlist
 
   set_primary_key :wl_id

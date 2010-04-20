@@ -2,8 +2,6 @@ class Product < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 10
 
-  establish_connection :dvdpost_main
-
   set_primary_key :products_id
 
   alias_attribute :created_at,   :products_date_added

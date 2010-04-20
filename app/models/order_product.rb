@@ -1,6 +1,4 @@
 class OrderProduct< ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :orders_products
 
   set_primary_key :orders_products_id

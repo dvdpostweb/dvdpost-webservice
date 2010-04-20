@@ -2,8 +2,6 @@ class Review < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 3
 
-  establish_connection :dvdpost_main
-
   set_primary_key :reviews_id
 
   alias_attribute :created_at,    :date_added

@@ -1,6 +1,4 @@
 class Public < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :public
 
   set_primary_key :public_id

@@ -1,6 +1,4 @@
 class Trailer < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :products_trailers
 
   set_primary_key :trailers_id
