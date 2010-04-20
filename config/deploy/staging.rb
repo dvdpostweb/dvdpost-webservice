@@ -44,14 +44,7 @@ namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
     db_config = <<-EOF
-    staging:    
-      adapter: mysql
-      encoding: utf8
-      username: dvdpost
-      password: p0ststrm
-      database: dvdpost_staging
-      host: localhost
-    dvdpost_main:
+    staging:
       adapter: mysql
       encoding: utf8
       database: dvdpost_test
@@ -60,7 +53,6 @@ namespace :deploy do
       host: matadi
       port: 3306
     EOF
-    
     put db_config, "#{release_path}/config/database.yml"
   end
   
