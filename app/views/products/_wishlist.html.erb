@@ -2,4 +2,7 @@
   Already in your wishlist
 <% else %>
   <%= link_to 'Ajouter à ma liste', new_product_wishlist_item_path(:product_id => product.to_param), :class => 'like-btn', :id => 'add_to_wishlist_button' %>
+  <% if product.series? %>
+    <%= link_to 'Ajouter à ma liste', new_product_wishlist_item_path(:product_id => product.to_param), :class => 'like-btn2', :id => 'add_all_to_wishlist_button' %>
+  <% end %>
 <% end %>

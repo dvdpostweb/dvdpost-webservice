@@ -42,7 +42,14 @@ module ProductsHelper
       ''
     end
   end
-
+  def available_on_other_language(product)
+      if product.products_other_language.to_i>0
+        link_to('Disponible dans une autre langue', product_path(:id => product.products_other_language), :id => '', :class => '') 
+      else
+        ''
+      end
+  end
+  
   def product_description_text(product)
     product.description.nil? || product.description.text.nil? ? '' : truncate(product.description.text, :length => 300)
   end

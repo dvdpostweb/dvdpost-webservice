@@ -52,6 +52,8 @@
               </li>
             </ul>
             <%= available_on_other_media(@product) %>
+            <%= available_on_other_language(@product) %>
+            
             <% if @product.available_to_sale? %>
               <div id="buy">
                 <%= link_to 'Acheter', "http://www.dvdpost.be/product_info_shop.php?products_id=#{@product.products_id}", :class => 'like-btn', :id => 'acheter-btn' , :target=> :_blank %>

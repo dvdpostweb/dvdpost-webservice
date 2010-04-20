@@ -65,6 +65,15 @@ $(function() {
     });
     return false;
   });
+  $("#add_all_to_wishlist_button").live("click", function() {
+    wishlist_item = $(this);
+    jQuery.facebox(function() {
+      $.getScript(wishlist_item.attr('href')+"?add_all_serie=1", function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
 
   $(".action .links a").live("click", function() {
     html_item = $(this).parent();
