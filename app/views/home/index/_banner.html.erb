@@ -1,0 +1,12 @@
+<%= 
+
+case type 
+when 'quizz'
+  link_to image_tag(@quizz.image), 'http://www.dvdpost.be/quizz.php'
+when 'contest'
+  link_to image_tag(@contest.image), 'http://www.dvdpost.be/contest.php'
+else
+  'other'
+end    
+%>
+  

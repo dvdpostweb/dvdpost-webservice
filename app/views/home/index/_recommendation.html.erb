@@ -1,0 +1,13 @@
+<li>
+  <span class="stars">
+    <%= rating_image_small(recommendation) %>
+  </span>
+  <% link_to product_path(:id => recommendation.to_param) do %>
+  <span class="<%= product_media_id(recommendation.media) %>">
+    <%= product_image_tag recommendation.image, :width => 76,:height=> 118, :alt => "#{recommendation.title} (#{recommendation.year})" %>
+    <%= content_tag(:span, '', :class => 'new') if recommendation.is_new? %>
+  </span>
+  <% end %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => recommendation} %>
+  <%= link_to recommendation.title, product_path(:id => recommendation.to_param), :class => 'more'  %>
+</li>
