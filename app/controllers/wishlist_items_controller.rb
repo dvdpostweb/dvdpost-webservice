@@ -3,7 +3,18 @@ class WishlistItemsController < ApplicationController
 
   def index
     @wishlist_items = current_customer.wishlist_items.ordered.include_products
-    @transitted_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+    @transit_or_history = params[:transit_or_history] || 'transit'
+    if @transit_or_history == 'history'
+      @history_items = current_customer.assigned_items
+      locals = {:transit_items => nil, :history_items => @history_items}
+    else
+      @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+      locals = {:transit_items => @transit_items, :history_items => nil}
+    end
+    respond_to do |format|
+      format.html
+      format.js   {render :partial => 'wishlist_items/index/transit_history_list', :locals => locals.merge(:wishlist_items_count => @wishlist_items.count)}
+    end
   end
 
   def new

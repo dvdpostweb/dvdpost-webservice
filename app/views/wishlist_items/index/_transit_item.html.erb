@@ -1,0 +1,7 @@
+<div class="<%= product_media_id(transit_item.product.media) %> clearfix">
+  <div class="title"><%= link_to truncate(transit_item.product.title, :length => 50), product_path(:id => transit_item.product.to_param) %></div>
+  <div class="status">
+    <a href="#">Signaler un problème</a>
+    <span class="ok"><%= "Expédié le #{transit_item.changed_at.strftime("%d/%m/%Y")}" %></span>
+  </div>
+</div>

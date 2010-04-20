@@ -28,7 +28,6 @@ $(function() {
         url: $(this).attr('href'),
         type: 'DELETE',
         success: function() {
-          alert('its gone!');
           parent.parent().remove();
         },
         error: function() {
@@ -36,6 +35,30 @@ $(function() {
         }
       });
     };
+    return false;
+  });
+
+  $(document).bind("fragmentChange.transit_or_history", function() {
+    $.getScript($.queryString(document.location.href, { 'transit_or_history': $.fragment().transit_or_history }));
+  });
+  if ($.fragment().transit_or_history) {
+    $(document).trigger("fragmentChange.transit_or_history");
+  }
+  $("a.transit_or_history").live("click", function() {
+    html_item = $(this);
+    content = html_item.html();
+    html_item.html("Loading ...");
+    $.ajax({
+      url: html_item.attr('href'),
+      type: 'GET',
+      success: function(data) {
+        $(".on-way-with-nav").html(data);
+        $.setFragment({ transit_or_history: $.queryString(html_item.attr('href')).transit_or_history })
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
     return false;
   });
 });

@@ -1,7 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :locale => :fr, :controller => :products, :action => :index, :conditions => {:method => :get} # Temporary, should be a homepage action instead
+  map.root :locale => :fr, :controller => :home, :action => :index, :conditions => {:method => :get}
 
   map.with_options :path_prefix => '/:locale' do |localized|
+    localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
+
     # Only the Clearance routes we actually need
     # Clearance::Routes.draw(map) # => If all Clearance routes are needed
     localized.with_options :controller => 'clearance/sessions' do |clearance|

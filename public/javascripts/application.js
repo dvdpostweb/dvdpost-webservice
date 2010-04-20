@@ -1,4 +1,7 @@
 $(function() {
+  // Enable fragmetChange. This will allow us to put ajax into browser history
+  $.fragmentChange(true);
+
   // hides the slickbox as soon as the DOM is ready
   // (a little sooner than page load)
   $('#lang-box').hide();

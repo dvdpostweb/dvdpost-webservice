@@ -2,7 +2,8 @@
 <div id="maincontent" >
   <div class="top"></div>
   <!-- DVD chez vous ou en transit -->
-  <%= render :partial => 'wishlist_items/index/transit_list', :locals => {:transitted_items => @transitted_items, :wishlist_items_count => @wishlist_items.count} %>
+  <% locals = @transit_or_history == 'history' ? {:transit_items => nil, :history_items => @history_items} : {:transit_items => @transit_items, :history_items => nil} %>
+  <%= render :partial => 'wishlist_items/index/transit_history_list', :locals => locals.merge(:wishlist_items_count => @wishlist_items.count) %>
   <!-- End DVD chez vous ou en transit -->
   <!-- Ma liste de films -->
   <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies.current} %>

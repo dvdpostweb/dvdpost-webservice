@@ -1,6 +1,18 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent" >
   <div id="title">SPECIAL JAMES CAMERON</div>
+  <div id="title">MES RECHERCHES</div>
+  <ul id="filtered" class="clearfix">
+    <li><strong>TECHNOLOGIE</strong> DVD</li>
+    <li><strong>PUBLIC</strong> de AL à -12</li>
+    <li><strong>TYPE</strong> Film - Série</li>
+    <li><strong>ANNée</strong> de old à 90</li>
+    <li><strong>Son</strong> </li>
+    <li><strong>Formats</strong> </li>
+    <li><strong>durée</strong> </li>
+    <li><strong>PRIX</strong> </li>
+    <li id="close-f"><a href="#" class="like-btn">Fermer</a></li>
+  </ul>
   <div id="titles-wrap">
     <div class="top"></div>
     <%= render :partial => 'products/index/movie_detail', :collection => @products %>
