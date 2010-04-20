@@ -19,12 +19,9 @@ class WishlistItemsController < ApplicationController
 
   def new
     session[:return_to] = request.env["HTTP_REFERER"]
-    @wishlist_item = WishlistItem.new
     product = Product.available.find(params[:product_id])
-    if params[:add_all_serie].to_i == 1
-      @serie_id = product.products_series_id
-    end
-    @wishlist_item.product_id = product.to_param if product
+    @wishlist_item = product.wishlist_items.build
+    @serie_id = product.products_series_id if params[:add_all_serie].to_i == 1
     render :layout => false
   end
 
@@ -52,13 +49,6 @@ class WishlistItemsController < ApplicationController
       end
     end
   end
-  
-  def add_wishlist_item(params)
-    wishlist_item = WishlistItem.new(params)
-    wishlist_item.customer = current_customer
-    wishlist_item.save
-    wishlist_item
-  end
 
   def update
     begin
@@ -80,6 +70,13 @@ class WishlistItemsController < ApplicationController
   end
 
   private
+  def add_wishlist_item(params)
+    wishlist_item = WishlistItem.new(params)
+    wishlist_item.customer = current_customer
+    wishlist_item.save
+    wishlist_item
+  end
+
   def set_body_id
     @body_id = 'mywhishlist'
   end

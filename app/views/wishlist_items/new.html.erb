@@ -2,7 +2,7 @@
   <fieldset>
     <%= f.hidden_field :product_id %>
     <% if @serie_id.to_i > 0 %>
-      <%= hidden_field_tag (:serie_id, @serie_id) %>
+      <%= hidden_field_tag :serie_id, @serie_id %>
     <% end %>
     <%= f.label :priority_1, 'High' %>
     <%= f.radio_button :priority, '1' %><br/>
