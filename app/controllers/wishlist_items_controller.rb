@@ -21,16 +21,26 @@ class WishlistItemsController < ApplicationController
     session[:return_to] = request.env["HTTP_REFERER"]
     @wishlist_item = WishlistItem.new
     product = Product.available.find(params[:product_id])
+    if params[:add_all_serie].to_i == 1
+      @serie_id = product.products_series_id
+    end
     @wishlist_item.product_id = product.to_param if product
     render :layout => false
   end
 
   def create
     begin
-      @wishlist_item = WishlistItem.new(params[:wishlist_item])
-      @wishlist_item.customer = current_customer
-      @wishlist_item.save
-      flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
+      if params[:serie_id]
+        priority = params[:wishlist_item][:priority]
+        all_products = Product.find_all_by_products_series_id(params[:serie_id])
+        all_products.each do |product|
+          @wishlist_item = add_wishlist_item({:product_id => product.id, :priority => priority})
+        end
+        flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority and the rest of this serie."
+      else
+        @wishlist_item = add_wishlist_item(params[:wishlist_item])
+        flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
+      end
       redirect_back_or @wishlist_item.product
     rescue Exception => e
       if @wishlist && @wishlist.product
@@ -41,6 +51,13 @@ class WishlistItemsController < ApplicationController
         redirect_to wishlist_path
       end
     end
+  end
+  
+  def add_wishlist_item(params)
+    wishlist_item = WishlistItem.new(params)
+    wishlist_item.customer = current_customer
+    wishlist_item.save
+    wishlist_item
   end
 
   def update

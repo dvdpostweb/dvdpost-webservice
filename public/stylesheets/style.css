@@ -1310,6 +1310,18 @@ display: block;
   background: url(../images/allserie-btn.gif) 0 100% no-repeat;
 }
 
+#details .cover a.like-btn2 {
+  background: url(../images/allserie-btn.gif) 0 0 no-repeat;
+  display: block;
+  height: 38px;
+  width: 166px;
+  outline:medium none;
+  text-indent:-999em;
+}
+
+#details .cover a.like-btn2:hover {
+  background: url(../images/allserie-btn.gif) 0 100% no-repeat;
+}
 #details #sinopsis {
   border-top: 5px solid #f6f6f6;
   clear: both;
