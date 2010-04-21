@@ -1,8 +1,9 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="leftcolumn">
+  <% if false %>
   <% form_tag products_path, :method => :get, :id => 'search' do %>
-    <%= text_field_tag :search, 'Rechercher', :id => 's' %>
-    <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
+  <%= text_field_tag :search, 'Rechercher', :id => 's' %>
+  <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
   <% end %>
   <ul id="left-nav">
     <li><%= link_to 'Recommandations' %></li>
@@ -22,8 +23,8 @@
     <li>
       <%= link_to 'Catégories' %>
       <ul>
-        <% Category.movies.by_kind(:normal).roots.collect do |category| %>
-          <li><%= link_to category.name, category_path(:id => category) %></li>
+        <% Category.active.roots.movies.by_kind(:normal).ordered.collect do |category| %>
+        <li><%= link_to category.name, category_path(:id => category) %></li>
         <% end %>
       </ul>
     </li>
@@ -33,57 +34,104 @@
     SPECIAL <br />
     JAMES CAMERON
   </p>
+  <% end %>
   <div id="filters">
     <h3>AFFINER MA RECHERCHE</h3>
-    <form method="post" action="">
+    <% form_tag products_path, :method => :get do %>
+      <% field_set_tag do %>
       <ul>
-        <li class="open"><a href="#">Technologie</a>
+        <li class="open">
+          <%= link_to 'Technologie' %>
           <div>
             <label>
-            <input name="" type="checkbox" value="" />
-            DVD</label>
+              <%= filter_checkbox_tag :media, :dvd %>
+              DVD
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Blu-ray</label>
+              <%= filter_checkbox_tag :media, :bluray %>
+              Blu-ray
+            </label>
           </div>
         </li>
-        <li class="open"><a href="#">Type</a>
+        <li class="open">
+          <%= link_to 'Type' %>
           <div>
             <label>
-            <input name="" type="checkbox" value="" />
-            Film</label>
+              <%= filter_checkbox_tag :type, :movie %>
+              Film
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Documentaire</label>
+              <%= filter_checkbox_tag :type, :documentary %>
+              Documentaire
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Série</label>
+              <%= filter_checkbox_tag :type, :series %>
+              Série
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Music &amp; Concerts</label>
+              <%= filter_checkbox_tag :type, :music %>
+              Music &amp; Concerts
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Theatre</label>
+              <%= filter_checkbox_tag :type, :theatre %>
+              Theatre
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Comic</label>
+              <%= filter_checkbox_tag :type, :cartoon %>
+              Comic
+            </label>
             <label>
-            <input name="" type="checkbox" value="" />
-            Independent</label>
+              <%= filter_checkbox_tag :type, :independent %>
+              Independent
+            </label>
           </div>
         </li>
-        <li><a href="#" class="open">Public</a>
-          <div><img src="/images/filter-public.gif" alt="" /></div>
+        <li class="open">
+          <%= link_to 'Public' %>
+          <div id="public-slider">
+            <%= hidden_field_tag :public_min, (params[:public_min] || 0) %>
+            <%= hidden_field_tag :public_max, (params[:public_max] || 18) %>
+            <ul id="public_labels">
+              <% ['ALL', '-10', '-12', '-16', '-18'].collect do |p| %>
+                <li><%= p %></li>
+              <% end %>
+            </ul>
+            <div id="public-slider-range"></div>
+          </div>
         </li>
-        <li><a href="#">Son</a></li>
-        <li><a href="#">Formats</a></li>
-        <li><a href="#">Durée</a></li>
-        <li><a href="#">Prix</a></li>
-        <li class="open"><a href="#">Année</a>
-          <div><img src="/images/filter-annee.gif" alt="" /></div>
+        <li>
+          <%= link_to 'Son' %>
+          <div></div>
+        </li>
+        <li>
+          <%= link_to 'Formats' %>
+          <div></div>
+        </li>
+        <li>
+          <%= link_to 'Durée' %>
+          <div></div>
+        </li>
+        <li>
+          <%= link_to 'Prix' %>
+          <div></div>
+        </li>
+        <li class="open">
+          <%= link_to 'Année' %>
+          <div id="year-slider">
+            <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
+            <%= hidden_field_tag :year_max, (params[:year_max] || 18) %>
+            <ul id="year_labels">
+              <% ['OLD', '40', '50', '60', '70', '80', '90', '00', 'NOW'].collect do |year| %>
+                <li><%= year %></li>
+              <% end %>
+            </ul>
+            <div id="year-slider-range"></div>
+          </div>
         </li>
       </ul>
-    </form>
+      <% end %>
+      <%= submit_tag 'Apply', :name => nil %>
+    <% end %>
   </div>
   <ul id="left-links">
     <li><%= link_to 'Enquête de satisfaction' %></li>
