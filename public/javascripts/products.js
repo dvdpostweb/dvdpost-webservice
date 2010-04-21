@@ -115,7 +115,7 @@ $(function() {
   });
 
   $("#filters ul li a").live("click", function() {
-    $(this).parent().toggleClass();
+    $(this).parent().toggleClass('open');
     $(this).parent().find("div").toggle(1);
     return false;
   });
@@ -131,6 +131,20 @@ $(function() {
       actual_public_values = {'0': 0, '1': 10, '2': 12, '3': 16, '4': 18};
       $("#public_min").val(actual_public_values[ui.values[0]]);
       $("#public_max").val(actual_public_values[ui.values[1]]);
+    }
+  });
+
+  duration_slider_values = {'0': 0, '30': 1, '60': 2, '90': 3, '120': 4, '150': 5, '180': 6, '9999': 7};
+  $("#duration-slider-range").slider({
+    range: true,
+    min: 0,
+    max: 7,
+    values: [duration_slider_values[$("#duration_min").val()], duration_slider_values[$("#duration_max").val()]],
+    step: 1,
+    slide: function(event, ui) {
+      actual_duration_values = {'0': 0, '1': 30, '2': 60, '3': 90, '4': 120, '5': 150, '6': 180, '7': 9999};
+      $("#duration_min").val(actual_duration_values[ui.values[0]]);
+      $("#duration_max").val(actual_duration_values[ui.values[1]]);
     }
   });
 

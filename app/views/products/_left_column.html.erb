@@ -107,9 +107,18 @@
           <%= link_to 'Formats' %>
           <div></div>
         </li>
-        <li>
+        <li class="open">
           <%= link_to 'Durée' %>
-          <div></div>
+          <div id="duration-slider">
+            <%= hidden_field_tag :duration_min, (params[:duration_min] || 0) %>
+            <%= hidden_field_tag :duration_max, (params[:duration_max] || 9999) %>
+            <ul id="duration_labels">
+              <% ['0', '30', '60', '90', '120', '150', '180', '+'].collect do |duration| %>
+                <li><%= duration %></li>
+              <% end %>
+            </ul>
+            <div id="duration-slider-range"></div>
+          </div>
         </li>
         <li>
           <%= link_to 'Prix' %>
@@ -119,9 +128,9 @@
           <%= link_to 'Année' %>
           <div id="year-slider">
             <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
-            <%= hidden_field_tag :year_max, (params[:year_max] || 18) %>
+            <%= hidden_field_tag :year_max, (params[:year_max] || 2010) %>
             <ul id="year_labels">
-              <% ['OLD', '40', '50', '60', '70', '80', '90', '00', 'NOW'].collect do |year| %>
+              <% ['-', '40', '50', '60', '70', '80', '90', '00', '+'].collect do |year| %>
                 <li><%= year %></li>
               <% end %>
             </ul>
