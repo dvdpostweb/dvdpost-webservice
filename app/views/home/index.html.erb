@@ -84,64 +84,8 @@
         </li>
         <li><a href="#">Voir toutes mes recommandations</a></li>
       </ul>
-      <!-- Carousel -->
-      <div id="carousel-wrap-hp">
-        <div id="carousel">
-          <ul>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="dvd"><img src="/images/poster-mid.jpg" alt="" /><span class="new"></span></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Public Enemies
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Les Noces Rebelles
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              L'Etrange Histoire de Benjamin Button
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Les Noces Rebelles
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Les Noces Rebelles
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Les Noces Rebelles
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="dvd"><img src="/images/poster-mid.jpg" alt="" /><span class="new"></span></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Public Enemies
-            </li>
-            <li>
-              <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-              <span class="dvd"><img src="/images/poster-mid.jpg" alt="" /><span class="new"></span></span>
-              <a href="#" class="like-btn">Ajouter</a>
-              Public Enemies
-            </li>
-          </ul>
-          <a href="#" class="like-btn" id="prev">Previous</a>
-          <a href="#" class="like-btn" id="next">Next</a>
-        </div>
-      </div>
-      <div class="clear"></div>
+      
+      <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
 
       <!-- Top 10  -->
       <div id="top10-wrap">
@@ -218,58 +162,16 @@
 
       <!-- Banners  -->
       <div id="banners">
-        <a href="#"><img src="/images/banner1.png" alt="" /></a>
-        <a href="#"><img src="/images/banner2.jpg" alt="" /></a>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} %>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} %>
         <a href="#"><img src="/images/banner3.jpg" alt="" /></a>
         <a href="#"><img src="/images/banner4.jpg" alt="" /></a>
       </div>
 
       <!-- Prochainement/Nouveautés   -->
       <div id="new-m">
-        <h3 class="hp-ttls">Prochainement</h3>
-        <ul class="clearfix">
-          <li>
-            <img src="/images/top10-stars.png" alt="" />
-            <span class="cover dvd"><img src="/images/new-m1.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            <a href="#">Halloween II</a>
-          </li>
-          <li>
-            <img src="/images/top10-stars.png" alt="" />
-            <span class="cover dvd"><img src="/images/new-m2.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            <a href="#">Jusqu'à Toi</a>
-          </li>
-          <li>
-            <img src="/images/top10-stars.png" alt="" />
-            <span class="cover dvd"><img src="/images/new-m3.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            <a href="#">Panique au Village</a>
-          </li>
-
-        </ul>
-
-        <h3 class="hp-ttls" id="nouv">Nouveautés </h3>
-        <ul class="clearfix">
-          <li>
-            <img src="/images/top10-stars.png" alt="" />
-            <span class="cover dvd"><img src="/images/new-m4.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            <a href="#">Clones</a>
-          </li>
-          <li>
-            <img src="/images/top10-stars.png" alt="" />
-            <span class="cover dvd"><img src="/images/new-m5.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            <a href="#">JAlvin et les Chipmunks 2</a>
-          </li>
-          <li>
-            <img src="/images/top10-stars.png" alt="" />
-            <span class="cover dvd"><img src="/images/new-m6.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            <a href="#">L'Assistant du Vampire</a>
-          </li>
-        </ul>
+        <%= render :partial => 'home/index/theme', :locals => {:products => @soon} %>
+        <%= render :partial => 'home/index/theme', :locals => {:products => @new, :id=>'nouv'} %>
       </div>
 
       <div class="clear"></div>
