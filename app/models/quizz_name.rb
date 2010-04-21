@@ -1,6 +1,4 @@
 class QuizzName < ActiveRecord::Base
-  establish_connection :dvdpost_main
-
   set_table_name :quizz_name
 
   set_primary_key :quizz_name_id
