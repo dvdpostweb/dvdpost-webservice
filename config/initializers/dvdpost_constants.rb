@@ -3,7 +3,7 @@ module DVDPost
     def images_path
       'http://www.dvdpost.be/images'
     end
-    
+
     def images_language_path
        HashWithIndifferentAccess.new.merge({
           :fr => 'http://www.dvdpost.be/images/www3/languages/french/images',
