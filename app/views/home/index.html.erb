@@ -78,12 +78,7 @@
       </ul>
 
       <!-- Recommandations  -->
-      <ul class="ttls-nav" id="recom">
-        <li>
-          <h3 class="hp-ttls">Recommandations</h3>
-        </li>
-        <li><a href="#">Voir toutes mes recommandations</a></li>
-      </ul>
+
       <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
 
       <!-- Top 10  -->
@@ -163,8 +158,9 @@
       <div id="banners">
         <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} %>
         <%= render :partial => 'home/index/banner', :locals => {:type => 'contest'} %>
-        <a href="#"><img src="/images/banner3.jpg" alt="" /></a>
-        <a href="#"><img src="/images/banner4.jpg" alt="" /></a>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'shop'} %>
+        <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
+        
       </div>
 
       <!-- Prochainement/Nouveautés   -->
