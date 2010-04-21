@@ -8,6 +8,9 @@ class Category < ActiveRecord::Base
   named_scope :by_kind, lambda {|kind| {:conditions => {:categories_type => DVDPost.product_kinds[kind]}}}
   named_scope :movies, :conditions => {:product_type => 'Movie'}
   named_scope :roots, :conditions => {:parent_id => 0}
+  named_scope :visible_on_homepage, :conditions => {:show_home => 'YES'}
+  named_scope :active, :conditions => {:active => 'YES'}
+  named_scope :ordered, :order => 'display_group ASC, sort_order ASC'
 
   def name
     descriptions.by_language(I18n.locale).first ? descriptions.by_language(I18n.locale).first.name : "NONAME_#{to_param}"

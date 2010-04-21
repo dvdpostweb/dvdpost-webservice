@@ -81,4 +81,8 @@ module ProductsHelper
     end
     count
   end
+
+  def filter_checkbox_tag(attribute, sub_attribute)
+    check_box_tag "#{attribute}[#{sub_attribute}]", 1, params[attribute] && params[attribute][sub_attribute]
+  end
 end

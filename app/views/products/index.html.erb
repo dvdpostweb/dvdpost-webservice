@@ -3,21 +3,45 @@
   <div id="title">SPECIAL JAMES CAMERON</div>
   <div id="title">MES RECHERCHES</div>
   <ul id="filtered" class="clearfix">
-    <li><strong>TECHNOLOGIE</strong> DVD</li>
-    <li><strong>PUBLIC</strong> de AL à -12</li>
-    <li><strong>TYPE</strong> Film - Série</li>
-    <li><strong>ANNée</strong> de old à 90</li>
-    <li><strong>Son</strong> </li>
-    <li><strong>Formats</strong> </li>
-    <li><strong>durée</strong> </li>
-    <li><strong>PRIX</strong> </li>
+    <li>
+      <strong>TECHNOLOGIE</strong>
+      <%= params[:media].keys.join(', ') if params[:media] %>
+    </li>
+    <li>
+      <strong>PUBLIC</strong>
+      <%= "de #{params[:public_min]} à #{params[:public_max]}" if params[:public_min] && params[:public_max] %>
+    </li>
+    <li>
+      <strong>TYPE</strong>
+      <%= params[:type].split(',').join(', ') if params[:type] %>
+    </li>
+    <li>
+      <strong>ANNée</strong>
+      <%= "de #{params[:year_min]} à #{params[:year_max]}" if params[:year_min] && params[:year_max] %>
+    </li>
+    <li>
+      <strong>Son</strong>
+      <%= params[:sound].split(',').join(', ') if params[:sound] %>
+    </li>
+    <li>
+      <strong>Formats</strong>
+      <%= params[:picture].split(',').join(', ') if params[:picture] %>
+    </li>
+    <li>
+      <strong>durée</strong>
+      <%= "de #{params[:duration_min]} à #{params[:duration_max]}" if params[:duration_min] && params[:duration_max] %>
+    </li>
+    <li>
+      <strong>PRIX</strong>
+      <%= params[:price].split(',').join(', ') if params[:price] %>
+    </li>
     <li id="close-f"><a href="#" class="like-btn">Fermer</a></li>
   </ul>
   <div id="titles-wrap">
     <div class="top"></div>
     <%= render :partial => 'products/index/movie_detail', :collection => @products %>
     <%= will_paginate @products, :previous_label => localized_image_tag('prec_on.gif'), :next_label => localized_image_tag('suivant_on.gif'), :page_links => false %>
-    <!-- View Options -->	
+    <!-- View Options -->
     <% if false %>
     <ul id="views">
       <li><%= link_to "Grid View", '', {:id => 'grid-view'} %></li>
