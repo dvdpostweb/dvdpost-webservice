@@ -12,6 +12,20 @@ module DVDPost
         })
     end
 
+    def images_shop_path
+       HashWithIndifferentAccess.new.merge({
+          :fr => 'http://www.dvdpost.be/images/www3/languages/french/images/shop',
+          :nl => 'http://www.dvdpost.be/images/www3/languages/dutch/images/shop',
+          :en => 'http://www.dvdpost.be/images/www3/languages/english/images/shop'
+        })
+    end
+    
+    def banner_size
+      HashWithIndifferentAccess.new.merge({
+        :small => '180x150'
+      })
+    end
+
     def product_languages
       HashWithIndifferentAccess.new.merge({
         :fr => 1,

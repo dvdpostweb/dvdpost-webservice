@@ -1,6 +1,4 @@
 class ContestName < ActiveRecord::Base
-  establish_connection :dvdpost_main
-  
   set_table_name :contest_name
   
   set_primary_key :contest_name_id

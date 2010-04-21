@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def wishlist_size
-    (@wishlist_size = current_customer.wishlist_items.count || 0) if current_user
+    (@wishlist_size = current_customer.wishlist_items.count || 0) if current_customer
   end
 
   def set_locale
