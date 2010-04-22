@@ -7,7 +7,9 @@ class ProductsController < ApplicationController
     @products = @products.by_public(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
     @products = @products.by_period(params[:year_min], params[:year_max]) if params[:year_min] && params[:year_max]
     @products = @products.by_duration(params[:duration_min], params[:duration_max]) if params[:duration_min] && params[:duration_max]
+    @products = @products.by_soundtrack(params[:soundtrack].keys) if params[:soundtrack]
     @products = @products.paginate(:page => params[:page])
+    @soundtracks = Soundtrack.all
   end
 
   def show

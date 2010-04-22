@@ -1,0 +1,114 @@
+<div id="filters">
+  <h3>AFFINER MA RECHERCHE</h3>
+  <% form_tag products_path, :method => :get do %>
+    <% field_set_tag do %>
+    <ul>
+      <li class="open">
+        <%= link_to 'Technologie' %>
+        <div>
+          <label>
+            <%= filter_checkbox_tag :media, :dvd %>
+            DVD
+          </label>
+          <label>
+            <%= filter_checkbox_tag :media, :bluray %>
+            Blu-ray
+          </label>
+        </div>
+      </li>
+      <li class="open">
+        <%= link_to 'Type' %>
+        <div>
+          <label>
+            <%= filter_checkbox_tag :type, :movie %>
+            Film
+          </label>
+          <label>
+            <%= filter_checkbox_tag :type, :documentary %>
+            Documentaire
+          </label>
+          <label>
+            <%= filter_checkbox_tag :type, :series %>
+            Série
+          </label>
+          <label>
+            <%= filter_checkbox_tag :type, :music %>
+            Music &amp; Concerts
+          </label>
+          <label>
+            <%= filter_checkbox_tag :type, :theatre %>
+            Theatre
+          </label>
+          <label>
+            <%= filter_checkbox_tag :type, :cartoon %>
+            Comic
+          </label>
+          <label>
+            <%= filter_checkbox_tag :type, :independent %>
+            Independent
+          </label>
+        </div>
+      </li>
+      <li class="open">
+        <%= link_to 'Public' %>
+        <div id="public-slider">
+          <%= hidden_field_tag :public_min, (params[:public_min] || 0) %>
+          <%= hidden_field_tag :public_max, (params[:public_max] || 18) %>
+          <ul id="public_labels">
+            <% ['ALL', '-10', '-12', '-16', '-18'].collect do |p| %>
+              <li><%= p %></li>
+            <% end %>
+          </ul>
+          <div id="public-slider-range"></div>
+        </div>
+      </li>
+      <li class="open">
+        <%= link_to 'Son' %>
+        <div>
+          <% soundtracks.collect do |soundtrack| %>
+            <label>
+              <%= filter_checkbox_tag :soundtrack, DVDPost.soundtrack_param_names.invert[soundtrack.to_param] %>
+              <%= soundtrack.name %>
+            </label>
+          <% end %>
+        </div>
+      </li>
+      <li>
+        <%= link_to 'Formats' %>
+        <div></div>
+      </li>
+      <li class="open">
+        <%= link_to 'Durée' %>
+        <div id="duration-slider">
+          <%= hidden_field_tag :duration_min, (params[:duration_min] || 0) %>
+          <%= hidden_field_tag :duration_max, (params[:duration_max] || 9999) %>
+          <ul id="duration_labels">
+            <% ['0', '30', '60', '90', '120', '150', '180', '+'].collect do |duration| %>
+              <li><%= duration %></li>
+            <% end %>
+          </ul>
+          <div id="duration-slider-range"></div>
+        </div>
+      </li>
+      <li>
+        <%= link_to 'Prix' %>
+        <div></div>
+      </li>
+      <li class="open">
+        <%= link_to 'Année' %>
+        <div id="year-slider">
+          <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
+          <%= hidden_field_tag :year_max, (params[:year_max] || 2010) %>
+          <ul id="year_labels">
+            <% ['-', '40', '50', '60', '70', '80', '90', '00', '+'].collect do |year| %>
+              <li><%= year %></li>
+            <% end %>
+          </ul>
+          <div id="year-slider-range"></div>
+        </div>
+      </li>
+    </ul>
+    <% end %>
+    <%= submit_tag 'Apply', :name => nil %>
+  <% end %>
+</div>
