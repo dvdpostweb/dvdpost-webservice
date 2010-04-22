@@ -2192,18 +2192,18 @@ div.top10.first p a {
   background: url(../images/filters-arrows.gif) 11px -22px no-repeat;
 }
 
-#filters li.open label {
+#filters li label {
   color: #5c6377;
   cursor: pointer;
   display: block;
   padding: 0 0 0 12px;
 }
 
-#filters li.open label:hover {
+#filters li label:hover {
   background: #fafafa;
 }
 
-#filters li.open label input {
+#filters li label input {
   vertical-align: middle;
 }
 
