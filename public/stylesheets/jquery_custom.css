@@ -6,12 +6,13 @@
   border: 0;
   background: url(../images/slided_background_unselected.gif) 0 0 no-repeat;
   -webkit-border-radius: 0;
+  padding-bottom: 4px;
 }
 .ui-slider .ui-slider-range {
   border: 0;
   background: url(../images/slided_background_selected.gif) 0 0 no-repeat;
 }
-#filters li.open a.ui-slider-handle {
+#filters li a.ui-slider-handle {
   background: url(../images/feche_off.png) 0 0 no-repeat;
   border: 0;
   top: -8px;
@@ -21,12 +22,12 @@
   padding: 0;
   margin-left: -7px;
 }
-ul#public_labels, ul#year_labels {
+ul#public_labels, ul#year_labels, ul#duration_labels {
   background: none;
   padding: 4px 0;
   height: 12px;
 }
-ul#public_labels li {
+ul#public_labels li, ul#duration_labels li, ul#year_labels li {
   display: block;
   float: left;
   width: 24px;
@@ -35,16 +36,14 @@ ul#public_labels li {
   color: #687597;
   background: none;
 }
+ul#public_labels li {
+  width: 24px;
+}
+ul#duration_labels li {
+  width: 22px;
+  padding: 0;
+}
 ul#year_labels li {
-  display: block;
-  float: left;
   width: 20px;
   padding: 0;
-  text-align:center;
-  color: #687597;
-  background: none;
-  font-size: 8px;
-}
-#public-slider {
-  padding-bottom: 4px;
 }

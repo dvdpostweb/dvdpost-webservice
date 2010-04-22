@@ -1,9 +1,8 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="leftcolumn">
-  <% if false %>
   <% form_tag products_path, :method => :get, :id => 'search' do %>
-  <%= text_field_tag :search, 'Rechercher', :id => 's' %>
-  <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
+    <%= text_field_tag :search, 'Rechercher', :id => 's' %>
+    <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
   <% end %>
   <ul id="left-nav">
     <li><%= link_to 'Recommandations' %></li>
@@ -34,105 +33,7 @@
     SPECIAL <br />
     JAMES CAMERON
   </p>
-  <% end %>
-  <div id="filters">
-    <h3>AFFINER MA RECHERCHE</h3>
-    <% form_tag products_path, :method => :get do %>
-      <% field_set_tag do %>
-      <ul>
-        <li class="open">
-          <%= link_to 'Technologie' %>
-          <div>
-            <label>
-              <%= filter_checkbox_tag :media, :dvd %>
-              DVD
-            </label>
-            <label>
-              <%= filter_checkbox_tag :media, :bluray %>
-              Blu-ray
-            </label>
-          </div>
-        </li>
-        <li class="open">
-          <%= link_to 'Type' %>
-          <div>
-            <label>
-              <%= filter_checkbox_tag :type, :movie %>
-              Film
-            </label>
-            <label>
-              <%= filter_checkbox_tag :type, :documentary %>
-              Documentaire
-            </label>
-            <label>
-              <%= filter_checkbox_tag :type, :series %>
-              Série
-            </label>
-            <label>
-              <%= filter_checkbox_tag :type, :music %>
-              Music &amp; Concerts
-            </label>
-            <label>
-              <%= filter_checkbox_tag :type, :theatre %>
-              Theatre
-            </label>
-            <label>
-              <%= filter_checkbox_tag :type, :cartoon %>
-              Comic
-            </label>
-            <label>
-              <%= filter_checkbox_tag :type, :independent %>
-              Independent
-            </label>
-          </div>
-        </li>
-        <li class="open">
-          <%= link_to 'Public' %>
-          <div id="public-slider">
-            <%= hidden_field_tag :public_min, (params[:public_min] || 0) %>
-            <%= hidden_field_tag :public_max, (params[:public_max] || 18) %>
-            <ul id="public_labels">
-              <% ['ALL', '-10', '-12', '-16', '-18'].collect do |p| %>
-                <li><%= p %></li>
-              <% end %>
-            </ul>
-            <div id="public-slider-range"></div>
-          </div>
-        </li>
-        <li>
-          <%= link_to 'Son' %>
-          <div></div>
-        </li>
-        <li>
-          <%= link_to 'Formats' %>
-          <div></div>
-        </li>
-        <li>
-          <%= link_to 'Durée' %>
-          <div></div>
-        </li>
-        <li>
-          <%= link_to 'Prix' %>
-          <div></div>
-        </li>
-        <li class="open">
-          <%= link_to 'Année' %>
-          <div id="year-slider">
-            <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
-            <%= hidden_field_tag :year_max, (params[:year_max] || 18) %>
-            <ul id="year_labels">
-              <% ['OLD', '40', '50', '60', '70', '80', '90', '00', 'NOW'].collect do |year| %>
-                <li><%= year %></li>
-              <% end %>
-            </ul>
-            <div id="year-slider-range"></div>
-          </div>
-        </li>
-      </ul>
-      <% end %>
-      <%= submit_tag 'Apply', :name => nil %>
-    <% end %>
-  </div>
+  <%= render :partial => 'products/index/filters', :locals => {:soundtracks => @soundtracks, :picture_formats => @picture_formats} if params[:action] == 'index' %>
   <ul id="left-links">
     <li><%= link_to 'Enquête de satisfaction' %></li>
     <li><%= link_to 'Parrainer un ami' %></li>
