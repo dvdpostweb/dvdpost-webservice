@@ -1,14 +1,19 @@
 module HomeHelper
-  def rating_image_small(product, type='DVD_NORM')
+  def rating_image_small(product, type='DVD_NORM',background='white')
     rating = product.get_rating
     images = ""
+    if(background == :white)
+      color=''
+    else
+      color='dark_'
+    end
     5.times do |i|
       if rating >= 2
-        images += image_tag "little-star-on.jpg", :alt=>'star'
+        images += image_tag color+"little-star-on.jpg", :alt=>'star'
       elsif rating.odd?
-        images += image_tag "little-star-on.jpg", :alt=>'star'
+        images += image_tag color+"little-star-half.jpg", :alt=>'star'
       else
-        images += image_tag "little-star-off.jpg", :alt=>'star'
+        images += image_tag color+"little-star-off.jpg", :alt=>'star'
       end
       rating -= 2
       rating = 0 if rating < 0
@@ -22,8 +27,22 @@ module HomeHelper
       link_to image_tag(@quizz.image), 'http://www.dvdpost.be/quizz.php'
     when 'contest'
       link_to image_tag(@contest.image), 'http://www.dvdpost.be/contest.php'
+    when 'shop'
+      link_to image_tag(@shop.image), @shop.url
+    when 'community'
+      i=rand(4)
+      case i
+      when 0
+        link_to image_tag('banner_blog.gif',:alt=>'blog dvdpost'), "http://insidedvdpost.blogspot.com/"
+      when 1
+        link_to image_tag('banner_facebook.gif',:alt=>'facebook dvdpost'), "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834"
+      when 2  
+        link_to image_tag('banner_parrainage.gif',:alt=>'parrainage dvdpost'), "http://www.dvdpost.be/member_get_member.php"
+      when 3  
+        link_to image_tag('banner_twitter.gif',:alt=>'twitter dvdpost'), "http://twitter.com/dvdpost"
+      end 
     else
       'other'
-    end    
+    end
   end
 end

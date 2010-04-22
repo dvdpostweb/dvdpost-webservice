@@ -1,0 +1,13 @@
+<li>
+  <span class="stars">
+    <%= rating_image_small(recommendation_product,DVDPost.product_kinds[:normal],:white) %>
+  </span>
+  <% link_to product_path(:id => recommendation_product.to_param) do %>
+  <span class="<%= product_media_id(recommendation_product.media) %>">
+    <%= product_image_tag recommendation_product.image, :width => 76,:height=> 118, :alt => "#{recommendation_product.title} (#{recommendation_product.year})" %>
+    <%= content_tag(:span, '', :class => 'new') if recommendation_product.is_new? %>
+  </span>
+  <% end %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => recommendation_product} %>
+  <%= link_to recommendation_product.title, product_path(:id => recommendation_product.to_param), :class => 'more'  %>
+</li>
