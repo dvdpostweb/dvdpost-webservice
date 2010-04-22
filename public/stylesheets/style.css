@@ -691,10 +691,15 @@ cursor: default;
   background: url(../images/ajouter-btn.png) 0 0 no-repeat;
   display: block;
   float: left;
-  height: 39px;
-  margin: 9px 0 0 4px;
-  width: 164px;
+  height: 41px;
+  margin: 9px 0 0 2px;
+  width: 166px;
 }
+
+#titles-wrap .action a.like-btn:hover {
+  background: url(../images/ajouter-btn.png) 0 100% no-repeat;
+}
+
 
 #titles-wrap .dvd .cover, #titles-wrap .bluray .cover {
   background: url(../images/dvd-cover-bg.png) 0 0 no-repeat;
@@ -1231,6 +1236,51 @@ display: block;
 #detail-wrap .action #dvd-btn:hover {
   background: url(../images/dvd-btn.jpg) 0 100% no-repeat;
 }
+#detail-wrap .action .dispo-btn {
+display: block;
+height: 41px;
+margin-bottom: 10px;
+text-indent: -999em;
+margin-left: -3px;
+}
+#detail-wrap .action #dispo-btn_fr_fr {
+  background: url(../images/dispo_fr_fr.png) 0 0 no-repeat;
+}
+#detail-wrap .action #dispo-btn_fr_fr:hover {
+  background: url(../images/dispo_fr_fr.png) 0 100% no-repeat;
+}
+#detail-wrap .action #dispo-btn_fr_nl {
+  background: url(../images/dispo_fr_nl.png) 0 0 no-repeat;
+}
+#detail-wrap .action #dispo-btn_fr_nl:hover {
+  background: url(../images/dispo_fr_nl.png) 0 100% no-repeat;
+}
+
+#detail-wrap .action #dispo-btn_nl_fr {
+  background: url(../images/dispo_nl_fr.png) 0 0 no-repeat;
+}
+#detail-wrap .action #dispo-btn_nl_fr:hover {
+  background: url(../images/dispo_nl_fr.png) 0 100% no-repeat;
+}
+#detail-wrap .action #dispo-btn_nl_nl {
+  background: url(../images/dispo_nl_nl.png) 0 0 no-repeat;
+}
+#detail-wrap .action #dispo-btn_nl_nl:hover {
+  background: url(../images/dispo_nl_nl.png) 0 100% no-repeat;
+}
+
+#detail-wrap .action #dispo-btn_en_fr {
+  background: url(../images/dispo_en_fr.png) 0 0 no-repeat;
+}
+#detail-wrap .action #dispo-btn_en_fr:hover {
+  background: url(../images/dispo_en_fr.png) 0 100% no-repeat;
+}
+#detail-wrap .action #dispo-btn_en_nl {
+  background: url(../images/dispo_en_nl.png) 0 0 no-repeat;
+}
+#detail-wrap .action #dispo-btn_en_nl:hover {
+  background: url(../images/dispo_en_nl.png) 0 100% no-repeat;
+}
 
 #detail-wrap .action #buy {
   font-size: 1.33em;
@@ -1539,6 +1589,9 @@ html ul.tabs li.active a:hover {
   display: block;
   height: 27px;
   margin: 0 0 4px 2px;
+}
+#carousel li a.like-btn:hover {
+  background: url(../images/ajouter-btn-mid.png) 0 -27px no-repeat;
 }
 
 #carousel #prev, #carousel #next {

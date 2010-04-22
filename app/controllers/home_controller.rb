@@ -10,6 +10,8 @@ class HomeController < ApplicationController
     shop_count = shops.count
     i = rand(shop_count)
     @shop = shops[i]
+    @wishlist_count = current_customer.wishlist_items.count
+    @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
   end
 
   def indicator_closed

@@ -23,34 +23,8 @@
       <img src="/images/zombiland.jpg" alt="" /> </div>
     </div>
     <!-- BIENVENUE  -->
-    <div id="welcome">
-      <h4>BIENVENUE MAUD</h4>
-      <div id="votre-liste">Votre liste contient : <span>30 DVD</span></div>
-      <table border="0" cellspacing="0" cellpadding="0">
-        <colgroup>
-        <col class="col1" />
-        <col class="col2" />
-      </colgroup>
-      <tr>
-        <th colspan="2">DVD chez vous ou en transit : <span>2 DVD</span> </th>
-      </tr>
-      <tr>
-        <td>Millénium: Le Film </td>
-        <td>25-03-2010</td>
-      </tr>
-      <tr>
-        <td>Public Enemies</td>
-        <td>25-03-2010</td>
-      </tr>
-    </table>
-    <div id="cotez">
-      <h4>Cotez ce film</h4>
-      <img src="/images/cotez-stars.jpg" alt="" vspace="4" />
-      <h5>Prince of Persia: <br />
-        Les Sables du Temps</h5>
-        <span class="cover dvd"><img src="/images/pop-cover.jpg" alt="Prince of Persia: Les Sables du Temps" /></span> </div>
-      </div>
-      <div class="clear"></div>
+    
+    <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items} %>
 
       <!-- Flash News  -->
 

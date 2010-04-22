@@ -1,0 +1,26 @@
+<div id="welcome">
+  <h4>BIENVENUE <%= current_customer.customers_firstname %></h4>
+  <div id="votre-liste">Votre liste contient : <span><%= wishlist_count %> DVD</span></div>
+  <table border="0" cellspacing="0" cellpadding="0">
+    <colgroup>
+    <col class="col1" />
+    <col class="col2" />
+  </colgroup>
+  <tr>
+    <th colspan="2">DVD chez vous ou en transit : <span><%= transit_items.count %> DVD</span> </th>
+  </tr>
+  <% 2.times do |i| %>
+  <tr>
+    <td><%= link_to truncate(transit_items[i].product.title, :length => 50), product_path(:id => transit_items[i].product.to_param) %></td>
+    <td><%= transit_items[i].changed_at.strftime("%d/%m/%Y") %></td>
+  </tr>
+  <% end %>
+  </table>
+  <div id="cotez">
+    <h4>Cotez ce film</h4>
+    <img src="/images/cotez-stars.jpg" alt="" vspace="4" />
+    <h5>Prince of Persia: <br />Les Sables du Temps</h5>
+    <span class="cover dvd"><img src="/images/pop-cover.jpg" alt="Prince of Persia: Les Sables du Temps" /></span> 
+  </div>
+</div>
+  <div class="clear"></div>

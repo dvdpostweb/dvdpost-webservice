@@ -44,7 +44,13 @@ module ProductsHelper
   end
 
   def available_on_other_language(product)
-    product.products_other_language.to_i > 0 ? link_to('Disponible dans une autre langue', product_path(:id => product.products_other_language), :id => '', :class => '')  : ''
+    if product.products_other_language.to_i > 0 
+      if product.languages.preferred.include?(Language.find(1))
+        link_to('Disponible dans une autre langue', product_path(:id => product.products_other_language), :id => 'dispo-btn_'+I18n.locale.to_s+'_nl', :class => 'dispo-btn like-btn')  
+      else
+        link_to('Disponible dans une autre langue', product_path(:id => product.products_other_language), :id => 'dispo-btn_'+I18n.locale.to_s+'_fr', :class => 'dispo-btn like-btn')  
+      end
+    end
   end
 
   def product_description_text(product)
