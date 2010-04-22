@@ -16,7 +16,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
-  belongs_to :picture_format, :foreign_key => :products_picture_format
+  belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
   has_many :trailers, :foreign_key => :products_id
