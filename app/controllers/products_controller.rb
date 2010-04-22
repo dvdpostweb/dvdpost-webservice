@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
     @products = @products.paginate(:page => params[:page])
     @soundtracks = Soundtrack.all
     @picture_formats = PictureFormat.by_language(I18n.locale)
+    @selected_soundtracks = Soundtrack.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
+    @selected_picture_formats = PictureFormat.by_language(I18n.locale).find(params[:picture_format].keys) if params[:picture_format]
   end
 
   def show

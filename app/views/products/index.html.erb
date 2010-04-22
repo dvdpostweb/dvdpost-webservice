@@ -13,7 +13,7 @@
     </li>
     <li>
       <strong>TYPE</strong>
-      <%= params[:type].split(',').join(', ') if params[:type] %>
+      <%= params[:type].keys.join(', ') if params[:type] %>
     </li>
     <li>
       <strong>ANNée</strong>
@@ -21,11 +21,11 @@
     </li>
     <li>
       <strong>Son</strong>
-      <%= params[:sound].split(',').join(', ') if params[:sound] %>
+      <%= @selected_soundtracks.collect(&:name).join(', ') if params[:soundtrack] %>
     </li>
     <li>
       <strong>Formats</strong>
-      <%= params[:picture].split(',').join(', ') if params[:picture] %>
+      <%= @selected_picture_formats.collect(&:name).join(', ') if params[:picture_format] %>
     </li>
     <li>
       <strong>durée</strong>
