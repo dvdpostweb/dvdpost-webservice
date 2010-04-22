@@ -74,7 +74,7 @@
         </div>
       </li>
       <li class="open">
-        <%= link_to 'Formats' %>
+        <%= link_to 'Format' %>
         <div>
           <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, 'Any'), :selected => picture_formats.first.to_param) %>
         </div>
@@ -93,7 +93,11 @@
         </div>
       </li>
       <li>
-        <%= link_to 'Prix' %>
+        <%= link_to 'Image' %>
+        <div></div>
+      </li>
+      <li>
+        <%= link_to 'Pays' %>
         <div></div>
       </li>
       <li class="open">
@@ -108,6 +112,10 @@
           </ul>
           <div id="year-slider-range"></div>
         </div>
+      </li>
+      <li>
+        <%= link_to 'Récompenses' %>
+        <div></div>
       </li>
     </ul>
     <% end %>
