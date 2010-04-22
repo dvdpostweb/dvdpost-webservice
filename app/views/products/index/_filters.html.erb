@@ -76,12 +76,7 @@
       <li class="open">
         <%= link_to 'Formats' %>
         <div>
-          <% picture_formats.collect do |picture_format| %>
-            <label>
-              <%= filter_checkbox_tag :picture_format, picture_format.to_param %>
-              <%= picture_format.name %>
-            </label>
-          <% end %>
+          <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, 'Any'), :selected => picture_formats.first.to_param) %>
         </div>
       </li>
       <li class="open">

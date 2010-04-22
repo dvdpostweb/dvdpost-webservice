@@ -24,8 +24,8 @@
       <%= @selected_soundtracks.collect(&:name).join(', ') if params[:soundtrack] %>
     </li>
     <li>
-      <strong>Formats</strong>
-      <%= @selected_picture_formats.collect(&:name).join(', ') if params[:picture_format] %>
+      <strong>Format</strong>
+      <%= @selected_picture_format.name if params[:picture_format] %>
     </li>
     <li>
       <strong>durée</strong>

@@ -8,12 +8,12 @@ class ProductsController < ApplicationController
     @products = @products.by_period(params[:year_min], params[:year_max]) if params[:year_min] && params[:year_max]
     @products = @products.by_duration(params[:duration_min], params[:duration_max]) if params[:duration_min] && params[:duration_max]
     @products = @products.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
-    @products = @products.by_picture_formats(params[:picture_format].keys) if params[:picture_format]
+    @products = @products.by_picture_formats(params[:picture_format]) if params[:picture_format] && params[:picture_format].to_s != '0'
     @products = @products.paginate(:page => params[:page])
     @soundtracks = Soundtrack.all
     @picture_formats = PictureFormat.by_language(I18n.locale)
     @selected_soundtracks = Soundtrack.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
-    @selected_picture_formats = PictureFormat.by_language(I18n.locale).find(params[:picture_format].keys) if params[:picture_format]
+    @selected_picture_format = PictureFormat.by_language(I18n.locale).find(params[:picture_format]) if params[:picture_format] && params[:picture_format].to_s != '0'
   end
 
   def show
