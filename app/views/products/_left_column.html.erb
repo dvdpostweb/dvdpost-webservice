@@ -33,7 +33,7 @@
     SPECIAL <br />
     JAMES CAMERON
   </p>
-  <%= render :partial => 'products/index/filters', :locals => {:soundtracks => @soundtracks} if params[:action] == 'index' %>
+  <%= render :partial => 'products/index/filters', :locals => {:soundtracks => @soundtracks, :picture_formats => @picture_formats} if params[:action] == 'index' %>
   <ul id="left-links">
     <li><%= link_to 'Enquête de satisfaction' %></li>
     <li><%= link_to 'Parrainer un ami' %></li>

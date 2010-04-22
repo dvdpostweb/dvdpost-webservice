@@ -73,9 +73,16 @@
           <% end %>
         </div>
       </li>
-      <li>
+      <li class="open">
         <%= link_to 'Formats' %>
-        <div></div>
+        <div>
+          <% picture_formats.collect do |picture_format| %>
+            <label>
+              <%= filter_checkbox_tag :picture_format, picture_format.to_param %>
+              <%= picture_format.name %>
+            </label>
+          <% end %>
+        </div>
       </li>
       <li class="open">
         <%= link_to 'Durée' %>

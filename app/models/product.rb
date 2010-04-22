@@ -32,17 +32,18 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :languages, :join_table => :products_to_languages, :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
 
-  named_scope :by_kind,       lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  named_scope :by_media,      lambda {|*media| {:conditions => {:products_media => media.flatten.collect{|m| DVDPost.product_types[m]}}}}
-  named_scope :by_year,       lambda {|year| {:conditions => {:products_year => year}}}
-  named_scope :by_period,     lambda {|min, max| {:conditions => {:products_year => min..max}}}
-  named_scope :by_duration,   lambda {|min, max| {:conditions => {:products_runtime => min..max}}}
-  named_scope :by_soundtrack, lambda {|*soundtracks| {:include => :soundtracks, :conditions => {:products_soundtracks => {:soundtracks_id => soundtracks.flatten.collect{|soundtrack| DVDPost.soundtrack_param_names[soundtrack]}}}}}
-  named_scope :by_language,   lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
-  named_scope :by_imdb_id,    lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
-  named_scope :search,        lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
-  named_scope :available,     :conditions => ['products_status != ?', '-1']
-  named_scope :by_public,     lambda {|min, max|
+  named_scope :by_kind,             lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  named_scope :by_media,            lambda {|*media| {:conditions => {:products_media => media.flatten.collect{|m| DVDPost.product_types[m]}}}}
+  named_scope :by_year,             lambda {|year| {:conditions => {:products_year => year}}}
+  named_scope :by_period,           lambda {|min, max| {:conditions => {:products_year => min..max}}}
+  named_scope :by_duration,         lambda {|min, max| {:conditions => {:products_runtime => min..max}}}
+  named_scope :by_soundtracks,      lambda {|*soundtracks| {:include => :soundtracks, :conditions => {:products_soundtracks => {:soundtracks_id => soundtracks.flatten.collect{|soundtrack| DVDPost.soundtrack_param_names[soundtrack]}}}}}
+  named_scope :by_picture_formats,  lambda {|*picture_formats| {:conditions => {:products_picture_format => picture_formats.flatten}}}
+  named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
+  named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
+  named_scope :search,              lambda {|search| {:conditions => ['products_title LIKE ?', "%#{search}%"]}}
+  named_scope :available,           :conditions => ['products_status != ?', '-1']
+  named_scope :by_public,           lambda {|min, max|
     ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
     {:conditions => {:products_public => ages}}
   }
