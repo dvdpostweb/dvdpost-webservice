@@ -105,7 +105,7 @@
           </label>
         </div>
       </li>
-      <li>
+      <li class="open">
         <%= link_to 'Pays' %>
         <div>
           <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', nil]), :selected => params[:country]) %>
