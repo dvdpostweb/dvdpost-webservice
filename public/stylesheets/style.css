@@ -2058,6 +2058,9 @@ div.top10.first p a {
 #new-m li .dvd {
   background: url(../images/dvd-cover-new-m.png) 0 0 no-repeat;
 }
+#new-m li .bluray {
+  background: url(../images/bluray-cover-new-m.png) 0 0 no-repeat;
+}
 #new-m li  a.like-btn {
  width: 86px;
  height: 27px;
