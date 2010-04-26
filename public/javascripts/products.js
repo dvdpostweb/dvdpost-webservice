@@ -27,12 +27,20 @@ $(function() {
   $(".star").mouseover(function(){
     nb_star = $(this).attr('nb');
     product_id = $(this).attr('product_id');
+	if($(this).attr('type')=="blackfull" || $(this).attr('type')=="blackhalf" || $(this).attr('type')=="blackoff")
+	{
+		image='dark_star-voted'
+	}
+	else
+	{
+		image='star-voted'
+	}
     for(var i=1; i<=5;i++)
     {
       if(i<=nb_star)
-      $('#'+product_id+"_"+i).attr('src','/images/star-voted-on.jpg');
+      $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
       else
-      $('#'+product_id+"_"+i).attr('src','/images/star-voted-off.jpg');
+      $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
     }
   });
   $(".star").mouseout(function() {
@@ -50,6 +58,15 @@ $(function() {
         break;
         case 'off':
         $('#'+product_id+"_"+i).attr('src','/images/star-off.jpg');
+        break;
+		case 'blackfull':
+        $('#'+product_id+"_"+i).attr('src','/images/dark_star-on.jpg');
+        break;
+        case 'blackhalf':
+        $('#'+product_id+"_"+i).attr('src','/images/dark_star-half.jpg');
+        break;
+        case 'blackoff':
+        $('#'+product_id+"_"+i).attr('src','/images/dark_star-off.jpg');
         break;
       }
     }

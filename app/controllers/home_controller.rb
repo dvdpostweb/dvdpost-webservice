@@ -5,6 +5,7 @@ class HomeController < ApplicationController
     @soon = Product.find(555,108794,421)
     @new = Product.find(555,108794,421)
     @quizz = QuizzName.find_last_by_focus(1)
+    @rate = Product.find(900)
     @contest = ContestName.by_language(I18n.locale).last
     shops = Banner.by_language(I18n.locale).by_size(:small).expiration
     shop_count = shops.count

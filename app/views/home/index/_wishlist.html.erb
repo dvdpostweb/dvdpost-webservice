@@ -18,9 +18,11 @@
   </table>
   <div id="cotez">
     <h4>Cotez ce film</h4>
-    <img src="/images/cotez-stars.jpg" alt="" vspace="4" />
-    <h5>Prince of Persia: <br />Les Sables du Temps</h5>
-    <span class="cover dvd"><img src="/images/pop-cover.jpg" alt="Prince of Persia: Les Sables du Temps" /></span> 
+		<div id='rating-stars-<%= @rate.to_param%>'>
+    <%= render :partial => 'products/rating', :locals => {:product => @rate, :background => :black} %>
+		</div>
+    <h5><%= @rate.title %></h5>
+    <span class="cover <%= product_media_id(@rate.media) %>"><%= product_image_tag @rate.image, :width => 54,:height=> 83, :alt => "#{@rate.title}" %></span> 
   </div>
 </div>
   <div class="clear"></div>
