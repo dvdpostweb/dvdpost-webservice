@@ -33,6 +33,7 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
 
   named_scope :by_kind,             lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  named_scope :by_category,         lambda {|category| {:include => :categories, :conditions => {:categories => {:categories_id => category.to_param}}}}
   named_scope :by_media,            lambda {|*media| {:conditions => {:products_media => media.flatten.collect{|m| DVDPost.product_types[m]}}}}
   named_scope :by_year,             lambda {|year| {:conditions => {:products_year => year}}}
   named_scope :by_period,           lambda {|min, max| {:conditions => {:products_year => min..max}}}

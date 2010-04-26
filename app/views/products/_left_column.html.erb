@@ -23,7 +23,7 @@
       <%= link_to 'Catégories' %>
       <ul>
         <% Category.active.roots.movies.by_kind(:normal).ordered.collect do |category| %>
-        <li><%= link_to category.name, category_path(:id => category) %></li>
+        <li><%= link_to category.name, category_products_path(:category_id => category) %></li>
         <% end %>
       </ul>
     </li>

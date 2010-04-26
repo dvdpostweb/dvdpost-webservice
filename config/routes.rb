@@ -25,7 +25,9 @@ ActionController::Routing::Routes.draw do |map|
       product.awards 'awards', :controller => :products, :action => :awards
     end
 
-    localized.resources :categories, :only => [:show]
+    localized.resources :categories, :only => [] do |category|
+      category.resources :products, :only => :index
+    end
 
     localized.resources :reviews, :only => [] do |review|
       review.resource :review_rating, :only => :create

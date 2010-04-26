@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.available.by_kind(:normal)
+    @products = @products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @products = @products.search(params[:search]) if params[:search]
     @products = @products.by_media(params[:media].keys) if params[:media]
     # @products = @products.by_type(params[:type].split(',')) if params[:type]

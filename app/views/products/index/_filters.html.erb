@@ -1,6 +1,6 @@
 <div id="filters">
   <h3>AFFINER MA RECHERCHE</h3>
-  <% form_tag products_path, :method => :get do %>
+  <% form_tag category_products_path(:category_id => params[:category_id]), :method => :get do %>
     <% field_set_tag do %>
     <ul>
       <li class="open">
