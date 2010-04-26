@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
     @countries = ProductCountry.visible
     @selected_soundtracks = Soundtrack.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
     @selected_picture_format = PictureFormat.by_language(I18n.locale).find(params[:picture_format]) if params[:picture_format] && !params[:picture_format].empty?
+    @selected_country = ProductCountry.find(params[:country]) if params[:country] && !params[:country].empty?
   end
 
   def show
