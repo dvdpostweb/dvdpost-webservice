@@ -76,7 +76,7 @@
       <li class="open">
         <%= link_to 'Format' %>
         <div>
-          <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, 'Any'), :selected => picture_formats.first.to_param) %>
+          <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, ['Any', nil]), :selected => params[:picture_format]) %>
         </div>
       </li>
       <li class="open">
@@ -107,7 +107,9 @@
       </li>
       <li>
         <%= link_to 'Pays' %>
-        <div></div>
+        <div>
+          <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', nil]), :selected => params[:country]) %>
+        </div>
       </li>
       <li class="open">
         <%= link_to 'Année' %>
