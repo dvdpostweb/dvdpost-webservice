@@ -92,7 +92,7 @@
           <div id="duration-slider-range"></div>
         </div>
       </li>
-      <li>
+      <li class="open">
         <%= link_to 'Image' %>
         <div>
           <label>
@@ -122,9 +122,54 @@
           <div id="year-slider-range"></div>
         </div>
       </li>
-      <li>
+      <li class="open">
         <%= link_to 'Récompenses' %>
-        <div></div>
+        <div>
+          <label>
+            <%= filter_checkbox_tag :oscars, :academy %>
+            Académie des Oscars
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :cannes %>
+            Festival du Film de Cannes
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :cesar %>
+            Académie des César
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :bafta %>
+            BAFTA Awards
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :gaudi %>
+            Gaudi Awards
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :venice %>
+            Festival du Film de Venise
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :sundance %>
+            Festival du Film de Sundance
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :berlin %>
+            Festival International du Film de Berlin
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :emmy %>
+            Emmy Awards
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :globes %>
+            Golden Globes
+          </label>
+          <label>
+            <%= filter_checkbox_tag :oscars, :teen %>
+            Teen Choice Awards
+          </label>
+        </div>
       </li>
     </ul>
     <% end %>
