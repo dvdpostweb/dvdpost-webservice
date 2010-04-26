@@ -19,7 +19,7 @@
               <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
               <%= "<li><strong>titre original :</strong> #{@product.original_title}" unless @product.title == @product.original_title %>
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
-              <li><strong>Genre :</strong> <%= @product.categories.collect{|category| link_to category.name, category_products_path(:id => category)}.join(', ') %></li>
+              <li><strong>Genre :</strong> <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %></li>
               <li><strong>Pays :</strong> <%= @product.country.name %></li>
               <li><strong>Public :</strong> <%= image_tag @product.public.image, :alt => @product.public.description %></li>
             </ul>
