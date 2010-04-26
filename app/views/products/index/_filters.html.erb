@@ -94,7 +94,16 @@
       </li>
       <li>
         <%= link_to 'Image' %>
-        <div></div>
+        <div>
+          <label>
+            <%= filter_checkbox_tag :color, :color %>
+            Couleurs
+          </label>
+          <label>
+            <%= filter_checkbox_tag :color, :bw %>
+            Noir &amp; Blanc
+          </label>
+        </div>
       </li>
       <li>
         <%= link_to 'Pays' %>

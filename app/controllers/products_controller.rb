@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
     @products = @products.by_duration(params[:duration_min], params[:duration_max]) if params[:duration_min] && params[:duration_max]
     @products = @products.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
     @products = @products.by_picture_formats(params[:picture_format]) if params[:picture_format] && params[:picture_format].to_s != '0'
+    # @products = @products.by_colors(params[:color].keys) if params[:color]
     @products = @products.paginate(:page => params[:page])
     @soundtracks = Soundtrack.all
     @picture_formats = PictureFormat.by_language(I18n.locale)
