@@ -7,9 +7,7 @@ class HomeController < ApplicationController
     @quizz = QuizzName.find_last_by_focus(1)
     @contest = ContestName.by_language(I18n.locale).last
     shops = Banner.by_language(I18n.locale).by_size(:small).expiration
-    shop_count = shops.count
-    i = rand(shop_count)
-    @shop = shops[i]
+    @shop = shops[rand(shops.count)]
     @wishlist_count = current_customer.wishlist_items.count
     @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
   end
