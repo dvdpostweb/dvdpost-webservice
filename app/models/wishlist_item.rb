@@ -18,11 +18,12 @@ class WishlistItem < ActiveRecord::Base
   validates_uniqueness_of :product_id, :scope => [:customers_id, :product_id]
 
   named_scope :ordered, :order => 'priority ASC'
-  named_scope :movies,  :joins => :product, :conditions => {:products => {:products_product_type => 'Movie'}}
-  named_scope :current,  :conditions => {:products => {:products_next => 0}}
-  named_scope :future,   :conditions => {:products => {:products_next => 1}}
-  named_scope :games,   :joins => :product, :conditions => {:products => {:products_product_type => 'Game'}}
+  named_scope :movies, :joins => :product, :conditions => {:products => {:products_product_type => 'Movie'}}
+  named_scope :current, :conditions => {:products => {:products_next => 0}}
+  named_scope :future, :conditions => {:products => {:products_next => 1}}
+  named_scope :games, :joins => :product, :conditions => {:products => {:products_product_type => 'Game'}}
   named_scope :include_products, :include => :product
+  named_scope :by_product, lambda {|product| {:conditions => {:products_id => product.to_param}}}
 
   private
   def set_created_at

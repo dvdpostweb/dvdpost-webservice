@@ -21,21 +21,20 @@ class WishlistItemsController < ApplicationController
     session[:return_to] = request.env["HTTP_REFERER"]
     product = Product.available.find(params[:product_id])
     @wishlist_item = product.wishlist_items.build
-    @serie_id = product.products_series_id if params[:add_all_serie].to_i == 1
     render :layout => false
   end
 
   def create
     begin
-      if params[:serie_id]
-        priority = params[:wishlist_item][:priority]
-        all_products = Product.find_all_by_products_series_id(params[:serie_id])
-        all_products.each do |product|
-          @wishlist_item = add_wishlist_item({:product_id => product.id, :priority => priority})
+      if params[:add_all_from_series]
+        product = Product.find(params[:wishlist_item][:product_id])
+        Product.find_all_by_products_series_id(product.series_id).collect do |product|
+          create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
         end
-        flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority and the rest of this serie."
+        @wishlist_item = current_customer.wishlist_items.by_product(product)
+        flash[:notice] = "#{product.title} and all other parts of this series have been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
       else
-        @wishlist_item = add_wishlist_item(params[:wishlist_item])
+        @wishlist_item = create_wishlist_item(params[:wishlist_item])
         flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
       end
       redirect_back_or @wishlist_item.product
@@ -70,7 +69,7 @@ class WishlistItemsController < ApplicationController
   end
 
   private
-  def add_wishlist_item(params)
+  def create_wishlist_item(params)
     wishlist_item = WishlistItem.new(params)
     wishlist_item.customer = current_customer
     wishlist_item.save
