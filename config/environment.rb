@@ -19,6 +19,7 @@ Rails::Initializer.run do |config|
   config.gem 'hoptoad_notifier',                        :version => '>= 2.2.2'
   config.gem 'clearance',                               :version => '>= 0.8.8'
   config.gem 'will_paginate',                           :version => '>= 2.3.12'
+  config.gem 'hpricot',                                 :version => '>= 0.8.2'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

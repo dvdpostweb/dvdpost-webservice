@@ -23,20 +23,15 @@ class ProductsController < ApplicationController
   end
 
   def show
-    require 'hpricot'
-    require 'open-uri'
-    require 'iconv'
-
     @product = Product.available.find(params[:id])
     @categories = @product.categories
     @product.views_increment
     @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @already_seen = current_customer.assigned_products.include?(@product)
     @reviews_count = @product.reviews.approved.count
-    f = open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id="+@product.imdb_id.to_s)
-    page_text = Hpricot(Iconv.conv('UTF-8', f.charset, f.read)).search('//p')
-    f.close
-    @synopsis=page_text
+    @synopsis = open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{@product.imdb_id.to_s}") do |data|
+      Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
+    end
   end
 
   def uninterested
