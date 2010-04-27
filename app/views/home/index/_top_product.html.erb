@@ -1,0 +1,23 @@
+<% item_number = top_product_counter + 1 %>
+<% if item_number == 1 %>
+  <div class="top10 first">
+    <h2><%= top_product.title %></h2>
+    <%= rating_image_small(top_product, DVDPost.product_kinds[:normal], :black) %>
+    <!--img src="/images/top10-stars.png" alt="" style="margin-top:4px;" /-->
+    <p>Réalisé par : <%= link_to top_product.director.name %></p>
+    <p>Acteurs : <%= top_product.actors.collect{|actor| link_to actor.name}.join(', ') %></p>
+    <p><%= product_description_text(top_product) %></p>
+    <%= render :partial => 'products/wishlist', :locals => {:product => top_product} %>
+    <span class="cover dvd"><%= product_image_tag top_product.image, :width => 76, :height => 118 %></span>
+    <%= image_tag "#{item_number}.png", :alt => item_number, :class => 'number'%>
+  </div>
+<% else %>
+  <div class="top10<%= item_number == 10 ? ' last' : '' %>">
+    <h2><%= top_product.title %></h2>
+    <p class='top-description'><%= product_description_text(top_product) %></p>
+    <%= render :partial => 'products/wishlist', :locals => {:product => top_product} %>
+    <%= image_tag "#{item_number}.gif", :alt => item_number, :class => 'number'%>
+    <%= link_to 'Toggle', nil, :class => 't-arrow open' %>
+  </div>
+<% end %>
+<!-- tooglle class = open when open -->

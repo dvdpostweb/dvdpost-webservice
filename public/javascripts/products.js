@@ -35,13 +35,13 @@ $(function() {
 	  for(var i=1; i<=5;i++)
     {
       if(i<=nb_star)
-      $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
+        $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
       else
-      $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
+        $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
     }
   });
   $(".star").mouseout(function() {
-	  product_id = $(this).attr('product_id');
+    product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
       init=$('#'+product_id+"_"+i).attr('init');
@@ -109,8 +109,18 @@ $(function() {
   });
 
   $("#filters ul li a").live("click", function() {
-    $(this).parent().toggleClass('open');
+    $(this).toggleClass('open');
     $(this).parent().find("div").toggle(1);
+    return false;
+  });
+
+  $("#top10").ready(function() {
+    $("#top10 a.t-arrow").toggleClass('open');
+    $("#top10 a.t-arrow").parent().find(".top-description").toggle(1);
+  });
+  $("#top10 a.t-arrow").live("click", function() {
+    $(this).toggleClass('open');
+    $(this).parent().find(".top-description").toggle(1);
     return false;
   });
 
