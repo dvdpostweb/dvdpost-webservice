@@ -30,6 +30,10 @@ class Customer < ActiveRecord::Base
     self.find_by_customers_email_address(args)
   end
 
+  def not_rated_products
+    seen_products.all(:conditions => ['products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+  end
+
   def active?
     (abo_active? and suspension_status == 0)
   end
