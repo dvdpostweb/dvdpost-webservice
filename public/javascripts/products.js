@@ -27,24 +27,24 @@ $(function() {
   $(".star").mouseover(function(){
     nb_star = $(this).attr('nb');
     product_id = $(this).attr('product_id');
-	if($(this).attr('type')=="blackfull" || $(this).attr('type')=="blackhalf" || $(this).attr('type')=="blackoff")
-	{
-		image='dark_star-voted'
-	}
-	else
-	{
-		image='star-voted'
-	}
+    if($(this).attr('type')=="blackfull" || $(this).attr('type')=="blackhalf" || $(this).attr('type')=="blackoff")
+    {
+      image='dark_star-voted'
+    }
+    else
+    {
+      image='star-voted'
+    }
     for(var i=1; i<=5;i++)
     {
       if(i<=nb_star)
-      $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
+        $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
       else
-      $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
+        $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
     }
   });
   $(".star").mouseout(function() {
-	  product_id = $(this).attr('product_id');
+    product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
       type=$('#'+product_id+"_"+i).attr('type');
@@ -59,7 +59,7 @@ $(function() {
         case 'off':
         $('#'+product_id+"_"+i).attr('src','/images/star-off.jpg');
         break;
-		case 'blackfull':
+        case 'blackfull':
         $('#'+product_id+"_"+i).attr('src','/images/dark_star-on.jpg');
         break;
         case 'blackhalf':
