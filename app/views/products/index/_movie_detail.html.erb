@@ -26,7 +26,7 @@
   <div class="action">
     <h4>Action</h4>
     <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
-      <%= render :partial => 'products/rating', :locals => {:product => product,:background => :white} %>
+      <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white} %>
     </div>
     <div class="links" id="seen-uninterested-<%= product.to_param %>">
       <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
