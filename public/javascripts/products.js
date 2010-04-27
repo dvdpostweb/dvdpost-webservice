@@ -129,7 +129,17 @@ $(function() {
     $(this).parent().find(".top-description").toggle(1);
     return false;
   });
-
+  
+  $('#tab1_menu').click(function() {
+    $('#tab1').show();
+    $('#tab2').hide();
+    return false;
+  });
+  $('#tab2_menu').click(function() {
+    $('#tab1').hide();
+    $('#tab2').show();
+    return false;
+  });
   public_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};
   $("#public-slider-range").slider({
     range: true,
