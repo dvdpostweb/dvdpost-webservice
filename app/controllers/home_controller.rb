@@ -1,3 +1,5 @@
+require 'rss/2.0'
+
 class HomeController < ApplicationController
   def index
     @body_id = 'one-col'
@@ -13,6 +15,17 @@ class HomeController < ApplicationController
     @shop = shops[rand(shops.count)]
     @wishlist_count = current_customer.wishlist_items.count
     @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+    feed_url = 'http://syndication.cinenews.be/rss/newsfr.xml'
+    
+    @news=open(feed_url) do |http|
+      response = http.read
+      result = RSS::Parser.parse(response, false)
+      data= Array.new
+      result.items.each_with_index do |item, i|
+        data.push(item) if i <3
+      end
+      data
+    end
   end
 
   def indicator_closed

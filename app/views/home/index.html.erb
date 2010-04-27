@@ -31,23 +31,10 @@
     <li>
       <h3 class="hp-ttls">Flash News</h3>
     </li>
-    <li><a href="#">Autres publications</a></li>
+    <!--<li><a href="#">Autres publications</a></li>-->
   </ul>
   <ul id="flash-news">
-    <li> <img src="/images/news1.gif" alt="" class="left" />
-      <h3>Maintenance du site</h3>
-      <p>Nous allons procéder à une maintenance de nos serveurs internet ce lundi 24 février entre 15h et 19h en vue d'améliorer les performances du site de DVDpost.</p>
-    </li>
-    <li> <img src="/images/news2.jpg" alt="" class="left" />
-      <h3>Signé Tim Burton !</h3>
-      <p>Apprenez à reconnaître la "Burton's touch" et revoyez l'interview de Tim Burton à l'occasion de la sortie de "Alice au pays des merveilles".</p>
-      <p class="more"><a href="#">Lire la suite</a></p>
-    </li>
-    <li> <img src="/images/news3.jpg" alt="" class="left" />
-      <h3>Quels films verra-t-on à Cannes ?</h3>
-      <p>C'est officiel : "Robin des Bois" ouvrira le Festival de Cannes.  Mais à part ça ? DVDPost fait le point sur les rumeurs, en attendant le 15 avril, date de...</p>
-      <p class="more"><a href="#">Lire la suite</a></p>
-    </li>
+    <%= render :partial => '/home/index/news', :collection => @news %>
   </ul>
   <!-- Recommandations  -->
   <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>

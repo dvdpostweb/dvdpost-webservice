@@ -1845,6 +1845,11 @@ h3.hp-ttls {
   overflow: hidden;
   font-size: 0.88em;
 }
+#flash-news img {
+  width:70px;
+  height:70px;
+  padding:5px;
+}
 * html #flash-news li {
   display: inline;
 }
