@@ -3,9 +3,9 @@ module HomeHelper
     rating = product.get_rating
     images = ""
     if(background == :white)
-      color=''
+      color = ''
     else
-      color='dark_'
+      color = 'black-'
     end
     5.times do |i|
       if rating >= 2

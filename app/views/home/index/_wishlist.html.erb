@@ -16,6 +16,6 @@
   </tr>
   <% end %>
   </table>
-  <%= render :partial => '/home/index/wishlist_rate', :locals => {:rate => @rate} %>
+  <%= render :partial => '/home/index/wishlist_rate', :locals => {:rate => @rate} if @rate %>
 </div>
 <div class="clear"></div>

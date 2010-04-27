@@ -12,7 +12,7 @@ module ProductsHelper
       name = "star"
       class_name = 'star'
     end
-    name = 'dark_' + name if background == :black
+    name = 'black-' + name if background == :black
 
     5.times do |i|
       id = "#{product.to_param.to_s}_#{(i+1).to_s}"

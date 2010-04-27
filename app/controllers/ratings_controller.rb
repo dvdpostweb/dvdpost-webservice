@@ -8,7 +8,8 @@ class RatingsController < ApplicationController
     @product.update_attribute(:rating_users, (@product.rating_users + rate))
     @product.ratings.create(:customer => current_customer, :value => rate)
     if @replace == 'homepage_wishlist'
-      @rate = Product.find(59)
+      rates = current_customer.not_rated_products
+      @rate = rates[rand(rates.count)]
     end
   end
 end

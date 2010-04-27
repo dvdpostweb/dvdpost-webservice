@@ -16,18 +16,24 @@ $(function() {
     return false;
   });
 
-  $(".star").click(function() {
+  $(".star").live("click", function() {
     rate = $(this).attr('nb');
     product_id = $(this).attr('product_id');
     background = $('#background').attr('value');
     replace = $('#replace').attr('value');
     
     data = "rate="+rate+"&background="+background+'&replace='+replace;
-    $("#rating-stars-"+product_id).html("<img src='/images/ajax-loader.gif' />")
+    loader="ajax-loader.gif"
+    if (background=='black')
+    {
+      loader='black-'+loader;
+    }
+    image="<img src='/images/"+loader+"' />";
+    $("#rating-stars-"+product_id).html(image)
     $.post($(this).parents('form').attr('action'), data, null, "script");
     return false;
   });
-  $(".star").mouseover(function(){
+  $(".star").live("mouseover", function(){
     nb_star = $(this).attr('nb');
     product_id = $(this).attr('product_id');
 	  image=$(this).attr('name');
@@ -40,7 +46,7 @@ $(function() {
         $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
     }
   });
-  $(".star").mouseout(function() {
+  $(".star").live("mouseout", function() {
     product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
