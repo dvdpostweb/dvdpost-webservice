@@ -1,0 +1,8 @@
+<div id="cotez">
+  <h4>Cotez ce film</h4>
+  <div id='rating-stars-<%= rate.to_param%>'>
+    <%= render :partial => 'products/rating', :locals => {:product => rate, :background => :black, :replace => :homepage_wishlist} %>
+  </div>
+  <h5><%= rate.title %></h5>
+  <span class="cover <%= product_media_id(rate.media) %>"><%= product_image_tag rate.image, :width => 54, :height => 83, :alt => rate.title %></span> 
+</div>

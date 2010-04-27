@@ -19,7 +19,10 @@ $(function() {
   $(".star").click(function() {
     rate = $(this).attr('nb');
     product_id = $(this).attr('product_id');
-    data = "rate="+rate;
+    background = $('#background').attr('value');
+    replace = $('#replace').attr('value');
+    
+    data = "rate="+rate+"&background="+background+'&replace='+replace;
     $("#rating-stars-"+product_id).html("<img src='/images/ajax-loader.gif' />")
     $.post($(this).parents('form').attr('action'), data, null, "script");
     return false;
@@ -27,15 +30,9 @@ $(function() {
   $(".star").mouseover(function(){
     nb_star = $(this).attr('nb');
     product_id = $(this).attr('product_id');
-	if($(this).attr('type')=="blackfull" || $(this).attr('type')=="blackhalf" || $(this).attr('type')=="blackoff")
-	{
-		image='dark_star-voted'
-	}
-	else
-	{
-		image='star-voted'
-	}
-    for(var i=1; i<=5;i++)
+	  image=$(this).attr('name');
+	  image=image+"-voted";
+	  for(var i=1; i<=5;i++)
     {
       if(i<=nb_star)
       $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
@@ -47,28 +44,8 @@ $(function() {
 	  product_id = $(this).attr('product_id');
     for(var i=1; i<=5;i++)
     {
-      type=$('#'+product_id+"_"+i).attr('type');
-      switch(type)
-      {
-        case 'full':
-        $('#'+product_id+"_"+i).attr('src','/images/star-on.jpg');
-        break;
-        case 'half':
-        $('#'+product_id+"_"+i).attr('src','/images/star-half.jpg');
-        break;
-        case 'off':
-        $('#'+product_id+"_"+i).attr('src','/images/star-off.jpg');
-        break;
-		case 'blackfull':
-        $('#'+product_id+"_"+i).attr('src','/images/dark_star-on.jpg');
-        break;
-        case 'blackhalf':
-        $('#'+product_id+"_"+i).attr('src','/images/dark_star-half.jpg');
-        break;
-        case 'blackoff':
-        $('#'+product_id+"_"+i).attr('src','/images/dark_star-off.jpg');
-        break;
-      }
+      init=$('#'+product_id+"_"+i).attr('init');
+      $('#'+product_id+"_"+i).attr('src','/images/'+init);
     }
   });
 

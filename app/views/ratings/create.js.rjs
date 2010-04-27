@@ -1,2 +1,6 @@
-page['rating-stars-'+@product.to_param].replace_html :partial => 'products/rating', :locals => {:product => @product}
-page['seen-uninterested-'+@product.to_param].replace_html :partial => 'products/show/seen_uninterested', :locals => {:product => @product}
+if @replace == 'stars'
+  page['rating-stars-'+@product.to_param].replace_html :partial => 'products/rating', :locals => {:product => @product, :background => @background, :replace => @replace}
+  page['seen-uninterested-'+@product.to_param].replace_html :partial => 'products/show/seen_uninterested', :locals => {:product => @product}
+else
+  page['cotez'].replace :partial => '/home/index/wishlist_rate', :locals => {:rate => @rate}
+end

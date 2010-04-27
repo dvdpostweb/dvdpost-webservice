@@ -1775,6 +1775,9 @@ html ul.tabs li.active a:hover {
 #welcome #cotez .dvd {
   background: url(../images/dvd-cover-sm.png) 0 0 no-repeat;
 }
+#welcome #cotez .bluray {
+  background: url(../images/bluray-cover-sm.png) 0 0 no-repeat;
+}
 
 .ttls-nav {
   display: block;

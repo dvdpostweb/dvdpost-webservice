@@ -16,13 +16,6 @@
   </tr>
   <% end %>
   </table>
-  <div id="cotez">
-    <h4>Cotez ce film</h4>
-    <div id='rating-stars-<%= @rate.to_param%>'>
-      <%= render :partial => 'products/rating', :locals => {:product => @rate, :background => :black} %>
-    </div>
-    <h5><%= @rate.title %></h5>
-    <span class="cover <%= product_media_id(@rate.media) %>"><%= product_image_tag @rate.image, :width => 54, :height => 83, :alt => @rate.title %></span> 
-  </div>
+  <%= render :partial => '/home/index/wishlist_rate', :locals => {:rate => @rate} %>
 </div>
 <div class="clear"></div>
