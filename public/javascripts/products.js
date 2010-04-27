@@ -132,8 +132,19 @@ $(function() {
   });
 
   $("#filters ul li a").live("click", function() {
-    $(this).parent().toggleClass('open');
+    $(this).toggleClass('open');
     $(this).parent().find("div").toggle(1);
+    return false;
+  });
+
+  $("#top10").ready(function() {
+    alert("hi");
+      $("#top10 a.t-arrow").toggleClass('open');
+      $("#top10 a.t-arrow").parent().find(".top-description").toggle(1);
+  });
+  $("#top10 a.t-arrow").live("click", function() {
+    $(this).toggleClass('open');
+    $(this).parent().find(".top-description").toggle(1);
     return false;
   });
 
