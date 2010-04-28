@@ -17,24 +17,20 @@ class HomeController < ApplicationController
         @wishlist_count = current_customer.wishlist_items.count
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
         retrieve_news
+        recommendations_ids = DVDPost.home_page_recommendations(current_customer.to_param)
+        @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
       }
       format.js {
         if params[:news_page]
           retrieve_news
           render :partial => '/home/index/news', :locals => {:news_items => @news_items}
+        elsif params[:recommendation_page]
+          recommendations_ids = DVDPost.home_page_recommendations(current_customer.to_param)
+          @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
+          render :partial => 'home/index/recommendations', :locals => {:products => @recommendations}
         end
       }
     end
- 
-    recommendations_ids = open('http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=206183&number=100&includeAdult=false&verbose=false') do |data|
-      ids = Array.new
-      data = Hpricot(data).search('//dvds') do |dvd|
-        id=dvd.attributes['id']
-        ids.push id
-      end
-      ids
-    end
-    @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
   end
 
   def indicator_closed

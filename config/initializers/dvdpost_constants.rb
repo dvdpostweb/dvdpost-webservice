@@ -112,5 +112,21 @@ module DVDPost
         RSS::Parser.parse(http.read, false).items
       end
     end
+
+    def critique_cinopsis(imdb_id)
+      open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{imdb_id}") do |data|
+        Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
+      end
+    end
+    def home_page_recommendations(customer)
+      open("http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer}&number=100&includeAdult=false&verbose=false") do |data|
+        ids = Array.new
+        data = Hpricot(data).search('//dvds') do |dvd|
+          id=dvd.attributes['id']
+          ids.push id
+        end
+        ids
+      end
+    end
   end
 end
