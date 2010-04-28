@@ -1,12 +1,10 @@
-require 'rss/2.0'
-
 class HomeController < ApplicationController
   def index
     @body_id = 'one-col'
     @recommendations = Product.find(555,108794,421,104426,54,120399,58,59)
     @top10 = Product.find(55,555,108794,421,104426,54,120399,58,59,67)
-    @soon = Product.find(555,108794,421)
-    @new = Product.find(555,108794,421)
+    @soon = Product.by_kind(:normal).available.soon_products
+    @new = Product.by_kind(:normal).available.new_products
     @quizz = QuizzName.find_last_by_focus(1)
     rates = current_customer.not_rated_products
     @rate = rates[rand(rates.count)]
@@ -20,7 +18,7 @@ class HomeController < ApplicationController
     @news=open(feed_url) do |http|
       response = http.read
       result = RSS::Parser.parse(response, false)
-      data= Array.new
+      data = Array.new
       result.items.each_with_index do |item, i|
         data.push(item) if i <3
       end

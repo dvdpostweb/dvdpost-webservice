@@ -1,6 +1,7 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 require 'open-uri'
+require 'rss/2.0'
 
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
