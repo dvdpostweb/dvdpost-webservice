@@ -27,7 +27,7 @@
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items} %>
 
   <!-- Flash News  -->
-  <%= render :partial => '/home/index/news', :locals => {:news => @news, :page => 0} %>
+  <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
   <!-- Recommandations  -->
   <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
 

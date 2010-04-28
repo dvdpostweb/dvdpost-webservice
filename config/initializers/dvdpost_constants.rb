@@ -106,5 +106,11 @@ module DVDPost
         :full_hd                  => '9'
       })
     end
+
+    def home_page_news
+      open(news_url[I18n.locale]) do |http|
+        RSS::Parser.parse(http.read, false).items
+      end
+    end
   end
 end

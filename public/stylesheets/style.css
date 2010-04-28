@@ -2427,3 +2427,13 @@ div.top10.first p a {
 fieldset {
   border:none;
 }
+
+/* To hide "previous" on homepage's news block */
+#news li span.prev_page, #news li a.prev_page{
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+}
+#news li a.next_page{
+  padding-top: 0;
+}
