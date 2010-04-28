@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
   def index
     @body_id = 'one-col'
-    @recommendations = Product.find(555,108794,421,104426,54,120399,58,59)
     @top10 = Product.find(55,555,108794,421,104426,54,120399,58,59,67)
     @soon = Product.by_kind(:normal).available.soon
     @new = Product.by_kind(:normal).available.new_products
@@ -20,6 +19,16 @@ class HomeController < ApplicationController
       result = RSS::Parser.parse(response, false)
       result.items
     end
+ 
+    recommendations_ids = open('http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=206183&number=100&includeAdult=false&verbose=false') do |data|
+      ids = Array.new
+      data = Hpricot(data).search('//dvds') do |dvd|
+        id=dvd.attributes['id']
+        ids.push id
+      end
+      ids
+    end
+    @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
   end
   
   def indicator_closed

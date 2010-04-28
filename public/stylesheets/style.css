@@ -1541,6 +1541,10 @@ html ul.tabs li.active a:hover {
   top: 12px;
 }
 
+#carousel a {
+  color: #454545;
+}
+
 * html #carousel ul {
   display: inline;
   width: 100%;
@@ -1614,6 +1618,10 @@ html ul.tabs li.active a:hover {
 #carousel #next {
   background: url(../images/carousel-arrows.png) 100% 0 no-repeat;
   right: -14px !important;
+}
+
+#wishlist_widget a {
+  color: #454545;
 }
 
 /*   HOME PAGE   */
@@ -1931,6 +1939,10 @@ font-weight: bold;
   color: #505050;
   position: relative;
 }
+
+.top10 a{
+  color:#505050;
+}
 .top10 h2 {
   font-size: 1.17em;
 }
@@ -1980,6 +1992,10 @@ div.top10.first {
   color: white;
   min-height:180px;
   padding: 12px 18px 12px 124px;
+}
+
+div.top10.first a{
+  color:white;
 }
 * html div.top10.first {
   height: 180px;
