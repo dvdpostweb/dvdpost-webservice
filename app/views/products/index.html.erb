@@ -21,7 +21,7 @@
     </li>
     <li>
       <strong>Format</strong>
-      <%= @selected_picture_format.name if params[:picture_format] && !params[:picture_format].empty? %>
+      <%= @selected_picture_format.name if @selected_picture_format %>
     </li>
     <li class="clear-left">
       <strong>Durée</strong>
