@@ -4,7 +4,7 @@
   <% form_tag path, :method => :get do %>
     <% field_set_tag do %>
     <ul>
-      <li class="open">
+      <li class="technology open">
         <%= link_to 'Technologie' %>
         <div>
           <label>
@@ -17,7 +17,7 @@
           </label>
         </div>
       </li>
-      <li class="open">
+      <!--li class="type open">
         <%= link_to 'Type' %>
         <div>
           <label>
@@ -49,8 +49,8 @@
             Independent
           </label>
         </div>
-      </li>
-      <li class="open">
+      </li-->
+      <li class="public open">
         <%= link_to 'Public' %>
         <div id="public-slider">
           <%= hidden_field_tag :public_min, (params[:public_min] || 0) %>
@@ -63,7 +63,7 @@
           <div id="public-slider-range"></div>
         </div>
       </li>
-      <li class="open">
+      <li class="soundtrack open">
         <%= link_to 'Son' %>
         <div>
           <% soundtracks.collect do |soundtrack| %>
@@ -74,13 +74,13 @@
           <% end %>
         </div>
       </li>
-      <li class="open">
+      <li class="format open">
         <%= link_to 'Format' %>
         <div>
-          <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, ['Any', nil]), :selected => params[:picture_format]) %>
+          <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, ['Any', 0]), :selected => params[:picture_format]) %>
         </div>
       </li>
-      <li class="open">
+      <li class="duration open">
         <%= link_to 'Durée' %>
         <div id="duration-slider">
           <%= hidden_field_tag :duration_min, (params[:duration_min] || 0) %>
@@ -93,7 +93,7 @@
           <div id="duration-slider-range"></div>
         </div>
       </li>
-      <li class="open">
+      <!--li class="color open">
         <%= link_to 'Image' %>
         <div>
           <label>
@@ -105,14 +105,14 @@
             Noir &amp; Blanc
           </label>
         </div>
-      </li>
-      <li class="open">
+      </li-->
+      <li class="country open">
         <%= link_to 'Pays' %>
         <div>
-          <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', nil]), :selected => params[:country]) %>
+          <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', 0]), :selected => params[:country]) %>
         </div>
       </li>
-      <li class="open">
+      <li class="year open">
         <%= link_to 'Année' %>
         <div id="year-slider">
           <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
@@ -125,7 +125,7 @@
           <div id="year-slider-range"></div>
         </div>
       </li>
-      <li class="open">
+      <!--li class="awards open">
         <%= link_to 'Récompenses' %>
         <div>
           <label>
@@ -173,7 +173,7 @@
             Teen Choice Awards
           </label>
         </div>
-      </li>
+      </li-->
     </ul>
     <% end %>
     <%= submit_tag 'Apply', :name => nil %>
