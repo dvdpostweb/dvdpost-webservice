@@ -27,15 +27,7 @@
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items} %>
 
   <!-- Flash News  -->
-  <ul class="ttls-nav" id="fl-news">
-    <li>
-      <h3 class="hp-ttls">Flash News</h3>
-    </li>
-    <!--<li><a href="#">Autres publications</a></li>-->
-  </ul>
-  <ul id="flash-news">
-    <%= render :partial => '/home/index/news', :collection => @news %>
-  </ul>
+  <%= render :partial => '/home/index/news', :locals => {:news => @news, :page => 0} %>
   <!-- Recommandations  -->
   <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
 

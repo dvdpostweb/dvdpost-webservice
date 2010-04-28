@@ -45,4 +45,11 @@ module HomeHelper
       'other'
     end
   end
+
+  def pagination_rss(rss, page = 0, per_page = 3)
+    start_news = page * per_page
+    end_news = ((page + 1) * per_page) - 1
+    rss[start_news..end_news]
+  end
+  
 end

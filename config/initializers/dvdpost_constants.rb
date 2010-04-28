@@ -4,6 +4,14 @@ module DVDPost
       'http://www.dvdpost.be/images'
     end
 
+    def news_url
+       HashWithIndifferentAccess.new.merge({
+          :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
+          :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
+          :en => 'http://syndication.cinenews.be/rss/newsnl.xml'
+        })
+    end
+
     def images_language_path
        HashWithIndifferentAccess.new.merge({
           :fr => 'http://www.dvdpost.be/images/www3/languages/french/images',

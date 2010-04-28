@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.with_options :controller => 'home' do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}
+      home.news 'home/news', :action => :news, :conditions => {:method => :get}
     end
 
     localized.resources :products, :only => [:index, :show] do |product|

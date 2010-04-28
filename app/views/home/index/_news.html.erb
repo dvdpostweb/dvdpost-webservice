@@ -1,5 +1,12 @@
-<li> <!--<img src="/images/news1.gif" alt="" class="left" />-->
-  <h3><%= news.title %></h3>
-  <p><%= news.description %></p>
-  <!--<p class="more"><a href="#">Lire la suite</a></p>-->
-</li>
+<div id="news">
+  <ul class="ttls-nav" id="fl-news">
+    <li>
+      <h3 class="hp-ttls">Flash News</h3>
+    </li>
+    <li><a href="<%= news_path %>" id="news_next" max_page="<%= (news.count/3).ceil %>" page="<%= page %>">Autres publications</a></li>
+  </ul>
+  <ul id="flash-news">
+    <% @news_items = pagination_rss(news, page) %>
+    <%= render :partial => '/home/index/news_item', :collection => @news_items %>
+  </ul>
+</div>
