@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @news_items = DVDPost.home_page_news.paginate(:per_page => 3, :page => params[:news_page] || 1)
     respond_to do |format|
       format.html {
         @body_id = 'one-col'
@@ -16,13 +15,24 @@ class HomeController < ApplicationController
         @shop = shops[rand(shops.count)]
         @wishlist_count = current_customer.wishlist_items.count
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+        retrieve_news
       }
-      format.js {render :partial => '/home/index/news', :locals => {:news_items => @news_items}}
+      format.js {
+        if params[:news_page]
+          retrieve_news
+          render :partial => '/home/index/news', :locals => {:news_items => @news_items}
+        end
+      }
     end
   end
 
   def indicator_closed
     session[:indicator_stored] = true
     render :nothing => true
+  end
+
+  private
+  def retrieve_news
+    @news_items = DVDPost.home_page_news.paginate(:per_page => 3, :page => params[:news_page] || 1)
   end
 end
