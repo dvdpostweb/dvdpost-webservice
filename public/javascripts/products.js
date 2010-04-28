@@ -105,6 +105,36 @@ $(function() {
     $("#filtered").hide();
   });
 
+  if($("#leftcolumn #filters").length > 0) {
+    if($.query.get('media') == ''){
+      $("#filters li.technology").toggleClass('open');
+      $("#filters li.technology").find("div").toggle(1);
+    }
+    if($.query.get('soundtrack') == ''){
+      $("#filters li.soundtrack").toggleClass('open');
+      $("#filters li.soundtrack").find("div").toggle(1);
+    }
+    if($.query.get('public_max') == '' || ($.query.get('public_min') == 0 && $.query.get('public_max') == 18)){
+      $("#filters li.public").toggleClass('open');
+      $("#filters li.public").find("div").toggle(1);
+    }
+    if($.query.get('duration_max') == '' || ($.query.get('duration_min') == 0 && $.query.get('duration_max') == 9999)){
+      $("#filters li.duration").toggleClass('open');
+      $("#filters li.duration").find("div").toggle(1);
+    }
+    if($.query.get('year_max') == '' || ($.query.get('year_min') == 0 && $.query.get('year_max') == 2010)){
+      $("#filters li.year").toggleClass('open');
+      $("#filters li.year").find("div").toggle(1);
+    }
+    if($.query.get('country') == '' || $.query.get('country') == 0){
+      $("#filters li.country").toggleClass('open');
+      $("#filters li.country").find("div").toggle(1);
+    }
+    if($.query.get('picture_format') == '' || $.query.get('picture_format') == 0){
+      $("#filters li.format").toggleClass('open');
+      $("#filters li.format").find("div").toggle(1);
+    }
+  }
   $("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
     $(this).parent().find("div").toggle(1);

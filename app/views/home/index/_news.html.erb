@@ -3,10 +3,11 @@
     <li>
       <h3 class="hp-ttls">Flash News</h3>
     </li>
-    <li><a href="<%= news_path %>" id="news_next" max_page="<%= (news.count/3).ceil %>" page="<%= page %>">Autres publications</a></li>
+    <li>
+      <%= will_paginate news_items, :previous_label => '', :next_label => 'Autres publications', :page_links => false, :param_name => :news_page, :id => 'news_next', :container => false %>
+    </li>
   </ul>
   <ul id="flash-news">
-    <% @news_items = pagination_rss(news, page) %>
-    <%= render :partial => '/home/index/news_item', :collection => @news_items %>
+    <%= render :partial => '/home/index/news_item', :collection => news_items %>
   </ul>
 </div>
