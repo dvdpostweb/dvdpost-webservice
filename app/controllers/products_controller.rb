@@ -29,9 +29,7 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @already_seen = current_customer.assigned_products.include?(@product)
     @reviews_count = @product.reviews.approved.count
-    @synopsis = open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{@product.imdb_id.to_s}") do |data|
-      Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
-    end
+    @cinopsis = DVDPost.critique_cinopsis(@product.imdb_id.to_s)
   end
 
   def uninterested

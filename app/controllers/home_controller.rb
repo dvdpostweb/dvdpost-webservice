@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+
     respond_to do |format|
       format.html {
         @body_id = 'one-col'
@@ -17,11 +18,17 @@ class HomeController < ApplicationController
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
         expire_timed_fragment("#{I18n.locale.to_s}/home/news")
         retrieve_news
+        recommendations_ids = DVDPost.home_page_recommendations(current_customer.to_param)
+        @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
       }
       format.js {
         if params[:news_page]
           retrieve_news
           render :partial => '/home/index/news', :locals => {:news_items => @news_items}
+        elsif params[:recommendation_page]
+          recommendations_ids = DVDPost.home_page_recommendations(current_customer.to_param)
+          @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
+          render :partial => 'home/index/recommendations', :locals => {:products => @recommendations}
         end
       }
     end

@@ -15,4 +15,37 @@ $(function() {
     });
     return false;
   });
+  $('#carousel-wrap-hp a.next_page').live('click',function(){
+    url = this.href;
+    html_item = $('#home_recommendations');
+    content = html_item.html()
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        html_item.replaceWith(data);
+      },
+      error: function() {
+        html_item.replaceWith(content);
+      }
+    });
+    return false;
+  });
+  $('#carousel-wrap-hp a.prev_page').live('click',function(){
+    url = this.href;
+    html_item = $('#home_recommendations');
+    content = html_item.html()
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        html_item.replaceWith(data);
+      },
+      error: function() {
+        html_item.replaceWith(content);
+      }
+    });
+    return false;
+  });
+  
 });
