@@ -16,7 +16,7 @@ class HomeController < ApplicationController
         @wishlist_count = current_customer.wishlist_items.count
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
         @news_items = retrieve_news
-        @recommendations = retrieve_recommendations
+        @recommendations = retrieve_recommendations(true)
       }
       format.js {
         if params[:news_page]
@@ -41,7 +41,12 @@ class HomeController < ApplicationController
     news_items.paginate(:per_page => 3, :page => params[:news_page] || 1)
   end
 
-  def retrieve_recommendations
-    current_customer.recommended_products.paginate(:per_page => 8, :page => params[:recommendation_page] || 1)
+  def retrieve_recommendations(expire=false)
+    name = "#{I18n.locale.to_s}/home/recommendations"
+    expire_timed_fragment(name) if expire
+    recommended_ids = when_fragment_expired name do
+      DVDPost.home_page_recommendations(current_customer)
+    end
+    Product.filtered_by_ids(recommended_ids).paginate(:per_page => 8, :page => params[:recommendation_page] || 1)
   end
 end
