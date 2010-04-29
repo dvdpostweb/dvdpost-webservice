@@ -7,27 +7,6 @@
     <li><a href="#" id="5"><strong>PROCHAINEMENT</strong> chez DVDPost</a></li>
   </ul>
   <div class="panels">
-  <div class="panel">
-    <div class="capt">
-      <h2>Bienvenue à Zombieland</h2>
-      <ul>
-        <li><a href="#" id="rent">Louer</a></li>
-        <li class="delim"></li>
-        <li><a href="#" id="trailer">Bande-annonce</a></li>
-      </ul>
-    </div>
-    <img src="/images/zombiland.jpg" alt="" /> 
-  </div>
-  <div class="panel">
-    <div class="capt">
-      <h2>Bienvenue à Zombieland</h2>
-      <ul>
-        <li><a href="#" id="rent">Louer</a></li>
-        <li class="delim"></li>
-        <li><a href="#" id="trailer">Bande-annonce</a></li>
-      </ul>
-    </div>
-    <img src="/images/zombiland.jpg" alt="" /> 
-  </div>
+    <%= render :partial => '/home/index/carousel_item', :collection => carousel %>
   </div>
 </div>
