@@ -1857,6 +1857,10 @@ h3.hp-ttls {
   overflow: hidden;
   font-size: 0.88em;
 }
+#flash-news li a {
+  color:#454545;
+}
+
 #flash-news img {
   width:70px;
   height:70px;

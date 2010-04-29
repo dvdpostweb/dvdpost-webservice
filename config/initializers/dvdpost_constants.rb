@@ -109,7 +109,7 @@ module DVDPost
 
     def home_page_news
       open(news_url[I18n.locale]) do |http|
-        RSS::Parser.parse(http.read, false).items
+         RSS::Parser.parse(http.read, false).items
       end
     end
 
