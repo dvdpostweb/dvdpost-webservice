@@ -2031,6 +2031,10 @@ div.top10.first .cover {
 div.top10.first .dvd {
  background: url(../images/dvd-cover-top10-1.png) 0 0 no-repeat;
 }
+div.top10.first .bluray {
+ background: url(../images/bluray-cover-top10-1.png) 0 0 no-repeat;
+}
+
 div.top10.first p a {
   color: #e4d615;
 }

@@ -3,26 +3,7 @@
   <div class="top"></div>
 
   <!-- Tabs rotattor -->
-  <div id="tabs-rotator">
-    <ul id="tabs">
-      <li><a href="#"><strong>SPECIAL</strong> Vampires</a></li>
-      <li><a href="#"><strong>TOP 10</strong> des locations</a></li>
-      <li><a href="#"><strong>AU cinéma</strong> en ce moment</a></li>
-      <li><a href="#" class="active"><strong>Nouveauté</strong> de la semaine</a></li>
-      <li><a href="#"><strong>PROCHAINEMENT</strong> chez DVDPost</a></li>
-    </ul>
-    <div class="panel">
-      <div class="capt">
-        <h2>Bienvenue à Zombieland</h2>
-        <ul>
-          <li><a href="#" id="rent">Louer</a></li>
-          <li class="delim"></li>
-          <li><a href="#" id="trailer">Bande-annonce</a></li>
-        </ul>
-      </div>
-      <img src="/images/zombiland.jpg" alt="" /> 
-    </div>
-  </div>
+  <%= render :partial => 'home/index/carousel' %>
   <!-- BIENVENUE  -->
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items} %>
 

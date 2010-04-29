@@ -9,7 +9,7 @@
     <p><%= product_description_text(top_product) %></p>
     <%= render :partial => 'products/wishlist', :locals => {:product => top_product} %>
     <% link_to product_path(:id => top_product.to_param) do %>
-      <span class="cover dvd"><%= product_image_tag top_product.image, :width => 76, :height => 118 %></span>
+      <span class="cover <%= product_media_id(top_product.media) %>"><%= product_image_tag top_product.image, :width => 76, :height => 118 %></span>
     <% end %>
     <%= image_tag "#{item_number}.png", :alt => item_number, :class => 'number'%>
   </div>

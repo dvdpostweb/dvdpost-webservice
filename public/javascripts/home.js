@@ -48,4 +48,20 @@ $(function() {
     return false;
   });
   
+  //carousel
+  
+  $('.panels').cycle({ 
+      fx: 'scrollLeft',
+      timeout: 15000,
+      before: change_carousel
+  });
+
+  function change_carousel()
+  {
+    id = $('#tabs-rotator #tabs a.active').attr('id')
+    next_id = parseInt( id ) + 1
+    if( next_id == 6) next_id = 1;
+    $('#tabs-rotator #tabs a.active').removeClass('active')
+    $('#'+next_id).addClass('active')
+  }
 });

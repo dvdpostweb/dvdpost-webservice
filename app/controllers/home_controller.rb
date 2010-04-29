@@ -4,8 +4,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html {
         @body_id = 'one-col'
-        @recommendations = Product.find(555,108794,421,104426,54,120399,58,59)
-        @top10 = Product.find(55,555,108794,421,104426,54,120399,58,59,67)
+        @top10 = ProductList.find_by_home_page(true).products
         @soon = Product.by_kind(:normal).available.soon
         @new = Product.by_kind(:normal).available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
@@ -21,6 +20,7 @@ class HomeController < ApplicationController
         recommendations_ids = DVDPost.home_page_recommendations(current_customer.to_param)
         @recommendations = Product.find_all_by_products_id(recommendations_ids).paginate(:page => params[:recommendation_page] , :per_page => 8)
       }
+
       format.js {
         if params[:news_page]
           retrieve_news
