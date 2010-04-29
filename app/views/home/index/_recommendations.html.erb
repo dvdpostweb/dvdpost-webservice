@@ -3,7 +3,9 @@
     <li>
       <h3 class="hp-ttls">Recommandations</h3>
     </li>
-    <li><a href="#">Voir toutes mes recommandations</a></li>
+    <li>
+      <%= link_to 'Voir toutes mes recommandations', products_path(:recommended => true) %>
+    </li>
   </ul>
   <!-- Carousel -->
   <div id="carousel-wrap-hp">
