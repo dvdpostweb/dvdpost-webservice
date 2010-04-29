@@ -15,6 +15,7 @@ class HomeController < ApplicationController
         @shop = shops[rand(shops.count)]
         @wishlist_count = current_customer.wishlist_items.count
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
+        expire_timed_fragment("#{I18n.locale.to_s}/home/news")
         retrieve_news
       }
       format.js {
@@ -33,6 +34,9 @@ class HomeController < ApplicationController
 
   private
   def retrieve_news
-    @news_items = DVDPost.home_page_news.paginate(:per_page => 3, :page => params[:news_page] || 1)
+    news_items = when_fragment_expired "#{I18n.locale.to_s}/home/news", 1.hour.from_now do
+      DVDPost.home_page_news
+    end
+    @news_items = news_items.paginate(:per_page => 3, :page => params[:news_page] || 1)
   end
 end
