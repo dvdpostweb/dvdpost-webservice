@@ -1602,7 +1602,7 @@ html ul.tabs li.active a:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -27px no-repeat;
 }
 
-#carousel #prev, #carousel #next {
+#carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
   background: url(../images/carousel-arrows.png) 0 0 no-repeat;
   display: block;
   height: 33px;
@@ -1611,13 +1611,17 @@ html ul.tabs li.active a:hover {
   width: 17px;
 }
 
-#carousel #prev {
+#carousel #prev, #carousel .prev_page {
   left: -14px;
+  outline:medium none;
+  text-indent:-999em;
 }
 
-#carousel #next {
+#carousel #next, #carousel .next_page {
   background: url(../images/carousel-arrows.png) 100% 0 no-repeat;
   right: -14px !important;
+  outline:medium none;
+  text-indent:-999em;
 }
 
 #wishlist_widget a {
@@ -1900,10 +1904,10 @@ font-weight: bold;
    left: 19px;
    background: url(../images/new-banner-hp.png) 0 0 no-repeat;
 }
-#carousel-wrap-hp #carousel a#next {
+#carousel-wrap-hp #carousel a#next, #carousel-wrap-hp #carousel a.next_page  {
   right: -16px !important;
 }
-#carousel-wrap-hp #carousel a#prev {
+#carousel-wrap-hp #carousel a#prev, #carousel-wrap-hp #carousel a.prev_page  {
   left: -16px !important;
 }
 
