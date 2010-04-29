@@ -52,6 +52,8 @@ class Product < ActiveRecord::Base
   }
   named_scope :new_products,          :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :soon,                  :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
+  named_scope :recommended_for_customer, lambda {|customer| {:conditions => {:products_id => DVDPost.home_page_recommendations(customer)}}}
+
   def description
     descriptions.by_language(I18n.locale).first
   end
