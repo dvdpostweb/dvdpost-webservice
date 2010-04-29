@@ -109,23 +109,19 @@ module DVDPost
 
     def home_page_news
       open(news_url[I18n.locale]) do |http|
-         RSS::Parser.parse(http.read, false).items
+        RSS::Parser.parse(http.read, false).items
       end
     end
 
-    def critique_cinopsis(imdb_id)
+    def cinopsis_critics(imdb_id)
       open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{imdb_id}") do |data|
         Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
       end
     end
+
     def home_page_recommendations(customer)
-      open("http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer}&number=100&includeAdult=false&verbose=false") do |data|
-        ids = Array.new
-        data = Hpricot(data).search('//dvds') do |dvd|
-          id=dvd.attributes['id']
-          ids.push id
-        end
-        ids
+      open("http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer.to_param}&number=100&includeAdult=false&verbose=false") do |data|
+        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id']}
       end
     end
   end

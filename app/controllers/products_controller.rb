@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.available.by_kind(:normal)
+    @products = @products.filtered_by_ids(retrieve_recommendations) if params[:recommended] 
     @products = @products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @products = @products.search(params[:search]) if params[:search]
     @products = @products.by_media(params[:media].keys) if params[:media]
@@ -29,7 +30,7 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @already_seen = current_customer.assigned_products.include?(@product)
     @reviews_count = @product.reviews.approved.count
-    @cinopsis = DVDPost.critique_cinopsis(@product.imdb_id.to_s)
+    @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
   end
 
   def uninterested
@@ -58,6 +59,13 @@ class ProductsController < ApplicationController
     @product = Product.available.find(params[:product_id])
     respond_to do |format|
       format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
+    end
+  end
+
+  private
+  def retrieve_recommendations
+    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations" do
+      DVDPost.home_page_recommendations(current_customer)
     end
   end
 end

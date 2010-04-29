@@ -51,8 +51,10 @@ class Product < ActiveRecord::Base
     ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
     {:conditions => {:products_public => ages}}
   }
-  named_scope :new_products,          :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
-  named_scope :soon,                  :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
+  named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
+  named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
+  named_scope :filtered_by_ids,     lambda {|*ids| {:conditions => {:products_id => ids.flatten}}}
+
   def description
     descriptions.by_language(I18n.locale).first
   end
@@ -74,7 +76,7 @@ class Product < ActiveRecord::Base
     if customers && rating_customer
       rating_customer.value.to_i * 2
     else
-      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count.to_f)  *2).round
+      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count.to_f) * 2).round
     end
   end
 

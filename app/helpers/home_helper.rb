@@ -2,18 +2,18 @@ module HomeHelper
   def rating_image_small(product, type='DVD_NORM',background='white')
     rating = product.get_rating
     images = ""
-    if(background == :white)
+    if background == :white
       color = ''
     else
       color = 'black-'
     end
     5.times do |i|
       if rating >= 2
-        images += image_tag color+"little-star-on.jpg", :alt=>'star'
+        images += image_tag "#{color}little-star-on.jpg", :alt=>'star'
       elsif rating.odd?
-        images += image_tag color+"little-star-half.jpg", :alt=>'star'
+        images += image_tag "#{color}little-star-half.jpg", :alt=>'star'
       else
-        images += image_tag color+"little-star-off.jpg", :alt=>'star'
+        images += image_tag "#{color}little-star-off.jpg", :alt=>'star'
       end
       rating -= 2
       rating = 0 if rating < 0
