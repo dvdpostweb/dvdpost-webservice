@@ -154,11 +154,17 @@ $(function() {
   $('#tab1_menu').click(function() {
     $('#tab1').show();
     $('#tab2').hide();
+	$('#tab1_li').addClass('active');
+	$('#tab2_li').removeClass('active');
+	
     return false;
   });
   $('#tab2_menu').click(function() {
     $('#tab1').hide();
     $('#tab2').show();
+	$('#tab2_li').addClass('active');
+	$('#tab1_li').removeClass('active');
+
     return false;
   });
   public_slider_values = {'0': 0, '10': 1, '12': 2, '16': 3, '18': 4};

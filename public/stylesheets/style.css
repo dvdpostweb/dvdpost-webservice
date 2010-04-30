@@ -1765,6 +1765,11 @@ html ul.tabs li.active a:hover {
   color: white;
   min-height: 85px;
 }
+#welcome #cotez a
+{
+  color: white;
+}
+
 * html #welcome #cotez {
   height: 85px;
 }

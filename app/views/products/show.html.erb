@@ -16,7 +16,7 @@
           <div id="movie-info">
             <ul>
               <li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li>
-              <li><strong>Acteurs :</strong> <%= @product.actors.collect{|actor| link_to actor.name}.join(', ') %></li>
+              <%= "<li><strong>Acteurs :</strong> #{@actors}</li>" unless @actors %>
               <%= "<li><strong>titre original :</strong> #{@product.original_title}" unless @product.title == @product.original_title %>
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
               <li><strong>Genre :</strong> <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %></li>
@@ -77,9 +77,9 @@
     <!-- End Detail -->
     <!-- Critique -->
     <ul class="tabs">
-      <li><a href="#tab1" id="tab1_menu">CRITIQUES DES MEMBRES DVDPOST</a></li>
+      <li class="active" id='tab1_li'><a href="#tab1" id="tab1_menu">CRITIQUES DES MEMBRES DVDPOST</a></li>
       <% if !@cinopsis.empty? %>
-        <li><a href="#tab2" id="tab2_menu">LA CRITIQUE DE CINOPSIS.BE</a></li>
+        <li  id='tab2_li'><a href="#tab2" id="tab2_menu">LA CRITIQUE DE CINOPSIS.BE</a></li>
       <% end %>
     </ul>
     <div class="box">
