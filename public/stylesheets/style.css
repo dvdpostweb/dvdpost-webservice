@@ -1599,7 +1599,7 @@ html ul.tabs li.active a:hover {
   margin: 0 0 4px 2px;
 }
 #carousel li a.like-btn:hover {
-  background: url(../images/ajouter-btn-mid.png) 0 -27px no-repeat;
+  background: url(../images/ajouter-btn-mid.png) 0 -28px no-repeat;
 }
 
 #carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
