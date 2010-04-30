@@ -1710,9 +1710,13 @@ html ul.tabs li.active a:hover {
 #tabs-rotator .panel .capt li a#rent {
   background: url(../images/rent-icon.png) 0 1px no-repeat;
 }
-#tabs-rotator .panel .capt li a#trailer {
+#tabs-rotator .panel .capt li a.trailer {
   background: url(../images/trailer-yellow-icon.png) 2px 1px no-repeat;
 }
+#tabs-rotator .panel .capt a {
+  color:#FFF;
+}
+
 #tabs-rotator .panel .capt li.delim {
    padding: 0 6px;
   height: 14px;

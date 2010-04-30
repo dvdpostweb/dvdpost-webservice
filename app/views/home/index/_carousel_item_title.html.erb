@@ -1,0 +1,6 @@
+<% path = carousel_path(carousel_item_title) %>
+<% item_number = carousel_item_title_counter + 1 %>
+<% class_name = (item_number == 5) ? 'active' : '' %>
+<li>
+  <%= link_to carousel_item_title.title, path, :id => item_number, :class => class_name %>
+</li>

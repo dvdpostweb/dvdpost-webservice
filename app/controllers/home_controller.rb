@@ -16,7 +16,7 @@ class HomeController < ApplicationController
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
         @news_items = retrieve_news
         @recommendations = retrieve_recommendations(true)
-        @carousel = Landing.find_all_by_id(1..5)
+        @carousel = Landing.by_expiration.private.order.limit
       }
 
       format.js {

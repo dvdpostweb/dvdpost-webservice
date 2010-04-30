@@ -46,10 +46,26 @@ module HomeHelper
     end
   end
 
-  def pagination_rss(rss, page = 0, per_page = 3)
-    start_news = page * per_page
-    end_news = ((page + 1) * per_page) - 1
-    rss[start_news..end_news]
+  def carousel_path(carousel)
+     case carousel.type 
+      when 'MOVIE'
+        product_path(:id => carousel.reference_id)
+      when 'OTHER'
+        'test.php' #to do
+      when 'SELECTION'
+        'test.php' #to do
+    end
   end
-  
+
+  def carousel_name_link(carousel)
+     case carousel.type 
+      when 'MOVIE'
+        'Louer'
+      when 'OTHER'
+        'GO'
+      when 'SELECTION'
+        'Voir la selection' #to do
+    end
+  end
+
 end

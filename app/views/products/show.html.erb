@@ -78,7 +78,9 @@
     <!-- Critique -->
     <ul class="tabs">
       <li><a href="#tab1" id="tab1_menu">CRITIQUES DES MEMBRES DVDPOST</a></li>
-      <li><a href="#tab2" id="tab2_menu">LA CRITIQUE DE CINOPSIS.BE</a></li>
+      <% if !@cinopsis.empty? %>
+        <li><a href="#tab2" id="tab2_menu">LA CRITIQUE DE CINOPSIS.BE</a></li>
+      <% end %>
     </ul>
     <div class="box">
       <div class="box-content clearfix">

@@ -4,6 +4,9 @@ module DVDPost
       'http://www.dvdpost.be/images'
     end
 
+    def images_carousel_path
+      'http://www.dvdpost.be/images/dvdpost_public/landings'
+    end
     def news_url
        HashWithIndifferentAccess.new.merge({
           :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',

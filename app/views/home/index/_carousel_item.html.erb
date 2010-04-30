@@ -1,11 +1,20 @@
+<% path = carousel_path(carousel_item)%>
+<% name_link = carousel_name_link(carousel_item)%>
+
 <div class="panel">
   <div class="capt">
-    <h2><%= carousel_item.name %></h2>
+    <h2><%= link_to carousel_item.name, path %></h2>
     <ul>
-      <li><a href="#" id="rent">Louer</a></li>
+      <li>
+        <%= link_to name_link, path, :id => :rent %>
+      </li>
+      <% if carousel_item.type == 'MOVIE' && carousel_item.product.trailer %>
       <li class="delim"></li>
-      <li><a href="#" id="trailer">Bande-annonce</a></li>
+      <li>
+        <%= link_to('Bande-annonce', carousel_item.product.trailer.url, {:class => 'trailer', :target => :_blank})  %>
+      </li>
+      <% end %>
     </ul>
   </div>
-  <img src="http://www.dvdpost.be/images/dvdpost_public/landings/<%= carousel_item.id %>.jpg" alt="" /> 
+  <%= link_to image_tag(carousel_item.image, :alt => carousel_item.name), path %>
 </div>
