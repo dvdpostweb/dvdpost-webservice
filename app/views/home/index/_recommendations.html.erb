@@ -13,8 +13,6 @@
       <ul>
         <%= render :partial => 'home/index/recommendation_product', :collection => products %>
       </ul>
-      <!--><a href="#" class="like-btn" id="prev">Previous</a>-->
-      <!--<a href="#" class="like-btn" id="next"></a>-->
       <%= will_paginate products, :previous_label => 'prev', :next_label => '', :page_links => false, :param_name => :recommendation_page, :id => 'prev', :class => 'like-btn', :container => false %>
       <%= will_paginate products, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :recommendation_page, :id => 'next', :class => 'like-btn', :container => false %>
     </div>
