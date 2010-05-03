@@ -15,8 +15,8 @@
         <div id="details">
           <div id="movie-info">
             <ul>
-              <li><strong>Réalisé par :</strong> <strong><%= link_to @product.director.name %></strong></li>
-              <% actors = @product.actors.collect{|actor| link_to actor.name}.join(', ') %>
+              <%= "<li><strong>Réalisé par :</strong> <strong>#{link_to @product.director.name}</strong></li>" if @product.director %>
+              <% actors = @product.actors.collect{|actor| link_to actor.name }.join(', ') %>
               <%= "<li><strong>Acteurs :</strong> #{@actors}</li>" unless actors %>
               <%= "<li><strong>titre original :</strong> #{@product.original_title}" unless @product.title == @product.original_title %>
               <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
