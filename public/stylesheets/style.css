@@ -2491,3 +2491,158 @@ fieldset {
 #news li a.next_page{
   padding-top: 0;
 }
+
+
+/* Début pagination */
+
+/*.navbypagefull .navbar li { 
+  display:block; 
+  float:left; 
+  margin-top:4px; 
+}
+
+.navbypagefull .navbar .navprevbtn {
+  margin-right:6px;
+}
+
+.navbypagefull .navbar .navcenterdata { 
+  margin-right:2px; 
+  line-height:17px; 
+  text-align:center; 
+}
+*/
+.products-pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.products-pagination a {
+	padding:0 5px 1px; 
+	color:#5b6377; 
+	border:1px solid #5b6377;
+	text-decoration:none;
+	font-size:12px;
+	padding: 2px 5px;
+}
+
+.products-pagination a:hover { 
+	color:#FFF; 
+	text-decoration:none; 
+	border:1px solid #5b6377;
+	background-color:#5b6377; 
+}
+
+.products-pagination .current {
+	color:#FFF;
+	border:1px solid #f64b00;
+	background-color:#f64b00;
+	font-size:12px;
+	font-style: normal;
+	padding: 2px 5px;
+}
+
+.products-pagination .prev_page, .products-pagination .next_page {
+  border:none;
+  height:22px;
+  width:23px;
+  display: inline-block;
+  text-indent: -999em;
+  padding:0;
+}
+
+.products-pagination a:hover.prev_page, .products-pagination a:hover.next_page {
+  border:none;
+  height:22px;
+  width:23px;
+  display: inline-block;
+  text-indent: -999em;
+  padding:0;
+}
+
+.products-pagination .prev_page {
+  background: url(../images/precedent_off.gif) no-repeat;
+}
+
+.products-pagination .next_page {
+  background: url(../images/suivant_on.gif) no-repeat;
+}
+
+.products-pagination .prev_page:hover {
+  background: url(../images/precedent_off.gif) no-repeat;
+}
+
+.products-pagination .next_page:hover {
+  background: url(../images/suivant_on.gif) no-repeat;
+}
+
+/*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
+
+.navbar .navprevbtn span {
+display:none;
+}
+
+.navbar .navnextbtn span {
+display:none;
+}
+
+.navbar .navprevbtn_end span {
+display:none;
+}
+
+.navbar .navnextbtn_end span {
+display:none;
+}
+
+.navprevbtn a{
+  text-decoration:none;
+}
+.navprevbtn img {
+height:24px;
+width:25px;
+vertical-align:top;
+}
+
+.navprevbtn_end a{
+  text-decoration:none;
+}
+
+.navprevbtn_end {
+  background-image: url(../images/precedent_end_off.gif);
+  background-repeat:no-repeat;
+}
+.navprevbtn_end img {
+height:24px;
+width:25px;
+vertical-align:top;
+}
+
+.navnextbtn a{
+  text-decoration:none;
+}
+.navnextbtn{
+  background-image: url(../images/suivant_on.gif);
+  background-repeat:no-repeat;
+}
+
+.navnextbtn img {
+height:24px;
+width:25px;
+vertical-align:top;
+}
+
+.navnextbtn_end a{
+  text-decoration:none;
+}
+
+.navnextbtn_end {
+  background-image: url(../images/suivant_end_off.gif);
+  background-repeat:no-repeat;
+}
+
+.navnextbtn_end img {
+height:24px;
+width:25px;
+vertical-align:top;
+}
+*/
+/* Fin pagination */
