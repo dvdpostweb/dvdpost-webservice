@@ -2543,19 +2543,21 @@ fieldset {
 
 .products-pagination .prev_page, .products-pagination .next_page {
   border:none;
-  height:22px;
   width:23px;
   display: inline-block;
- 	height:20px;
-
+ 	height:23px;
+  padding:0;
+  vertical-align:middle;
+  
 }
 
 .products-pagination a:hover.prev_page, .products-pagination a:hover.next_page {
   border:none;
-  height:22px;
   width:23px;
   display: inline-block;
-  height:20px;
+  height:23px;
+  padding:0;
+  vertical-align:middle;
 }
 
 .products-pagination .prev_page {
@@ -2568,11 +2570,11 @@ fieldset {
 }
 
 .products-pagination .prev_page:hover {
-  background: url(../images/precedent.gif) 0 -23px no-repeat;
+  background: url(../images/precedent.gif) 0 100% no-repeat;
 }
 
 .products-pagination .next_page:hover {
-  background: url(../images/suivant.gif) 0 -23px no-repeat;
+  background: url(../images/suivant.gif) 0 100% no-repeat;
 }
 
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
