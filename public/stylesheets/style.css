@@ -2547,7 +2547,9 @@ fieldset {
   width:23px;
   display: inline-block;
   text-indent: -999em;
-  padding:0;
+  padding:4px 0 0 0;
+ 	height:20px;
+
 }
 
 .products-pagination a:hover.prev_page, .products-pagination a:hover.next_page {
@@ -2556,23 +2558,25 @@ fieldset {
   width:23px;
   display: inline-block;
   text-indent: -999em;
-  padding:0;
+  padding:4px 0 0 0;
+  height:20px;
 }
 
 .products-pagination .prev_page {
-  background: url(../images/precedent_off.gif) no-repeat;
+  background: url(../images/precedent.gif) no-repeat;
 }
 
 .products-pagination .next_page {
-  background: url(../images/suivant_on.gif) no-repeat;
+  background: url(../images/suivant.gif) no-repeat;
+
 }
 
 .products-pagination .prev_page:hover {
-  background: url(../images/precedent_off.gif) no-repeat;
+  background: url(../images/precedent.gif) 0 -23px no-repeat;
 }
 
 .products-pagination .next_page:hover {
-  background: url(../images/suivant_on.gif) no-repeat;
+  background: url(../images/suivant.gif) 0 -23px no-repeat;
 }
 
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }

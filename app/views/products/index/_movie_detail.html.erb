@@ -34,8 +34,8 @@
     <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
   </div>
   <div>
-    <% link_to product_path(:id => product.to_param) do %>
-      <span class="cover"><%= product_image_tag product.image, :width => 62, :height => 95 %></span>
+    <% link_to product_path(:id => product.to_param), :class=>:cover do %>
+      <%= product_image_tag product.image, :width => 62, :height => 95 %>
     <% end %>
   </div>
 </div>
