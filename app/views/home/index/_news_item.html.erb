@@ -1,5 +1,4 @@
-<li> <!-- <img src="/images/news1.gif" alt="" class="left" /> -->
+<li>
   <h3><%= link_to news_item.title, news_item.link, :target => :_blank %></h3>
   <%= news_item.description.gsub('<a ', '<a target="_blank"').gsub('</a>','').gsub('</p>','</a></p>') %>
-  <!-- <p class="more"><a href="#">Lire la suite</a></p> -->
 </li>

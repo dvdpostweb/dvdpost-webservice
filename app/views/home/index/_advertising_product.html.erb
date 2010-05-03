@@ -2,11 +2,9 @@
   <span class="stars">
     <%= rating_image_small(advertising_product,DVDPost.product_kinds[:normal],:black) %>
   </span>
-  <% link_to product_path(:id => advertising_product.to_param) do %>
-  <span class="<%= product_media_id(advertising_product.media) %> cover">
+  <% link_to product_path(:id => advertising_product.to_param), :class => "cover #{product_media_id(advertising_product.media)}" do %>
     <%= product_image_tag advertising_product.image, :width => 56,:height=> 88, :alt => "#{advertising_product.title} (#{advertising_product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if advertising_product.is_new? %>
-  </span>
   <% end %>
   <%= render :partial => 'products/wishlist', :locals => {:product => advertising_product} %>
   <%= link_to advertising_product.title, product_path(:id => advertising_product.to_param), :class => 'more'  %>
