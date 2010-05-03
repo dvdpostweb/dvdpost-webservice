@@ -2546,7 +2546,6 @@ fieldset {
   height:22px;
   width:23px;
   display: inline-block;
-  text-indent: -999em;
   padding:4px 0 0 0;
  	height:20px;
 
@@ -2557,7 +2556,6 @@ fieldset {
   height:22px;
   width:23px;
   display: inline-block;
-  text-indent: -999em;
   padding:4px 0 0 0;
   height:20px;
 }
