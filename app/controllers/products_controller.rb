@@ -31,7 +31,6 @@ class ProductsController < ApplicationController
     @already_seen = current_customer.assigned_products.include?(@product)
     @reviews_count = @product.reviews.approved.count
     @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-    @actors = @product.actors.collect{|actor| link_to actor.name}.join(', ') 
   end
 
   def uninterested
