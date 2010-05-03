@@ -143,7 +143,6 @@ $(function() {
 
   $("#top10").ready(function() {
     $("#top10 a.t-arrow").toggleClass('open');
-    $("#top10 a.t-arrow").parent().find(".top-description").toggle(1);
   });
   $("#top10 a.t-arrow").live("click", function() {
     $(this).toggleClass('open');
