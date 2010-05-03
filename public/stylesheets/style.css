@@ -46,12 +46,12 @@ fieldset {
   border: none;
 }
 
-.left, .prev_page {
+.left {
   float: left;
   padding-top: 8px;
 }
 
-.right, .next_page {
+.right {
   float: right;
   padding-top: 8px;
 }
@@ -466,6 +466,7 @@ cursor: default;
 * html #maincontent {
   display: inline;
 }
+
 
 
 /*   Theme Page   */
@@ -1090,6 +1091,18 @@ display: block;
 
 
 /*   Detail Page   */
+
+
+#products_index .prev_page {
+  float: left;
+  padding-top: 8px;
+}
+
+#products_index .next_page  {
+  float: right;
+  padding-top: 8px;
+}
+
 
 #breadcrumb {
   margin-top: -7px;
