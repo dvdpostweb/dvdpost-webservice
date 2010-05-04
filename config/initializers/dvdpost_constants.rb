@@ -127,5 +127,19 @@ module DVDPost
         Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id']}
       end
     end
+
+    def send_evidence_recommendations(type, product_id,customer, ip, args )
+      url="http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{(I18n.locale).upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
+      if args
+        args_str=''
+        args.collect {|key,value| args_str+="&#{key}=#{value}"}
+        url = url + args_str
+      end
+      if Rails.env == "production"
+        open(url)
+      else
+        url
+      end
+    end   
   end
 end

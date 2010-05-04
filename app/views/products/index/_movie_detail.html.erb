@@ -1,12 +1,13 @@
 <% product = movie_detail %>
+<% path = (!params[:recommended]) ? product_path(:id => product.to_param) : product_path(:id => product.to_param, :recommendation => 1) %>
 <div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
-    <h2><%= link_to product.title, product_path(:id => product.to_param) %></h2>
+    <h2><%= link_to product.title, path %></h2>
     <p><%= product_description_text(product) %></p>
     <p class="links">
       <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
       <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && (!product.description.url.nil? && !product.description.url.empty?) %>
-      <%= link_to('En savoir +', product_path(:id => product.to_param), :class => 'more') %>
+      <%= link_to('En savoir +', path, :class => 'more') %>
     </p>
   </div>
   <div class="movie-info">
@@ -34,7 +35,7 @@
     <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
   </div>
   <div>
-    <% link_to product_path(:id => product.to_param), :class=>:cover do %>
+    <% link_to path, :class=>:cover do %>
       <%= product_image_tag product.image, :width => 62, :height => 95 %>
     <% end %>
   </div>

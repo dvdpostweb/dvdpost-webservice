@@ -33,12 +33,17 @@ class ProductsController < ApplicationController
     @already_seen = current_customer.assigned_products.include?(@product)
     @reviews_count = @product.reviews.approved.count
     @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
+    if params[:recommendation] == "1"
+      data = DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip, {})
+    end
+    data = DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip, {})
   end
 
   def uninterested
     begin
       @product = Product.available.find(params[:product_id])
       @product.uninterested_customers << current_customer
+      data = DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip, {})
       respond_to do |format|
         format.html {redirect_to product_path(:id => @product.to_param)}
         format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}

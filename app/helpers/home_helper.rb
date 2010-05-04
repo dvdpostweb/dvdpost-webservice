@@ -47,23 +47,28 @@ module HomeHelper
   end
 
   def carousel_path(carousel)
-     case carousel.type 
+     case carousel.kind
       when 'MOVIE'
-        product_path(:id => carousel.reference_id)
+        path = product_path(:id => carousel.reference_id)
       when 'OTHER'
-        'test.php' #to do information dispobible into (dvdpost.common.translations2) key => LANDINGS_URL_+id
-      when 'SELECTION'
-        (carousel.type == 'TOP' ) ? top_products_path(:top_id => carousel.reference_id) : theme_products_path(:top_id => carousel.reference_id)
+        path = 'test.php' #to do information dispobible into (dvdpost.common.translations2) key => LANDINGS_URL_+id
+      when 'TOP'
+        path = top_products_path(:top_id => carousel.reference_id) 
+      when 'THEME'
+        path = theme_products_path(:theme_id => carousel.reference_id)
     end
+    path
   end
 
   def carousel_name_link(carousel)
-     case carousel.type 
+     case carousel.kind 
       when 'MOVIE'
         'Louer'
       when 'OTHER'
         'GO' #to do information dispobible into (dvdpost.common.translations2) key => LANDINGS_TITLE_+id
-      when 'SELECTION'
+      when 'TOP'
+        'Voir la selection' #to do
+      when 'THEME'
         'Voir la selection' #to do
     end
   end

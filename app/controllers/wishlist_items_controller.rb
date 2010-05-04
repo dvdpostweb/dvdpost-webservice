@@ -53,6 +53,7 @@ class WishlistItemsController < ApplicationController
     begin
       @wishlist_item = WishlistItem.find(params[:id])
       @wishlist_item.update_attributes(params[:wishlist_item])
+      data = DVDPost.send_evidence_recommendations('UpdateWishlistItem', params[:id], current_customer, request.remote_ip, {:priority => params[:wishlist_item][:priority]})
       respond_to do |format|
         format.js {render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => @wishlist_item}}
       end
@@ -61,6 +62,7 @@ class WishlistItemsController < ApplicationController
 
   def destroy
     @wishlist_item = WishlistItem.destroy(params[:id])
+    data = DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip, {})
     flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
     respond_to do |format|
       format.html {redirect_to wishlist_path}
@@ -73,6 +75,7 @@ class WishlistItemsController < ApplicationController
     wishlist_item = WishlistItem.new(params)
     wishlist_item.customer = current_customer
     wishlist_item.save
+    data = DVDPost.send_evidence_recommendations('AddToWishlist', params[:product_id], current_customer, request.remote_ip, {:priority => params[:priority]})
     wishlist_item
   end
 

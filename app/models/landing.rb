@@ -1,6 +1,4 @@
 class Landing < ActiveRecord::Base
-  set_inheritance_column :ruby_type
-
   has_one :product, :primary_key => :reference_id, :foreign_key => :products_id
 
   named_scope :order, :order => "expirated_date desc"
