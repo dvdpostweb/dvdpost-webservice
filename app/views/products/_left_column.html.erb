@@ -9,14 +9,9 @@
     <li>
       <%= link_to 'Les tops' %>
       <ul>
-        <li><a href="#">Les plus drôles</a></li>
-        <li><a href="#">Les plus tristes</a></li>
-        <li><a href="#">Les plus effrayants</a></li>
-        <li><a href="#">Les plus surprenants</a></li>
-        <li><a href="#">Les plus étoilés</a></li>
-        <li><a href="#">Les plus regardés</a></li>
-        <li><a href="#">Les plus primés</a></li>
-        <li><a href="#">Les plus commentés</a></li>
+        <% ProductList.status.top.collect do |top| %>
+          <li><%= link_to top.name, top_products_path(:top_id => top) %></li>
+        <% end %>
       </ul>
     </li>
     <li>
@@ -27,11 +22,17 @@
         <% end %>
       </ul>
     </li>
-    <li><%= link_to 'Thèmes' %></li>
+    <li><%= link_to 'Thèmes' %>
+      <ul>
+        <% ProductList.status.theme.not_highlighted.collect do |theme| %>
+          <li><%= link_to theme.name, theme_products_path(:theme_id => theme) %></li>
+        <% end %>
+      </ul>
+    </li>
   </ul>
   <p id="special">
-    SPECIAL <br />
-    JAMES CAMERON
+    <% special = ProductList.status.theme.highlighted.first %>
+    <%= link_to special.name, theme_products_path(:theme_id => special) %>
   </p>
   <%= render :partial => 'products/index/filters', :locals => {:soundtracks => @soundtracks, :picture_formats => @picture_formats, :countries => @countries} if params[:action] == 'index' %>
   <ul id="left-links">

@@ -30,6 +30,14 @@ ActionController::Routing::Routes.draw do |map|
       category.resources :products, :only => :index
     end
 
+    localized.resources :tops, :only => [] do |top|
+      top.resources :products, :only => :index
+    end
+
+    localized.resources :themes, :only => [] do |theme|
+      theme.resources :products, :only => :index
+    end
+
     localized.resources :reviews, :only => [] do |review|
       review.resource :review_rating, :only => :create
     end

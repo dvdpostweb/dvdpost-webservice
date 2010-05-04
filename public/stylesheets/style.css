@@ -2235,7 +2235,9 @@ div.top10.first p a {
   text-transform: uppercase;
   width: 111px;
 }
-
+#leftcolumn p#special a{
+  color: #303030;
+}
 #leftcolumn #left-links {
   background: url(../images/left-links-bg.jpg) 0 0 no-repeat;
   display: block;

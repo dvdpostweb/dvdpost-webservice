@@ -51,9 +51,9 @@ module HomeHelper
       when 'MOVIE'
         product_path(:id => carousel.reference_id)
       when 'OTHER'
-        'test.php' #to do
+        'test.php' #to do information dispobible into (dvdpost.common.translations2) key => LANDINGS_URL_+id
       when 'SELECTION'
-        'test.php' #to do
+        (carousel.type == 'TOP' ) ? top_products_path(:top_id => carousel.reference_id) : theme_products_path(:top_id => carousel.reference_id)
     end
   end
 
@@ -62,7 +62,7 @@ module HomeHelper
       when 'MOVIE'
         'Louer'
       when 'OTHER'
-        'GO'
+        'GO' #to do information dispobible into (dvdpost.common.translations2) key => LANDINGS_TITLE_+id
       when 'SELECTION'
         'Voir la selection' #to do
     end
