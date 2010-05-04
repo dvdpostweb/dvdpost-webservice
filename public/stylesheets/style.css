@@ -821,7 +821,10 @@ display: block;
   background-position: 0 100%;
   bottom: 0;
 }
-
+html+#one-col #maincontent .end {
+  position: relative; 
+  margin: 0 0 -18px -15px;
+}
 #mywhishlist .box {
   border: 1px solid #454545;
   width: 886px;
@@ -1942,6 +1945,8 @@ font-weight: bold;
 #top10-wrap {
   float: left;
   width: 352px;
+  clear: left; 
+  margin-bottom: 15px
 }
 #top10-wrap h3.hp-ttls {
   background: url(../images/top10-ttl.png) 0 0 no-repeat;
