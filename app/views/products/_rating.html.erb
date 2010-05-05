@@ -1,6 +1,6 @@
 <% form_for(:rating, :url => product_rating_path(I18n.locale, product)) do |f| %>
   <% rating = product.rating_by_customer(current_customer) %>
   <%= rating_image(product,product.get_rating(current_customer, rating), rating, background) %>
-  <%= hidden_field_tag(:replace, replace) %>
-  <%= hidden_field_tag(:background, background) %>
+  <%= hidden_field_tag("replace_#{product.to_param}", replace) %>
+  <%= hidden_field_tag("background_#{product.to_param}", background) %>
 <% end %>

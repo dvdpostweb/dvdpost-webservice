@@ -1723,7 +1723,7 @@ html ul.tabs li.active a:hover {
   font-size: 1.17em;
   line-height: 1em;
 }
-#tabs-rotator .panel .capt li a#rent {
+#tabs-rotator .panel .capt li a.rent {
   background: url(../images/rent-icon.png) 0 1px no-repeat;
 }
 #tabs-rotator .panel .capt li a.trailer {

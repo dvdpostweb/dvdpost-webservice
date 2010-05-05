@@ -4,5 +4,5 @@
     <%= render :partial => 'products/rating', :locals => {:product => rate, :background => :black, :replace => :homepage_wishlist} %>
   </div>
   <h5><%= link_to rate.title, product_path(:id => rate.to_param) %></h5>
-  <%= link_to product_image_tag(rate.image, :width => 54, :height => 83, :alt => rate.title), product_path(:id => rate.to_param), :class => "cover #{product_media_id(rate.media)}"%></span> 
+  <%= link_to product_image_tag(rate.image, :width => 54, :height => 83, :alt => rate.title), product_path(:id => rate.to_param), :class => "cover #{product_media_id(rate.media)}"%>
 </div>

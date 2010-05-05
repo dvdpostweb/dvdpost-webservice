@@ -1,5 +1,5 @@
 <% if current_customer.wishlist_products.include?(product) %>
   Already in your wishlist
 <% else %>
-  <%= link_to 'Ajouter à ma liste', new_product_wishlist_item_path(:product_id => product.to_param), :class => 'like-btn', :id => 'add_to_wishlist_button' %>
+  <%= link_to 'Ajouter à ma liste', new_product_wishlist_item_path(:product_id => product.to_param), :class => 'like-btn add_to_wishlist_button' %>
 <% end %>

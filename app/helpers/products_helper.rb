@@ -15,13 +15,13 @@ module ProductsHelper
     name = 'black-' + name if background == :black
 
     5.times do |i|
-      id = "#{product.to_param.to_s}_#{(i+1).to_s}"
+      id = "star_#{product.to_param.to_s}_#{(i+1).to_s}"
       if rating >= 2
-        images += image_tag "#{name}-on.jpg", :id => id, :product_id => product.to_param.to_s, :nb => (i+1), :class => class_name, :init => "#{name}-on.jpg", :name => "#{name}"
+        images += image_tag "#{name}-on.jpg", :id => id, :class => class_name, :name => "#{name}-on.jpg", :alt => "#{name}"
       elsif rating.odd?
-        images += image_tag "#{name}-half.jpg", :id => id, :product_id => product.to_param.to_s, :nb => (i+1), :class => class_name, :init => "#{name}-half.jpg", :name => "#{name}"
+        images += image_tag "#{name}-half.jpg", :id => id, :class => class_name, :name => "#{name}-half.jpg", :alt => "#{name}"
       else
-        images += image_tag "#{name}-off.jpg", :id => id, :product_id => product.to_param.to_s, :nb => (i+1), :class => class_name, :init => "#{name}-off.jpg", :name => "#{name}"
+        images += image_tag "#{name}-off.jpg", :id => id, :class => class_name, :name => "#{name}-off.jpg", :alt => "#{name}"
       end
       rating -= 2
       rating = 0 if rating < 0

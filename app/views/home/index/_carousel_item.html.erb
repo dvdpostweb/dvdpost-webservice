@@ -6,7 +6,7 @@
     <h2><%= link_to carousel_item.name, path %></h2>
     <ul>
       <li>
-        <%= link_to name_link, path, :id => :rent %>
+        <%= link_to name_link, path, :class => :rent %>
       </li>
       <% if carousel_item.type == 'MOVIE' && carousel_item.product.trailer %>
       <li class="delim"></li>

@@ -17,11 +17,14 @@ $(function() {
   });
 
   $(".star").live("click", function() {
-    rate = $(this).attr('nb');
-    product_id = $(this).attr('product_id');
-    background = $('#background').attr('value');
-    replace = $('#replace').attr('value');
-    
+    data=$(this).attr('id');
+    data=data.replace('star_','');
+    data=data.split('_');
+    rate = data[1];
+    product_id = data[0];
+    background = $('#background_' + product_id).attr('value');
+    replace = $('#replace_' + product_id).attr('value');
+
     data = "rate="+rate+"&background="+background+'&replace='+replace;
     loader="ajax-loader.gif"
     if (background=='black')
@@ -34,28 +37,36 @@ $(function() {
     return false;
   });
   $(".star").live("mouseover", function(){
-    nb_star = $(this).attr('nb');
-    product_id = $(this).attr('product_id');
-	  image=$(this).attr('name');
-	  image=image+"-voted";
+    data=$(this).attr('id');
+    data=data.replace('star_','');
+    data=data.split('_');
+    nb_star = data[1];
+    product_id = data[0];
+	  image=$(this).attr('alt');
+	  image=image + "-voted";
 	  for(var i=1; i<=5;i++)
     {
       if(i<=nb_star)
-        $('#'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
+        $('#star_'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
       else
-        $('#'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
+        $('#star'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
     }
   });
   $(".star").live("mouseout", function() {
-    product_id = $(this).attr('product_id');
+    data=$(this).attr('id');
+    data=data.replace('star_','');
+    data=data.split('_');
+    nb_star = data[1];
+    product_id = data[0];
+
     for(var i=1; i<=5;i++)
     {
-      init=$('#'+product_id+"_"+i).attr('init');
-      $('#'+product_id+"_"+i).attr('src','/images/'+init);
+      name=$('#star_'+product_id+"_"+i).attr('name');
+      $('#star_'+product_id+"_"+i).attr('src','/images/'+name);
     }
   });
 
-  $("#add_to_wishlist_button").live("click", function() {
+  $(".add_to_wishlist_button").live("click", function() {
     wishlist_item = $(this);
     jQuery.facebox(function() {
       $.getScript(wishlist_item.attr('href'), function(data) {

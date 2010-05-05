@@ -58,10 +58,11 @@ $(function() {
 
   function change_carousel()
   {
-    id = $('#tabs-rotator #tabs a.active').attr('id')
-    next_id = parseInt( id ) + 1
+    id = $('#tabs-rotator #tabs a.active').attr('id');
+    id = id.replace("carousel_","");
+    next_id = parseInt( id ) + 1;
     if( next_id == 6) next_id = 1;
-    $('#tabs-rotator #tabs a.active').removeClass('active')
-    $('#'+next_id).addClass('active')
+    $('#tabs-rotator #tabs a.active').removeClass('active');
+    $('#carousel_'+next_id).addClass('active');
   }
 });
