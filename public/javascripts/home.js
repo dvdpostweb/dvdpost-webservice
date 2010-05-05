@@ -51,7 +51,7 @@ $(function() {
   //carousel
   
   $('.panels').cycle({ 
-      fx: 'scrollLeft',
+      fx: 'turnLeft', 
       timeout: 15000,
       before: change_carousel
   });
