@@ -821,7 +821,7 @@ display: block;
   background-position: 0 100%;
   bottom: 0;
 }
-html+#one-col #maincontent .end {
+*+html #one-col #maincontent .end {
   position: relative; 
   margin: 0 0 -18px -15px;
 }
