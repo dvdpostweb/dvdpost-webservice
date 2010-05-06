@@ -16,7 +16,10 @@ class HomeController < ApplicationController
         @transit_items = current_customer.orders.in_transit(:order => "orders.date_purchased ASC")
         @news_items = retrieve_news
         @recommendations = retrieve_recommendations(true)
-        @carousel = Landing.by_expiration.private.order.limit
+        @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
+        if @carousel.count < 5
+          @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5-@carousel.count)
+        end  
       }
 
       format.js {

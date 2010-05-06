@@ -1,0 +1,25 @@
+Script started on Wed May  5 15:30:46 2010
+bash-3.2$ tail -f log/development.log [C[C[C[C[C[C[C[C[C[C[14Pcd src/dvdpost[C[C[C[C[C[C[C[C[C[Cscript/console [C[C[C[C[C[C[C[C[C[C[1Pcd src/dvdpost[C[C[C[C[C[C[C[C[C[Ctail -f log/development.log [C[C[C[C[C[C[C[C[C[C[Ksci[Kript/console 
+Loading development environment (Rails 2.3.5)
+>> Landing.by_expiration.private.order.limit
+=> [#<Landing id: 14, name: "le meilleur des film marvel", expirated_date: "2011-10-26", reference_id: 5, actif_french: "NO", actif_dutch: "YES", actif_english: "YES", kind: "THEME", title: "<b>SPECIAL</b><br />Marvel ", login: true>, #<Landing id: 13, name: "Confessions of a Shopaholic", expirated_date: "2011-10-19", reference_id: 113583, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "MOVIE", title: "<b>PROCHAINEMENT</b><br />chez DVDPost", login: true>, #<Landing id: 12, name: "Coco avant Chanel", expirated_date: "2011-10-12", reference_id: 113984, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "MOVIE", title: "<b>NOUVEAUTE</b><br />de la semaine", login: true>, #<Landing id: 11, name: "Fast and Furious 4 ", expirated_date: "2011-10-05", reference_id: 1, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "TOP", title: "<b>SPECIAL</b><br />top 10 vampires", login: true>, #<Landing id: 10, name: "OSS 117: Rio ne Répond Plus", expirated_date: "2011-09-28", reference_id: 114132, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "OTHER", title: "<b>PROMOTION</b><br />de la semaine", login: true>]
+>> reload!
+Reloading...
+=> true
+>> Landing.by_language.by_expiration.private.order.limit
+/Users/gs/src/dvdpost/app/models/landing.rb:8: warning: multiple values for a block parameter (0 for 1)
+	from /Users/gs/src/dvdpost/vendor/rails/activerecord/lib/active_record/named_scope.rb:92
+=> [#<Landing id: 15, name: "test", expirated_date: "2011-03-31", reference_id: 0, actif_french: "YES", actif_dutch: "NO", actif_english: "NO", kind: "OTHER", title: "<b>PROMOTION</b><br />de la semaine", login: true>, #<Landing id: 10, name: "OSS 117: Rio ne Répond Plus", expirated_date: "2011-09-28", reference_id: 114132, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "OTHER", title: "<b>PROMOTION</b><br />de la semaine", login: true>, #<Landing id: 11, name: "Fast and Furious 4 ", expirated_date: "2011-10-05", reference_id: 1, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "TOP", title: "<b>SPECIAL</b><br />top 10 vampires", login: true>, #<Landing id: 12, name: "Coco avant Chanel", expirated_date: "2011-10-12", reference_id: 113984, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "MOVIE", title: "<b>NOUVEAUTE</b><br />de la semaine", login: true>, #<Landing id: 13, name: "Confessions of a Shopaholic", expirated_date: "2011-10-19", reference_id: 113583, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "MOVIE", title: "<b>PROCHAINEMENT</b><br />chez DVDPost", login: true>]
+>> Landing.by_language.by_expiration.private.order.limite[4h([4l.[4h)[4l.[4h:[4l)[4hf[4l)[4hr[4l)
+=> [#<Landing id: 15, name: "test", expirated_date: "2011-03-31", reference_id: 0, actif_french: "YES", actif_dutch: "NO", actif_english: "NO", kind: "OTHER", title: "<b>PROMOTION</b><br />de la semaine", login: true>, #<Landing id: 10, name: "OSS 117: Rio ne Répond Plus", expirated_date: "2011-09-28", reference_id: 114132, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "OTHER", title: "<b>PROMOTION</b><br />de la semaine", login: true>, #<Landing id: 11, name: "Fast and Furious 4 ", expirated_date: "2011-10-05", reference_id: 1, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "TOP", title: "<b>SPECIAL</b><br />top 10 vampires", login: true>, #<Landing id: 12, name: "Coco avant Chanel", expirated_date: "2011-10-12", reference_id: 113984, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "MOVIE", title: "<b>NOUVEAUTE</b><br />de la semaine", login: true>, #<Landing id: 13, name: "Confessions of a Shopaholic", expirated_date: "2011-10-19", reference_id: 113583, actif_french: "YES", actif_dutch: "YES", actif_english: "YES", kind: "MOVIE", title: "<b>PROCHAINEMENT</b><br />chez DVDPost", login: true>]
+>> exit
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ exit
+exit
+
+Script done on Wed May  5 15:41:22 2010

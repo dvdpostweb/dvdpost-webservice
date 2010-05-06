@@ -1,0 +1,28 @@
+<div id="messages">
+		<p align="right">Suprimer les messages</p>
+		<table border="0" cellspacing="0" cellpadding="0">
+		<colgroup>
+			<col id="ids" />
+			<col id="cats" />
+
+			<col id="date" />
+			<col id="response" />
+			<col id="details" />
+			<col id="delete" />
+		</colgroup>
+		  <tr>
+			<th>ID</th>
+			<th>Catégorie</th>
+
+			<th>Date</th>
+			<th class="center">Réponse</th>
+			<th class="center">Details</th>
+			<th class="center"><img src="../images/trash-icon-contact.png" alt="Delete" width="15" height="21" /></th>
+		  </tr>
+		  <%= render :partial => '/messages/index/messages_item', :collection => messages %>
+		  
+		</table>
+	  <%= will_paginate messages, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
+
+		</div>
+

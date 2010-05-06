@@ -1,0 +1,16 @@
+<tr <%= "class='new'" unless messages_item.is_read %>>
+<td><%= messages_item.id %></td>
+
+<td>
+  <% link_to message_path(:id => messages_item.to_param), :class => 'show' do %>
+    <%= h messages_item.category.name %>
+    <%= " : #{h messages_item.product.description.title}" if messages_item.products_id%>
+  <% end %>
+</td>
+<td><%= messages_item.created_at.strftime("%d/%m/%Y") %></td>
+<td class="center"><%= image_tag 'check-orb-icon.png' if messages_item.updated_at %></td>
+<td class="center"><%= link_to image_tag('zoom-icon.gif'), message_path(:id => messages_item.to_param), :class => 'show' %></td>
+<td class="center"><label>
+  <input type="checkbox" name="checkbox" value="<%= message_path(:id => messages_item.to_param)%>" class="trash"/>
+</label></td>
+</tr>

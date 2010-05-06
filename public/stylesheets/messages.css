@@ -1,0 +1,418 @@
+/*   Contact Pages   */
+
+#contact-wrap {
+  padding: 23px 53px 33px;
+
+}
+#contact-wrap #tabs {
+  display: block;
+  height: 31px;
+}
+#contact-wrap #tabs li {
+  float: left;
+  margin-right: 3px;
+}
+#contact-wrap #tabs li a {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #0e0e0e;
+  border-bottom: none;
+  padding: 0 11px;
+  font-weight: bold;
+  color: white;
+  font-size: 1.17em;
+  background: url(../images/contact-tab-bg.png) 0 0 repeat-x;
+}
+* html #contact-wrap #tabs li a {
+  width: 10px;
+  white-space: nowrap;
+}
+
+
+#contact-wrap #tabs li a:hover {
+  text-decoration: none;
+}
+
+
+#contact-wrap #tabs li a.active {
+  background-position: 0 100%;
+  color: #323232;
+}
+#contact-wrap #tabs li a.active:hover {
+  cursor: default;
+}
+
+
+#contact-wrap #tabs-content {
+  border: 1px solid #0e0e0e;
+  padding: 20px 25px;
+  min-height:475px;
+  height: auto !important;
+  height: 475px;
+}
+
+/*   Contacts   */
+
+#contact-wrap #messages table {
+  width: 812px;
+}
+#contact-wrap #messages #ids {
+  width: 55px;
+}
+#contact-wrap #messages #cats {
+  width: 455px;
+}
+#contact-wrap #messages #date {
+  width: 105px;
+}
+#contact-wrap #messages #response {
+  width: 95px;
+}
+#contact-wrap #messages #details {
+  width: 60px;
+}
+#contact-wrap #messages #delete {
+  /*width: 50px;*/
+}
+
+#contact-wrap #messages th {
+  height: 26px;
+  padding: 0 8px;
+  background: #e4e5e6;
+  font-size: 1.17em;
+}
+#contact-wrap #messages td {
+  padding: 2px 8px;
+  border-bottom: 1px solid #0e0e0e;
+}
+#contact-wrap #messages tr.new {
+  font-weight: bold;
+}
+#contact-wrap #messages .center {
+  text-align: center;
+}
+.modal-window-wrap {
+  width: 100%;
+  height: 100%;
+  background: url(../images/modal-wrap-bg.png);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.modal-window {
+  width: 580px;
+
+  position: absolute;
+  top: 175px;
+  left: 50%;
+  background: url(../images/modal-window-bg.png) 0 0 no-repeat;
+ margin-left: -290px;
+}
+.modal-window-content {
+  width: 546px;
+  margin: 15px 0 0 19px;
+  height: 305px;
+  overflow: auto;
+}
+.modal-window-content h3 {
+  font-size: 1.5em;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #6e6e6e;
+}
+.modal-window-content h3 span {
+  font-weight: normal;
+}
+.modal-window-content .content {
+  text-align: left;
+  line-height: 2.1em;
+  padding: 10px 0 20px;
+}
+.modal-window-end {
+  height: 36px;
+  line-height: 32px;
+  text-align: left;
+  background: url(../images/modal-window-end-bg.png) 0 0 no-repeat;
+  padding-left: 19px;
+}
+.modal-window-end a {
+  color: #ff4b00;
+  font-weight: bold;
+}
+.modal-window-end a.like-btn {
+  float: right;
+  width: 56px;
+  height: 10px;
+  display: block;
+  margin: 11px 15px 0 0;
+  background: url(../images/modal-fermer-btn.png) 0 0 no-repeat;
+}
+* html .modal-window-end a.like-btn {
+   line-height: 10px;
+}
+
+
+.modal-window-end a.like-btn:hover {
+  background-position: 0 100%;
+}
+
+
+/*   FAQ   */
+
+#contact-wrap #faq-nav {
+  width: 262px;
+  display: block;
+  float: left;
+}
+#contact-wrap #faq-nav li {
+  margin-bottom: 3px;
+}
+#contact-wrap #faq-nav li a {
+  padding: 3px 3px 3px 23px;
+  display: block;
+  font-size:  1.08em;
+  color: #59595a;
+  background: #e4e5e6 url(../images/faq-nav-arrow.gif) 6px 4px no-repeat;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+* html #contact-wrap #faq-nav li a {
+  height: 10px;
+}
+
+
+#contact-wrap #faq-nav li a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+
+#contact-wrap #faq-nav li a.active {
+  color: #ff4b00;
+  background: #ffffff url(../images/faq-nav-arrow-active.gif) 6px 6px no-repeat;
+}
+#contact-wrap #faq-nav li ul {
+  margin-left: 23px;
+}
+#contact-wrap #faq-nav li li a {
+  text-transform: none;
+  font-size: 1em;
+  padding-left: 0;
+  font-weight: normal;
+  background: transparent;
+}
+#contact-wrap #faq-nav li li a:hover {
+  font-weight: bold;
+  color: #ff4b00;
+}
+#contact-wrap .faq-answer {
+  float: right;
+  width:470px;
+  padding-bottom:  14px;
+  background: url(../images/faq-answers-shadow.gif) 0 100% no-repeat;
+}
+#contact-wrap .faq-answer h3 {
+  font-size: 1.17em;
+  color: #000000;
+  margin-bottom: 6px;
+}
+#contact-wrap .faq-answer .box {
+  padding: 12px;
+  border: 1px solid #98978b;
+  background: #deded8;
+  font-weight: 1.17em;
+  line-height: 1.33em;
+}
+
+/*   Nous Contacteur Page   */
+
+
+#contact-wrap #contact form {
+  float: right;
+  width: 363px;
+  height: 463px;
+  background: url(../images/contact-form-bg.jpg) 0 0 no-repeat;
+  padding: 25px;
+  font-size: 1.17em;
+}
+#contact-wrap #contact label {
+  display: block;
+  margin-bottom: 10px;
+}
+#contact-wrap #contact .fld {
+  width: 210px;
+  padding: 3px 2px 0;
+  height: 24px;
+  border: 1px solid #c1c1c1;
+  border-top: none;
+  background: white url(../images/contact-form-fld-bg.gif) 0 0 repeat-x;
+  margin-bottom: 10px;
+}
+#contact-wrap #contact div {
+  margin: 8px 0;
+}
+#contact-wrap #contact select {
+  font-size: 0.79em;
+
+}
+#contact-wrap #contact button.like-btn {
+  /*float: left;*/
+  display: block;
+  width: 137px;
+  height: 27px;
+  margin-top: 10px;
+  background: url(../images/recontacter-btn.png) 0 0 no-repeat;
+  border: none;
+  clear: both;
+}
+#contact-wrap #contact ul {
+  float: left;
+  width: 380px;
+}
+#contact-wrap #contact li {
+  margin-bottom: 5px;
+  font-size: 1.17em;
+  color: #505050;
+}
+#contact-wrap #contact li a {
+  color:#00a3d5;
+}
+
+
+#contact-wrap #contact li h3 {
+  font-size:1.43em;
+  color: #505050;
+  margin:0 0 10px 8px;
+}
+#contact-wrap #contact li h4 {
+  font-size: 1em;
+}
+#contact-wrap #contact li#phone {
+  color: #00a3d5;
+padding-left: 84px;
+background: url(../images/phone-icon.jpg) 6px 0 no-repeat;
+min-height: 59px;
+height: auto !important;
+height: 59px;
+}
+#contact-wrap #contact li#phone h4 {
+  font-size: 1.14em;
+}
+#contact-wrap #contact li#mail {
+padding-left: 84px;
+background: url(../images/mail-icon.jpg) 0 0 no-repeat;
+min-height: 45px;
+height: auto !important;
+height: 59px;
+padding-top: 14px;
+}
+#contact-wrap #contact li#fax {
+padding-left: 84px;
+background: url(../images/fax-icon.jpg) 0 0 no-repeat;
+min-height: 45px;
+height: auto !important;
+height: 59px;
+padding-top: 14px;
+}
+#contact-wrap #contact li#courrier {
+padding-left: 84px;
+background: url(../images/courier-icon.jpg) 0 0 no-repeat;
+min-height: 45px;
+height: auto !important;
+height: 59px;
+padding-top: 14px;
+}
+#contact-wrap #contact li#social {
+   padding: 20px 0 0 30px;
+}
+#contact-wrap #contact li#social a {
+  float: left;
+  display: block;
+  margin-right: 25px;
+  padding-top: 65px;
+  font-size: 0.86em;
+  text-align: center;
+  color: #505050;
+  width: 60px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  position: relative;
+}
+#contact-wrap #contact li#social a:hover {
+  text-decoration: none;
+  color:#00a3d5;
+}
+
+
+#contact-wrap #contact li#social a#blog {
+  background-image: url(../images/blog-icon.png);
+}
+#contact-wrap #contact li#social a#fb {
+  background-image: url(../images/fb-icon.png);
+}
+#contact-wrap #contact li#social a#tw {
+  background-image: url(../images/tw-icon.png);
+}
+#contact-wrap #contact li#social a#vm {
+  background-image: url(../images/vimeo-icon.png);
+}
+
+/*   Questions Page   */
+
+#contact-wrap #question {
+  color: #505050;
+  font-size: 1.08em;
+}
+#contact-wrap #question h3 {
+  font-size: 1.15em;
+  margin-bottom: 15px;
+}
+#contact-wrap #question label {
+  display: block;
+  margin: 5px 0;
+}
+#contact-wrap #question label.active {
+  font-weight: bold;
+  color: #ff4b00;
+}
+#contact-wrap #question label input {
+   margin: 0;
+   vertical-align: middle;
+}
+#contact-wrap #question p {
+  padding: 0;
+  margin: 25px 0 12px;
+}
+#contact-wrap #question textarea {
+  padding: 2px;
+  width: 800px;
+  height: 140px;
+  border: 1px solid #000000;
+  background: white;
+}
+#contact-wrap #question button.like-btn {
+  width: 91px;
+  height: 27px;
+  display: block;
+  border: none;
+  background: url(../images/envoyer-btn.png) 0 0 no-repeat;
+  margin: 5px 0 0 705px;
+}
+#messages a {
+  color:#000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
