@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'open-uri'
 require 'rss/2.0'
-  
+
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
   helper :all # include all helpers, all the time
@@ -22,14 +22,14 @@ class ApplicationController < ActionController::Base
   end
 
   def wishlist_size
-    (@wishlist_size = current_customer.wishlist_items.count || 0) if current_customer
+    @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
   end
 
   def set_locale
     I18n.locale = params[:locale]
   end
-  
+
   def messages_size
-    (@messages_size = current_customer.message.not_read.count || 0) if current_customer
+    @messages_size = (current_customer.messages.not_read.count || 0) if current_customer
   end
 end

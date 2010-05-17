@@ -128,18 +128,10 @@ module DVDPost
       end
     end
 
-    def send_evidence_recommendations(type, product_id,customer, ip, args )
-      url="http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{(I18n.locale).upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
-      if args
-        args_str=''
-        args.collect {|key,value| args_str+="&#{key}=#{value}"}
-        url = url + args_str
-      end
-      if Rails.env == "production"
-        open(url)
-      else
-        url
-      end
-    end   
+    def send_evidence_recommendations(type, product_id,customer, ip, args=nil)
+      url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
+      url = "#{url}&#{args.collect{|key,value| "#{key}=#{value}"}.join('&')}" if args
+      Rails.env == "production" ? open(url) : url
+    end
   end
 end

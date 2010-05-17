@@ -11,6 +11,6 @@ class RatingsController < ApplicationController
       rates = current_customer.not_rated_products
       @rate = rates[rand(rates.count)]
     end
-    data = DVDPost.send_evidence_recommendations('Rating', @product.to_param, current_customer, request.remote_ip, {})
+    DVDPost.send_evidence_recommendations('Rating', @product.to_param, current_customer, request.remote_ip)
   end
 end

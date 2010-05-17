@@ -17,11 +17,8 @@ class HomeController < ApplicationController
         @news_items = retrieve_news
         @recommendations = retrieve_recommendations(true)
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
-        if @carousel.count < 5
-          @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5-@carousel.count)
-        end  
+        @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
       }
-
       format.js {
         if params[:news_page]
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
