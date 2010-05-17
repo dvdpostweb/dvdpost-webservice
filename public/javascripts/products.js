@@ -17,52 +17,51 @@ $(function() {
   });
 
   $(".star").live("click", function() {
-    data=$(this).attr('id');
-    data=data.replace('star_','');
-    data=data.split('_');
-    rate = data[1];
-    product_id = data[0];
-    background = $('#background_' + product_id).attr('value');
-    replace = $('#replace_' + product_id).attr('value');
-
-    data = "rate="+rate+"&background="+background+'&replace='+replace;
-    loader="ajax-loader.gif"
-    if (background=='black')
-    {
-      loader='black-'+loader;
+    url = $(this).parent().attr('href');
+    html_item = $(this).parent().parent();
+    content = html_item.html();
+    loader = 'ajax-loader.gif';
+    if ($(this).attr('src').match(/black-star-/i)){
+      loader = 'black-'+loader;
     }
-    image="<img src='/images/"+loader+"' />";
-    $("#rating-stars-"+product_id).html(image)
-    $.post($(this).parents('form').attr('action'), data, null, "script");
+    html_item.html("<img src='/images/"+loader+"'/>");
+    $.ajax({
+      url: url,
+      type: 'POST',
+      success: function(data) {
+        html_item.html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
     return false;
   });
   $(".star").live("mouseover", function(){
-    data=$(this).attr('id');
-    data=data.replace('star_','');
-    data=data.split('_');
-    nb_star = data[1];
+    data = $(this).attr('id').replace('star_','').split('_');
     product_id = data[0];
-	  image=$(this).attr('alt');
-	  image=image + "-voted";
-	  for(var i=1; i<=5;i++)
+    rating_value = data[1];
+
+    image = 'star-voted-';
+    if ($(this).attr('src').match(/black-star-(on|half|off)/i)){
+      image = 'black-'+image;
+    }
+    for(var i=1; i<=5; i++)
     {
-      if(i<=nb_star)
-        $('#star_'+product_id+"_"+i).attr('src','/images/'+image+'-on.jpg');
-      else
-        $('#star'+product_id+"_"+i).attr('src','/images/'+image+'-off.jpg');
+      if(i <= rating_value){
+        full_image = image+'on';
+      }else{
+        full_image = image+'off';
+      }
+      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.jpg');
     }
   });
   $(".star").live("mouseout", function() {
-    data=$(this).attr('id');
-    data=data.replace('star_','');
-    data=data.split('_');
-    nb_star = data[1];
-    product_id = data[0];
-
-    for(var i=1; i<=5;i++)
+    product_id = $(this).attr('id').replace('star_','').split('_')[0];
+    for(var i=1; i<=5; i++)
     {
-      name=$('#star_'+product_id+"_"+i).attr('name');
-      $('#star_'+product_id+"_"+i).attr('src','/images/'+name);
+      image = $('#star_'+product_id+'_'+i);
+      image.attr('src','/images/'+image.attr('name'));
     }
   });
 

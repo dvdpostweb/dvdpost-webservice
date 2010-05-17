@@ -8,7 +8,7 @@ class Rating < ActiveRecord::Base
   alias_attribute :value,      :products_rating
 
   before_save :set_defaults
-  after_save :set_already_seen
+  after_save :set_already_seen, :cache_rating
 
   validates_presence_of :product
   validates_presence_of :customer
@@ -28,5 +28,9 @@ class Rating < ActiveRecord::Base
 
   def set_already_seen
     product.seen_customers << customer
+  end
+
+  def cache_rating
+    product.rate!(value)
   end
 end

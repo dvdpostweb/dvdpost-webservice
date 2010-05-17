@@ -1,22 +1,17 @@
 module HomeHelper
-  def rating_image_small(product, type='DVD_NORM',background='white')
-    rating = product.get_rating
-    images = ""
-    if background == :white
-      color = ''
-    else
-      color = 'black-'
-    end
+  def rating_image_small(product, background=nil)
+    rating = product.rating
+    images = []
     5.times do |i|
-      if rating >= 2
-        images += image_tag "#{color}little-star-on.jpg", :alt=>'star'
-      elsif rating.odd?
-        images += image_tag "#{color}little-star-half.jpg", :alt=>'star'
+      state = if rating >= 2
+        'on'
+      elsif rating == 1
+        'half'
       else
-        images += image_tag "#{color}little-star-off.jpg", :alt=>'star'
+        'off'
       end
+      images << image_tag("#{'black-' if background == :black}little-star-#{state}.jpg", :alt => 'star')
       rating -= 2
-      rating = 0 if rating < 0
     end 
     images
   end
@@ -30,16 +25,15 @@ module HomeHelper
     when 'shop'
       link_to image_tag(@shop.image), @shop.url
     when 'community'
-      i=rand(4)
-      case i
+      case rand(4)
       when 0
-        link_to image_tag('banner_blog.gif',:alt=>'blog dvdpost'), "http://insidedvdpost.blogspot.com/"
+        link_to image_tag('banner_blog.gif', :alt => 'blog dvdpost'), "http://insidedvdpost.blogspot.com/"
       when 1
-        link_to image_tag('banner_facebook.gif',:alt=>'facebook dvdpost'), "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834"
+        link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834"
       when 2  
-        link_to image_tag('banner_parrainage.gif',:alt=>'parrainage dvdpost'), "http://www.dvdpost.be/member_get_member.php"
+        link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), "http://www.dvdpost.be/member_get_member.php"
       when 3  
-        link_to image_tag('banner_twitter.gif',:alt=>'twitter dvdpost'), "http://twitter.com/dvdpost"
+        link_to image_tag('banner_twitter.gif', :alt => 'twitter dvdpost'), "http://twitter.com/dvdpost"
       end 
     else
       'other'

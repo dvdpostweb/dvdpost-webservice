@@ -2,7 +2,7 @@
 <% if item_number == 1 %>
   <div class="top10 first">
     <h2><%= link_to top_product.title, product_path(:id => top_product.to_param) %></h2>
-    <%= rating_image_small(top_product, DVDPost.product_kinds[:normal], :black) %>
+    <%= rating_image_small(top_product, :black) %>
     <!--img src="/images/top10-stars.png" alt="" style="margin-top:4px;" /-->
     <p>Réalisé par : <%= link_to top_product.director.name %></p>
     <p>Acteurs : <%= top_product.actors.collect{|actor| link_to actor.name}.join(', ') %></p>

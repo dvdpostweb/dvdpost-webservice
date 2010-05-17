@@ -21,6 +21,7 @@ class Customer < ActiveRecord::Base
   has_many :assigned_products, :through => :assigned_items, :source => :product
   has_many :orders, :foreign_key => :customers_id
   has_many :ratings, :foreign_key => :customers_id
+  has_many :rated_products, :through => :ratings, :source => :product, :uniq => true
   has_many :reviews, :foreign_key => :customers_id
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
@@ -33,6 +34,10 @@ class Customer < ActiveRecord::Base
 
   def not_rated_products
     seen_products.all(:conditions => ['products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+  end
+
+  def has_rated?(product)
+    rated_products.exists?(product)
   end
 
   def active?

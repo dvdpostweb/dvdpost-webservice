@@ -1,6 +1,6 @@
 <li>
   <span class="stars">
-    <%= rating_image_small(advertising_product,DVDPost.product_kinds[:normal], :black) %>
+    <%= rating_image_small(advertising_product, :black) %>
   </span>
   <% link_to product_path(:id => advertising_product.to_param), :class => "cover #{product_media_id(advertising_product.media)}" do %>
     <%= product_image_tag advertising_product.image, :width => 56,:height=> 88, :alt => "#{advertising_product.title} (#{advertising_product.year})" %>

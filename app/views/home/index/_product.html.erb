@@ -3,10 +3,10 @@
     <%= rating_image_small(product) %>
   </span>
   <% link_to product_path(:id => product.to_param) do %>
-  <span class="<%= product_media_id(product.media) %>">
-    <%= product_image_tag product.image, :width => 76,:height=> 118, :alt => "#{product.title} (#{product.year})" %>
-    <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
-  </span>
+    <span class="<%= product_media_id(product.media) %>">
+      <%= product_image_tag product.image, :width => 76,:height=> 118, :alt => "#{product.title} (#{product.year})" %>
+      <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
+    </span>
   <% end %>
   <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
   <%= link_to product.title, product_path(:id => product.to_param), :class => 'more'  %>

@@ -1,6 +1,6 @@
 <div id="cotez">
   <h4>Cotez ce film</h4>
-  <div id='rating-stars-<%= rate.to_param%>'>
+  <div id='rating-stars-<%= rate.to_param %>'>
     <%= render :partial => 'products/rating', :locals => {:product => rate, :background => :black, :replace => :homepage_wishlist} %>
   </div>
   <h5><%= link_to rate.title, product_path(:id => rate.to_param) %></h5>

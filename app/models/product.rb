@@ -74,16 +74,16 @@ class Product < ActiveRecord::Base
     File.join(DVDPost.images_path, description.image) if description && !description.image.blank?
   end
 
-  def get_rating(customers=nil, rating_customer=nil)
-    if customers && rating_customer
-      rating_customer.value.to_i * 2
+  def rating(customer=nil)
+    if customer && customer.has_rated?(self)
+      ratings.by_customer(customer).first.value.to_i * 2
     else
-      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count.to_f) * 2).round
+      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count) * 2).round
     end
   end
 
-  def rating_by_customer(customer=nil)
-    ratings.by_customer(customer).first
+  def rate!(value)
+    update_attributes({:rating_count => (rating_count + 1), :rating_users => (rating_users + value)})
   end
 
   def is_new?

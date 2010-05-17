@@ -3,30 +3,37 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
-  def rating_image(product,rating, rating_customer, background, type='DVD_NORM')
-    images = ""
-    if rating_customer
-      name = "star-voted"
+  def rating_image_links(product, background=nil)
+    rating = product.rating(current_customer)
+    links = []
+    5.times do |i|
+      i += 1
+      links << rating_image_link(product, rating, i, background)
+      rating -= 2
+    end
+    links
+  end
+
+  def rating_image_link(product, rating, value, background=nil)
+    if current_customer.has_rated?(product)
+      name = 'star-voted'
       class_name = ''
     else
-      name = "star"
+      name = 'star'
       class_name = 'star'
     end
-    name = 'black-' + name if background == :black
+    name = "black-#{name}" if background == :black
 
-    5.times do |i|
-      id = "star_#{product.to_param.to_s}_#{(i+1).to_s}"
-      if rating >= 2
-        images += image_tag "#{name}-on.jpg", :id => id, :class => class_name, :name => "#{name}-on.jpg", :alt => "#{name}"
-      elsif rating.odd?
-        images += image_tag "#{name}-half.jpg", :id => id, :class => class_name, :name => "#{name}-half.jpg", :alt => "#{name}"
-      else
-        images += image_tag "#{name}-off.jpg", :id => id, :class => class_name, :name => "#{name}-off.jpg", :alt => "#{name}"
-      end
-      rating -= 2
-      rating = 0 if rating < 0
-    end 
-    images
+    image_name = if rating >= 2
+      "#{name}-on.jpg"
+    elsif rating == 1
+      "#{name}-half.jpg"
+    else
+      "#{name}-off.jpg"
+    end
+
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+    link_to(image, product_rating_path(:product_id => product, :value => value, :background => background))
   end
 
   def available_on_other_media(product)

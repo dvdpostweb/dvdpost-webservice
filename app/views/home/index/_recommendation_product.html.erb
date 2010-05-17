@@ -1,7 +1,7 @@
 <% path = product_path(:id => recommendation_product.to_param, :recommendation => 1) %>
 <li>
   <span class="stars">
-    <%= rating_image_small(recommendation_product, DVDPost.product_kinds[:normal], :white) %>
+    <%= rating_image_small(recommendation_product) %>
   </span>
   <% link_to path, :class => product_media_id(recommendation_product.media) do %>
     <%= product_image_tag recommendation_product.image, :width => 76, :height => 118, :alt => "#{recommendation_product.title} (#{recommendation_product.year})" %>
