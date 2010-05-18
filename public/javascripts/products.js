@@ -29,7 +29,12 @@ $(function() {
       url: url,
       type: 'POST',
       success: function(data) {
-        html_item.html(data);
+        if (url.match(/replace=homepage/)){
+          item = html_item.parent();
+        }else{
+          item = html_item;
+        }
+        item.html(data);
       },
       error: function() {
         html_item.html(content);

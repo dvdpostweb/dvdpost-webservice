@@ -4,7 +4,16 @@ class RatingsController < ApplicationController
     @product.ratings.create(:customer => current_customer, :value => params[:value])
     respond_to do |format|
       format.html {redirect_to product_path(@product)}
-      format.js   {render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background].to_sym}}
+      format.js   {
+        case params[:replace]
+        when 'homepage'
+          not_rated_products = current_customer.not_rated_products
+          not_rated_product = not_rated_products[rand(not_rated_products.count)]
+          render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product} if not_rated_product 
+        else
+          render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background].to_sym}
+        end
+      }
     end
   end
 end

@@ -1,0 +1,6 @@
+<h4>Cotez ce film</h4>
+<div id='rating-stars-<%= product.to_param %>'>
+  <%= render :partial => 'products/rating', :locals => {:product => product, :background => :black, :replace => :homepage} %>
+</div>
+<h5><%= link_to product.title, product_path(:id => product.to_param) %></h5>
+<%= link_to product_image_tag(product.image, :size => '54x83', :alt => product.title), product_path(:id => product.to_param), :class => "cover #{product_media_id(product.media)}" %>

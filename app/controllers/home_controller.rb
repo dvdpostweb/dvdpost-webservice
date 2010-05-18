@@ -7,8 +7,8 @@ class HomeController < ApplicationController
         @soon = Product.by_kind(:normal).available.soon
         @new = Product.by_kind(:normal).available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
-        rates = current_customer.not_rated_products
-        @rate = rates[rand(rates.count)]
+        not_rated_products = current_customer.not_rated_products
+        @not_rated_product = not_rated_products[rand(not_rated_products.count)]
         @contest = ContestName.by_language(I18n.locale).last
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
