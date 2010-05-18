@@ -665,6 +665,10 @@ cursor: default;
   text-align: center;
 }
 
+#titles-wrap .action .stars a {
+  margin: 0px;
+}
+
 #titles-wrap .action .stars img {
   padding: 0 1px;
 }
