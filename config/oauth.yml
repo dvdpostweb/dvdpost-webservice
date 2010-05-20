@@ -1,0 +1,16 @@
+development:
+  app_id: 1
+  secret: hjkvklncdjkncdjkn
+  site: http://dvdpost-sso.dev
+test:
+  app_id: 1
+  secret: hjkvklncdjkncdjkn
+  site: http://dvdpost-sso.dev
+staging:
+  app_id: 1
+  secret: hjkvklncdjkncdjkn
+  site: http://dvdpost-sso.dev
+production:
+  app_id: 1
+  secret: hjkvklncdjkncdjkn
+  site: http://dvdpost-sso.dev

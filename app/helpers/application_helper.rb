@@ -24,4 +24,11 @@ module ApplicationHelper
   def localized_image_tag(source, options={})
     image_tag File.join(I18n.locale.to_s, source), options
   end
+
+
+  def oauth_client
+    @client ||= OAuth2::Client.new(
+      OAUTH[:app_id], OAUTH[:secret], :site => OAUTH[:site]
+    )
+  end
 end

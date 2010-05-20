@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
+    localized.oauth_authorize '/oauth/start', :controller => 'oauth', :action => 'start'
+    localized.oauth_callback '/oauth/callback', :controller => 'oauth', :action => 'callback'
     # Only the Clearance routes we actually need
     # Clearance::Routes.draw(map) # => If all Clearance routes are needed
     localized.with_options :controller => 'clearance/sessions' do |clearance|
