@@ -1,6 +1,6 @@
 development:
   app_id: 1
-  secret: hjkvklncdjkncdjkn
+  secret: some_secret
   site: http://dvdpost-sso.dev
 test:
   app_id: 1

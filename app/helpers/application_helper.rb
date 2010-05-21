@@ -31,4 +31,8 @@ module ApplicationHelper
       OAUTH[:app_id], OAUTH[:secret], :site => OAUTH[:site]
     )
   end
+
+  def oauth_token
+    session[:token] ? OAuth2::AccessToken.new(oauth_client, session[:token]) : nil
+  end
 end

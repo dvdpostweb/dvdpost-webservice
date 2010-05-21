@@ -1,4 +1,8 @@
 class OauthController < ApplicationController
+  def hello
+    
+  end
+  
   def start
     redirect_to client.web_server.authorize_url(
       :redirect_uri => oauth_callback_url

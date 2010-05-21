@@ -6,10 +6,13 @@ require 'rss/2.0'
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
   helper :all # include all helpers, all the time
+  include ApplicationHelper
+  include OauthHelper
+  
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
 
-  before_filter :authenticated?
+  before_filter :authorize
   before_filter :wishlist_size
   before_filter :set_locale
   before_filter :messages_size
@@ -31,10 +34,5 @@ class ApplicationController < ActionController::Base
 
   def messages_size
     @messages_size = (current_customer.messages.not_read.count || 0) if current_customer
-  end
-
-  protected
-  def authenticated?
-    oauth_client.token.get('/authenticated')
   end
 end
