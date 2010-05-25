@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  include Clearance::User
-
   belongs_to :customer
   has_and_belongs_to_many :roles, :uniq => true
 

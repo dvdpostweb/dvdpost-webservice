@@ -17,12 +17,14 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'capistrano-ext',    :lib => 'capistrano', :version => '>= 1.2.1'
   config.gem 'hoptoad_notifier',                        :version => '>= 2.2.2'
-  config.gem 'clearance',                               :version => '>= 0.8.8'
   config.gem 'will_paginate',                           :version => '>= 2.3.12'
   config.gem 'hpricot',                                 :version => '>= 0.8.2'
   config.gem 'rack',                                    :version => '~> 1.0.0' # Otherwise Rack 1.1.x will be loaded (caused by faraday in oath2 gem)
   config.gem 'oauth2',                                  :version => '>= 0.0.8'
-  
+  config.gem 'warden'
+  config.gem 'warden_oauth',                            :version => '~> 0.2.0'
+  config.gem 'rails_warden'
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

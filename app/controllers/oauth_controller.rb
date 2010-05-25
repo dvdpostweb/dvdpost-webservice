@@ -1,16 +1,12 @@
 class OauthController < ApplicationController
-  def hello
-    
-  end
-  
-  def start
-    redirect_to client.web_server.authorize_url(
+  def unauthenticated
+    redirect_to oauth_client.web_server.authorize_url(
       :redirect_uri => oauth_callback_url
     )
   end
 
   def callback
-    access_token = client.web_server.get_access_token(
+    access_token = oauth_client.web_server.get_access_token(
       params[:code], :redirect_uri => oauth_callback_url
     )
 
