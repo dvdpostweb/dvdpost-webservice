@@ -4,15 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
-    localized.oauth_authorize '/oauth/start', :controller => 'oauth', :action => 'start'
-    localized.oauth_callback '/oauth/callback', :controller => 'oauth', :action => 'callback'
-    # Only the Clearance routes we actually need
-    # Clearance::Routes.draw(map) # => If all Clearance routes are needed
-    localized.with_options :controller => 'clearance/sessions' do |clearance|
-      clearance.resource :session,    :only   => [:new, :create, :destroy]
-      clearance.sign_in  'sign_in',   :action => :new, :conditions => {:method => :get}
-      clearance.sign_out 'sign_out',  :action => :destroy, :conditions => {:method => :get}
-    end
+    localized.oauth_unauthenticated 'oauth/unauthenticated', :controller => 'oauth', :action => 'unauthenticated', :conditions => {:method => :get}
+    localized.oauth_callback        'oauth/callback',        :controller => 'oauth', :action => 'callback',        :conditions => {:method => :get}
 
     localized.with_options :controller => 'home' do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}

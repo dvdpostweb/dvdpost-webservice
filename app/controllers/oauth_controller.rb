@@ -1,5 +1,8 @@
 class OauthController < ApplicationController
+  skip_before_filter :authenticate!
+  
   def unauthenticated
+    puts 'unauthenticated'
     redirect_to oauth_client.web_server.authorize_url(
       :redirect_uri => oauth_callback_url
     )

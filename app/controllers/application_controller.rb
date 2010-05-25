@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
 
-  before_filter :authenticated?
+  before_filter :authenticate!
   before_filter :wishlist_size
   before_filter :set_locale
   before_filter :messages_size

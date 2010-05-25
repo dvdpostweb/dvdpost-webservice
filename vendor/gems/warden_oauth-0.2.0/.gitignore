@@ -1,0 +1,6 @@
+.idea
+*.sw?
+.DS_Store
+coverage
+rdoc
+pkg

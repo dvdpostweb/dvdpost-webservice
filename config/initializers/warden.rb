@@ -1,10 +1,10 @@
 Rails.configuration.middleware.use RailsWarden::Manager do |manager|
-  manager.oauth(:sso_dvdpost) do |sso_dvdpost|
+  manager.oauth(:dvdpost) do |sso_dvdpost|
     sso_dvdpost.app_secret = OAUTH[:app_secret]
     sso_dvdpost.app_id     = OAUTH[:app_id]
     sso_dvdpost.options :site => OAUTH[:site]
   end
-  manager.default_strategies(:oauth)
+  manager.default_strategies(:dvdpost_oauth)
   manager.failure_app = OauthController
 end
 
