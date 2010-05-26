@@ -111,7 +111,7 @@ describe Warden::OAuth2::Strategy do
         end
 
         after(:each) do
-          Warden::OAuth2.clear_access_token_user_finders
+          Warden::OAuth2.clear_user_finders
         end
 
         describe "and the user is not found" do

@@ -1,11 +1,13 @@
-Rails.configuration.middleware.use RailsWarden::Manager do |manager|
+Rails.configuration.middleware.use RailsWarden::Manager, :defaults               => :dvdpost_oauth,
+                                                         :failure_app            => 'oauth_controller',
+                                                         :unauthenticated_action => :authenticate do |manager|
   manager.oauth(:dvdpost) do |sso_dvdpost|
-    sso_dvdpost.app_secret = OAUTH[:app_secret]
-    sso_dvdpost.app_id     = OAUTH[:app_id]
-    sso_dvdpost.options :site => OAUTH[:site]
+    params = OAUTH.clone
+
+    sso_dvdpost.client_secret = params.delete(:client_secret)
+    sso_dvdpost.client_id = params.delete(:client_id)
+    sso_dvdpost.options = params
   end
-  manager.default_strategies(:dvdpost_oauth)
-  manager.failure_app = OauthController
 end
 
 # Setup Session Serialization
@@ -18,4 +20,8 @@ class Warden::SessionSerializer
     klass, id = keys
     klass.find(:first, :conditions => {:id => id})
   end
+end
+
+Warden::OAuth2.user_finder(:dvdpost) do |user_id|
+  User.find(user_id)
 end

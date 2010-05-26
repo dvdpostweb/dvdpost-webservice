@@ -1,16 +1,24 @@
 development:
-  app_id: 1
-  app_secret: some_secret
-  site: http://dvdpost-sso.dev
+  client_id: dvdpost_client
+  client_secret: 'dvdpost_client_secret'
+  site: 'https://sso.dvdpost.dev'
+  authorize_path: 'authorization/new'
+  access_token_path: 'authorization/token'
 test:
-  app_id: 1
-  app_secret: hjkvklncdjkncdjkn
-  site: http://dvdpost-sso.dev
+  client_id: dvdpost_client
+  client_secret: 'dvdpost_client_secret'
+  site: 'https://sso.dvdpost.dev'
+  authorize_path: 'authorization/new'
+  access_token_path: 'authorization/token'
 staging:
-  app_id: 1
-  app_secret: hjkvklncdjkncdjkn
-  site: http://dvdpost-sso.dev
+  client_id: dvdpost_client
+  client_secret: 'dvdpost_client_secret'
+  site: 'https://sso.dvdpost.dev'
+  authorize_path: 'authorization/new'
+  access_token_path: 'authorization/token'
 production:
-  app_id: 1
-  app_secret: hjkvklncdjkncdjkn
-  site: http://dvdpost-sso.dev
+  client_id: dvdpost_client
+  client_secret: 'dvdpost_client_secret'
+  site: 'https://sso.dvdpost.dev'
+  authorize_path: 'authorization/new'
+  access_token_path: 'authorization/token'

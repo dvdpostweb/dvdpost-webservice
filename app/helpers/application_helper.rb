@@ -28,12 +28,15 @@ module ApplicationHelper
 
 
   def oauth_client
+    params = OAUTH.clone
+    client_id = params.delete(:client_id)
+    client_secret = params.delete(:client_secret)
     @client ||= OAuth2::Client.new(
-      OAUTH[:app_id], OAUTH[:secret], :site => OAUTH[:site]
+      client_id, client_secret, params 
     )
   end
 
   def oauth_token
-    session[:token] ? OAuth2::AccessToken.new(oauth_client, session[:token]) : nil
+    session[:token] ? OAuth2::AccessToken.new(oauth_client, session[:oauth_token]) : nil
   end
 end

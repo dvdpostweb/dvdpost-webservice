@@ -9,18 +9,18 @@ module Warden
       extend self
       
       #
-      # Defines the user finder from the access_token for the strategy, receives a block
-      # that will be invoked each time you want to find an user via an access_token in your
+      # Defines the user finder from the user_id for the strategy, receives a block
+      # that will be invoked each time you want to find an user via an user_id in your
       # system.
       #
-      # @param blk Block that recieves the access_token as a parameter and will return a user or nil
+      # @param blk Block that receives the user_id as a parameter and will return a user or nil
       # 
-      def access_token_user_finder(&blk)
-        define_method(:_find_user_by_access_token, &blk)
+      def user_finder(&blk)
+        define_method(:_find_user, &blk)
       end
 
       #
-      # Manages the creation and registration of the OAuth strategy specified
+      # Manages the creation and registration of the OAuth2 strategy specified
       # on the keyword
       #
       # @param [Symbol] name of the oauth service
@@ -30,9 +30,9 @@ module Warden
         strategy_class = self.create_oauth_strategy_class(keyword)
         self.register_oauth_strategy_class(keyword, strategy_class)
         self.set_oauth_service_info(strategy_class, config)
-        # adding the access_token_user_finder to the strategy
-        if self.access_token_user_finders.include?(keyword)
-          strategy_class.access_token_user_finder(&self.access_token_user_finders[keyword])
+        # adding the user_finder to the strategy
+        if self.user_finders.include?(keyword)
+          strategy_class.user_finder(&self.user_finders[keyword])
         end
       end
 

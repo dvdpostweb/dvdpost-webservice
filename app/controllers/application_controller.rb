@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
-
+  
   before_filter :authenticate!
   before_filter :wishlist_size
   before_filter :set_locale
@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
+  protected
   def current_customer
     current_user.customer if current_user
   end

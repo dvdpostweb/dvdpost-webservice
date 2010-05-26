@@ -1,27 +1,26 @@
 module Warden
   module OAuth2
-  
     #
     # Holds all the information of the OAuth service.
     #
     class Config
       attr_accessor :provider_name
       
-      def app_id(app_id = nil)
-        unless app_id.nil?
-          @app_id = app_id
+      def client_id(client_id = nil)
+        unless client_id.nil?
+          @client_id = client_id
         end
-        @app_id
+        @client_id
       end
-      alias_method :app_id=, :app_id
+      alias_method :client_id=, :client_id
 
-      def app_secret(secret = nil)
+      def client_secret(secret = nil)
         unless secret.nil?
-          @app_secret = secret
+          @client_secret = secret
         end
-        @app_secret
+        @client_secret
       end
-      alias_method :app_secret=, :app_secret
+      alias_method :client_secret=, :client_secret
 
       def options(options = nil) 
         unless options.nil?
@@ -32,7 +31,7 @@ module Warden
       alias_method :options=, :options
 
       def check_requirements
-        if @app_id.nil? || @app_secret.nil?
+        if @client_id.nil? || @client_secret.nil?
           raise Warden::OAuth2::ConfigError.new("You need to specify the app id and the app secret")
         end
       end

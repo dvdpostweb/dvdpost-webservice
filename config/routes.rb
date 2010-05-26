@@ -4,8 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
-    localized.oauth_unauthenticated 'oauth/unauthenticated', :controller => 'oauth', :action => 'unauthenticated', :conditions => {:method => :get}
-    localized.oauth_callback        'oauth/callback',        :controller => 'oauth', :action => 'callback',        :conditions => {:method => :get}
+    localized.oauth_authenticate 'oauth/authenticate', :controller => 'oauth', :action => 'authenticate', :conditions => {:method => :get}
+    localized.oauth_callback     'oauth/callback',     :controller => 'oauth', :action => 'callback',     :conditions => {:method => :get}
 
     localized.with_options :controller => 'home' do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}
