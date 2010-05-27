@@ -49,9 +49,6 @@ module Warden
             if user.nil?
               fail!("User with id not found")
               throw_error_with_oauth_info
-            elsif !token_validated?
-              fail!("OAuth token invalid")
-              throw_error_with_oauth_info
             else
               success!(user)
             end
@@ -123,15 +120,6 @@ module Warden
       def store_token_on_session
         session[:request_class]  = self.class.to_s
         session[:oauth_token]  = params['oauth_token']
-      end
-
-      def token_validated?
-        begin
-          access_token.get('/oauth/authorize')
-          true
-        rescue OAuth2::AccessDenied => e
-          false
-        end
       end
 
       def missing_stored_token?

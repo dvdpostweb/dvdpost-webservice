@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def current_customer
-    current_user.customer if current_user
+    current_user
   end
 
   def wishlist_size

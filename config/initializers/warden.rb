@@ -23,5 +23,5 @@ class Warden::SessionSerializer
 end
 
 Warden::OAuth2.user_finder(:dvdpost) do |user_id|
-  User.find(user_id)
+  Customer.find(user_id)
 end

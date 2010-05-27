@@ -1,6 +1,4 @@
 class Customer < ActiveRecord::Base
-  include Clearance::User
-
   set_table_name :customers
 
   set_primary_key :customers_id
