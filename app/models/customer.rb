@@ -12,7 +12,6 @@ class Customer < ActiveRecord::Base
   alias_attribute :language,          :customers_language
   alias_attribute :suspension_status, :customers_abo_suspended
 
-  has_one :user
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -25,6 +24,7 @@ class Customer < ActiveRecord::Base
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
   has_many :messages, :foreign_key => :customers_id
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
+  has_and_belongs_to_many :roles, :uniq => true
 
   def self.find_by_email(args)
     self.find_by_customers_email_address(args)
@@ -51,6 +51,10 @@ class Customer < ActiveRecord::Base
   def self.authenticate(email, password)
     return nil      unless customer = find_by_email(email)
     return customer if     customer.authenticated?(password)
+  end
+
+  def has_role?(role)
+    roles.include?(role)
   end
 
   def name
