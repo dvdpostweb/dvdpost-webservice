@@ -2,8 +2,8 @@
   <h1><%= link_to 'DVDPost - Online DVD rental', root_path, :class => 'like-btn' %></h1>
   <ul id="login" class="subnav">
     <li class="first">
-      <% if current_user %>
-        <%= "#{link_to 'Déconnexion', sign_out_path} (#{current_user.email})" %>
+      <% if current_customer %>
+        <%= "#{link_to 'Déconnexion', sign_out_path} (#{current_customer.email})" %>
       <% else %>
         <%= link_to 'Sign in', sign_in_path %>
       <% end %>
