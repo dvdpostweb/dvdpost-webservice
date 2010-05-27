@@ -18,7 +18,7 @@ class Warden::SessionSerializer
 
   def deserialize(keys)
     klass, id = keys
-    klass.find(id)
+    klass.find(:first, :conditions => {klass.primary_key => id})
   end
 end
 
