@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
     @products = @products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @products = @products.by_top(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
     @products = @products.by_theme(params[:theme_id]) if params[:theme_id] && !params[:theme_id].empty?
-    @products = @products.search(params[:search]) if params[:search]
+
     @products = @products.by_media(params[:media].keys) if params[:media]
     # @products = @products.by_type(params[:type].split(',')) if params[:type]
     @products = @products.by_public(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
     # @products = @products.by_colors(params[:color].keys) if params[:color]
     # @products = @products.by_oscars(params[:oscars].keys) if params[:oscars]
     @products = @products.by_country(params[:country]) if params[:country] && !params[:country] == 0
+    @products = Product.search_clean(params[:search]).sphinx_by_kind(:normal) if params[:search]
     @products = @products.paginate(:page => params[:page])
     @soundtracks = Soundtrack.all
     @picture_formats = PictureFormat.by_language(I18n.locale)
