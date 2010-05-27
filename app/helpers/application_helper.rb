@@ -39,4 +39,8 @@ module ApplicationHelper
   def oauth_token
     session[:token] ? OAuth2::AccessToken.new(oauth_client, session[:oauth_token]) : nil
   end
+
+  def sign_out_path
+    "https://sso.dvdpost.dev/logout"
+  end
 end
