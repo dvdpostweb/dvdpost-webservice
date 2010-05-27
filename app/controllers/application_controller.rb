@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
-  
+
   before_filter :authenticate!
   before_filter :wishlist_size
-  before_filter :set_locale
+  before_filter :delegate_locale
   before_filter :messages_size
 
   # Scrub sensitive parameters from your log
@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
     @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
   end
 
-  def set_locale
-    I18n.locale = params[:locale]
+  def delegate_locale
+    set_locale(params[:locale])
   end
 
   def messages_size

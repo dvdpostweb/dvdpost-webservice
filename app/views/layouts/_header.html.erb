@@ -12,7 +12,7 @@
     <li>
       <%= switch_locale_link I18n.locale, {:id => 'lang'} %>
       <span id="lang-box">
-        <% I18n.available_locales.collect do |locale| %>
+        <% Locale.all.collect(&:short).collect do |locale| %>
           <%= switch_locale_link locale unless locale.to_s == I18n.locale.to_s %>
         <% end %>
       </span>
