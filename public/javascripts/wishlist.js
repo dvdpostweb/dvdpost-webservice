@@ -61,4 +61,14 @@ $(function() {
     });
     return false;
   });
+
+  $('.report_transit_item').live('click', function(){
+    url = $(this).attr('href');
+    jQuery.facebox(function() {
+      $.getScript(url, function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
 });

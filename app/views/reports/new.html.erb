@@ -1,0 +1,3 @@
+<% @statuses.collect do |status| %>
+  <p><%= link_to status.name, order_report_path(:order_id => @order.to_param, :status => status.to_param), :method => :post %></p>
+<% end %>

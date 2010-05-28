@@ -1,9 +1,9 @@
 <div class="<%= product_media_id(transit_item.product.media) %> clearfix">
   <div class="title"><%= link_to truncate(transit_item.product.title, :length => 50), product_path(:id => transit_item.product.to_param) %></div>
   <div class="status">
-    <%= link_to 'Signaler un probléme', nil, :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' %>
+    <%= link_to 'Signaler un probléme', new_order_report_path(:order_id => transit_item.to_param), :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' %>
     <span class="ok">
-      <%= transit_item.status.text %>
+      <%= transit_item.status.name %>
     </span>
   </div>
 </div>
