@@ -20,6 +20,7 @@ Rails::Initializer.run do |config|
   config.gem 'hoptoad_notifier',                        :version => '>= 2.2.2'
 
   # Authentication
+  config.gem 'json'
   config.gem 'hpricot',                                 :version => '>= 0.8.2'
   config.gem 'rack',                                    :version => '~> 1.0.0' # Otherwise Rack 1.1.x will be loaded (caused by faraday in oath2 gem)
   config.gem 'oauth2',                                  :version => '>= 0.0.8'
