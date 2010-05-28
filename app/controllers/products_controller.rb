@@ -5,24 +5,13 @@ class ProductsController < ApplicationController
     @products = @products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @products = @products.by_top(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
     @products = @products.by_theme(params[:theme_id]) if params[:theme_id] && !params[:theme_id].empty?
-
     @products = @products.by_media(params[:media].keys) if params[:media]
-    # @products = @products.by_type(params[:type].split(',')) if params[:type]
     @products = @products.by_public(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
     @products = @products.by_period(params[:year_min], params[:year_max]) if params[:year_min] && params[:year_max]
-    @products = @products.by_duration(params[:duration_min], params[:duration_max]) if params[:duration_min] && params[:duration_max]
-    @products = @products.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
-    @products = @products.by_picture_formats(params[:picture_format]) if params[:picture_format] && !params[:picture_format] == 0
-    # @products = @products.by_colors(params[:color].keys) if params[:color]
-    # @products = @products.by_oscars(params[:oscars].keys) if params[:oscars]
     @products = @products.by_country(params[:country]) if params[:country] && !params[:country] == 0
     @products = Product.search_clean(params[:search]).sphinx_by_kind(:normal) if params[:search]
     @products = @products.paginate(:page => params[:page])
-    @soundtracks = Soundtrack.all
-    @picture_formats = PictureFormat.by_language(I18n.locale)
     @countries = ProductCountry.visible
-    @selected_soundtracks = Soundtrack.by_soundtracks(params[:soundtrack].keys) if params[:soundtrack]
-    @selected_picture_format = PictureFormat.by_language(I18n.locale).find(params[:picture_format]) if params[:picture_format] && !params[:picture_format] == 0
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && !params[:country] == 0
   end
 

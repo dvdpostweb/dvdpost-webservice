@@ -96,20 +96,6 @@ module DVDPost
       })
     end
 
-    def soundtrack_param_names
-      HashWithIndifferentAccess.new.merge({
-        :mono                     => '1',
-        :stereo                   => '2',
-        :dolby_surround_pro_logic => '3',
-        :dolby_digital            => '4',
-        :dts                      => '5',
-        :dolby_digital_ex         => '6',
-        :dts_hd                   => '7',
-        :pcm                      => '8',
-        :full_hd                  => '9'
-      })
-    end
-
     def home_page_news
       open(news_url[I18n.locale]) do |http|
         RSS::Parser.parse(http.read, false).items

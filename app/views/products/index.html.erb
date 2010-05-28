@@ -7,30 +7,10 @@
       <strong>Technologie</strong>
       <%= params[:media].keys.join(', ') if params[:media] %>
     </li>
-    <!--li>
-      <strong>Type</strong>
-      <%= params[:type].keys.join(', ') if params[:type] %>
-    </li-->
     <li>
       <strong>Public</strong>
       <%= "de #{params[:public_min]} à #{params[:public_max]}" if params[:public_min] && params[:public_max] %>
     </li>
-    <li>
-      <strong>Son</strong>
-      <%= @selected_soundtracks.collect(&:name).join(', ') if params[:soundtrack] %>
-    </li>
-    <li>
-      <strong>Format</strong>
-      <%= @selected_picture_format.name if @selected_picture_format %>
-    </li>
-    <li class="clear-left">
-      <strong>Durée</strong>
-      <%= "de #{params[:duration_min]} à #{params[:duration_max]}" if params[:duration_min] && params[:duration_max] %>
-    </li>
-    <!--li>
-      <strong>Image</strong>
-      <%= params[:color].keys.join(', ') if params[:color] %>
-    </li-->
     <li>
       <strong>Pays</strong>
       <%= @selected_country.name if @selected_country %>
@@ -39,40 +19,13 @@
       <strong>Année</strong>
       <%= "de #{params[:year_min]} à #{params[:year_max]}" if params[:year_min] && params[:year_max] %>
     </li>
-    <!--li>
-      <strong>Récompenses</strong>
-      <%= params[:oscars].keys.join(', ') if params[:oscars] %>
-    </li-->
-    <li id="close-f"><a href="#" class="like-btn">Fermer</a></li>
+    <li id="close-f">
+      <%= link_to 'Fermer', nil, :class => 'like-btn'%>
+    </li>
   </ul>
   <div id="titles-wrap">
     <div class="top"></div>
     <%= render :partial => 'products/index/movie_detail', :collection => @products %>
-    <!--<%= will_paginate @products, :previous_label => localized_image_tag('prec_on.gif'), :next_label => localized_image_tag('suivant_on.gif'), :page_links => false, :id => :products_index %>-->
-    <!--div class="pagination">
-      <div class="filterbar navbypagefull -navbypage">
-        <div class="navbar">
-          <ul>
-            <li class="navprevbtn_end"><a href=""><img src="images/pix.gif" width="0"  height="0" border="0"/><span>&lt;&lt;</span></a></li>
-            <li class="navprevbtn"><a href=""><img src="images/pix.gif" width="0"  height="0" border="0"/><span>&lt;&lt;</span></a></li>
-            <li class="navcenterdata"><em class="current">1</em></li>
-            <li class="navcenterdata"><a href="">2</a></li>
-            <li class="navcenterdata"><a href="">3</a></li>
-            <li class="navcenterdata"><a href="">4</a></li>
-            <li class="navcenterdata"><a href="">5</a></li>
-            <li class="navcenterdata"><a href="">6</a></li>
-            <li class="navcenterdata"><a href="">7</a></li>
-            <li class="navcenterdata"><a href="">8</a></li>
-            <li class="navcenterdata"><a href="">9</a></li>
-            <li class="navcenterdata"><a href="">10</a></li>
-            <li class="navcenterdata"><em>...</em></li>
-            <li class="navcenterdata"><a href="">25</a></li>
-            <li class="navnextbtn"><a href=""><img src="images/pix.gif" width="0"  height="0" border="0"/><span>&gt;&gt;</span></a></li>
-            <li class="navnextbtn_end"><a href=""><img src="images/pix.gif" width="0"  height="0" border="0"/><span>&gt;&gt;</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </div-->
     <!-- View Options -->
     <% if false %>
     <ul id="views">

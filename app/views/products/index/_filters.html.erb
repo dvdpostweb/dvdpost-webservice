@@ -17,39 +17,6 @@
           </label>
         </div>
       </li>
-      <!--li class="type open">
-        <%= link_to 'Type' %>
-        <div>
-          <label>
-            <%= filter_checkbox_tag :type, :movie %>
-            Film
-          </label>
-          <label>
-            <%= filter_checkbox_tag :type, :documentary %>
-            Documentaire
-          </label>
-          <label>
-            <%= filter_checkbox_tag :type, :series %>
-            Série
-          </label>
-          <label>
-            <%= filter_checkbox_tag :type, :music %>
-            Music &amp; Concerts
-          </label>
-          <label>
-            <%= filter_checkbox_tag :type, :theatre %>
-            Theatre
-          </label>
-          <label>
-            <%= filter_checkbox_tag :type, :cartoon %>
-            Comic
-          </label>
-          <label>
-            <%= filter_checkbox_tag :type, :independent %>
-            Independent
-          </label>
-        </div>
-      </li-->
       <li class="public open">
         <%= link_to 'Public' %>
         <div id="public-slider">
@@ -63,49 +30,6 @@
           <div id="public-slider-range"></div>
         </div>
       </li>
-      <li class="soundtrack open">
-        <%= link_to 'Son' %>
-        <div>
-          <% soundtracks.collect do |soundtrack| %>
-            <label>
-              <%= filter_checkbox_tag :soundtrack, DVDPost.soundtrack_param_names.invert[soundtrack.to_param] %>
-              <%= soundtrack.name %>
-            </label>
-          <% end %>
-        </div>
-      </li>
-      <li class="format open">
-        <%= link_to 'Format' %>
-        <div>
-          <%= select_tag :picture_format, options_for_select(picture_formats.collect{|picture_format| [picture_format.name, picture_format.to_param]}.insert(0, ['Any', 0]), :selected => params[:picture_format]) %>
-        </div>
-      </li>
-      <li class="duration open">
-        <%= link_to 'Durée' %>
-        <div id="duration-slider">
-          <%= hidden_field_tag :duration_min, (params[:duration_min] || 0) %>
-          <%= hidden_field_tag :duration_max, (params[:duration_max] || 9999) %>
-          <ul id="duration_labels">
-            <% ['0', '30', '60', '90', '120', '150', '180', '+'].collect do |duration| %>
-              <li><%= duration %></li>
-            <% end %>
-          </ul>
-          <div id="duration-slider-range"></div>
-        </div>
-      </li>
-      <!--li class="color open">
-        <%= link_to 'Image' %>
-        <div>
-          <label>
-            <%= filter_checkbox_tag :color, :color %>
-            Couleurs
-          </label>
-          <label>
-            <%= filter_checkbox_tag :color, :bw %>
-            Noir &amp; Blanc
-          </label>
-        </div>
-      </li-->
       <li class="country open">
         <%= link_to 'Pays' %>
         <div>
@@ -125,55 +49,6 @@
           <div id="year-slider-range"></div>
         </div>
       </li>
-      <!--li class="awards open">
-        <%= link_to 'Récompenses' %>
-        <div>
-          <label>
-            <%= filter_checkbox_tag :oscars, :academy %>
-            Académie des Oscars
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :cannes %>
-            Festival du Film de Cannes
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :cesar %>
-            Académie des César
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :bafta %>
-            BAFTA Awards
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :gaudi %>
-            Gaudi Awards
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :venice %>
-            Festival du Film de Venise
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :sundance %>
-            Festival du Film de Sundance
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :berlin %>
-            Festival International du Film de Berlin
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :emmy %>
-            Emmy Awards
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :globes %>
-            Golden Globes
-          </label>
-          <label>
-            <%= filter_checkbox_tag :oscars, :teen %>
-            Teen Choice Awards
-          </label>
-        </div>
-      </li-->
       <%= hidden_field_tag :recommended, true if params[:recommended] %>
     </ul>
     <% end %>

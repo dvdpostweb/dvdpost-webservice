@@ -41,9 +41,6 @@ class Product < ActiveRecord::Base
   named_scope :by_media,            lambda {|*media| {:conditions => {:products_media => media.flatten.collect{|m| DVDPost.product_types[m]}}}}
   named_scope :by_year,             lambda {|year| {:conditions => {:products_year => year}}}
   named_scope :by_period,           lambda {|min, max| {:conditions => {:products_year => min..max}}}
-  named_scope :by_duration,         lambda {|min, max| {:conditions => {:products_runtime => min..max}}}
-  named_scope :by_soundtracks,      lambda {|*soundtracks| {:include => :soundtracks, :conditions => {:products_soundtracks => {:soundtracks_id => soundtracks.flatten.collect{|soundtrack| DVDPost.soundtrack_param_names[soundtrack]}}}}}
-  named_scope :by_picture_formats,  lambda {|*picture_formats| {:conditions => {:products_picture_format => picture_formats.flatten}}}
   named_scope :by_country,          lambda {|country| {:include => :country, :conditions => {:products_countries => {:countries_id => country.to_param}}}}
   named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
   named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}

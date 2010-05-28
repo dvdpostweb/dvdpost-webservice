@@ -78,9 +78,13 @@
     <!-- End Detail -->
     <!-- Critique -->
     <ul class="tabs">
-      <li class="active" id='tab1_li'><a href="#tab1" id="tab1_menu">CRITIQUES DES MEMBRES DVDPOST</a></li>
-      <% if !@cinopsis.empty? %>
-        <li  id='tab2_li'><a href="#tab2" id="tab2_menu">LA CRITIQUE DE CINOPSIS.BE</a></li>
+      <li class="active" id='tab1_li'>
+        <%= link_to 'CRITIQUES DES MEMBRES DVDPOST', '#tab1', :id => 'tab1_menu' %>
+      </li>
+      <% unless @cinopsis.empty? %>
+        <li id='tab2_li'>
+          <%= link_to 'LA CRITIQUE DE CINOPSIS.BE', '#tab2', :id => 'tab2_menu' %>
+        </li>
       <% end %>
     </ul>
     <div class="box">
