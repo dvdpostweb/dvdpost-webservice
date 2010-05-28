@@ -1,0 +1,14 @@
+development:
+  port: 8444
+  searchd_log_file: "log/searchd.log"
+  query_log_file: "log/searchd_query.log"
+  pid_file: "log/searchd.pid"
+test:
+  port: 8444
+  pid_file: log/searchd.test.pid
+staging:
+  port: 8444
+  pid_file: log/searchd.staging.pid
+production:
+  port: 8444
+  pid_file: log/searchd.production.pid
