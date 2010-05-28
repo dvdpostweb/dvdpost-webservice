@@ -13,7 +13,7 @@ test:
 staging:
   client_id: dvdpost_client
   client_secret: 'dvdpost_client_secret'
-  site: 'https://sso.dvdpost.dev'
+  site: 'https://staging.sso.dvdpost.be'
   authorize_path: 'authorization/new'
   access_token_path: 'authorization/token'
 production:

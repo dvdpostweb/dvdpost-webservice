@@ -41,6 +41,6 @@ module ApplicationHelper
   end
 
   def sign_out_path
-    "https://sso.dvdpost.dev/logout"
+    "#{OAUTH[:site]}/logout"
   end
 end
