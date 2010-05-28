@@ -1,6 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :locale => :fr, :controller => :home, :action => :index, :conditions => {:method => :get}
 
+  map.resources :locales, :except => [:show], :member => {:reload => :post} do |locale|
+    locale.resources :translations, :except => [:show], :member => {:update_in_place => :post}
+  end
+
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 

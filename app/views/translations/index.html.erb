@@ -1,0 +1,38 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery.jeditable.mini', 'translations' %>
+<% end %>
+<h1>Listing translations: <%= @main_locale.short %> => <%= @locale.short %></h1>
+<div style="text-align: left;">
+  Colour code: <span class="miss">Missing translations</span>
+  <span class="susp">Translations identical to English phrases</span>
+  <span class="old">Obsolete translations</span>
+  &nbsp;&nbsp;Click any translation to edit.<br />
+  Words inside {{...}} or &lt;a href="..."&gt; have special meaning, please keep them as they are.
+  <table style="text-align: left;">
+    <tr>
+      <th width="200">Key</th>
+      <th>Text</th>
+    </tr>
+    <% @groups.each_with_index do |(namespace, translations), gr_num| %>
+      <tr>
+        <td colspan="2" class="ns"<% unless gr_num == 0 %> style="height: 60px;"<% end %>>
+          <strong><%= namespace || "none" %></strong>
+        </td>
+      </tr>
+      <% translations.each do |translation| %>
+        <% localized_translation = translation.counterpart_in(@locale) %>
+        <% css_class = css_class_for_translation(translation, localized_translation) %>
+        <tr>
+          <td class="key">:<%=h translation.tr_key %></td>
+          <td class="transl<%= " #{css_class}" if css_class %>">
+            <% unless @locale.main? %>
+              <div class="main"><%=h translation.text %></div>
+            <% end %>
+            <div class="edit" id="<%= localized_translation.to_param %>"><%=h localized_translation.text %></div>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  <br />
+</div>
