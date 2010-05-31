@@ -1,0 +1,20 @@
+<% form_for partner, :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+    <p>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :logo %>
+      <%= f.file_field :logo %>
+    </p>
+    <p>
+      <%= f.label :active %>
+      <%= f.check_box :active %>
+    </p>
+  </fieldset>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

@@ -1,0 +1,14 @@
+<h1>Listing partners</h1>
+<table>
+<% @partners.each do |partner| %>
+  <tr>
+    <td><%= partner.name %></td>
+    <td><%= image_tag partner.logo.url %></td>
+    <td><%= link_to 'Show', partner_path(:id => partner) %></td>
+    <td><%= link_to 'Edit', edit_partner_path(:id => partner) %></td>
+    <td><%= link_to 'Destroy', partner_path(:id => partner), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<%= link_to 'New partner', new_partner_path %>

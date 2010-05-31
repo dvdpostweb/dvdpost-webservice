@@ -1,0 +1,8 @@
+<p>
+  <%= @partner.name %>
+</p>
+<p>
+  <%= image_tag @partner.logo.url %>
+</p>
+<%= link_to 'Edit', edit_partner_path(:id => @partner) %> |
+<%= link_to 'Back', partners_path %>

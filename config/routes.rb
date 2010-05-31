@@ -52,5 +52,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :orders, :only => [] do |orders|
       orders.resource :report, :only => [:new, :create]
     end
+
+    localized.resources :partners
   end
 end

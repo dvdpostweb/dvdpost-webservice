@@ -17,12 +17,7 @@ class Order < ActiveRecord::Base
   end
 
   def update_status!(new_status)
-    # To be continued ...
-    
-    # status_history = OrderStatusHistory.new
-    # status_history.old_status = status
-    # status_history.new_status = new_status
-    # status_history.save
-    # update_attribute(:orders_status, status.to_param)
+    status_histories.create(:old_status => status, :new_status => new_status)
+    update_attribute(:status, new_status)
   end
 end
