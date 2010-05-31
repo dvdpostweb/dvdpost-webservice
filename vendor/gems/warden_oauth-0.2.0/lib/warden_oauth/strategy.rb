@@ -41,7 +41,7 @@ module Warden
 
           begin
             user_id = user_id_from_token
-          rescue OAuth2::AccessDenied => e
+          rescue ::OAuth2::AccessDenied => e
             fail!("User with access token not found")
             throw_error_with_oauth_info
           end
