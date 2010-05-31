@@ -42,6 +42,8 @@ module Warden
           begin
             user_id = user_id_from_token
           rescue ::OAuth2::AccessDenied => e
+            puts "User with access token #{session_oauth_token} not found"
+            logger.debug "User with access token #{session_oauth_token} not found"
             clean_session
             fail!("User with access token not found")
             throw_error_with_oauth_info
@@ -49,6 +51,8 @@ module Warden
 
           user = find_user(user_id)
           if user.nil?
+            puts "User with access token #{session_oauth_token} not found with id #{user_id}"
+            logger.debug "User with access token #{session_oauth_token} not found with id #{user_id}"
             clean_session
             fail!("User with id not found")
             throw_error_with_oauth_info
