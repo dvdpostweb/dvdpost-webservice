@@ -54,6 +54,7 @@ class Product < ActiveRecord::Base
   named_scope :filtered_by_ids,     lambda {|*ids| {:conditions => {:products_id => ids.flatten}}}
 
   define_index do
+    indexes products_type
     indexes actors.actors_name,      :as => :actors_names
     indexes director.directors_name, :as => :director_name
 
