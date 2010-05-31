@@ -9,6 +9,23 @@ class MessagesController < ApplicationController
     @messages = current_customer.messages.ordered.paginate(:page => params[:page] || 1)
   end
 
+  def new
+    @type = params[:type]
+    @message = Message.new
+  end
+
+  def create
+    @message = Message.new(params[:message])
+
+    if @message.save
+      flash[:notice] = "Message sent successfully"
+      redirect_to messages_path
+    else
+      flash[:error] = "Message not sent successfully"
+      render :action => :new
+    end
+  end
+
   def destroy
     @message = Message.destroy(params[:id])
     flash[:notice] = "Message #{@message.id} was removed from your messages."

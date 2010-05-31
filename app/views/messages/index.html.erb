@@ -1,14 +1,6 @@
 <div id="contact-wrap">
-  <ul id="tabs">
-    <li><%= link_to 'VOS MESSAGES', '#messages', :class => :active, :id => :messages_link %></li>
-    <li><%= link_to 'POSER UNE QUESTION à DVDPOST', '#question', :id => :question_link %></li>
-    <li><%= link_to 'NOUS CONTACTER', '#contact', :id => :contact_link %></li>
-    <li><%= link_to 'FAQ', '#faq', :id => :faq_link %></li>
-  </ul>
+  <%= render :partial => 'messages/menu' %>
   <div id="tabs-content">
     <%= render :partial => '/messages/index/messages', :locals => {:messages => @messages} %>
-    <%= render :partial => '/messages/index/question' %>
-    <%= render :partial => '/messages/index/contact' %>
-    <%= render :partial => '/messages/index/faq' %>
   </div>
 </div>

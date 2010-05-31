@@ -1,4 +1,6 @@
 class Message < ActiveRecord::Base
+  before_create :set_creation_time
+  
   cattr_reader :per_page
   @@per_page = 20
   set_table_name :custserv
@@ -19,5 +21,10 @@ class Message < ActiveRecord::Base
 
   def category
     message_categories.by_language(I18n.locale).first
+  end
+
+  protected
+  def set_creation_time
+    self.customer_date = Time.now
   end
 end
