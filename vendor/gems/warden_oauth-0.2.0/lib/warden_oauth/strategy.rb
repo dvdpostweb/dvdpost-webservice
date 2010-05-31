@@ -36,7 +36,7 @@ module Warden
       # user in the FailureApp with the given access_token
       #
       def authenticate!
-        if params.include?('oauth_token') || session_oauth_token
+        if session_oauth_token
           store_token_on_session unless session_oauth_token
 
           begin

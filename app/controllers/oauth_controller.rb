@@ -17,4 +17,9 @@ class OauthController < ApplicationController
     
     redirect_to attempted_path ? attempted_path : root_path
   end
+
+  def logout
+    warden.logout
+    redirect_to sso_sign_out_path
+  end
 end

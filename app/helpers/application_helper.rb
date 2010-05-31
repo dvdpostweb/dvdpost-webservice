@@ -40,7 +40,7 @@ module ApplicationHelper
     session[:token] ? OAuth2::AccessToken.new(oauth_client, session[:oauth_token]) : nil
   end
 
-  def sign_out_path
+  def sso_sign_out_path
     "#{OAUTH[:site]}/logout"
   end
 end

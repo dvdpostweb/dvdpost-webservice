@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.oauth_authenticate 'oauth/authenticate', :controller => 'oauth', :action => 'authenticate', :conditions => {:method => :get}
     localized.oauth_callback     'oauth/callback',     :controller => 'oauth', :action => 'callback',     :conditions => {:method => :get}
+    localized.logout             'logout',             :controller => 'oauth', :action => 'logout',       :conditions => {:method => :get}
 
     localized.with_options :controller => 'home' do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}
