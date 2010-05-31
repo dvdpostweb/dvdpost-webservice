@@ -42,12 +42,14 @@ module Warden
           begin
             user_id = user_id_from_token
           rescue ::OAuth2::AccessDenied => e
+            clean_session
             fail!("User with access token not found")
             throw_error_with_oauth_info
           end
 
           user = find_user(user_id)
           if user.nil?
+            clean_session
             fail!("User with id not found")
             throw_error_with_oauth_info
           else
@@ -78,13 +80,13 @@ module Warden
         session[:oauth_token]
       end
 
-      def session_oauth_provider
-        session[:warden_oauth_provider]
-      end
-
       def user_id_from_token
         json = access_token.get("/me")
         JSON.parse(json)["id"]
+      end
+
+      def clean_session
+        session[:oauth_token] = nil
       end
 
       protected
