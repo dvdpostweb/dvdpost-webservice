@@ -38,20 +38,20 @@ module Warden
       def authenticate!
         if params.include?('oauth_token') || session_oauth_token
           store_token_on_session unless session_oauth_token
-          
-          user_id = user_id_from_token
 
-          if !user_id
+          begin
+            user_id = user_id_from_token
+          rescue OAuth2::AccessDenied => e
             fail!("User with access token not found")
             throw_error_with_oauth_info
+          end
+
+          user = find_user(user_id)
+          if user.nil?
+            fail!("User with id not found")
+            throw_error_with_oauth_info
           else
-            user = find_user(user_id)
-            if user.nil?
-              fail!("User with id not found")
-              throw_error_with_oauth_info
-            else
-              success!(user)
-            end
+            success!(user)
           end
         end
       end
@@ -94,7 +94,7 @@ module Warden
 
       You need to define a finder by access_token for this strategy.
       Write on the warden initializer the following code:
-      Warden::OAuth2.user_finder(:  #{config.provider_name}  ) do |user_identifier|
+      Warden::OAuth2.user_finder(:   #{config.provider_name}   ) do |user_identifier|
         # Logic to get your user from an identifier
       end
 
