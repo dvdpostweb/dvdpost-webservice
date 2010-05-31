@@ -3,7 +3,7 @@
   <ul id="login" class="subnav">
     <li class="first">
       <% if current_customer %>
-        <%= "#{link_to 'Déconnexion', sign_out_path} (#{current_customer.email})" %>
+        <%= "#{link_to 'Déconnexion', logout_path} (#{current_customer.email})" %>
       <% else %>
         <%= link_to 'Sign in', sign_in_path %>
       <% end %>

@@ -18,20 +18,4 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
-  protected
-  def current_customer
-    current_user
-  end
-
-  def wishlist_size
-    @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
-  end
-
-  def delegate_locale
-    set_locale(params[:locale])
-  end
-
-  def messages_size
-    @messages_size = (current_customer.messages.not_read.count || 0) if current_customer
-  end
 end
