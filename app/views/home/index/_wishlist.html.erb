@@ -9,10 +9,10 @@
   <tr>
     <th colspan="2">DVD chez vous ou en transit : <span><%= transit_items.count %> DVD</span> </th>
   </tr>
-  <% 2.times do |i| %>
+  <% transit_items.each do |transit_item| %>
   <tr>
-    <td><%= link_to truncate(transit_items[i].product.title, :length => 50), product_path(:id => transit_items[i].product.to_param) %></td>
-    <td><%= transit_items[i].changed_at.strftime("%d/%m/%Y") %></td>
+    <td><%= link_to truncate(transit_item.product.title, :length => 50), product_path(:id => transit_item.product.to_param) %></td>
+    <td><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
   </tr>
   <% end %>
   </table>
