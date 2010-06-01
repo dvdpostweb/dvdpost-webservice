@@ -11,6 +11,10 @@ require 'hoptoad_notifier/capistrano'
 before 'deploy:update_code', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
 
+after 'deploy:symlink' do
+  run "ln -nfs #{deploy_to}/shared/uploaded/partner #{deploy_to}/#{current_dir}/public/partner"
+end
+
 # Thinking Sphinx
 namespace :thinking_sphinx do
   task :configure, :roles => [:app] do
