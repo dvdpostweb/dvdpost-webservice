@@ -27,10 +27,13 @@
       <%= link_to "Vimeo", "http://vimeo.com/5199678", :id => :vm, :target => :_blank %>
     </li>
   </ul>
-  <form method="post" action="">
-    <p>Nous vous offrons aussi la possibilité d’être rappelé par notre service clientèle quand vous êtes disponible. (du lundi au vendredi de 9h00 à 17h00). Pour ce faire il vous suffit de remplir les cases ci-dessous.</p>
-    <label>Nom</label>
-    <input name="" type="text" class="fld" />
+  <% form_for @message do |f| %>
+    <p>
+      Nous vous offrons aussi la possibilité d’être rappelé par notre service clientèle quand vous êtes disponible. 
+      (du lundi au vendredi de 9h00 à 17h00). Pour ce faire il vous suffit de remplir les cases ci-dessous.
+    </p>
+    <%#= f.label :name, "Nom" %>
+    <%#= f.text_field :name, :class => "fld" %>
     <label>N&deg; de tel</label>
     <input name="" type="text" class="fld" />
     <label>Raison</label>
@@ -51,6 +54,6 @@
       <option selected="selected">9h00 - 9h30</option>
     </select>
     <button type="submit" class="like-btn">Me recontacter</button>
-  </form>
+  <% end %>
   <div class="clear"></div>
 </div>
