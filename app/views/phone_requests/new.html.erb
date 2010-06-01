@@ -55,9 +55,8 @@
           </label>
 
           <div>Cr&eacute;neaux Horaires</div>
-          <select>
-            <option selected="selected">9h00 - 9h30</option>
-          </select>
+          <%= f.collection_select(:call_me_hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %>
+          
           <button type="submit" class="like-btn">Me recontacter</button>
         <% end %>
       <div class="clear"></div>
