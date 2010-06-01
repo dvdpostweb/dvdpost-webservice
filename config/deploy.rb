@@ -12,7 +12,7 @@ before 'deploy:update_code', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
 
 after 'deploy:symlink' do
-  run "ln -nfs #{deploy_to}/shared/uploaded/partner #{deploy_to}/#{current_dir}/public/partner"
+  run "ln -nfs #{deploy_to}/shared/uploaded/partner_logos #{deploy_to}/#{current_dir}/public/images/logo"
 end
 
 # Thinking Sphinx
