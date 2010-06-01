@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def load_partners
-    @partners = Partner.all(:limit => 6)
+    @partners = Partner.by_language(I18n.locale).all(:limit => 6)
   end
 
   def oauth_client

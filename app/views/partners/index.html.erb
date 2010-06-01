@@ -1,10 +1,22 @@
-<h1>Listing partners</h1>
+<h1>Partners</h1>
 <table>
+  <tr>
+    <th>Name</th>
+    <th>Logo</th>
+    <th>Url</th>
+    <th>Language</th>
+    <th>Forced position</th>
+    <th>Active</th>
+    <th colspan="2">Actions</th>
+  </tr>
 <% @partners.each do |partner| %>
   <tr>
     <td><%= partner.name %></td>
-    <td><%= image_tag partner.logo.url %></td>
-    <td><%= link_to 'Show', partner_path(:id => partner) %></td>
+    <td><%= link_to image_tag(partner.logo.url, :alt => partner.name, :title => partner.name), partner.url, :target => :_blank %></td>
+    <td><%= partner.url %></td>
+    <td><%= partner.language %></td>
+    <td><%= partner.forced_position %></td>
+    <td><%= partner.active %></td>
     <td><%= link_to 'Edit', edit_partner_path(:id => partner) %></td>
     <td><%= link_to 'Destroy', partner_path(:id => partner), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

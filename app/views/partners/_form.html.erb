@@ -1,20 +1,30 @@
-<% form_for partner, :html => {:multipart => true} do |f| %>
-  <%= f.error_messages %>
-  <fieldset>
-    <p>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.label :logo %>
-      <%= f.file_field :logo %>
-    </p>
-    <p>
-      <%= f.label :active %>
-      <%= f.check_box :active %>
-    </p>
-  </fieldset>
+<%= f.error_messages %>
+<fieldset>
   <p>
-    <%= f.submit %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </p>
-<% end %>
+  <p>
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.label :language %>
+    <%= f.text_field :language %>
+  </p>
+  <p>
+    <%= f.label :logo %>
+    <%= f.file_field :logo %>
+  </p>
+  <p>
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </p>
+  <p>
+    <%= f.label :forced_position %>
+    <%= f.text_field :forced_position %>
+  </p>
+</fieldset>
+<p>
+  <%= f.submit %>
+</p>
