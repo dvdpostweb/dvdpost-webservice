@@ -42,6 +42,10 @@ module ApplicationHelper
     @messages_size = (current_customer.messages.not_read.count || 0) if current_customer
   end
 
+  def load_partners
+    @partners = Partner.all(:limit => 6)
+  end
+
   def oauth_client
     params = OAUTH.clone
     client_id = params.delete(:client_id)

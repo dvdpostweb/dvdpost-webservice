@@ -2420,6 +2420,19 @@ div.top10.first p a {
   float: left;
 }
 
+#subfooter #partners #partners-box {
+  background: url(../images/partners.png) 0 0 no-repeat;
+  width: 393px;
+  height: 121px;
+  padding: 1px 4px;
+}
+
+#subfooter #partners #partners-box img {
+  float:left;
+  width: 128px;
+  height: 53px;
+}
+
 #subfooter #copyr {
   clear: both;
   color: white;
