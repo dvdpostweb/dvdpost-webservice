@@ -1,0 +1,64 @@
+<div id="contact-wrap">
+  <%= render :partial => 'messages/menu', :locals => {:active_menu => @type} %>
+    <div id="tabs-content">
+      <div id="contact">
+        <ul>
+          <li>
+            <h3>Vous pouvez nous contacter : </h3>
+          </li>
+          <li id="phone">
+            <h4>Par téléphone au 0800/95 990</h4>
+            Nos bureaux sont ouverts du lundi au vendredi
+            de 09h00 à 17h00
+          </li>
+          <li id="mail">
+            <h4>Par email</h4>
+            via la messagerie du site ou <a href="mailto:info@dvdpost.be">info@dvdpost.be</a>
+          </li>
+          <li id="fax">
+            <h4>Par fax</h4>
+            au 02/791.52.84
+          </li>
+          <li id="courrier">
+            <h4>Par courrier</h4>
+            45 petite rue du cerf 1070 Anderlecht
+          </li>
+          <li id="social">
+            <%= link_to "Blog", "http://insidedvdpost.blogspot.com/", :id => :blog, :target => :_blank %>
+            <%= link_to "Facebook", "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834", :id => :fb, :target => :_blank %>
+            <%= link_to "Twitter", "http://twitter.com/dvdpost", :id => :tw, :target => :_blank %>
+            <%= link_to "Vimeo", "http://vimeo.com/5199678", :id => :vm, :target => :_blank %>
+          </li>
+        </ul>
+        <% form_for @phone_request do |f| %>
+          <p>
+            Nous vous offrons aussi la possibilité d’être rappelé par notre service clientèle quand vous êtes disponible.
+            (du lundi au vendredi de 9h00 à 17h00). Pour ce faire il vous suffit de remplir les cases ci-dessous.
+          </p>
+          <%= f.label :name, "Nom" %>
+          <%= f.text_field :name, :class => "fld" %>
+          <label>N&deg; de tel</label>
+          <input name="" type="text" class="fld" />
+          <label>Raison</label>
+          <select>
+            <option selected="selected">Mon Code promo ne fonctionne pas</option>
+          </select>
+          <div>Date souhait&eacute;e de rappel</div>
+          <label>
+            <input name="" type="radio" value="" />
+            Pas de pr&eacute;f&eacute;rence
+          </label>
+          <label>
+            <input name="" type="radio" value="" />
+            <input name="" type="file" />
+          </label>
+          <div>Cr&eacute;neaux Horaires</div>
+          <select>
+            <option selected="selected">9h00 - 9h30</option>
+          </select>
+          <button type="submit" class="like-btn">Me recontacter</button>
+        <% end %>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

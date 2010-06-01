@@ -46,6 +46,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}
 
     localized.resources :messages
+    localized.resources :phone_requests, :only => [:new, :create]
 
     localized.faq 'faq', :controller => 'messages', :action => 'faq'
 

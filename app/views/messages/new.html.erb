@@ -1,10 +1,6 @@
 <div id="contact-wrap">
   <%= render :partial => 'messages/menu', :locals => {:active_menu => @type} %>
   <div id="tabs-content">
-    <% if @type == 'question' %>
-      <%= render :partial => '/messages/index/question' %>
-    <% else %>
-      <%= render :partial => '/messages/index/contact' %>
-    <% end %>
+    <%= render :partial => '/messages/index/question' %>
   </div>
 </div>
