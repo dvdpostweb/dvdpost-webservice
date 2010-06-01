@@ -1,3 +1,53 @@
+0.3
+
+Note: The 0.3 branch is a complete rewrite of everything, with a similar (but not identical) API, don't expect it to work drop-in.
+
+[TODO] You can now set a default image if the column is blank
+
+[TODO] Integrated mocking support, to make testing your UploadColumns easier.
+
+[NEW] Complete rewrite, maintaining most of the legacy API
+
+[NEW] Framework for custom manipulators, for clean and easy extension.
+
+[NEW] Manipulate images with ImageScience instead of RMagick if you want
+
+[NEW] Support for animated GIFs in the RMagick manipulator
+
+[NEW] Fully tested with RSpec
+
+[NEW] Following the law of Demeter better by adding _public_path, _thumb, _thumb_public_path etc... magic methods.
+
+[DEPRECATED] UploadedFile#url is deprecated in favour of UploadedFile#public_path and will be removed in the next major release
+
+[CHANGED] Store dir and temp dir procs now take two piped variables, the UploadedFile object and the ActiveRecord
+
+[CHANGED] the :root_path option is now called :root_dir
+
+[CHANGED] web_root must now be set with a leading slash if an absolute URL is desired and no trailing slash.
+
+[CHANGED] UploadedFile#filename_base is removed in favor of #basename
+
+[CHANGED] UploadedFile#filename_extension is removed in favor of #extension
+
+[CHANGED] UploadedFile#mime_type is removed in favor of #content_type
+
+[CHANGED] _store_dir and _tmp_dir callbacks now take the file object as an argument, which means that the methods always MUST take an argument, even if you don't need it.
+
+[CHANGED] The _after_assigns callback has changed name to _after_upload and take the UploadedFile as param.
+
+[REMOVED] Support for the exif columns, as in 0.2.X has been removed temporarily. It might be readded later.
+
+[REMOVED] The old_files option as in 0.2.X has been removed. All old files are now stored. This option will be reintroduced in later versions of 0.3.X
+
+[REMOVED] The :force_format option for image_columns as in 0.2.X has been removed and will be reintroduced later.
+
+[REMOVED] The remote_upload_form helper has been removed, for encouraging bad JS practice. It will not be readded. If you need remote uploads, uploading with Flash is much cooler, and can be done in an unobtrusive way. Check out Swiff.js for hints.
+
+[REMOVED] The 'image' helper has been removed, since its functionality is not really useful in any app (hopefully most apps) that uses named routes.
+
+============================
+
 0.2.1
 
 * Added :force_format option to image_column

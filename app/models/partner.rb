@@ -1,5 +1,5 @@
 class Partner < ActiveRecord::Base
-  upload_column :logo
+  image_column :logo
 
   named_scope :active, :conditions => {:active => true}
   named_scope :ordered, :order => 'forced_position DESC, rand()', :limit => 6
