@@ -24,10 +24,10 @@
             45 petite rue du cerf 1070 Anderlecht
           </li>
           <li id="social">
-            <%= link_to "Blog", "http://insidedvdpost.blogspot.com/", :id => :blog, :target => :_blank %>
-            <%= link_to "Facebook", "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834", :id => :fb, :target => :_blank %>
-            <%= link_to "Twitter", "http://twitter.com/dvdpost", :id => :tw, :target => :_blank %>
-            <%= link_to "Vimeo", "http://vimeo.com/5199678", :id => :vm, :target => :_blank %>
+            <%= link_to "Blog",     blog_url,    :id => :blog, :target => :_blank %>
+            <%= link_to "Facebook", fb_url,      :id => :fb,   :target => :_blank %>
+            <%= link_to "Twitter",  twitter_url, :id => :tw,   :target => :_blank %>
+            <%= link_to "Vimeo",    vimeo_url,   :id => :vm,   :target => :_blank %>
           </li>
         </ul>
         <% form_for @phone_request do |f| %>
@@ -42,17 +42,10 @@
           <%= f.label :call_me_reason, "Raison" %>
           <%= f.collection_select(:call_me_reason, reasons_collection_for_select, :first, :last, {:include_blank => true}) %>
           
-          <div>Date souhait&eacute;e de rappel</div>
-
-          <label>
-            <input name="" type="radio" value="" />
-            Pas de pr&eacute;f&eacute;rence
-          </label>
-
-          <label>
-            <input name="" type="radio" value="" />
+          <div>Date souhait&eacute;e de rappel </div>
+          <div>
             <input name="" type="text" class="datepicker" />
-          </label>
+          </div>
 
           <div>Cr&eacute;neaux Horaires</div>
           <%= f.collection_select(:call_me_hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %>
@@ -63,6 +56,3 @@
     </div>
   </div>
 </div>
-<% javascript_tag do %>
-  $( ".datepicker" ).datepicker({ disabled: true });
-<% end %>

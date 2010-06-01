@@ -3,21 +3,21 @@ class PhoneRequest < ActiveRecord::Base
 
   def self.time_slots
     slots = OrderedHash.new
-    slots.push("9 h00 - 9 h30", 1)
+    slots.push("9h00 - 9h30", 1)
     slots.push("9h30 - 10h00", 2)
-    slots.push("10 h00 - 10 h30", 3)
+    slots.push("10h00 - 10h30", 3)
     slots.push("10h30 - 11h00", 4)
-    slots.push("11 h00 - 11 h30", 5)
+    slots.push("11h00 - 11h30", 5)
     slots.push("11h30 - 12h00", 6)
-    slots.push("12 h00 - 12 h30", 7)
+    slots.push("12h00 - 12h30", 7)
     slots.push("12h30 - 13h00", 8)
-    slots.push("13 h00 - 13 h30", 9)
+    slots.push("13h00 - 13h30", 9)
     slots.push("13h30 - 14h00", 10)
-    slots.push("14 h00 - 14 h30", 11)
+    slots.push("14h00 - 14h30", 11)
     slots.push("14h30 - 15h00", 12)
-    slots.push("15 h00 - 15 h30", 13)
+    slots.push("15h00 - 15h30", 13)
     slots.push("15h30 - 16h00", 14)
-    slots.push("16 h00 - 16 h30", 15)
+    slots.push("16h00 - 16h30", 15)
     slots.push("16h30 - 17h00", 16)
     slots
   end
