@@ -51,7 +51,7 @@
 
           <label>
             <input name="" type="radio" value="" />
-            <input name="" type="file" />
+            <input name="" type="text" class="datepicker" />
           </label>
 
           <div>Cr&eacute;neaux Horaires</div>
@@ -64,3 +64,6 @@
     </div>
   </div>
 </div>
+<% javascript_tag do %>
+  $( ".datepicker" ).datepicker({ disabled: true });
+<% end %>
