@@ -3,10 +3,6 @@ class PartnersController < ApplicationController
     @partners = Partner.all
   end
 
-  def show
-    @partner = Partner.find(params[:id])
-  end
-
   def new
     @partner = Partner.new
   end
@@ -19,7 +15,7 @@ class PartnersController < ApplicationController
     @partner = Partner.new(params[:partner])
     if @partner.save
       flash[:notice] = 'Partner was successfully created.'
-      redirect_to partner_path(:id => @partner)
+      redirect_to partners_path
     else
       render :action => :new
     end
@@ -29,7 +25,7 @@ class PartnersController < ApplicationController
     @partner = Partner.find(params[:id])
     if @partner.update_attributes(params[:partner])
       flash[:notice] = 'Partner was successfully updated.'
-      redirect_to partner_path(:id => @partner)
+      redirect_to partners_path
     else
       render :action => :edit
     end
@@ -38,6 +34,6 @@ class PartnersController < ApplicationController
   def destroy
     @partner = Partner.find(params[:id])
     @partner.destroy
-    redirect_to partners_url
+    redirect_to partners_path
   end
 end
