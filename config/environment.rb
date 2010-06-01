@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.gem 'rails_warden'
 
   # UI, DB browsing
+  config.gem 'orderedhash'
   config.gem 'will_paginate',                           :version => '>= 2.3.12'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
