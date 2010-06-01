@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :wishlist_size
   before_filter :delegate_locale
   before_filter :messages_size
+  before_filter :load_partners
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
