@@ -1,8 +1,8 @@
 <div id="partners">
   <h3>Nos partenaires</h3>
   <div id="partners-box">
-    <% @partners.collect do |partner| %>
-      <%= image_tag partner.logo.url %>
+    <% partners.collect do |partner| %>
+      <%= link_to image_tag(partner.logo.url, :alt => partner.name, :title => partner.name), partner.url, :target => :_blank %>
     <% end %>
   </div>
 </div>

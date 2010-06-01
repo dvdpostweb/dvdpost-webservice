@@ -8,4 +8,4 @@ tmp/**/*
 config/database.yml
 db/schema.rb
 rerun.txt
-public/partner
+public/partner/**/*
