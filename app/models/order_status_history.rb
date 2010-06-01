@@ -14,6 +14,6 @@ class OrderStatusHistory < ActiveRecord::Base
   private
   def set_defaults
     self.created_at = Time.now.to_s(:db)
-    self.customer_notified = true
+    self.customer_notified = [2, 3].include?(new_value) ? 1 : 0 # Hardcoded check if new_status has id 2 or 3
   end
 end
