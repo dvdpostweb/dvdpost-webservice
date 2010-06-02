@@ -1,0 +1,38 @@
+fr:
+  messages:
+    index:
+      faq:
+        title: FONCTIONNEMENT DE DVDPOST
+      messages:
+        delete: Suprimer les messages
+        category: Catégorie
+        date: Date
+        answer: Réponse
+        details: Details
+      question:
+        intro: Cochez sur le lien qui correspond le plus à votre question. Vous y trouverez probablement déjà une réponse, et si ce n'est pas le cas, vous aurez la possibilité de nous l'adresser dans chacune des rubriques.
+        thanks: Merci de nous faire part du problème rencontré
+        send: Envoyer
+      radio_question:
+        labels:
+          dvd: "Problème avec un DVD (cassé, perdu, mauvais DVD envoyé, retardé, etc...)"
+          billing: "Problème avec votre facturation (montant, activation, etc...)"
+          number: "J'ai droit à Y DVD et n'en reçois que X"
+          transfer: "Question concernant un paiement par domiciliation bancaire"
+          promo_code: "Problème avec un code promotion"
+          personal_info: "Modifier mes coordonnées personnelles"
+          delivery_info: "Modifier mon adresse de livraison."
+          mail_password: "Modifier mon adresse email ou mon mot de passe"
+          pwd_forgotten: "Oubli de mon mot de passe"
+          add_to_list: "Je ne parviens pas à rajouter des titres à ma liste"
+          technical: "Erreur technique"
+          vacation: "Départ en vacances"
+          other: "Autres"
+    menu:
+      messages: VOS MESSAGES
+      question: POSER UNE QUESTION à DVDPOST
+      contact: NOUS CONTACTER
+      faq: FAQ
+    show:
+      title: "Votre question:"
+      answer: Réponse de DVDpost au

@@ -1,0 +1,27 @@
+<% form_for phone_request do |f| %>
+  <p>
+    <%= t '.intro' %>
+  </p>
+  <%= f.label :name, t('.name') %>
+  <%= f.text_field :name, :class => "fld" %>
+  <%= f.label :phone, t('.phone') %>
+  <%= f.text_field :phone, :class => "fld" %>
+  <%= f.label :call_me_reason, t('.reason') %>
+  <%= f.collection_select(:call_me_reason, reasons_collection_for_select, :first, :last, {:include_blank => true}) %>
+
+  <div>
+    <%= t '.call_date' %>
+  </div>
+  <div>
+    <%= f.text_field :requested_date, :class => "datepicker" %>
+  </div>
+
+  <div>
+    <%= t '.time_slots' %>
+  </div>
+  <%= f.collection_select(:call_me_hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %>
+
+  <button type="submit" class="like-btn">
+    <%= t '.contact' %>
+  </button>
+<% end %>

@@ -1,20 +1,2 @@
-<%
-  labels = {
-         :dvd     => "Problme avec un DVD (cassŽ, perdu, mauvais DVD envoyŽ, retardŽ, etc...)",
-         :billing => "Problme avec votre facturation (montant, activation, etc...)",
-         :number  => "J'ai droit ˆ Y DVD et n'en reois que X",
-         :transfer  => "Question concernant un paiement par domiciliation bancaire",
-         :promo_code  => "Problme avec un code promotion",
-         :personal_info  => "Modifier mes coordonnŽes personnelles",
-         :delivery_info  => "Modifier mon adresse de livraison.",
-         :mail_password  => "Modifier mon adresse email ou mon mot de passe",
-         :pwd_forgotten  => "Oubli de mon mot de passe",
-         :add_to_list  => "Je ne parviens pas ˆ rajouter des titres ˆ ma liste",
-         :technical  => "Erreur technique",
-         :vacation  => "DŽpart en vacances",
-         :other  => "Autres"
-         }
-%>
-
 <%= f.radio_button 'categories', "#{attr}" %>
-<%= f.label "categories_#{attr}", labels[attr], :class => 'categorie' %>
+<%= f.label "categories_#{attr}", t('.labels')[attr], :class => 'categorie' %>
