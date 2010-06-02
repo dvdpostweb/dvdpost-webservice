@@ -12,15 +12,15 @@ class Message < ActiveRecord::Base
   alias_attribute :question,   :message
   alias_attribute :response,   :adminmessage
 
-  has_one :product,             :primary_key => :products_id,     :foreign_key => :products_id
-  belongs_to :customer,         :foreign_key => :customers_id
-  has_many :message_categories, :foreign_key => :custserv_cat_id, :primary_key => :custserv_cat_id
+  has_one :product, :primary_key => :products_id, :foreign_key => :products_id
+  belongs_to :customer, :foreign_key => :customers_id
+  has_many :categories, :class_name => 'MessageCategory', :primary_key => :custserv_cat_id, :foreign_key => :custserv_cat_id
 
   named_scope :ordered, :order => 'custserv_id desc'
   named_scope :not_read, :conditions => {:is_read => false}
 
   def category
-    message_categories.by_language(I18n.locale).first
+    categories.by_language(I18n.locale).first
   end
 
   protected
