@@ -4,7 +4,12 @@
       <h3 class="hp-ttls">Flash News</h3>
     </li>
     <li>
-      <%= will_paginate news_items, :previous_label => '', :next_label => 'Autres publications', :page_links => false, :param_name => :news_page, :id => 'news_next', :container => false %>
+      <%= will_paginate news_items, :previous_label => '',
+                                    :next_label => t('.other_publications'),
+                                    :page_links => false,
+                                    :param_name => :news_page,
+                                    :id => 'news_next',
+                                    :container => false %>
     </li>
   </ul>
   <ul id="flash-news">

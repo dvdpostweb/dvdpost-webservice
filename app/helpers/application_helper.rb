@@ -2,7 +2,7 @@
 module ApplicationHelper
   protected
   def switch_locale_link(locale, options=nil)
-    link_to I18n.t(locale, :scope => [:layouts, :header]), params.merge(:locale => locale), options
+    link_to t(".#{locale}"), params.merge(:locale => locale), options
   end
 
   def product_media_id(media)

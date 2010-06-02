@@ -1,5 +1,7 @@
 <div id="messages">
-  <p align="right">Suprimer les messages</p>
+  <p align="right">
+    <%= t '.delete' %>
+  </p>
   <table border="0" cellspacing="0" cellpadding="0">
     <colgroup>
       <col id="ids" />
@@ -11,11 +13,21 @@
     </colgroup>
     <tr>
       <th>ID</th>
-      <th>Catégorie</th>
-      <th>Date</th>
-      <th class="center">Réponse</th>
-      <th class="center">Details</th>
-      <th class="center"><%= image_tag 'trash-icon-contact.png', :size => '15x21', :alt => 'Delete' %></th>
+      <th>
+        <%= t '.category' %>
+      </th>
+      <th>
+        <%= t '.date' %>
+      </th>
+      <th class="center">
+        <%= t '.answer' %>
+      </th>
+      <th class="center">
+        <%= t '.details' %>
+      </th>
+      <th class="center">
+        <%= image_tag 'trash-icon-contact.png', :size => '15x21', :alt => 'Delete' %>
+      </th>
     </tr>
     <%= render :partial => '/messages/index/message', :collection => messages %>
   </table>
