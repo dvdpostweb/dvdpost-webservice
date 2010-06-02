@@ -1,5 +1,7 @@
 class PhoneRequest < ActiveRecord::Base
   set_table_name :phone_request
+  
+  belongs_to :customer,         :foreign_key => :customers_id
 
   def self.time_slots
     slots = OrderedHash.new
@@ -31,5 +33,13 @@ class PhoneRequest < ActiveRecord::Base
     codes.push(:profile_update, 5)
     codes.push(:other, 6)
     codes
+  end
+
+  def requested_date
+    (call_me_day == 0 ) ? nil : Time.at(call_me_day).to_date
+  end
+
+  def requested_date=(date)
+    date.nil? ? 0 : self.call_me_day = date.to_i
   end
 end
