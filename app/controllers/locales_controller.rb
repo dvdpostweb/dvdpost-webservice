@@ -21,7 +21,7 @@ class LocalesController < ApplicationController
     @locale = Locale.new(params[:locale])
     if @locale.save
       flash[:notice] = 'Locale was successfully created.'
-      redirect_to(locales_path)
+      redirect_to locales_path
     else
       render :action => :new
     end
@@ -52,9 +52,12 @@ class LocalesController < ApplicationController
       locale = Locale.find(params[:id])
       Rails.cache.write("locale_versions/#{locale.short}", locale.updated_at)
     end    
-    
+
     ## Expire all the caches that you made that depend on this locale
     # expire_fragment "base-menu-loggedin-#{locale.short}"
     ## ...
+
+    flash[:notice] = 'Locale was successfully reloaded.'
+    redirect_to locales_path
   end
 end
