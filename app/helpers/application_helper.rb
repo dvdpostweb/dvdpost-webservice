@@ -62,4 +62,20 @@ module ApplicationHelper
   def sso_sign_out_path
     "#{OAUTH[:site]}/logout"
   end
+
+  def blog_url
+    "http://insidedvdpost.blogspot.com/"
+  end
+
+  def fb_url
+    "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834"
+  end
+
+  def twitter_url
+    "http://twitter.com/dvdpost"
+  end
+
+  def vimeo_url
+    "http://vimeo.com/5199678"
+  end
 end

@@ -26,4 +26,6 @@ $(function() {
     $.getScript('/fr/home/indicator_closed');
     return false;
   });
+
+  $( ".datepicker" ).datepicker({ disabled: true, showButtonPanel: false });
 });
