@@ -5,7 +5,7 @@
   <!-- Tabs rotattor -->
   <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
   <!-- BIENVENUE  -->
-  <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items} %>
+  <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items, :transit_items_count => @transit_items_count} %>
 
   <!-- Flash News  -->
   <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
