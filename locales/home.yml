@@ -1,0 +1,25 @@
+fr:
+  home:
+    index:
+      carousel_item:
+        trailer: Bande-annonce
+      news:
+        other_publications: Autres publications
+      recommendations:
+        title: Recommandations
+        see_all: Voir toutes mes recommandations
+      theme:
+        soon: Prochainement
+      top10:
+        title: Top 10
+        subtitle: Films de Vampires
+      top_product:
+        by: 'Réalisé par :'
+        actors: 'Acteurs :'
+      wishlist:
+        welcome: BIENVENUE
+        contains: "Votre liste contient :"
+        dvd: DVD
+        lent: "DVD chez vous ou en transit :"
+      wishlist_rating:
+        title: Cotez ce film

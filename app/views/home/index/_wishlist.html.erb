@@ -1,13 +1,23 @@
 <div id="welcome">
-  <h4>BIENVENUE <%= current_customer.customers_firstname %></h4>
-  <div id="votre-liste">Votre liste contient : <span><%= wishlist_count %> DVD</span></div>
+  <h4>
+    <%= t '.welcome' %> <%= current_customer.customers_firstname %>
+  </h4>
+  <div id="votre-liste">
+    <%= t('.contains') %> 
+    <span><%= wishlist_count %> <%= t '.dvd' %></span>
+  </div>
   <table border="0" cellspacing="0" cellpadding="0" id ='wishlist_widget'>
     <colgroup>
     <col class="col1" />
     <col class="col2" />
   </colgroup>
   <tr>
-    <th colspan="2">DVD chez vous ou en transit : <span><%= transit_items.count %> DVD</span> </th>
+    <th colspan="2">
+      <%= t '.lent' %>
+      <span>
+        <%= transit_items.count %> <%= t '.dvd' %>
+      </span>
+    </th>
   </tr>
   <% transit_items.each do |transit_item| %>
   <tr>
