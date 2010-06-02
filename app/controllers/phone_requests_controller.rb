@@ -4,8 +4,7 @@ class PhoneRequestsController < ApplicationController
   end
 
   def create
-    @phone_request = PhoneRequest.new(params[:message])
-
+    @phone_request = PhoneRequest.new(params[:phone_request].merge(:customer => current_customer))
     if @phone_request.save
       flash[:notice] = "Phone request sent successfully"
       redirect_to messages_path
