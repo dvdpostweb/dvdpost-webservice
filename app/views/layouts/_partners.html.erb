@@ -1,5 +1,7 @@
 <div id="partners">
-  <h3>Nos partenaires</h3>
+  <h3>
+    <%= t '.title' %>
+  </h3>
   <div id="partners-box">
     <% partners.collect do |partner| %>
       <%= link_to image_tag(partner.logo.url, :alt => partner.name, :title => partner.name), partner.url, :target => :_blank %>

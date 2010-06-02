@@ -1,14 +1,16 @@
 <div id="header" >
-  <h1><%= link_to 'DVDPost - Online DVD rental', root_path, :class => 'like-btn' %></h1>
+  <h1><%= link_to t('.tagline'), root_path, :class => 'like-btn' %></h1>
   <ul id="login" class="subnav">
     <li class="first">
       <% if current_customer %>
-        <%= "#{link_to 'Déconnexion', logout_path} (#{current_customer.email})" %>
+        <%= "#{link_to t('.logout'), logout_path} (#{current_customer.email})" %>
       <% else %>
-        <%= link_to 'Sign in', sign_in_path %>
+        <%= link_to t('.login'), sign_in_path %>
       <% end %>
     </li>
-    <li><a href="#">Aide</a></li>
+    <li>
+      <a href="#"><%= t '.help' %></a>
+    </li>
     <li>
       <%= switch_locale_link I18n.locale, {:id => 'lang'} %>
       <span id="lang-box">
@@ -19,17 +21,41 @@
     </li>
   </ul>
   <ul id="subnav" class="subnav">
-    <li class="first"><a href="#"><strong>Louer</strong></a></li>
-    <li><a href="#">Adulte +18</a></li>
-    <li><a href="#" id="cart">Acheter</a></li>
+    <li class="first">
+      <a href="#">
+        <strong><%= t '.rent' %></strong>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <%= t '.adult' %>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="cart">
+        <%= t '.buy' %>
+      </a>
+    </li>
   </ul>
   <ul id="nav">
-    <li><%= link_to 'Home', root_path, {:id => 'n1'} %></li>
-    <li><%= link_to 'Explorer', products_path, {:id => 'n2'} %></li>
-    <li><%= link_to 'Ma liste', wishlist_path, {:id => 'n3'} %></li>
-    <li><%= link_to "Contact <span>#{@messages_size}</span>", messages_path, {:id => 'n4'} %></li>
-    <li><a href="#" id="n5">Mon compte</a></li>
-    <li><a href="#" id="n6">News infos</a></li>
+    <li><%= link_to t('.home'), root_path, {:id => 'n1'} %></li>
+    <li><%= link_to t('.explore'), products_path, {:id => 'n2'} %></li>
+    <li><%= link_to t('.wishlist'), wishlist_path, {:id => 'n3'} %></li>
+    <li>
+      <% link_to messages_path, {:id => 'n4'} do %>
+        <%= t '.contact' %><span><%= @messages_size %></span>
+      <% end %>
+    </li>
+    <li>
+      <a href="#" id="n5">
+        <%= t('.account') %>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="n6">
+        <%= t '.news' %>  
+      </a>
+    </li>
     <li id="indicator">
       <%= render :partial => 'layouts/list_indicator', :locals => {:wishlist_size => @wishlist_size} %>
     </li>

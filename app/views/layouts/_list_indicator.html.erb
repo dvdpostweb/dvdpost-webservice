@@ -1,9 +1,32 @@
-<%= link_to 'Indicator', nil, :id => 'n7', :class => list_indicator_class(wishlist_size) %>
+<%= link_to t('.indicator'), nil, :id => 'n7', :class => list_indicator_class(wishlist_size) %>
 <ul id="indicator-tips">
-  <li><h3>LIST INDICATOR</h3></li>
-  <li><p><%= "You have #{wishlist_size == 0 ? 'no' : wishlist_size} items in your wishlist." %></p></li>
-  <li class="indicator" id="ind0-10">de 0 à 10DVD dans la liste</li>
-  <li class="indicator" id="ind10-30">de 10 à 30DVD dans la liste</li>
-  <li class="indicator" id="ind30-plus">de >30 DVD dans la liste</li>
-  <li id="close"><a href="">FERMER</a></li>
+  <li>
+    <h3>
+      <%= t '.title' %>
+    </h3>
+  </li>
+  <li>
+    <p>
+      <% if wishlist_size <= 1 %>
+        <%= t ".you_have_#{wishlist_size}" %>
+      <% else %>
+        <%= "#{t('.you_have_pre')} #{wishlist_size} #{t('.you_have_post')}" %>
+      <% end %>
+    </p>
+  </li>
+  <li class="indicator" id="ind0-10">
+    <%= t '.between_0_and_10' %>
+  </li>
+  <li class="indicator" id="ind10-30">
+    <%= t '.between_10_and_30' %>
+  </li>
+  <li class="indicator" id="ind30-plus">
+    <%= t '.more_than_30' %>
+    
+  </li>
+  <li id="close">
+    <a href="">
+      <%= t '.close' %>
+    </a>
+  </li>
 </ul>

@@ -1,26 +1,28 @@
 <div id="footer" >
   <div id="subfooter">
     <div id="footer-nav">
-      <h3>Liens rapides</h3>
+      <h3>
+        <%= t '.quick_links' %>
+      </h3>
       <ul>
-        <li><a href="#">Qui sommes-nous ?</a></li>
-        <li><a href="#">Presse</a></li>
-        <li><a href="#">Confidentialit&eacute;</a></li>
-        <li><a href="#">Conditions g&eacute;n&eacute;rales</a></li>
+        <li><a href="#"><%= t '.who' %></a></li>
+        <li><a href="#"><%= t '.press' %></a></li>
+        <li><a href="#"><%= t '.privacy' %></a></li>
+        <li><a href="#"><%= t '.conditions' %></a></li>
       </ul>
       <ul id="contacts">
         <li>
-          <h4>Nous contacter</h4>
+          <h4><%= t '.contact' %></h4>
         </li>
-        <li><a href="#">Questions Fréquentes</a></li>
-        <li><a href="#">Parrainer un ami</a></li>
-        <li><a href="#">Offrir un chèque cadeau</a></li>
-        <li><a href="#">Concours</a></li>
-        <li><a href="#">Quizz</a></li>
+        <li><a href="#"><%= t '.faq' %></a></li>
+        <li><a href="#"><%= t '.sponsor_a_friend' %></a></li>
+        <li><a href="#"><%= t '.gift_card' %></a></li>
+        <li><a href="#"><%= t '.contest' %></a></li>
+        <li><a href="#"><%= t '.quizz' %></a></li>
       </ul>
     </div>
     <%= render :partial => 'layouts/partners', :locals => {:partners => partners} %>
     <div class="clear"></div>
-    <p id="copyr">&copy; 2002-2010 DVDpost  | Home Entertainment Services S.A. </p>
+    <p id="copyr"><%= t '.copyright' %> </p>
   </div>
 </div>
