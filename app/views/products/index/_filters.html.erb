@@ -1,24 +1,26 @@
 <div id="filters">
-  <h3>AFFINER MA RECHERCHE</h3>
+  <h3>
+    <%= t '.refine' %>
+  </h3>
   <% path = params[:category_id] && !params[:category_id].empty? ? category_products_path(:category_id => params[:category_id]) : products_path %>
   <% form_tag path, :method => :get do %>
     <% field_set_tag do %>
     <ul>
       <li class="technology open">
-        <%= link_to 'Technologie' %>
+        <%= link_to t('.tech') %>
         <div>
           <label>
             <%= filter_checkbox_tag :media, :dvd %>
-            DVD
+            <%= t '.dvd' %>
           </label>
           <label>
             <%= filter_checkbox_tag :media, :bluray %>
-            Blu-ray
+            <%= t '.bluray' %>
           </label>
         </div>
       </li>
       <li class="public open">
-        <%= link_to 'Public' %>
+        <%= link_to t('.public') %>
         <div id="public-slider">
           <%= hidden_field_tag :public_min, (params[:public_min] || 0) %>
           <%= hidden_field_tag :public_max, (params[:public_max] || 18) %>
@@ -31,13 +33,13 @@
         </div>
       </li>
       <li class="country open">
-        <%= link_to 'Pays' %>
+        <%= link_to t('.countries') %>
         <div>
           <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', 0]), :selected => params[:country]) %>
         </div>
       </li>
       <li class="year open">
-        <%= link_to 'Année' %>
+        <%= link_to t('.year') %>
         <div id="year-slider">
           <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
           <%= hidden_field_tag :year_max, (params[:year_max] || 2010) %>
@@ -52,6 +54,6 @@
       <%= hidden_field_tag :recommended, true if params[:recommended] %>
     </ul>
     <% end %>
-    <%= submit_tag 'Apply', :name => nil %>
+    <%= submit_tag t('.apply'), :name => nil %>
   <% end %>
 </div>
