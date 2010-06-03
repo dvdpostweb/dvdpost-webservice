@@ -42,8 +42,7 @@ class ReportsController < ApplicationController
       end
 
       if status[:compensation]
-        current_customer.compensations.create(:compensation_date_given => Time.now.to_s(:db),
-                                              :compensation_comment => 'some comment',
+        current_customer.compensations.create(:comment => 'some comment',
                                               :order => @order,
                                               :product => @order.product,
                                               :product_dvd_id => @order.product_dvd.to_param)
