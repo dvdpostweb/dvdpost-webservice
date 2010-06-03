@@ -14,7 +14,7 @@ class ProductDvd < ActiveRecord::Base
     ProductDvdStatusHistory.create(:status => new_status,
                                    :user_id => 55,
                                    :old_status => old_status,
-                                   :comment => 'site (lost)',
+                                   :comment => "site (#{new_status.name})",
                                    :product => product,
                                    :products_dvdid => to_param)
     true
