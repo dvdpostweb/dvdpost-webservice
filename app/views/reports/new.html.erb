@@ -1,8 +1,9 @@
+<% statuses = DVDPost.product_dvd_statuses.keys %>
 <div id="addwishlist_title">
   <%= t '.title' %>
 </div>
 <ul>
-  <% [:unreadable, :broken, :delayed, :delayed_return, :damaged, :lost, :envelope, :arrived ].each do |event| %>
+  <% statuses.each do |event| %>
     <li>
       <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
     </li>

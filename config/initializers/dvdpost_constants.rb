@@ -121,15 +121,16 @@ module DVDPost
     end
 
     def product_dvd_statuses
-      HashWithIndifferentAccess.new.merge({
-        :unreadable     => {:message => 3,  :message_category => 1,  :product_status => 2, :compensation => true},
-        :broken         => {:message => 22, :message_category => 2,  :product_status => 4, :compensation => true},
-        :damaged        => {:message => 11, :message_category => 11, :product_status => 2, :compensation => false},
-        :lost           => {:message => 12, :message_category => 14, :product_status => 5, :compensation => false},
-        :delayed        => {:message => 5,  :message_category => 3,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false},
-        :delayed_return => {:message => 7,  :message_category => 5,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false},
-        :arrived        => {:message => 20, :message_category => 19, :product_status => 1, :compensation => false, :order_status => 2,  :at_home => true}
-      })
+      statuses = OrderedHash.new
+      statuses.push(:unreadable,     {:message => 3,  :message_category => 1,  :product_status => 2, :compensation => true})
+      statuses.push(:broken,         {:message => 22, :message_category => 2,  :product_status => 4, :compensation => true})
+      statuses.push(:damaged,        {:message => 11, :message_category => 11, :product_status => 2, :compensation => false})
+      statuses.push(:lost,           {:message => 12, :message_category => 14, :product_status => 5, :compensation => false})
+      statuses.push(:delayed,        {:message => 5,  :message_category => 3,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false})
+      statuses.push(:delayed_return, {:message => 7,  :message_category => 5,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false})
+      statuses.push(:envelope,       {})
+      statuses.push(:arrived,        {:message => 20, :message_category => 19, :product_status => 1, :compensation => false, :order_status => 2,  :at_home => true})
+      statuses
     end
   end
 end
