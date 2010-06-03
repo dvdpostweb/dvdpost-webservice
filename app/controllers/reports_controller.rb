@@ -36,9 +36,16 @@ class ReportsController < ApplicationController
       end
 
       if status.keys.include?('order_status')
-        # order_status = OrderStatus.by_language(I18n.locale).find(status[:order_status])
-        # @order.update_status!(order_status)
-        # INSERT INTO  CUSTSERV_DELAYED_FINNALYARRIVED  (custserv_id, customers_id , customer_date , orders_id, products_id , dvd_id) VALUES ('" . $insert_id . "','" . $customer_id . "', now(), '" . $orders_id . "', '" . $pid . "', '" . $dvdid . "' )
+        order_status = OrderStatus.by_language(I18n.locale).find(status[:order_status])
+        @order.update_status!(order_status)
+      end
+
+      if params[:status] == 'arrived'
+        ProductDvdArrived.create(:message => @order.messages.last,
+                                 :customer => current_customer,
+                                 :order => @order,
+                                 :product => @order.product,
+                                 :product_dvd_id => @order.product_dvd.to_param)
       end
 
       if status[:compensation]
