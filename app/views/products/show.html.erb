@@ -106,51 +106,18 @@
     </div>
     <!-- End Critique -->
     <!-- Carousel -->
-    <!--div id="carousel-wrap">
+    <div id="carousel-wrap">
       <h2>LES MEMBRES ONT AUSSI LOUé</h2>
       <div id="carousel">
         <ul>
-          <li>
-            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-            <span class="dvd"><img src="/images/poster-mid.jpg" alt="" /><span class="new"></span></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            Public Enemies
-          </li>
-          <li>
-            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            Les Noces Rebelles
-          </li>
-          <li>
-            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            L'Etrange Histoire de Benjamin Button
-          </li>
-          <li>
-            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            Les Noces Rebelles
-          </li>
-          <li>
-            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            Les Noces Rebelles
-          </li>
-          <li>
-            <span class="stars"><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-on.png" alt="" /><img src="/images/sm-star-off.png" alt="" /></span>
-            <span class="bluray"><img src="/images/poster-mid.jpg" alt="" /></span>
-            <a href="#" class="like-btn">Ajouter</a>
-            Les Noces Rebelles
-          </li>
+          <% @recommendations.each do |recommendation| %>
+            <%= render :partial => 'products/show/recommendation', :object => recommendation %>
+          <% end %>
         </ul>
         <a href="#" class="like-btn" id="prev">Previous</a>
         <a href="#" class="like-btn" id="next">Next</a>
       </div>
-    </div-->
+    </div>
     <!-- End Carousel -->
     <div class="end"></div>
   </div>
