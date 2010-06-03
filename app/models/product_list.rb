@@ -6,4 +6,6 @@ class ProductList < ActiveRecord::Base
   named_scope :status, :conditions => {:status => true}
   named_scope :not_highlighted, :conditions => {:home_page => false}
   named_scope :highlighted, :conditions => {:home_page => true} 
+  named_scope :by_language, lambda {|language| {:conditions => {:language => language}}}
+  
 end

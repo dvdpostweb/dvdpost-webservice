@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html {
         @body_id = 'one-col'
-        @top10 = ProductList.find_by_home_page(true).products
+        @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products
         @soon = Product.by_kind(:normal).available.soon
         @new = Product.by_kind(:normal).available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
