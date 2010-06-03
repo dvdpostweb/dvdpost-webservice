@@ -9,7 +9,7 @@
     <li>
       <%= link_to 'Les tops' %>
       <ul>
-        <% ProductList.status.top.collect do |top| %>
+        <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
           <li><%= link_to top.name, top_products_path(:top_id => top) %></li>
         <% end %>
       </ul>
@@ -24,14 +24,14 @@
     </li>
     <li><%= link_to 'Thèmes' %>
       <ul>
-        <% ProductList.status.theme.not_highlighted.collect do |theme| %>
+        <% ProductList.status.theme.not_highlighted.by_language(DVDPost.product_languages[I18n.locale]).collect do |theme| %>
           <li><%= link_to theme.name, theme_products_path(:theme_id => theme) %></li>
         <% end %>
       </ul>
     </li>
   </ul>
   <p id="special">
-    <% special = ProductList.status.theme.highlighted.first %>
+    <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
     <%= link_to special.name, theme_products_path(:theme_id => special) %>
   </p>
   <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
