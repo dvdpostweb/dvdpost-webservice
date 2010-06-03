@@ -9,5 +9,5 @@
   <li><%= link_to_report("J'ai moi-même endommagé un DVD", @order.to_param, :damaged) %></li>
   <li><%= link_to_report("J'ai perdu un DVD", @order.to_param, :lost) %></li>
   <li><%= link_to_report("Je n'ai plus l'enveloppe pour le retour", @order.to_param, :unknown) %></li>
-  <li><%= link_to_report("Mon DVD retardé est finalement arrivé", @order.to_param, :unknown) %></li>
+  <li><%= link_to_report("Mon DVD retardé est finalement arrivé", @order.to_param, :arrived) %></li>
 </ul>

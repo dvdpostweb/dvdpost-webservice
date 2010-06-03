@@ -27,6 +27,20 @@ class ReportsController < ApplicationController
 
       @order.product_dvd.update_status!(product_status)
 
+      if status.keys.include?('at_home')
+        if status[:at_home]
+          current_customer.add_dvd_at_home!
+        else
+          current_customer.substract_dvd_at_home!
+        end
+      end
+
+      # if status == :delivered
+      #   update orders set orders_status = 2 where orders_id=  $orders_id
+      #   insert into ORDERS_STATUS_HISTORY  (orders_id, new_value, old_value, date_added, customer_notified ) values ('" . $orders_id . "', 2, 12, now(), 1)
+      #   INSERT INTO  CUSTSERV_DELAYED_FINNALYARRIVED  (custserv_id, customers_id , customer_date , orders_id, products_id , dvd_id) VALUES ('" . $insert_id . "','" . $customer_id . "', now(), '" . $orders_id . "', '" . $pid . "', '" . $dvdid . "' )
+      # end
+
       if status[:compensation]
         current_customer.compensations.create(:compensation_date_given => Time.now.to_s(:db),
                                               :compensation_comment => 'some comment',
