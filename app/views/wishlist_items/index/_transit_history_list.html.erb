@@ -3,18 +3,20 @@
     <ul>
       <li class="first">
         <% if transit_items %>
-          <h2>DVD chez vous ou en transit : <span><%= "#{transit_items.count} DVD" %></span></h2>
+          <h2><%= t '.out' %> <span><%= "#{transit_items.count} DVD" %></span></h2>
         <% elsif history_items %>
-          <h2>History : <span><%= "#{history_items.count} DVD" %></span></h2>
+          <h2><%= t '.history' %><span><%= "#{history_items.count} DVD" %></span></h2>
         <% end %>
       </li>
       <li>
-        <h2>Votre liste contient : <span><%= "#{wishlist_items_count} DVD" %></span></h2>
+        <h2><%= t '.contains' %> <span><%= "#{wishlist_items_count} DVD" %></span></h2>
       </li>
     </ul>
     <div class="head clearfix">
-      <div class="title">Titres</div>
-      <div class="status">Statuts de mes locations</div>
+      <div class="title">
+        <%= t '.titles' %>
+      </div>
+      <div class="status"><%= t '.statuses' %></div>
     </div>
     <% if transit_items %>
       <%= render :partial => 'wishlist_items/index/transit_item', :collection => transit_items %>
@@ -25,11 +27,11 @@
   <ul id="on-way-nav">
     <li class="first">
       <% if history_items %>
-        <%= link_to 'Voir les DVD chez vous ou en transit', wishlist_path(:transit_or_history => 'transit'), :class => 'transit_or_history' %>
+        <%= link_to t('.see_out'), wishlist_path(:transit_or_history => 'transit'), :class => 'transit_or_history' %>
       <% else %>
-        <%= link_to 'Voir mon historique de location', wishlist_path(:transit_or_history => 'history'), :class => 'transit_or_history' %>
+        <%= link_to t('.see_history'), wishlist_path(:transit_or_history => 'history'), :class => 'transit_or_history' %>
       <% end %>
     </li>
-    <li><a href="#">Ajouter des titres à ma liste</a></li>
+    <li><a href="#"><%= t '.add' %></a></li>
   </ul>
 </div>
