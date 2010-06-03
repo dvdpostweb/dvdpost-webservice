@@ -8,11 +8,11 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
-    localized.oauth_authenticate 'oauth/authenticate', :controller => 'oauth', :action => 'authenticate', :conditions => {:method => :get}
-    localized.oauth_callback     'oauth/callback',     :controller => 'oauth', :action => 'callback',     :conditions => {:method => :get}
-    localized.logout             'logout',             :controller => 'oauth', :action => 'logout',       :conditions => {:method => :get}
+    localized.oauth_authenticate 'oauth/authenticate', :controller => :oauth, :action => :authenticate, :conditions => {:method => :get}
+    localized.oauth_callback     'oauth/callback',     :controller => :oauth, :action => :callback,     :conditions => {:method => :get}
+    localized.logout             'logout',             :controller => :oauth, :action => :logout,       :conditions => {:method => :get}
 
-    localized.with_options :controller => 'home' do |home|
+    localized.with_options :controller => :home do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}
       home.news 'home/news', :action => :news, :conditions => {:method => :get}
     end
@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :messages
     localized.resources :phone_requests, :only => [:new, :create]
 
-    localized.faq 'faq', :controller => 'messages', :action => 'faq'
+    localized.faq 'faq', :controller => :messages, :action => :faq
 
     localized.resources :orders, :only => [] do |orders|
       orders.resource :report, :only => [:new, :create]

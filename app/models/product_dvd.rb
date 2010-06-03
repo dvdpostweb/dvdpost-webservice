@@ -16,7 +16,7 @@ class ProductDvd < ActiveRecord::Base
                                    :old_status => old_status,
                                    :comment => "site (#{new_status.name})",
                                    :product => product,
-                                   :products_dvdid => to_param)
+                                   :product_dvd_id => to_param)
     true
   end
 end
