@@ -12,13 +12,6 @@ class ReportsController < ApplicationController
     @status = MessageCategory.by_language(I18n.locale).find(1)
     @product_status = ProductDvdStatus.find(params[:status]) # Needs to be secure so that a user can't set a status by changing this attribute
 
-    ProductDvdStatusHistory.create(:status_date => Time.now.to_s(:db),
-                                   :status => @product_status,
-                                   :user_id => 55,
-                                   :old_status => @order.product_dvd.status,
-                                   :comment => 'site (lost)',
-                                   :product => @order.product,
-                                   :products_dvdid => @order.product_dvd.to_param)
 
     current_customer.messages.create(:language_id => DVDPost.product_languages[I18n.locale],
                                      :category_id => @status.to_param,
