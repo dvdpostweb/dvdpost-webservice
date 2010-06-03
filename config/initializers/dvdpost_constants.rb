@@ -119,5 +119,16 @@ module DVDPost
       url = "#{url}&#{args.collect{|key,value| "#{key}=#{value}"}.join('&')}" if args
       Rails.env == "production" ? open(url) : url
     end
+
+    def product_dvd_statuses
+      HashWithIndifferentAccess.new.merge({
+        :unreadable     => {:message => 3,  :message_category => 1,  :product_status => 2, :compensation => true},
+        :broken         => {:message => 22, :message_category => 2,  :product_status => 4, :compensation => true},
+        :damaged        => {:message => 11, :message_category => 11, :product_status => 2, :compensation => false},
+        :lost           => {:message => 12, :message_category => 14, :product_status => 5, :compensation => false},
+        :delayed        => {:message => 5,  :message_category => 3,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false},
+        :delayed_return => {:message => 7,  :message_category => 5,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false}
+      })
+    end
   end
 end
