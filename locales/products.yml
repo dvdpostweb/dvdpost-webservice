@@ -1,0 +1,18 @@
+fr:
+  products:
+    index:
+      filters:
+        refine: AFFINER MA RECHERCHE
+        tech: Technologie
+        dvd: DVD
+        bluray: Blu-ray
+        public: Public
+        countries: Pays
+        year: Année
+        apply: Apply
+      movie_detail:
+        trailer: Bande-annonce
+        more: 'En savoir +'
+        actors: Acteurs
+        director: Réalisateur
+        action: Action

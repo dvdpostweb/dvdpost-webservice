@@ -15,7 +15,7 @@ namespace :i18n_db do
       if sub_hash.respond_to?(:keys)
         namespace << "#{root}"
         load_sub_hash_or_create_entry(locale, namespace, sub_hash)
-        puts "done #{namespace.pop}"
+        puts "#{' ' * namespace.size}done #{namespace.pop}"
       else
         create_or_update_translation(locale.id, namespace, root, sub_hash)
       end
