@@ -28,8 +28,11 @@ class ReportsController < ApplicationController
       @order.product_dvd.update_status!(product_status)
 
       if status[:compensation]
-        # "INSERT INTO #{TABLE_COMPENSATION} (customers_id, compensation_date_given, compensation_comment, orders_id, products_id, products_dvdid)
-        # VALUES ('#{$customer_id}', #{Time.now.to_s(:db)}, 'dvd illisible auto', '#{$orders_id}', '#{$pid}', '#{$dvdid}')"
+        current_customer.compensations.create(:compensation_date_given => Time.now.to_s(:db),
+                                              :compensation_comment => 'some comment',
+                                              :order => @order,
+                                              :product => @order.product,
+                                              :products_dvdid => @order.product_dvd.to_param)
       end
     end
 
