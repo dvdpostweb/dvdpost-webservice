@@ -9,8 +9,8 @@ class ReportsController < ApplicationController
 
   def create
     @order = current_user.orders.find(params[:order_id])
-    if DVDPost.product_dvd_statuses.include?(params[:status])
-      status = DVDPost.product_dvd_statuses[params[:status]]
+    if DVDPost.product_dvd_statuses.include?(params[:status].to_sym)
+      status = DVDPost.product_dvd_statuses[params[:status].to_sym]
 
       message = MessageAutoReply.by_language(I18n.locale).find(status[:message]).content
       message_category = MessageCategory.by_language(I18n.locale).find(status[:message_category])
