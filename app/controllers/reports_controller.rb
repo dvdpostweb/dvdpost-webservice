@@ -35,18 +35,18 @@ class ReportsController < ApplicationController
         end
       end
 
-      # if status == :delivered
-      #   update orders set orders_status = 2 where orders_id=  $orders_id
-      #   insert into ORDERS_STATUS_HISTORY  (orders_id, new_value, old_value, date_added, customer_notified ) values ('" . $orders_id . "', 2, 12, now(), 1)
-      #   INSERT INTO  CUSTSERV_DELAYED_FINNALYARRIVED  (custserv_id, customers_id , customer_date , orders_id, products_id , dvd_id) VALUES ('" . $insert_id . "','" . $customer_id . "', now(), '" . $orders_id . "', '" . $pid . "', '" . $dvdid . "' )
-      # end
+      if status.keys.include?('order_status')
+        # order_status = OrderStatus.by_language(I18n.locale).find(status[:order_status])
+        # @order.update_status!(order_status)
+        # INSERT INTO  CUSTSERV_DELAYED_FINNALYARRIVED  (custserv_id, customers_id , customer_date , orders_id, products_id , dvd_id) VALUES ('" . $insert_id . "','" . $customer_id . "', now(), '" . $orders_id . "', '" . $pid . "', '" . $dvdid . "' )
+      end
 
       if status[:compensation]
         current_customer.compensations.create(:compensation_date_given => Time.now.to_s(:db),
                                               :compensation_comment => 'some comment',
                                               :order => @order,
                                               :product => @order.product,
-                                              :products_dvdid => @order.product_dvd.to_param)
+                                              :product_dvd_id => @order.product_dvd.to_param)
       end
     end
 
