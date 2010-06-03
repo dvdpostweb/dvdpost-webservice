@@ -55,5 +55,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :partners
+
+    localized.resources :customers, :only => [:show]
   end
 end
