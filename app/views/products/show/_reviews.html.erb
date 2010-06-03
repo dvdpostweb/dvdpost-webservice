@@ -1,6 +1,11 @@
 <div class="numbers">
-  <%= link_to 'Ecrire une critique', new_product_review_path(:product_id => product.to_param), :id => 'new_review' %>
-  <%= "#{reviews_count} #{reviews_count == 1 ? 'critique' : 'critiques'}" %>
+  <%= link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :id => 'new_review' %>
+  <%= "#{reviews_count} #{reviews_count == 1 ? t('review') : t('.reviews')}" %>
 </div>
 <%= render :partial => 'products/show/review', :collection => reviews %>
-<%= will_paginate reviews, :param_name => 'reviews_page', :previous_label => '&laquo; Critiques précédentes', :next_label => 'Critiques suivantes &raquo;', :page_links => false, :class => 'links', :id => 'pagination' %>
+<%= will_paginate reviews, :param_name => 'reviews_page',
+                           :previous_label => "&laquo; #{t('.previous')}",
+                           :next_label => "#{t('.next')} &raquo;",
+                           :page_links => false,
+                           :class => 'links',
+                           :id => 'pagination' %>
