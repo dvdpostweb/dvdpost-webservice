@@ -346,7 +346,6 @@ padding-top: 14px;
   color:#00a3d5;
 }
 
-
 #contact-wrap #contact li#social a#blog {
   background-image: url(../images/blog-icon.png);
 }
@@ -370,10 +369,7 @@ padding-top: 14px;
   font-size: 1.15em;
   margin-bottom: 15px;
 }
-#contact-wrap #question label {
-  display: block;
-  margin: 5px 0;
-}
+
 #contact-wrap #question label.active {
   font-weight: bold;
   color: #ff4b00;

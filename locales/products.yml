@@ -16,3 +16,24 @@ fr:
         actors: Acteurs
         director: Réalisateur
         action: Action
+    show:
+      review:
+        members: membres sur
+        found_useful: ont trouvés cette critique pertinente
+        published_on: Publié le
+        relevant: vous trouvez cette critique pertinente
+        not_relevant: vous ne trouvez pas cette critique pertinente
+        is_relevant: Cette critique est-elle pertinente ?
+        agree: OUI
+        disagree: NON
+      reviews:
+        new_review: Ecrire une critique
+        review: critique
+        reviews: critiques
+        previous: Critiques précédentes
+        next: Critiques suivantes
+      seen_uninterested:
+        already_seen: You've already seen this
+        already_link: Déjà Vu
+        not_interested: You're not interested
+        not_interested_link: Pas intéressé
