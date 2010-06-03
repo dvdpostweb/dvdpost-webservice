@@ -46,7 +46,9 @@
           </div>
           <div class="clear"></div>
           <div id="sinopsis">
-            <h3>Synopsis</h3>
+            <h3>
+              <%= t '.synopsis' %>
+            </h3>
             <p><%= @product.description.text %></p>
           </div>
         </div>
@@ -56,11 +58,11 @@
     <!-- Critique -->
     <ul class="tabs">
       <li class="active" id='tab1_li'>
-        <%= link_to 'CRITIQUES DES MEMBRES DVDPOST', '#tab1', :id => 'tab1_menu' %>
+        <%= link_to t('.members_critic'), '#tab1', :id => 'tab1_menu' %>
       </li>
       <% unless @cinopsis.empty? %>
         <li id='tab2_li'>
-          <%= link_to 'LA CRITIQUE DE CINOPSIS.BE', '#tab2', :id => 'tab2_menu' %>
+          <%= link_to t('.cinopsis_critic'), '#tab2', :id => 'tab2_menu' %>
         </li>
       <% end %>
     </ul>
@@ -72,7 +74,8 @@
             <% if @reviews_count > 0 %>
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
             <% else %>
-              <%= "Pas de critique d'utilisateur: #{link_to "Soyez le premier à publier une critique de #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'new_review'}" %>
+              <%= t '.no_review' %>
+              <%= link_to "#{t('.be_the_first')} #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'new_review' %>
             <% end %>
           </div>
           <div id="tab2" class="tab_content" style="display:none">
@@ -83,18 +86,7 @@
     </div>
     <!-- End Critique -->
     <!-- Carousel -->
-    <div id="carousel-wrap">
-      <h2>LES MEMBRES ONT AUSSI LOUé</h2>
-      <div id="carousel">
-        <ul>
-          <% @recommendations.each do |recommendation| %>
-            <%= render :partial => 'products/show/recommendation', :object => recommendation %>
-          <% end %>
-        </ul>
-        <a href="#" class="like-btn" id="prev">Previous</a>
-        <a href="#" class="like-btn" id="next">Next</a>
-      </div>
-    </div>
+    <%= render :partial => 'products/show/recommendations', :object => @recommendations %>
     <!-- End Carousel -->
     <div class="end"></div>
   </div>

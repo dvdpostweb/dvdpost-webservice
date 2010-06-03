@@ -37,6 +37,8 @@ fr:
         already_link: Déjà Vu
         not_interested: You're not interested
         not_interested_link: Pas intéressé
+      recommendations:
+        title: LES MEMBRES ONT AUSSI LOUÉ
       recommendation:
         add: Ajouter
       product:
@@ -54,4 +56,9 @@ fr:
         subtitles: "Sous-titres :"
         image: "Image :"
         sound: "Détail du son :"
+      synopsis: Synopsis
       dvdpost_choice: Coup de coeur DVDPost
+      members_critic: CRITIQUES DES MEMBRES DVDPOST
+      cinopsis: LA CRITIQUE DE CINOPSIS.BE
+      no_review: "Pas de critique d'utilisateur:"
+      be_the_first: Soyez le premier à publier une critique de
