@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     @already_seen = current_customer.assigned_products.include?(@product)
     @reviews_count = @product.reviews.approved.count
     @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product))
+    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:page])
     if params[:recommendation] == "1"
       DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
     end
@@ -68,10 +68,8 @@ class ProductsController < ApplicationController
   end
 
   def retrieve_recommendations_for_show(product)
-#    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations/show" do
-      ids = DVDPost.product_linked_recommendations(current_customer, product)
-      pp ids
-      ids
-#    end
+    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations/show" do
+      DVDPost.product_linked_recommendations(current_customer, product)
+    end
   end
 end

@@ -12,7 +12,7 @@ fr:
         apply: Apply
       movie_detail:
         trailer: Bande-annonce
-        more: 'En savoir +'
+        more: "En savoir +"
         actors: Acteurs
         director: Réalisateur
         action: Action
@@ -37,3 +37,21 @@ fr:
         already_link: Déjà Vu
         not_interested: You're not interested
         not_interested_link: Pas intéressé
+      recommendation:
+        add: Ajouter
+      product:
+        directed_by: "Réalisé par :"
+        actors: "Acteurs :"
+        original_title: "titre original :"
+        duration: "Durée :"
+        genre: "Genre :"
+        rate: Cotez ce film
+        country: "Pays :"
+        audience: "Public :"
+        trailer: Bande-annonce
+        official: Site officiel
+        audio: "Audio :"
+        subtitles: "Sous-titres :"
+        image: "Image :"
+        sound: "Détail du son :"
+      dvdpost_choice: Coup de coeur DVDPost

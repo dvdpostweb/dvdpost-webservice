@@ -3,52 +3,29 @@
   <div id="detail-wrap">
     <div class="top"></div>
     <!-- Detail -->
-    <% if @breadcrumb %>
-      <!-- @breadcrumb is not yet used. This should show the path on which you were able to find the product -->
-      <div id="breadcrumb">
-        <a href="#">Emotion/drame</a> &rsaquo; Destin
-      </div>
-    <% end %>
-    <h2><%= "#{@product.title} (#{@product.year})" %></h2>
+    
+    <h2>
+      <%= "#{@product.title} (#{@product.year})" %>
+    </h2>
     <div class="box">
-      <div class="box-content clearfix"> <img src="/images/right-shadow-top.gif" alt="" class="right" />
+      <div class="box-content clearfix">
+        <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div id="details">
           <div id="movie-info">
-            <ul>
-              <%= "<li><strong>Réalisé par :</strong> <strong>#{link_to @product.director.name}</strong></li>" if @product.director %>
-              <% actors = @product.actors.collect{|actor| link_to actor.name }.join(', ') %>
-              <%= "<li><strong>Acteurs :</strong> #{@actors}</li>" unless actors %>
-              <%= "<li><strong>titre original :</strong> #{@product.original_title}" unless @product.title == @product.original_title %>
-              <li><strong>Durée :</strong> <%= "#{@product.runtime} minutes" %></li>
-              <li><strong>Genre :</strong> <%= @product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %></li>
-              <li><strong>Pays :</strong> <%= @product.country.name %></li>
-              <li><strong>Public :</strong> <%= image_tag @product.public.image, :alt => @product.public.description %></li>
-            </ul>
-            <p class="links">
-              <%= link_to('Bande-annonce', @product.trailer.url, {:class => 'trailer', :target => :_blank}) if @product.trailer %>
-              <%= content_tag(:span, image_tag('delimiter.gif')) if @product.trailer && @product.description.url_present? %>
-              <%= link_to('Site officiel', @product.description.full_url, {:class => 'link', :target => :_blank}) if @product.description.url_present? %>
-            </p>
-            <p>
-              Audio : <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{@product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
-              Sous-titres : <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{@product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
-            </p>
-            <%= render :partial => 'products/show/awards', :locals => {:product => @product , :size=> 'small' } %>
-            <p>
-              <strong>Image :</strong> <%= @product.picture_format.name %><br />
-              <strong>Détail du son :</strong> <%= @product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
-            </p>
-            <div class="cover">
-              <span id="<%= product_media_id(@product.media) %>">
-                <%= product_image_tag @product.image, :width => 143, :height => 218, :alt => "#{@product.title} (#{@product.year})" %>
-                <%= content_tag(:span, '', :class => 'new') if @product.is_new? %>
-              </span>
-              <%= render :partial => 'products/wishlist', :locals => {:product => @product} %>
-            </div>
+            <%= render :partial => 'products/show/product', :object => @products %>
           </div>
           <div class="action">
-            <%= content_tag :div, "#{image_tag 'dvdpost-coup.png'} Coup de coeur DVDPost", :id => "dvdpost-coup" if @product.dvdposts_choice? %>
-            <div align="center"><strong>Cotez ce film</strong></div>
+            <% if @product.dvdposts_choice? %>
+              <div id="dvdpost-coup">
+                <%= image_tag 'dvdpost-coup.png' %>
+                <%= t '.dvdpost_choice' %>
+              </div>
+            <% end %>
+            <div align="center">
+              <strong>
+                <%= t '.rate' %> 
+              </strong>
+            </div>
             <ul>
               <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
                 <%= render :partial => 'products/rating', :locals => {:product => @product, :background => :white} %>
@@ -123,4 +100,4 @@
   </div>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
-<%#= render :partial => 'products/left_column' %>
+<%= render :partial => 'products/left_column' %>

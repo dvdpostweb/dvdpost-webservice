@@ -1,15 +1,11 @@
 <li>
   <span class="stars">
-    <img src="/images/sm-star-on.png" alt="" />
-    <img src="/images/sm-star-on.png" alt="" />
-    <img src="/images/sm-star-on.png" alt="" />
-    <img src="/images/sm-star-on.png" alt="" />
-    <img src="/images/sm-star-off.png" alt="" />
+    <%= rating_image_small(recommendation) %>
   </span>
   <span class="dvd">
-    <img src="/images/poster-mid.jpg" alt="" />
+    <%= product_image_tag recommendation.image, :width => 76, :height => 118, :alt => "#{recommendation.title} (#{recommendation.year})" %>
     <span class="new"></span>
   </span>
-  <a href="#" class="like-btn">Ajouter</a>
-  <%= product.title %>
+  <a href="#" class="like-btn"><%= t '.add' %></a>
+  <%= recommendation.title %>
 </li>

@@ -1,0 +1,82 @@
+<ul>
+  <% if product.director %>
+    <li>
+      <strong>
+        <%= "#{t('.directed_by')} #{link_to product.director.name}" %>
+      </strong>
+    </li>
+  <% end %>
+  <% actors = product.actors.collect{|actor| link_to actor.name }.join(', ') %>
+  <% if actors %>
+  <li>
+    <strong>
+      <%= t '.actors' %>
+    </strong>
+    <%= actors %>
+  </li>
+  <% end %>
+  <% unless product.title == product.original_title %>
+    <li>
+      <strong>
+        <%= t '.original_title' %>
+      </strong>
+      <%= product.original_title %>
+    </li>
+  <% end %>
+  <li>
+    <strong>
+      <%= t '.duration' %>
+    </strong>
+    <%= "#{product.runtime} minutes" %>
+  </li>
+  <li>
+    <strong>
+      <%= t '.genre' %>
+    </strong>
+    <%= product.categories.collect{|category| link_to category.name, category_products_path(:category_id => category)}.join(', ') %>
+  </li>
+  <li>
+    <strong>
+      <%= t '.country' %>
+    </strong>
+    <%= product.country.name %>
+  </li>
+  <li>
+    <strong>
+      <%= t '.audience' %>
+    </strong>
+    <%= image_tag product.public.image, :alt => product.public.description %>
+  </li>
+</ul>
+<p class="links">
+  <%= link_to(t('.trailer'), product.trailer.url, {:class => 'trailer', :target => :_blank}) if product.trailer %>
+  <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && product.description.url_present? %>
+  <%= link_to(t('.official'), product.description.full_url, {:class => 'link', :target => :_blank}) if product.description.url_present? %>
+</p>
+<p>
+  <%= t('.audio') %>
+  <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
+  
+  <%= t('.subtitles') %>
+  <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
+</p>
+<%= render :partial => 'products/show/awards', :locals => {:product => product , :size=> 'small' } %>
+<p>
+  <strong>
+    <%= t '.image' %>
+  </strong>
+  <%= product.picture_format.name %><br />
+
+  <strong>
+    <%= t '.sound' %>
+  </strong>
+  <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
+</p>
+
+<div class="cover">
+  <span id="<%= product_media_id(product.media) %>">
+    <%= product_image_tag product.image, :width => 143, :height => 218, :alt => "#{product.title} (#{product.year})" %>
+    <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
+  </span>
+  <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
+</div>
