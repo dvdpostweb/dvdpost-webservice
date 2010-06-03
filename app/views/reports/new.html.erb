@@ -1,13 +1,10 @@
 <div id="addwishlist_title">
-  Probl&egrave;me avec un DVD
+  <%= t '.title' %>
 </div>
 <ul>
-  <li><%= link_to_report("Je suis en possession d'un DVD illisible", @order.to_param, :unreadable) %></li>
-  <li><%= link_to_report("Le DVD est arrivé cassé", @order.to_param, :broken) %></li>
-  <li><%= link_to_report("A ce jour, le DVD n'est pas arrivé chez moi", @order.to_param, :delayed) %></li>
-  <li><%= link_to_report("J'ai renvoyé un DVD mais DVDPost ne l'a visiblement pas encore réceptionné", @order.to_param, :delayed_return) %></li>
-  <li><%= link_to_report("J'ai moi-même endommagé un DVD", @order.to_param, :damaged) %></li>
-  <li><%= link_to_report("J'ai perdu un DVD", @order.to_param, :lost) %></li>
-  <li><%= link_to_report("Je n'ai plus l'enveloppe pour le retour", @order.to_param, :unknown) %></li>
-  <li><%= link_to_report("Mon DVD retardé est finalement arrivé", @order.to_param, :unknown) %></li>
+  <% [:unreadable, :broken, :delayed, :delayed_return, :damaged, :lost, :envelope, :arrived ].each do |event| %>
+    <li>
+      <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
+    </li>
+  <% end %>
 </ul>
