@@ -46,16 +46,8 @@
         <%= t '.contact' %><span><%= @messages_size %></span>
       <% end %>
     </li>
-    <li>
-      <a href="#" id="n5">
-        <%= t('.account') %>
-      </a>
-    </li>
-    <li>
-      <a href="#" id="n6">
-        <%= t '.news' %>  
-      </a>
-    </li>
+    <li><%= link_to 'compte', customer_path(:id => current_customer), {:id => 'n5'} %></li>
+    <li><%= link_to t('.news'), nil, {:id => 'n6'} %></li>
     <li id="indicator">
       <%= render :partial => 'layouts/list_indicator', :locals => {:wishlist_size => @wishlist_size} %>
     </li>

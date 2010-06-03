@@ -1,0 +1,150 @@
+@charset "ISO-8859-1";
+
+#maincontent .top, #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end {
+  background-image: url(../images/content-end-bg-wishlist.gif)
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  height: 5px;
+  left: 0;
+  position: absolute;
+  width: 922px;
+}
+
+* html #maincontent .top, * html #maincontent .end {
+  font-size: 0.1em;
+}
+
+#mywhishlist #maincontent .top, #one-col #maincontent .top {
+  top: 0;
+}
+
+#mywhishlist #maincontent .end, #one-col #maincontent .end {
+  background-position: 0 100%;
+  bottom: 0;
+}
+
+*+html #one-col #maincontent .end {
+  position: relative; 
+  margin: 0 0 -18px -15px;
+}
+
+#title {
+  color:#303030;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:18px;
+  margin:4px 0 7px;
+}
+
+#content_gauche {
+  background-color:#FFF;
+  border:#505050 solid 1px;
+  font-size:13px;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#505050;
+  padding:5px;
+}
+
+#gauche {
+  display:block;
+  float:left;
+  width:485px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+#content_droite {
+  background-color:#FFF;
+  border:#505050 solid 1px;
+  font-size:13px;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#505050;
+  padding:5px;
+}
+
+#droite {
+  display:block;
+  float:right;
+  width:372px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+#modif {
+  padding-left:40px;
+}
+
+.modif { 
+  font-size:14px;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#ff4b00;
+}
+
+.suppendre { 
+  font-size:14px;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#acacac;
+}
+
+ul, ol, dl, dt, dd {
+  list-style:none outside none;
+}	
+
+li.links a.modif {
+  background: url(../images/crayon.gif) no-repeat scroll 0 0 transparent;
+  padding-left:19px;
+  text-decoration:underline;
+  margin:0 6px;
+}
+
+li.links a {
+  letter-spacing:-1px;
+}
+
+.ligne {
+  background-color:#f6f6f6;
+  height:5px;
+}
+
+.rotation { background-color:#ffe809;
+  text-align:center;
+  padding:3px;
+}
+
+.adulte_text {
+  color:#e84e98;
+}
+
+.adresse {
+  padding-top:10px;
+}
+
+.bottom_text {
+  padding-bottom:10px;
+}
+
+#code_cado {
+  padding-top:10px;
+}
+
+#code_cado  #title{
+  float:left;
+}
+
+#code { clear:both;}
+
+#cado{ float:right; }
+
+#code  input {
+  background-color:transparent;
+  background-image:url(../images/bg_codepromo.png);
+  background-repeat:no-repeat;
+  border:0 none;
+  height:72px;
+  width:485px;
+}
+
+.code_text {
+  color:#909090;
+  font-size:15px;
+  margin-top:-7px;
+  padding-bottom:10px;
+  padding-left:38px;
+}
