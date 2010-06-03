@@ -1,5 +1,7 @@
 <div id="addwishlist_title"><%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})"%></div>
-<div id="addwishlist_explain">Choisissez la priorité du film dans votre wishlist</div>
+<div id="addwishlist_explain">
+  <%= t '.intro' %>
+</div>
 <% form_for @wishlist_item do |f| %>
   <fieldset>
     <%= f.hidden_field :product_id %>
@@ -33,6 +35,8 @@
   </fieldset>
   <p class="align">
   <%= image_submit_tag 'modal_ajouterbtn.png' %>
-  <%= image_submit_tag 'modal_ajouterbtn_serie.png', :name => 'add_all_from_series', :value => true if @wishlist_item.product.series? %>
+  <%= image_submit_tag 'modal_ajouterbtn_serie.png',
+                       :name => 'add_all_from_series',
+                       :value => true if @wishlist_item.product.series? %>
   </p>
 <% end %>

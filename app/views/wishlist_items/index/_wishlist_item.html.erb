@@ -4,7 +4,6 @@
     <%= image_tag 'oeil.gif', :alt => 'already seen', :class => 'oeil' if wishlist_item.already_rented == 'YES' %>
   </div>
   <div class="availability">&nbsp;</div>
-  <% if false %><div class="availability short-wait"><%= 'Titre épuisé chez l\'éditeur' if false %>Short wait</div><% end %>
   <ul class="HML" id="<%= wishlist_item.to_param %>">
     <%= render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => wishlist_item} %>
   </ul>
