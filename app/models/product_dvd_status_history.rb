@@ -2,6 +2,8 @@ class ProductDvdStatusHistory < ActiveRecord::Base
   set_table_name :products_dvd_status_history
   set_primary_key :status_history_id
 
+  alias_attribute :product_dvd_id, :products_dvdid
+
   before_create :set_status_date
 
   belongs_to :status, :class_name => 'ProductDvdStatus', :foreign_key => :status_id
