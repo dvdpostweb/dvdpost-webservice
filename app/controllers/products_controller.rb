@@ -68,8 +68,10 @@ class ProductsController < ApplicationController
   end
 
   def retrieve_recommendations_for_show(product)
-    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations/show" do
-      DVDPost.product_linked_recommendations(current_customer, product)
-    end
+#    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations/show" do
+      ids = DVDPost.product_linked_recommendations(current_customer, product)
+      pp ids
+      ids
+#    end
   end
 end

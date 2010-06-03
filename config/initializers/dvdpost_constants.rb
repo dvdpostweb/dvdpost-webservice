@@ -116,7 +116,8 @@ module DVDPost
     end
 
     def home_page_recommendations(customer)
-      open("http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer.to_param}&number=100&includeAdult=false&verbose=false") do |data|
+      url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer.to_param}&number=100&includeAdult=false&verbose=false"
+      open url do |data|
         Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id']}
       end
     end
