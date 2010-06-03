@@ -1,15 +1,24 @@
 <div class="list-ttl" id="film-list">
-  <!--a href="#" class="like-btn">Mettre à jour ma liste</a-->
-  <h2><%= kind == 'future_movie' ? 'Prochaines sorties' : 'Ma liste de  films' %></h2>
+  <h2><%= kind == 'future_movie' ? t('.upcoming') : t('.current') %></h2>
 </div>
 <div class="box">
   <div class="head clearfix">
-    <div class="title">Titres Disponibles</div>
-    <div class="availability">Disponibilités</div>
+    <div class="title">
+      <%= t '.available_titles' %>
+    </div>
+    <div class="availability">
+      <%= t '.availabilities' %>
+    </div>
     <ul class="HML">
-      <li>High</li>
-      <li>Med</li>
-      <li>Low</li>
+      <li>
+        <%= t '.high' %>
+      </li>
+      <li>
+        <%= t '.medium' %>
+      </li>
+      <li>
+        <%= t '.low' %>
+      </li>
     </ul>
     <span class="trash"><%= image_tag 'trash-icon.gif', :alt => 'Trash it' %></span>
   </div>

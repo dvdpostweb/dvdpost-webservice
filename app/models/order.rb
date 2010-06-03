@@ -14,4 +14,8 @@ class Order < ActiveRecord::Base
   def changed_at
     updated_at || created_at
   end
+
+  def product_dvd
+    order_product.product_dvd
+  end
 end

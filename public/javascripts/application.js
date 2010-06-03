@@ -1,3 +1,4 @@
+$.ajaxSettings.accepts._default = "text/javascript, text/html, application/xml, text/xml, */*";
 $(function() {
   // Enable fragmetChange. This will allow us to put ajax into browser history
   $.fragmentChange(true);
@@ -27,5 +28,8 @@ $(function() {
     return false;
   });
 
-  $( ".datepicker" ).datepicker({ disabled: true, showButtonPanel: false });
+  $(".datepicker").datepicker({
+    disabled: true,
+    showButtonPanel: false 
+  });
 });

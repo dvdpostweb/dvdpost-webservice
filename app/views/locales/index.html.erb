@@ -15,8 +15,8 @@
       <div style="width: <%= percentage * 2 %>px; height: 10px; background-color: <%= completeness_color(locale.completeness) %>"></div>
       <%=h percentage %>
     </td>
-    <td><%= link_to("Edit translations", locale_translations_path(locale)) %></td>
-    <td><%= link_to_remote("Reload cache", :url => reload_locale_path(locale), :method => :post) %></td>
+    <td><%= link_to 'Edit translations', locale_translations_path(locale) %></td>
+    <td><%= link_to 'Reload cache', reload_locale_path(locale), :method => :post %></td>
     <td><%= 'Main' if locale.main? %></td>
     <td><%= link_to 'Edit', edit_locale_path(locale) %></td>
     <td><%= link_to 'Destroy', locale_url(locale), :confirm => 'Are you sure?', :method => :delete %></td>

@@ -2,12 +2,16 @@
 <% path = (!params[:recommended]) ? product_path(:id => product.to_param) : product_path(:id => product.to_param, :recommendation => 1) %>
 <div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
-    <h2><%= link_to product.title, path %></h2>
-    <p><%= product_description_text(product) %></p>
+    <h2>
+      <%= link_to product.title, path %>
+    </h2>
+    <p>
+      <%= product_description_text(product) %>
+    </p>
     <p class="links">
-      <%= link_to('Bande-annonce', product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
+      <%= link_to(t('.trailer'), product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
       <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && (!product.description.url.nil? && !product.description.url.empty?) %>
-      <%= link_to('En savoir +', path, :class => 'more') %>
+      <%= link_to(t('.more'), path, :class => 'more') %>
     </p>
   </div>
   <div class="movie-info">
@@ -16,16 +20,22 @@
       <%= image_tag product.public.image, :alt => product.public.description %>
     </div>
     <div class="cast">
-      <h3>Acteurs</h3>
+      <h3>
+        <%= t '.actors' %> 
+      </h3>
       <p><%= product.actors.collect{|actor| actor.name}.join(', ') %></p>
     </div>
     <% if product.director %>
-      <h3>Réalisateur</h3>
+      <h3>
+        <%= t '.director' %>
+      </h3>
       <p><%= product.director.name %></p>
     <% end %>
   </div>
   <div class="action">
-    <h4>Action</h4>
+    <h4>
+      <%= t '.action' %>
+    </h4>
     <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
       <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white} %>
     </div>

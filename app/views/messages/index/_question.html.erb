@@ -1,12 +1,11 @@
 <div id="question">
   <% form_for @message do |f| %>
     <h3>
-      Cochez sur le lien qui correspond le plus à votre question. Vous y trouverez probablement déjà une réponse, et 
-      si ce n'est pas le cas, vous aurez la possibilité de nous l'adresser dans chacune des rubriques.
+      <%= t '.intro' %>
     </h3>
     <%= radio_question_for f, :dvd %>
     <%= radio_question_for f, :billing %>
-    <%= radio_question_for f, :dvd_number %>
+    <%= radio_question_for f, :number %>
     <%= radio_question_for f, :billing %>
     <%= radio_question_for f, :transfer %>
     <%= radio_question_for f, :promo_code %>
@@ -18,10 +17,14 @@
     <%= radio_question_for f, :technical %>
     <%= radio_question_for f, :vacation %>
     <%= radio_question_for f, :other %>
-    <p>Merci de nous faire part du problème rencontré</p>
+    <p>
+      <%= t '.thanks' %>
+    </p>
 
     <%= f.text_area 'question' %>
-    <% content_tag :button, :type => :submit, :class => 'like-btn' do %>'Envoyer'<% end %> 
+    <% content_tag :button, :type => :submit, :class => 'like-btn' do %>
+      <%= t '.send' %>
+    <% end %>
     
   <% end %>
   <div class="clear"></div>

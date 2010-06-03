@@ -1,4 +1,6 @@
-<h4>Cotez ce film</h4>
+<h4>
+  <%= t '.title' %> 
+</h4>
 <div id='rating-stars-<%= product.to_param %>'>
   <%= render :partial => 'products/rating', :locals => {:product => product, :background => :black, :replace => :homepage} %>
 </div>

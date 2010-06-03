@@ -1,0 +1,44 @@
+fr:
+  layouts:
+    application:
+      title: "DVDPost - Online DVD rental"
+    header:
+      tagline: "DVDPost - Online DVD rental"
+      logout: Déconnexion
+      login: Sign in
+      help: Aide
+      rent: Louer
+      adult: "Adulte +18"
+      buy: Acheter
+      home: Home
+      explore: Explorer
+      wishlist: Ma liste
+      contact: Contact
+      account: Mon compte
+      news: News infos
+    list_indicator:
+      indicator: Indicateur
+      title: LIST INDICATOR
+      you_have_0: "You have no item in your wishlist."
+      you_have_1: "You have 1 item in your wishlist."
+      you_have_pre: You have
+      you_have_post: items in your wishlist.
+      between_0_and_10: de 0 à 10DVD dans la liste
+      between_10_and_30: de 0 à 10DVD dans la liste
+      more_than_30: ">30 DVD dans la liste"
+      close: FERMER
+    partners:
+      title: Nos partenaires
+    footer:
+      quick_links: Liens rapides
+      who: Qui sommes-nous ?
+      press: Presse
+      privacy: Confidentialité
+      conditions: Conditions générales
+      contact: Nous contacter
+      faq: Questions Fréquentes
+      sponsor_a_friend: Parrainer un ami
+      gift_card: Offrir un chèque cadeau
+      contest: Concours
+      quizz: Quizz
+      copyright: "&copy; 2002-2010 DVDpost  | Home Entertainment Services S.A."

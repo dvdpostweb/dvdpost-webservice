@@ -1,10 +1,12 @@
 <div id='home_recommendations'>
   <ul class="ttls-nav" id="recom">
     <li>
-      <h3 class="hp-ttls">Recommandations</h3>
+      <h3 class="hp-ttls">
+        <%= t '.title' %>
+      </h3>
     </li>
     <li>
-      <%= link_to 'Voir toutes mes recommandations', products_path(:recommended => true) %>
+      <%= link_to t('.see_all'), products_path(:recommended => true) %>
     </li>
   </ul>
   <!-- Carousel -->
@@ -13,7 +15,7 @@
       <ul>
         <%= render :partial => 'home/index/recommendation_product', :collection => products %>
       </ul>
-      <%= will_paginate products, :previous_label => 'prev', :next_label => '', :page_links => false, :param_name => :recommendation_page, :id => 'prev', :class => 'like-btn', :container => false %>
+      <%= will_paginate products, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :recommendation_page, :id => 'prev', :class => 'like-btn', :container => false %>
       <%= will_paginate products, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :recommendation_page, :id => 'next', :class => 'like-btn', :container => false %>
     </div>
   </div>

@@ -3,14 +3,15 @@ class Customer < ActiveRecord::Base
 
   set_primary_key :customers_id
 
-  alias_attribute :abo_active,        :customers_abo
-  alias_attribute :last_name,         :customers_lastname
-  alias_attribute :first_name,        :customers_firstname
-  alias_attribute :credits,           :customers_abo_dvd_credit
-  alias_attribute :email,             :customers_email_address
-  alias_attribute :password,          :customers_password
-  alias_attribute :language,          :customers_language
-  alias_attribute :suspension_status, :customers_abo_suspended
+  alias_attribute :abo_active,         :customers_abo
+  alias_attribute :last_name,          :customers_lastname
+  alias_attribute :first_name,         :customers_firstname
+  alias_attribute :credits,            :customers_abo_dvd_credit
+  alias_attribute :email,              :customers_email_address
+  alias_attribute :password,           :customers_password
+  alias_attribute :language,           :customers_language
+  alias_attribute :suspension_status,  :customers_abo_suspended
+  alias_attribute :dvds_at_home_count, :customers_abo_dvd_home_norm
 
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
@@ -23,6 +24,7 @@ class Customer < ActiveRecord::Base
   has_many :uninteresteds, :foreign_key => :customers_id
   has_many :uninterested_products, :through => :uninteresteds, :source => :product, :uniq => true
   has_many :messages, :foreign_key => :customers_id
+  has_many :compensations, :foreign_key => :customers_id
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 
@@ -59,5 +61,13 @@ class Customer < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def add_dvd_at_home!
+    update_attribute(:dvds_at_home_count, (dvds_at_home_count + 1))
+  end
+
+  def substract_dvd_at_home!
+    update_attribute(:dvds_at_home_count, (dvds_at_home_count - 1))
   end
 end

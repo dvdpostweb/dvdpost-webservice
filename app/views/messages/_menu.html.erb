@@ -1,7 +1,7 @@
 <% active_menu ||= 'index' %>
 <ul id="tabs">
-  <li><%= link_to 'VOS MESSAGES', messages_path, :class => tab_item_class('index', active_menu), :id => :messages_link %></li>
-  <li><%= link_to 'POSER UNE QUESTION ˆ DVDPOST', new_message_path, :class => tab_item_class('question', active_menu), :id => :question_link %></li>
-  <li><%= link_to 'NOUS CONTACTER', new_phone_request_path, :class => tab_item_class('contact', active_menu), :id => :contact_link %></li>
-  <li><%= link_to 'FAQ', faq_path, :class => tab_item_class('faq', active_menu), :id => :faq_link %></li>
+  <li><%= link_to t('.messages'), messages_path, :class => tab_item_class('index', active_menu), :id => :messages_link %></li>
+  <li><%= link_to t('.question'), new_message_path, :class => tab_item_class('question', active_menu), :id => :question_link %></li>
+  <li><%= link_to t('.contact'), new_phone_request_path, :class => tab_item_class('contact', active_menu), :id => :contact_link %></li>
+  <li><%= link_to t('.faq'), faq_path, :class => tab_item_class('faq', active_menu), :id => :faq_link %></li>
 </ul>

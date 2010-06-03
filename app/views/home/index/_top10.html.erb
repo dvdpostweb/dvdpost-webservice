@@ -1,5 +1,10 @@
 <div id="top10-wrap">
-  <h3 class="hp-ttls">Top 10 <span>Films de Vampires</span></h3>
+  <h3 class="hp-ttls">
+    <%= t '.title' %>
+    <span>
+      <%= t '.subtitle' %>
+    </span>
+  </h3>
   <div id="top10">
     <%= render :partial => 'home/index/top_product', :collection => products %>
   </div>

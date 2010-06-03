@@ -5,10 +5,12 @@
     <%= " : #{h @message.product.description.title}" if @message.products_id %>
   </h3>
   <div class="content">
-    <h4>Votre question:</h4>
+    <h4>
+      <%= t '.title' %>
+    </h4>
     <%= h @message.question %>
     <% if @message.updated_at %>
-      <h4>Réponse de DVDpost au <%= @message.updated_at.strftime("%d/%m/%Y") %></h4>
+      <h4><%= t '.answer'%> <%= @message.updated_at.strftime("%d/%m/%Y") %></h4>
       <%=  @message.response %>
     <% end %>
   </div>
