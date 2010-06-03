@@ -36,10 +36,10 @@
   </p>
   <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
   <ul id="left-links">
-    <li><%= link_to 'Enquête de satisfaction' %></li>
-    <li><%= link_to 'Parrainer un ami' %></li>
-    <li><%= link_to 'Offrir un chèque cadeau', '', {:id => 'gift'} %></li>
-    <li><%= link_to 'Proposer un DVD' %></li>
+    <li><%= link_to 'Enquête de satisfaction','http://www.dvdpost.be/custsurvmar08.php' %></li>
+    <li><%= link_to 'Parrainer un ami','http://www.dvdpost.be/member_get_member.php' %></li>
+    <li><%= link_to 'Offrir un chèque cadeau', 'http://www.dvdpost.be/gift_form2.php', {:id => 'gift'} %></li>
+    <li><%= link_to 'Proposer un DVD','http://www.dvdpost.be/custsersuggestdvd.php' %></li>
   </ul>
 </div>
 <!--   ==============   END LEFT COLUMN   ==============   -->
