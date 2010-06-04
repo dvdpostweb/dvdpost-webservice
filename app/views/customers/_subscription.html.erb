@@ -75,7 +75,9 @@
       </tr>
       <tr>
         <td align="right"><strong>Activation valable jusqu'au :</strong></td>
-        <td align="left">21-04-2010</td>
+        <td align="left">
+          <%= customer.subscription_expiration_date.strftime("%d/%m/%Y") %>
+        </td>
       </tr>
       <tr>
         <td align="right"><strong>Type de paiement :</strong></td>

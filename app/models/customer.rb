@@ -3,20 +3,21 @@ class Customer < ActiveRecord::Base
 
   set_primary_key :customers_id
 
-  alias_attribute :abo_active,         :customers_abo
-  alias_attribute :last_name,          :customers_lastname
-  alias_attribute :first_name,         :customers_firstname
-  alias_attribute :credits,            :customers_abo_dvd_credit
-  alias_attribute :email,              :customers_email_address
-  alias_attribute :password,           :customers_password
-  alias_attribute :language,           :customers_language
-  alias_attribute :suspension_status,  :customers_abo_suspended
-  alias_attribute :dvds_at_home_count, :customers_abo_dvd_home_norm
-  alias_attribute :address_id,         :customers_default_address_id
-  alias_attribute :inviation_points,   :mgm_points
-  alias_attribute :credits,            :customers_abo_dvd_credit
-  alias_attribute :normal_count,       :customers_abo_dvd_norm
-  alias_attribute :adult_count,        :customers_abo_dvd_adult
+  alias_attribute :abo_active,                   :customers_abo
+  alias_attribute :last_name,                    :customers_lastname
+  alias_attribute :first_name,                   :customers_firstname
+  alias_attribute :credits,                      :customers_abo_dvd_credit
+  alias_attribute :email,                        :customers_email_address
+  alias_attribute :password,                     :customers_password
+  alias_attribute :language,                     :customers_language
+  alias_attribute :suspension_status,            :customers_abo_suspended
+  alias_attribute :dvds_at_home_count,           :customers_abo_dvd_home_norm
+  alias_attribute :address_id,                   :customers_default_address_id
+  alias_attribute :inviation_points,             :mgm_points
+  alias_attribute :credits,                      :customers_abo_dvd_credit
+  alias_attribute :normal_count,                 :customers_abo_dvd_norm
+  alias_attribute :adult_count,                  :customers_abo_dvd_adult
+  alias_attribute :subscription_expiration_date, :customers_abo_validityto
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => [:customers_id, :customers_default_address_id]
