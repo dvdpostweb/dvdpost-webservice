@@ -3,7 +3,8 @@
 <% end %>
 
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div class="top"></div>
-<%= render :partial => 'account', :locals => {:customer => @customer} %>
-<%= render :partial => 'subscription', :locals => {:customer => @customer} %>
+<div class="account">
+  <%= render :partial => 'account', :locals => {:customer => @customer} %>
+  <%= render :partial => 'subscription', :locals => {:customer => @customer} %>
+</div>
 <!--   ==============   END MAIN CONTENT   ==============   -->

@@ -1,6 +1,10 @@
 @charset "ISO-8859-1";
 
-#maincontent .top, #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end {
+.account {
+  margin: 20px 40px;
+}
+
+#maincontent .end, #one-col #maincontent .end {
   background-image: url(../images/content-end-bg-wishlist.gif)
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -10,12 +14,8 @@
   width: 922px;
 }
 
-* html #maincontent .top, * html #maincontent .end {
+* html #maincontent .end {
   font-size: 0.1em;
-}
-
-#mywhishlist #maincontent .top, #one-col #maincontent .top {
-  top: 0;
 }
 
 #mywhishlist #maincontent .end, #one-col #maincontent .end {
