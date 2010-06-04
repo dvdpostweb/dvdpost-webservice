@@ -15,9 +15,9 @@
       <tr>
         <td align="right" valign="top" class="adresse"><strong>Adresse de livraison :</strong></td>
         <td align="left" valign="top" class="adresse">
-          Maud LE COZANNET<br/>
-          rue Antoine BrÈart, 23 B1<br/>
-          1060 Bruxelles
+          <%= customer.address.name %><br/>
+          <%= customer.address.street %><br/>
+          <%= "#{customer.address.postal_code} #{customer.address.city}" %>
         </td>
       </tr>
       <tr>
