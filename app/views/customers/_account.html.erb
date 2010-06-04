@@ -3,7 +3,7 @@
     <strong>Mon Compte</strong>
   </div> 
   <div id="content_gauche">
-    <table cellpadding="0" cellspacing="0">
+    <table cellpadding="1" cellspacing="0">
       <tr>
         <td width="203" align="right"><strong>N∞ client :</strong></td>
         <td width="258" align="left"><%= customer.to_param %></td>
@@ -36,19 +36,21 @@
       <tr>
         <td align="right" class="adresse"><strong>Mes points parrainage :</strong></td>
         <td align="left" class="adresse">
-          0 pts
+          <%= "#{customer.inviation_points} pts" %>
           <span><%= image_tag 'delimiter.gif' %></span>
           <%= link_to 'Parrainer un ami', nil, :class => 'modif' %>
         </td>
       </tr>
+      <% if false %>
       <tr>
-        <td align="right" class="adresse"><strong>Mes DVD achetÈs :</strong></td>
+        <td align="right" class="adresse"><strong>Mes DVD achetés :</strong></td>
         <td align="left" class="adresse">
           2 DVD
           <span><%= image_tag 'delimiter.gif' %></span>
           <%= link_to 'Voir mon achats', nil, :class => 'modif' %>
         </td>
       </tr>
+      <% end %>
       <tr>
         <td align="right" class="adresse"><strong>Mes cotations : </strong></td>
         <td align="left" class="adresse"><%= customer.ratings.count %></td>

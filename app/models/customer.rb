@@ -13,8 +13,15 @@ class Customer < ActiveRecord::Base
   alias_attribute :suspension_status,  :customers_abo_suspended
   alias_attribute :dvds_at_home_count, :customers_abo_dvd_home_norm
   alias_attribute :address_id,         :customers_default_address_id
+  alias_attribute :inviation_points,   :mgm_points
+  alias_attribute :credits,            :customers_abo_dvd_credit
+  alias_attribute :normal_count,       :customers_abo_dvd_norm
+  alias_attribute :adult_count,        :customers_abo_dvd_adult
 
+  belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => [:customers_id, :customers_default_address_id]
+  belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
+  has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -28,6 +35,7 @@ class Customer < ActiveRecord::Base
   has_many :messages, :foreign_key => :customers_id
   has_many :compensations, :foreign_key => :customers_id
   has_many :addresses, :foreign_key => :customers_id
+  has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 
