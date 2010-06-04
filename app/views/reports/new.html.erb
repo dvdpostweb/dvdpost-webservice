@@ -2,10 +2,12 @@
 <div id="addwishlist_title">
   <%= t '.title' %>
 </div>
-<ul>
-  <% statuses.each do |event| %>
-    <li>
-      <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
-    </li>
-  <% end %>
-</ul>
+<div id="add_problem">
+  <ul>
+    <% statuses.each do |event| %>
+      <li class="add_problem_space">
+        <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
