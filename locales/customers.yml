@@ -1,0 +1,10 @@
+fr:
+  customers:
+    show:
+      account:
+        title: Mon compte
+        client_id: N∞ client
+        identification: 'Identifiant DVDpost :'
+        address: 'Adresse de livraison :'
+      subscription:
+        title: Mon abonnement
