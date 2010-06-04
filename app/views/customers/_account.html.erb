@@ -1,0 +1,93 @@
+<div id="gauche">
+  <div id="title">
+    <strong>Mon Compte</strong>
+  </div> 
+  <div id="content_gauche">
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="203" align="right"><strong>N∞ client :</strong></td>
+        <td width="258" align="left"><%= customer.to_param %></td>
+      </tr>
+      <tr>
+        <td align="right"><strong>Identifiant DVDpost :</strong></td>
+        <td align="left"><%= customer.email %></td>
+      </tr>
+      <tr>
+        <td align="right" valign="top" class="adresse"><strong>Adresse de livraison :</strong></td>
+        <td align="left" valign="top" class="adresse">
+          Maud LE COZANNET<br/>
+          rue Antoine BrÈart, 23 B1<br/>
+          1060 Bruxelles
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top" class="adresse"></td>
+        <td align="right" valign="top" id="modif">
+          <ul>
+            <li class="links">
+              <%= link_to 'Modifier mon compte', nil, :class => 'modif' %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><div class="ligne"></div></td>
+      </tr>
+      <tr>
+        <td align="right" class="adresse"><strong>Mes points parrainage :</strong></td>
+        <td align="left" class="adresse">
+          0 pts
+          <span><%= image_tag 'delimiter.gif' %></span>
+          <%= link_to 'Parrainer un ami', nil, :class => 'modif' %>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" class="adresse"><strong>Mes DVD achetÈs :</strong></td>
+        <td align="left" class="adresse">
+          2 DVD
+          <span><%= image_tag 'delimiter.gif' %></span>
+          <%= link_to 'Voir mon achats', nil, :class => 'modif' %>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" class="adresse"><strong>Mes cotations : </strong></td>
+        <td align="left" class="adresse"><%= customer.ratings.count %></td>
+      </tr>
+      <tr>
+        <td align="right"><strong>Mes critiques :</strong></td>
+        <td align="left"><%= customer.reviews.count %></td>
+      </tr>
+      <tr>
+        <td align="right" class="adresse"><strong>Newsletters infos DVDPost :</strong></td>
+        <td align="left" class="adresse">
+          Activé
+          <span><%= image_tag 'delimiter.gif' %></span>
+          <%= link_to 'Désactivé', nil, :class => 'suppendre' %>
+        </td>
+      </tr>
+      <tr>
+        <td align="right"><strong>Newsletters Partenaires :</strong></td>
+        <td align="left">
+          Activé
+          <span><%= image_tag 'delimiter.gif' %></span>
+          <%= link_to 'Désactivé', nil, :class => 'suppendre' %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="code_cado">
+    <div id="title"><strong>Chêques cadeaux</strong><%= image_tag 'icon_info.png', :align => 'absmiddle' %></div>
+    <div id="cado">
+      <%= image_tag 'pack.png', :align => 'absmiddle' %>
+      <%= link_to 'Offrir un chêque cadeau', nil, :class => 'modif' %>
+    </div>
+    <div id="code">
+      <form>
+        <input name="" class="code_text" value="ACTIVER VOTRE CODE CADEAU" size="15" type="text">
+    </div><!-- WTF? closing a div here inside the form? -->
+        <div>
+          <input class="code_bouton"src="/images/bouton_go.png" type="image">
+        </div>
+      </form>
+  </div>
+</div>
