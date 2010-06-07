@@ -1,15 +1,4 @@
 $(function() {
-//  $('#question_link, #messages_link, #contact_link, #faq_link').live('click',function(){
-//    old_id = $('#tabs .active').attr('id')
-//    $('#'+old_id).removeClass('active');
-//    $(this).addClass('active');
-//    id = $(this).attr('id');
-//    old_content = '#'+old_id.replace('_link','');
-//    new_content = '#'+id.replace('_link','');
-//    $(old_content).hide();
-//    $(new_content).show();
-//    return false;
-//  });
   $('.menu_faq').live('click',function(){
     $('#faq-nav .active').parent().find("ul").first().hide();
     $('#faq-nav .active').removeClass('active');
