@@ -201,4 +201,26 @@ $(function() {
       $("#year_max").val(actual_year_values[ui.values[1]]);
     }
   });
+
+
+
+  /* Carousel rotation */
+  /* action all 15 seconds action turnLeft with a action launch before the motion
+  $('#carousel').cycle({
+    fx: 'turnLeft',
+    timeout: 15000,
+    before: change_carousel
+  });
+  /* action 
+  function change_carousel()
+  {
+    console.log('turning');
+    id = $('#tabs-rotator #tabs a.active').attr('id');
+    id = id.replace("carousel_", "");
+    next_id = parseInt(id) + 1;
+    if (next_id == 6) next_id = 1;
+    $('#tabs-rotator #tabs a.active').removeClass('active');
+    $('#carousel_' + next_id).addClass('active');
+  }
+  */
 });

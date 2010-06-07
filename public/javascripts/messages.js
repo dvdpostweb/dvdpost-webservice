@@ -1,28 +1,29 @@
 $(function() {
-  $('.menu_faq').live('click',function(){
+  $('.menu_faq').live('click', function() {
     $('#faq-nav .active').parent().find("ul").first().hide();
     $('#faq-nav .active').removeClass('active');
     $(this).addClass('active');
     $(this).parent().find("ul").first().show();
   });
-  $('.q').live('click',function(){
+  $('.q').live('click', function() {
     id = $(this).attr('id');
     try
     {
       $(response).hide();
     }
     catch(e)
-    {}
-    response = "#"+id.replace('q','r');
+    {
+    }
+    response = "#" + id.replace('q', 'r');
     $(response).show();
     return false;
   });
-  $('.categorie').live('click',function(){
+  $('.categorie').live('click', function() {
     $('label.active').removeClass('active');
     $(this).parent('label').addClass('active');
   });
-  
-  $('.show').live('click',function(){
+
+  $('.show').live('click', function() {
     messages_item = $(this);
     jQuery.facebox(function() {
       $.getScript(messages_item.attr('href'), function(data) {
@@ -48,9 +49,8 @@ $(function() {
           $(this).html(content);
         }
       });
-    };
+    }
+    ;
     return false;
   });
-  
-  
 });
