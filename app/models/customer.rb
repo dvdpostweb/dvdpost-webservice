@@ -20,7 +20,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :subscription_expiration_date, :customers_abo_validityto
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
-  belongs_to :address, :foreign_key => [:customers_id, :customers_default_address_id]
+  belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_many :wishlist_items, :foreign_key => :customers_id

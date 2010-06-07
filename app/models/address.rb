@@ -1,6 +1,6 @@
 class Address < ActiveRecord::Base
   set_table_name :address_book
-  set_primary_keys :customers_id, :address_book_id
+  set_primary_key :customers_id
 
   alias_attribute :first_name, :entry_firstname
   alias_attribute :last_name, :entry_lastname
