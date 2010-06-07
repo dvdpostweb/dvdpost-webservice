@@ -8,4 +8,12 @@ module TranslationsHelper
       'old'
     end
   end
+
+  def url_for_translation(translation, localized_translation, locale)
+    if localized_translation.to_param.blank?
+      locale_translations_path(:locale_id => locale.to_param, :original_id => translation.to_param)
+    else
+      locale_translation_path(:locale_id => locale.to_param, :id => localized_translation.to_param)
+    end
+  end
 end
