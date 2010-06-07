@@ -1,13 +1,13 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="leftcolumn">
   <% form_tag products_path, :method => :get, :id => 'search' do %>
-    <%= text_field_tag :search, 'Rechercher', :id => 's' %>
-    <%= content_tag :button, 'Search', {:type => :submit, :class => 'like-btn'} %>
+    <%= text_field_tag :search, t('.search'), :id => 's' %>
+    <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
   <% end %>
   <ul id="left-nav">
-    <li><%= link_to 'Recommandations', products_path(:recommended => true) %></li>
+    <li><%= link_to t('.recommendations'), products_path(:recommended => true) %></li>
     <li>
-      <%= link_to 'Les tops' %>
+      <%= link_to t('.tops') %>
       <ul>
         <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
           <li><%= link_to top.name, top_products_path(:top_id => top) %></li>
@@ -15,14 +15,14 @@
       </ul>
     </li>
     <li>
-      <%= link_to 'Catégories' %>
+      <%= link_to t('.categories') %>
       <ul>
         <% Category.active.roots.movies.by_kind(:normal).ordered.collect do |category| %>
         <li><%= link_to category.name, category_products_path(:category_id => category) %></li>
         <% end %>
       </ul>
     </li>
-    <li><%= link_to 'Thèmes' %>
+    <li><%= link_to t('.themes') %>
       <ul>
         <% ProductList.status.theme.not_highlighted.by_language(DVDPost.product_languages[I18n.locale]).collect do |theme| %>
           <li><%= link_to theme.name, theme_products_path(:theme_id => theme) %></li>
@@ -36,10 +36,10 @@
   </p>
   <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
   <ul id="left-links">
-    <li><%= link_to 'Enquête de satisfaction','http://www.dvdpost.be/custsurvmar08.php' %></li>
-    <li><%= link_to 'Parrainer un ami','http://www.dvdpost.be/member_get_member.php' %></li>
-    <li><%= link_to 'Offrir un chèque cadeau', 'http://www.dvdpost.be/gift_form2.php', {:id => 'gift'} %></li>
-    <li><%= link_to 'Proposer un DVD','http://www.dvdpost.be/custsersuggestdvd.php' %></li>
+    <li><%= link_to t('.satisfaction'),'http://www.dvdpost.be/custsurvmar08.php' %></li>
+    <li><%= link_to t('.sponsor'),'http://www.dvdpost.be/member_get_member.php' %></li>
+    <li><%= link_to t('.gift'), 'http://www.dvdpost.be/gift_form2.php', {:id => 'gift'} %></li>
+    <li><%= link_to t('.submit'),'http://www.dvdpost.be/custsersuggestdvd.php' %></li>
   </ul>
 </div>
 <!--   ==============   END LEFT COLUMN   ==============   -->
