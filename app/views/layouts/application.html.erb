@@ -31,7 +31,7 @@
   <%= yield :head %>
 
 </head>
-<body id="<%= @body_id || '' %>">
+<body id="<%= yield :body_id %>">
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
     <%= render :partial => 'layouts/header' %>

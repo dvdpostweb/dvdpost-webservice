@@ -2,7 +2,6 @@ class HomeController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @body_id = 'one-col'
         @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products
         @soon = Product.by_kind(:normal).available.soon
         @new = Product.by_kind(:normal).available.new_products

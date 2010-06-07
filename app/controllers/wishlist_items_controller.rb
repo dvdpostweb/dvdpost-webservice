@@ -1,6 +1,4 @@
 class WishlistItemsController < ApplicationController
-  before_filter :set_body_id
-
   def index
     @wishlist_items = current_customer.wishlist_items.ordered.include_products
     @transit_or_history = params[:transit_or_history] || 'transit'
@@ -77,9 +75,5 @@ class WishlistItemsController < ApplicationController
     wishlist_item.save
     DVDPost.send_evidence_recommendations('AddToWishlist', params[:product_id], current_customer, request.remote_ip, {:priority => params[:priority]})
     wishlist_item
-  end
-
-  def set_body_id
-    @body_id = 'mywhishlist'
   end
 end
