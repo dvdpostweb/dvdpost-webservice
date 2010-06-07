@@ -1,19 +1,19 @@
 <div id="gauche">
   <div id="title">
-    <strong>Mon Compte</strong>
+    <strong><%= t '.title' %></strong>
   </div> 
   <div id="content_gauche">
     <table cellpadding="1" cellspacing="0">
       <tr>
-        <td width="203" align="right"><strong>N∞ client :</strong></td>
+        <td width="203" align="right"><strong><%= t '.client_id' %></strong></td>
         <td width="258" align="left"><%= customer.to_param %></td>
       </tr>
       <tr>
-        <td align="right"><strong>Identifiant DVDpost :</strong></td>
+        <td align="right"><strong><%= t '.identification' %></strong></td>
         <td align="left"><%= customer.email %></td>
       </tr>
       <tr>
-        <td align="right" valign="top" class="adresse"><strong>Adresse de livraison :</strong></td>
+        <td align="right" valign="top" class="adresse"><strong><%= t '.address' %></strong></td>
         <td align="left" valign="top" class="adresse">
           <%= customer.address.name %><br/>
           <%= customer.address.street %><br/>
