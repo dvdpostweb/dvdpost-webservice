@@ -2601,6 +2601,26 @@ fieldset {
   background: url(../images/suivant.gif) 0 100% no-repeat;
 }
 
+#add_problem  {
+  color:#454545;
+  font-size:12px;
+  margin:15px 0;
+  text-decoration:none;
+  padding-right:10px;
+}
+.add_problem_space {
+  margin:8px 0;
+}
+#add_problem a {
+  color:#454545;
+}
+
+	
+	
+#add_problem fieldset  {
+	border:none;
+}
+
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
 .navbar .navprevbtn span {
