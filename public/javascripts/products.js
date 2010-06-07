@@ -10,9 +10,21 @@ $(function() {
     $(document).trigger("fragmentChange.reviews_page");
   }
 
-  $("#pagination a").live("click", function() {
-    $("#pagination").html("Loading...");
-    $.getScript(this.href);
+  $("#tab1 #pagination a").live("click", function() {
+    html_item = $(this);
+    content = html_item.html();
+    html_item.html("Loading...");
+    root_item = html_item.parent().parent();
+    $.ajax({
+      url: html_item.attr('href'),
+      type: 'GET',
+      success: function(data) {
+        root_item.html(data);
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
     return false;
   });
 
