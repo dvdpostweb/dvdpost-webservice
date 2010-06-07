@@ -22,9 +22,15 @@ class TranslationsController < ApplicationController
   end
 
   def create
-    @translation = Translation.new(params[:translation])
+    translation_params = params[:translation]
+    if params[:original_id]
+      original_translation = Translation.find(params[:original_id])
+      translation_params[:tr_key] = original_translation.tr_key
+      translation_params[:namespace] = original_translation.namespace
+    end
+    @translation = @locale.translations.new(translation_params)
     if @translation.save
-      redirect_to translations_path
+      render :text => @translation.text
     else
       render :action => :new
     end

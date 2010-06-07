@@ -28,7 +28,8 @@
             <% unless @locale.main? %>
               <div class="main"><%=h translation.text %></div>
             <% end %>
-            <div class="edit" id="<%= localized_translation.to_param %>"><%=h localized_translation.text %></div>
+            <%= hidden_field_tag :url, url_for_translation(translation, localized_translation, @locale) %>
+            <div class="edit"><%=h localized_translation.text %></div>
           </td>
         </tr>
       <% end %>
