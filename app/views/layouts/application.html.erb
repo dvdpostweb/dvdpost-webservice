@@ -31,16 +31,15 @@
 
     <%= yield :head %>
 
-  </head>
-  <body id="<%= yield :body_id %>">
-    <div id="wrap">
-      <!--   ==============   HEADER   ==============   -->
-      <%= render :partial => 'layouts/header' %>
-      <!--   ==============   END HEADER   ==============   -->
-      <div class="container clearfix" >
-        <%= flash[:notice] %>
-        <%= yield :layout %>
-      </div>
+</head>
+<body id="<%= yield :body_id %>">
+  <div id="wrap">
+    <!--   ==============   HEADER   ==============   -->
+    <%= render :partial => 'layouts/header' %>
+    <!--   ==============   END HEADER   ==============   -->
+    <div class="container clearfix">
+      <%= flash[:notice] %>
+      <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->
     <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} %>

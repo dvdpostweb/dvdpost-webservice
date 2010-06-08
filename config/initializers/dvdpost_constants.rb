@@ -96,6 +96,13 @@ module DVDPost
       })
     end
 
+    def payment_methods
+      HashWithIndifferentAccess.new.merge({
+        :credit_card  => 1,
+        :domicilation => 2
+      })
+    end
+
     def home_page_news
       open(news_url[I18n.locale]) do |http|
         RSS::Parser.parse(http.read, false).items
