@@ -51,9 +51,11 @@
           <div id="year-slider-range"></div>
         </div>
       </li>
+      <li class='li_submit'>
+        <%= submit_tag t('.apply'), :name => nil, :class => "submit submit_#{I18n.locale}" %>
+      </li>
       <%= hidden_field_tag :recommended, true if params[:recommended] %>
     </ul>
     <% end %>
-    <%= submit_tag t('.apply'), :name => nil %>
   <% end %>
 </div>
