@@ -47,7 +47,6 @@ module RailsWarden
       def authenticate!(*args)
         warden.authenticate!(*args)
       end
-
     end
   end
 end

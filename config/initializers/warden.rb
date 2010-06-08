@@ -13,12 +13,13 @@ end
 # Setup Session Serialization
 class Warden::SessionSerializer
   def serialize(record)
-    [record.class, record.id]
+    [record.token]
   end
 
   def deserialize(keys)
-    klass, id = keys
-    klass.find(:first, :conditions => {klass.primary_key => id})
+    params = OAUTH.clone
+    client = ::OAuth2::Client.new(params.delete(:client_secret), params.delete(:client_id), params)
+    ::OAuth2::AccessToken.new(client, keys.first)
   end
 end
 

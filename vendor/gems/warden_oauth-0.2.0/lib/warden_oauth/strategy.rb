@@ -37,8 +37,6 @@ module Warden
       #
       def authenticate!
         if session_oauth_token
-          store_token_on_session unless session_oauth_token
-
           begin
             user_id = user_id_from_token
           rescue ::OAuth2::AccessDenied => e
@@ -49,16 +47,7 @@ module Warden
             throw_error_with_oauth_info
           end
 
-          user = find_user(user_id)
-          if user.nil?
-            puts "User with access token #{session_oauth_token} not found with id #{user_id}"
-            logger.debug "User with access token #{session_oauth_token} not found with id #{user_id}"
-            clean_session
-            fail!("User with id not found")
-            throw_error_with_oauth_info
-          else
-            success!(user)
-          end
+          success!(access_token)
         end
       end
 
@@ -72,7 +61,6 @@ module Warden
       ###################
 
       def client
-        puts config.options.inspect
         @client ||= ::OAuth2::Client.new(config.client_id, config.client_secret, config.options)
       end
 
