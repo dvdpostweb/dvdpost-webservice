@@ -5,28 +5,28 @@
   <div id="content_droite">
     <table cellpadding="1" cellspacing="0">
       <tr>
-        <td width="207" align="right"><strong>Type díabonnement :</strong></td>
+        <td width="207" align="right"><strong><%= t '.abo' %></strong></td>
         <td width="141" align="left">
-          <%= "#{customer.subscription_type.credits == 0 ? 'unlimited' : customer.subscription_type.credits} DVD" %>
+          <%= "#{customer.subscription_type.credits == 0 ? t('.unlimited') : customer.subscription_type.credits} DVD" %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong> CrÈdit DVD :</strong></td>
+        <td align="right"><strong><%= t '.credit' %></strong></td>
         <td align="left">
-          <%= "#{customer.credits == 0 ? 'unlimited' : customer.credits} DVD" %>
+          <%= "#{customer.credits == 0 ? t('.unlimited') : customer.credits} DVD" %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong>DVD dans votre liste :</strong></td>
+        <td align="right"><strong><%= t '.count_dvd' %></strong></td>
         <td align="left"><%= "#{@wishlist_size} DVD" %></td>
       </tr>
       <tr>
         <td colspan="2">
           <ul>
             <li class="links">
-              <%= link_to 'Modifier mon abonnement', nil, :class => 'modif' %>
+              <%= link_to t('.modify_abo'), nil, :class => 'modif' %>
               <span><%= image_tag 'delimiter.gif' %></span>
-              <%= link_to 'Suspendre mon abonnement', nil, :class => 'suppendre' %>
+              <%= link_to t('.suspend_abo'), nil, :class => 'suppendre' %>
             </li>
           </ul>
         </td>
@@ -35,14 +35,14 @@
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
       <tr>
-        <td align="right"><strong>DVD DVDPost en rotation :</strong></td>
+        <td align="right"><strong><%= t '.rotation_dvd' %></strong></td>
         <td  align="left">
           <%= image_tag 'dvd.png', :align => 'absmiddle'%>
           <%= "#{customer.normal_count} DVD" %>
         </td>
       </tr>
       <tr>
-        <td align="right" class="adulte_text"><strong>DVD MOVIX en rotation :</strong></td>
+        <td align="right" class="adulte_text"><strong><%= t '.adult_rotation_dvd' %></strong></td>
         <td align="left" class="adulte_text">
           <%= image_tag 'dvd_x.png', :align => 'absmiddle'%>
           <%= "#{customer.adult_count} DVD" %>
@@ -55,7 +55,7 @@
       </tr>
       <tr>
         <td colspan="2" class="rotation">
-          <strong><%= "DVD chez vous ou en transit : #{customer.orders.in_transit.count} DVD" %></strong>
+          <strong><%= "#{t('.transit')} : #{customer.orders.in_transit.count} DVD" %></strong>
         </td>
       </tr>
       <% customer.orders.in_transit.each do |transit_item| %>
@@ -68,19 +68,19 @@
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
       <tr>
-        <td align="right" class="adresse"><strong>Date d'abonnement :</strong></td>
+        <td align="right" class="adresse"><strong><%= t '.date_abo' %></strong></td>
         <td align="left" class="adresse">
           <%= customer.subscription.created_at.strftime("%d/%m/%Y") %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong>Activation valable jusqu'au :</strong></td>
+        <td align="right"><strong><%= t '.date_end_abo' %></strong></td>
         <td align="left">
           <%= customer.subscription_expiration_date.strftime("%d/%m/%Y") %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong>Type de paiement :</strong></td>
+        <td align="right"><strong><%= t '.type_abo' %></strong></td>
         <td align="left"><%= customer.subscription_payment_method.name.downcase %></td>
       </tr>
     </table>

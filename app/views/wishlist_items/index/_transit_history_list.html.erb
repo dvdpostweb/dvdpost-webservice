@@ -32,6 +32,6 @@
         <%= link_to t('.see_history'), wishlist_path(:transit_or_history => 'history'), :class => 'transit_or_history' %>
       <% end %>
     </li>
-    <li><a href="#"><%= t '.add' %></a></li>
+    <li><%= link_to t('.add'), products_path %></a></li>
   </ul>
 </div>

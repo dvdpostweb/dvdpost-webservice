@@ -34,7 +34,7 @@
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
       <tr>
-        <td align="right" class="adresse"><strong>Mes points parrainage :</strong></td>
+        <td align="right" class="adresse"><strong><%= t '.sponsorship_points' %></strong></td>
         <td align="left" class="adresse">
           <%= "#{customer.inviation_points} pts" %>
           <span><%= image_tag 'delimiter.gif' %></span>
@@ -43,7 +43,7 @@
       </tr>
       <% if false %>
       <tr>
-        <td align="right" class="adresse"><strong>Mes DVD achetés :</strong></td>
+        <td align="right" class="adresse"><strong><%= t '.buy_dvds' %></strong></td>
         <td align="left" class="adresse">
           2 DVD
           <span><%= image_tag 'delimiter.gif' %></span>
@@ -52,41 +52,40 @@
       </tr>
       <% end %>
       <tr>
-        <td align="right" class="adresse"><strong>Mes cotations : </strong></td>
+        <td align="right" class="adresse"><strong><%= t '.cotations' %></strong></td>
         <td align="left" class="adresse"><%= customer.ratings.count %></td>
       </tr>
       <tr>
-        <td align="right"><strong>Mes critiques :</strong></td>
+        <td align="right"><strong><%= t '.critiques' %></strong></td>
         <td align="left"><%= customer.reviews.count %></td>
       </tr>
       <tr>
-        <td align="right" class="adresse"><strong>Newsletters infos DVDPost :</strong></td>
+        <td align="right" class="adresse"><strong><%= t '.newsletters' %></strong></td>
         <td align="left" class="adresse">
-          Activé
           <span><%= image_tag 'delimiter.gif' %></span>
           <%= link_to 'Désactivé', nil, :class => 'suppendre' %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong>Newsletters Partenaires :</strong></td>
+        <td align="right"><strong><%= t '.newsletters_partner' %></strong></td>
         <td align="left">
-          Activé
+          <%= t '.active' %>
           <span><%= image_tag 'delimiter.gif' %></span>
-          <%= link_to 'Désactivé', nil, :class => 'suppendre' %>
+          <%= link_to t('.deactive'), nil, :class => 'suppendre' %>
         </td>
       </tr>
     </table>
   </div>
   <% if false %>
   <div id="code_cado">
-    <div id="title"><strong>Chêques cadeaux</strong><%= image_tag 'icon_info.png', :align => 'absmiddle' %></div>
+    <div id="title"><strong><%= t '.gift' %></strong><%= image_tag 'icon_info.png', :align => 'absmiddle' %></div>
     <div id="cado">
       <%= image_tag 'pack.png', :align => 'absmiddle' %>
-      <%= link_to 'Offrir un chêque cadeau', nil, :class => 'modif' %>
+      <%= link_to t('.gift_offer'), nil, :class => 'modif' %>
     </div>
     <div id="code">
       <form>
-        <input name="" class="code_text" value="ACTIVER VOTRE CODE CADEAU" size="15" type="text">
+        <input name="" class="code_text" value="<%= t '.active_gift'%>" size="15" type="text">
     </div><!-- WTF? closing a div here inside the form? -->
         <div>
           <input class="code_bouton"src="/images/bouton_go.png" type="image">

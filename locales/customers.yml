@@ -2,9 +2,33 @@ fr:
   customers:
     show:
       account:
-        title: Mon compte
-        client_id: N∞ client
+        title: 'Mon compte'
+        client_id: 'N° client'
         identification: 'Identifiant DVDpost :'
         address: 'Adresse de livraison :'
+        sponsorship_points: 'Mes points parrainage :'
+        sponsorship_points: 'Mes DVD achetés :'
+        cotations: 'Mes cotations :'
+        critiques: 'Mes critiques :'
+        newsletters: 'Newsletters infos DVDPost :'
+        newsletters_partner: 'Newsletters Partenaires :'
+        active: 'Activé'
+        deactive: 'Désactivé'
+        gift: 'Chêques cadeaux'
+        gift_offer: 'Offrir un chêque cadeau'
+        active_gift: 'ACTIVER VOTRE CODE CADEAU'
       subscription:
-        title: Mon abonnement
+        title: 'Mon abonnement'
+        abo: "Type d'abonnement :"
+        credit: 'Crédit DVD :'
+        unlimited: 'ilimité'
+        count_dvd: 'DVD dans votre liste :'
+        modify_abo: 'Modifier mon abonnement'
+        suspend_abo: 'Suspendre mon abonnement'
+        rotation_dvd: 'DVD DVDPost en rotation :'
+        adult_rotation_dvd: 'DVD MOVIX en rotation :'
+        date_abo: "Date d'abonnement :"
+        date_end_abo: "Activation valable jusqu'au :"
+        type_abo: 'Type de paiement :'
+        transit: 'DVD chez vous ou en transit'
+        

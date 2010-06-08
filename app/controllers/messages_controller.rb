@@ -10,7 +10,6 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @type = params[:type]
     @message = Message.new
   end
 
