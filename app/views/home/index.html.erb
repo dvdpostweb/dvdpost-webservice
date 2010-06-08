@@ -1,6 +1,11 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div id="maincontent" >
+<div id="maincontent">
   <div class="top"></div>
+  <% if current_customer.suspended? %>
+    <ul id='suspended'>
+      <li><%= current_customer.suspended_notification %></li>
+    </ul>
+  <% end %>
   <!-- Tabs rotattor -->
   <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
   <!-- BIENVENUE  -->

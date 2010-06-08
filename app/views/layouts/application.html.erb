@@ -30,7 +30,6 @@
 
     <%= yield :head %>
 
-<<<<<<< HEAD
 </head>
 <body id="<%= yield :body_id %>">
   <div id="wrap">
@@ -38,25 +37,8 @@
     <%= render :partial => 'layouts/header' %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
-      <% if current_customer.suspended? %>
-        <ul id='suspended'>
-          <li><%= current_customer.suspended_notification %></li>
-        </ul>
-      <% end %>
       <%= flash[:notice] %>
       <%= yield %>
-=======
-  </head>
-  <body id="<%= yield :body_id %>">
-    <div id="wrap">
-      <!--   ==============   HEADER   ==============   -->
-      <%= render :partial => 'layouts/header' %>
-      <!--   ==============   END HEADER   ==============   -->
-      <div class="container clearfix" >
-        <%= flash[:notice] %>
-        <%= yield :layout %>
-      </div>
->>>>>>> 0b5b3f3d1a2c1538cc4d6f6d173ea4992873cb50
     </div>
     <!--   ==============   FOOTER   ==============   -->
     <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} %>
