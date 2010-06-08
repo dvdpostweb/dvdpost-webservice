@@ -9,7 +9,7 @@
       <% end %>
     </li>
     <li>
-      <a href="#"><%= t '.help' %></a>
+      <%= link_to t('.help'), faq_path %>
     </li>
     <li>
       <%= switch_locale_link I18n.locale, {:id => 'lang'} %>

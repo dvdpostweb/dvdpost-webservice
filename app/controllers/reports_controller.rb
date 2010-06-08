@@ -1,6 +1,4 @@
 class ReportsController < ApplicationController
-  before_filter :set_body_id
-
   def new
     @order = current_user.orders.find(params[:order_id])
     respond_to do |format|
@@ -62,8 +60,5 @@ class ReportsController < ApplicationController
       end
       redirect_to wishlist_path
     end
-  end
-  def set_body_id
-    @body_id = 'mywhishlist'
   end
 end

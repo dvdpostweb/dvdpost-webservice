@@ -1895,6 +1895,28 @@ h3.hp-ttls {
   height:70px;
   padding:5px;
 }
+
+#suspended {
+  width: 894px;
+  height: 126px;
+  background: url(../images/news-flash-bg.png) 0 0 no-repeat;
+  margin-bottom: 20px;
+}
+#suspended li {
+  height: 105px;
+  margin: 17px 0 0 10px;
+  padding-left:80px;
+  background: url(../images/attention.png) 0 12px no-repeat;
+  float: left;
+  display: block;
+  overflow: hidden;
+  font-size: 1em;
+}
+#suspended li a {
+  color:#454545;
+}
+
+
 * html #flash-news li {
   display: inline;
 }

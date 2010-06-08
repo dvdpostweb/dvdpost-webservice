@@ -85,5 +85,10 @@ module ApplicationHelper
 
   def stylesheet(*args)
     content_for(:head) { stylesheet_link_tag(*args) }
-  end  
+  end
+
+  def parent_layout(layout)
+    @content_for_layout = self.output_buffer
+    self.output_buffer = render(:file => "layouts/#{layout}")
+  end
 end
