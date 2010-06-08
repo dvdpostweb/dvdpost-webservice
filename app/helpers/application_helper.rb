@@ -27,7 +27,13 @@ module ApplicationHelper
   end
 
   def current_customer
-    current_user
+    @current_user ||= if current_user
+      # current user provided by Warden, returns a token in this case
+      token = current_user
+      json = token.get("/me")
+      id = JSON.parse(json)["id"]
+      Customer.find(id)
+    end
   end
 
   def wishlist_size
