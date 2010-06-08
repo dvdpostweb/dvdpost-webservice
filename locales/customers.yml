@@ -12,11 +12,12 @@ fr:
         critiques: 'Mes critiques :'
         newsletters: 'Newsletters infos DVDPost :'
         newsletters_partner: 'Newsletters Partenaires :'
-        active: 'Activé'
-        deactive: 'Désactivé'
         gift: 'Chêques cadeaux'
         gift_offer: 'Offrir un chêque cadeau'
         active_gift: 'ACTIVER VOTRE CODE CADEAU'
+        active:
+          active_status: 'Activé'
+          deactive_status: 'Désactivé'
       subscription:
         title: 'Mon abonnement'
         abo: "Type d'abonnement :"

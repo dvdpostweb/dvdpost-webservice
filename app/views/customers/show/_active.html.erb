@@ -1,0 +1,9 @@
+<% if active %>
+<%= t '.active_status' %>
+<span><%= image_tag 'delimiter.gif' %></span>
+<%= link_to t('.active_status'), nil, :class => 'suppendre' %>
+<% else %>
+<%= link_to t('.deactive_status'), nil, :class => 'suppendre' %>
+<span><%= image_tag 'delimiter.gif' %></span>
+<%= t '.active_status' %>
+<% end %>

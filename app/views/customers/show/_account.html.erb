@@ -62,16 +62,13 @@
       <tr>
         <td align="right" class="adresse"><strong><%= t '.newsletters' %></strong></td>
         <td align="left" class="adresse">
-          <span><%= image_tag 'delimiter.gif' %></span>
-          <%= link_to 'Désactivé', nil, :class => 'suppendre' %>
+          <%= render :partial => 'customers/show/active', :locals => {:active => true} %>
         </td>
       </tr>
       <tr>
         <td align="right"><strong><%= t '.newsletters_partner' %></strong></td>
         <td align="left">
-          <%= t '.active' %>
-          <span><%= image_tag 'delimiter.gif' %></span>
-          <%= link_to t('.deactive'), nil, :class => 'suppendre' %>
+          
         </td>
       </tr>
     </table>
