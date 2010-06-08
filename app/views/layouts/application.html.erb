@@ -12,6 +12,7 @@
     <%= stylesheet_link_tag 'messages.css' %>
     <%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.custom.css' %>
     <%= stylesheet_link_tag 'jquery_custom.css' %>
+      
     <%= yield :style %>
 
     <%= javascript_include_tag 'jquery-1.4.2.min' %>
@@ -30,16 +31,15 @@
 
     <%= yield :head %>
 
-  </head>
-  <body id="<%= yield :body_id %>">
-    <div id="wrap">
-      <!--   ==============   HEADER   ==============   -->
-      <%= render :partial => 'layouts/header' %>
-      <!--   ==============   END HEADER   ==============   -->
-      <div class="container clearfix" >
-        <%= flash[:notice] %>
-        <%= yield :layout %>
-      </div>
+</head>
+<body id="<%= yield :body_id %>">
+  <div id="wrap">
+    <!--   ==============   HEADER   ==============   -->
+    <%= render :partial => 'layouts/header' %>
+    <!--   ==============   END HEADER   ==============   -->
+    <div class="container clearfix">
+      <%= flash[:notice] %>
+      <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->
     <%= render :partial => 'layouts/footer', :locals => {:partners => @partners} %>

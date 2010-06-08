@@ -111,6 +111,7 @@ module Warden
       #
       # :api: public
       def success!(user, message = nil)
+        puts user.class
         halt!
         @user = user
         @message = message
