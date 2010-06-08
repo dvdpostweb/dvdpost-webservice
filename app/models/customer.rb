@@ -56,6 +56,33 @@ class Customer < ActiveRecord::Base
     (abo_active? and suspension_status == 0)
   end
 
+  def suspended?
+    suspended_for_holidays? or suspended_for_payment_problems?
+  end
+
+  def suspended_for_holidays?
+    suspension_status == 1
+  end
+
+  def suspended_for_payment_problems?
+    suspension_status == 2
+  end
+
+  def suspended_notification
+    if suspended_for_holidays?
+      I18n.t('customer.holiday_suspension')
+    elsif suspended_for_payment_problems?
+      case subscription_payment_method.to_param.to_i
+      when DVDPost.payment_methods[:credit_card]
+        I18n.t('customer.cc_paymet_alert')
+      when DVDPost.payment_methods[:domicilation]
+        I18n.t('customer.domiciliation_paymet_alert')
+      else
+        I18n.t('customer.other_paymet_alert')
+      end
+    end
+  end
+
   def authenticated?(provided_password)
     hash_password, salt = password.split(':')
     result = Digest::MD5.hexdigest("#{salt}#{provided_password}")

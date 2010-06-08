@@ -36,7 +36,12 @@
     <!--   ==============   HEADER   ==============   -->
     <%= render :partial => 'layouts/header' %>
     <!--   ==============   END HEADER   ==============   -->
-    <div class="container clearfix" >
+    <div class="container clearfix">
+      <% if current_customer.suspended? %>
+        <ul id='suspended'>
+          <li><%= current_customer.suspended_notification %></li>
+        </ul>
+      <% end %>
       <%= flash[:notice] %>
       <%= yield %>
     </div>
