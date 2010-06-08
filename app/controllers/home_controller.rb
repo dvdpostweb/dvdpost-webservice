@@ -23,7 +23,7 @@ class HomeController < ApplicationController
         if params[:news_page]
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
         elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations_for_index}
+          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations}
         end
       }
     end

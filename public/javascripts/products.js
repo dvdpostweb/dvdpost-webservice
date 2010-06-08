@@ -249,14 +249,14 @@ $(function() {
   });
   
   /* Carousel rotation */
-  /* action all 15 seconds action turnLeft with a action launch before the motion */
+  /* action all 15 seconds action turnLeft with a action launch before the motion 
   $('#carousel').cycle({
 //    fx: 'turnLeft',
     timeout: 15000,
     before: change_carousel
   });
 
-  /* action */
+  
   function change_carousel()
   {
     id = $('#tabs-rotator #tabs a.active').attr('id');
@@ -266,5 +266,5 @@ $(function() {
 //    if (next_id == 6) next_id = 1;
 //    $('#tabs-rotator #tabs a.active').removeClass('active');
 //    $('#carousel_' + next_id).addClass('active');
-  }
+  }*/
 });
