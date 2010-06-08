@@ -3,7 +3,7 @@
     <%= t '.title' %>
   </h2>
   <div id="carousel">
-    <ul>
+    <ul id="carousel-content">
       <%= render :partial => 'products/show/recommendation', :collection => recommendations %>
     </ul>
     <a href="#" class="like-btn" id="prev">Previous</a>

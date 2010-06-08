@@ -1,12 +1,12 @@
 fr:
   reports:
     new:
-      title: Problème avec un DVD
+      title: Probl√®me avec un DVD
       unreadable: Je suis en possession d'un DVD illisible
-      broken: Le DVD est arrivé cassé
-      delayed: A ce jour, le DVD n'est pas arrivé chez moi
-      delayed_return: J'ai renvoyé un DVD mais DVDPost ne l'a visiblement pas encore réceptionné
-      damaged: J'ai moi-même endommagé un DVD
+      broken: Le DVD est arriv√© cass√©
+      delayed: A ce jour, le DVD n'est pas arriv√© chez moi
+      delayed_return: J'ai renvoy√© un DVD mais DVDPost ne l'a visiblement pas encore r√©ceptionn√©
+      damaged: J'ai moi-m√™me endommag√© un DVD
       lost: J'ai perdu un DVD
       envelope: Je n'ai plus l'enveloppe pour le retour
-      arrived: Mon DVD retardé est finalement arrivé
+      arrived: Mon DVD retard√© est finalement arriv√©

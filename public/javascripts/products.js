@@ -214,10 +214,10 @@ $(function() {
     }
   });
 
-  $('#carousel-wrap a.next_page').live('click',function(){
+  $('#carousel #next').live('click',function(){
     url = this.href;
-    html_item = $('#carousel');
-    content = html_item.html()
+    html_item = $('#carousel-wrap');
+    content = html_item.html();
     $.ajax({
       url: url,
       type: 'GET',
@@ -231,10 +231,10 @@ $(function() {
     return false;
   });
   
-  $('#carousel-wrap a.prev_page').live('click',function(){
+  $('#carousel #prev').live('click',function(){
     url = this.href;
-    html_item = $('#carousel');
-    content = html_item.html()
+    html_item = $('#carousel-wrap');
+    content = html_item.html();
     $.ajax({
       url: url,
       type: 'GET',
@@ -246,25 +246,6 @@ $(function() {
       }
     });
     return false;
-  });
-  
-  /* Carousel rotation */
-  /* action all 15 seconds action turnLeft with a action launch before the motion 
-  $('#carousel').cycle({
-//    fx: 'turnLeft',
-    timeout: 15000,
-    before: change_carousel
   });
 
-  
-  function change_carousel()
-  {
-    id = $('#tabs-rotator #tabs a.active').attr('id');
-    console.log(id);
-//    id = id.replace("carousel_", "");
-//    next_id = parseInt(id) + 1;
-//    if (next_id == 6) next_id = 1;
-//    $('#tabs-rotator #tabs a.active').removeClass('active');
-//    $('#carousel_' + next_id).addClass('active');
-  }*/
 });

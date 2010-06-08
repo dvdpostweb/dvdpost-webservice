@@ -4,7 +4,7 @@ fr:
       title: "DVDPost - Online DVD rental"
     header:
       tagline: "DVDPost - Online DVD rental"
-      logout: Déconnexion
+      logout: D√©connexion
       login: Sign in
       help: Aide
       rent: Louer
@@ -23,8 +23,8 @@ fr:
       you_have_1: "You have 1 item in your wishlist."
       you_have_pre: You have
       you_have_post: items in your wishlist.
-      between_0_and_10: de 0 à 10DVD dans la liste
-      between_10_and_30: de 0 à 10DVD dans la liste
+      between_0_and_10: de 0 √† 10DVD dans la liste
+      between_10_and_30: de 0 √† 10DVD dans la liste
       more_than_30: ">30 DVD dans la liste"
       close: FERMER
     partners:
@@ -33,12 +33,12 @@ fr:
       quick_links: Liens rapides
       who: Qui sommes-nous ?
       press: Presse
-      privacy: Confidentialité
-      conditions: Conditions générales
+      privacy: Confidentialit√©
+      conditions: Conditions g√©n√©rales
       contact: Nous contacter
-      faq: Questions Fréquentes
+      faq: Questions Fr√©quentes
       sponsor_a_friend: Parrainer un ami
-      gift_card: Offrir un chèque cadeau
+      gift_card: Offrir un ch√®que cadeau
       contest: Concours
       quizz: Quizz
       copyright: "&copy; 2002-2010 DVDpost  | Home Entertainment Services S.A."
