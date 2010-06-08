@@ -27,6 +27,6 @@ namespace :i18n_db do
     base_attr = {:locale_id => locale_id, :namespace => namespace_str, :tr_key => tr_key}
     translation = Translation.find(:first, :conditions => base_attr)
     
-    translation ? translation.update_attribute(:text, text) : Translation.create(base_attr.merge({:text => CGI.escapeHTML(text)}))
+    translation ? translation.update_attribute(:text, text) : Translation.create(base_attr.merge({:text => text}))
   end
 end

@@ -4,8 +4,8 @@ fr:
       info:
         title: "Vous pouvez nous contacter :"
         phone:
-          title: "Par téléphone au 0800/95 990"
-          text: Nos bureaux sont ouverts du lundi au vendredi de 09h00 à 17h00
+          title: "Par t√©l√©phone au 0800/95 990"
+          text: Nos bureaux sont ouverts du lundi au vendredi de 09h00 √† 17h00
         email:
           title: Par email
           text: via la messagerie du site ou
@@ -16,10 +16,10 @@ fr:
           title: Par courrier
           text: "45 petite rue du cerf 1070 Anderlecht"
       form:
-        intro: Nous vous offrons aussi la possibilité d’être rappelé par notre service clientèle quand vous êtes disponible. (du lundi au vendredi de 9h00 à 17h00). Pour ce faire il vous suffit de remplir les cases ci-dessous.
+        intro: Nous vous offrons aussi la possibilit√© d‚Äô√™tre rappel√© par notre service client√®le quand vous √™tes disponible. (du lundi au vendredi de 9h00 √† 17h00). Pour ce faire il vous suffit de remplir les cases ci-dessous.
         name: Nom
         phone: "N&deg; de tel"
         reason: "Raison"
-        call_date: Date souhaitée de rappel
-        time_slots: Créneaux Horaires
+        call_date: Date souhait√©e de rappel
+        time_slots: Cr√©neaux Horaires
         contact: Me recontacter

@@ -8,19 +8,19 @@ fr:
         bluray: Blu-ray
         public: Public
         countries: Pays
-        year: Année
+        year: Ann√©e
         apply: Apply
       movie_detail:
         trailer: Bande-annonce
         more: "En savoir +"
         actors: Acteurs
-        director: Réalisateur
+        director: R√©alisateur
         action: Action
     show:
       review:
         members: membres sur
-        found_useful: ont trouvés cette critique pertinente
-        published_on: Publié le
+        found_useful: ont trouv√©s cette critique pertinente
+        published_on: Publi√© le
         relevant: vous trouvez cette critique pertinente
         not_relevant: vous ne trouvez pas cette critique pertinente
         is_relevant: Cette critique est-elle pertinente ?
@@ -30,22 +30,22 @@ fr:
         new_review: Ecrire une critique
         review: critique
         reviews: critiques
-        previous: Critiques précédentes
+        previous: Critiques pr√©c√©dentes
         next: Critiques suivantes
       seen_uninterested:
         already_seen: You've already seen this
-        already_link: Déjà Vu
+        already_link: D√©j√† Vu
         not_interested: You're not interested
-        not_interested_link: Pas intéressé
+        not_interested_link: Pas int√©ress√©
       recommendations:
-        title: LES MEMBRES ONT AUSSI LOUÉ
+        title: LES MEMBRES ONT AUSSI LOU√â
       recommendation:
         add: Ajouter
       product:
-        directed_by: "Réalisé par :"
+        directed_by: "R√©alis√© par :"
         actors: "Acteurs :"
         original_title: "titre original :"
-        duration: "Durée :"
+        duration: "Dur√©e :"
         genre: "Genre :"
         rate: Cotez ce film
         country: "Pays :"
@@ -55,20 +55,20 @@ fr:
         audio: "Audio :"
         subtitles: "Sous-titres :"
         image: "Image :"
-        sound: "Détail du son :"
+        sound: "D√©tail du son :"
       synopsis: Synopsis
       dvdpost_choice: Coup de coeur DVDPost
       members_critic: CRITIQUES DES MEMBRES DVDPOST
       cinopsis: LA CRITIQUE DE CINOPSIS.BE
       no_review: "Pas de critique d'utilisateur:"
-      be_the_first: Soyez le premier à publier une critique de
+      be_the_first: Soyez le premier √† publier une critique de
     left_column:
       search: Rechercher
       recommendations: Recommandations
       tops: Les tops
-      categories: Catégories
-      themes: Thèmes
-      satisfaction: Enquête de satisfaction
+      categories: Cat√©gories
+      themes: Th√®mes
+      satisfaction: Enqu√™te de satisfaction
       sponsor: Parrainer un ami
-      gift: Offrir un chèque cadeau
+      gift: Offrir un ch√®que cadeau
       submit: Proposer un DVD
