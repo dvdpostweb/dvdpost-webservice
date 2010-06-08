@@ -1,5 +1,5 @@
 # Custom backend written in lib/
-#I18n.backend = I18n::Backend::Custom.new
+# I18n.backend = I18n::Backend::Custom.new
 
 # Load locales from RAILS_ROOT/locales directory into Rails
 I18n.default_locale = :fr
@@ -12,7 +12,7 @@ module I18n
   end
   module Backend
     class Simple
-      def available_locales; translations.keys.collect {|l| l.to_s}.sort; end
+      def available_locales; [:fr, :en, :nl]; end
     end
   end
 end
