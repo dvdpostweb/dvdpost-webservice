@@ -20,23 +20,29 @@ class ProductsController < ApplicationController
     @product.views_increment
     @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.count
+    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:recommendation_page], :per_page => 6)
     respond_to do |format|
       format.html do
         @categories = @product.categories
         @already_seen = current_customer.assigned_products.include?(@product)
         @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-        @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:page], :per_page => 6)
         if params[:recommendation] == "1"
           DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
         DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
-      format.js {render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}}
+      format.js {
+        if params[:reviews_page]
+          render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
+        elsif params[:recommendation_page] 
+          render :partial => 'products/show/recommendations', :object => @recommendations
+        end
+      }  
     end
   end
 
   def recommendations_paginate
-    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:page], :per_page => 6)
+    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:recommendation_page], :per_page => 6)
 
     respond_to do |format|
       format.html do

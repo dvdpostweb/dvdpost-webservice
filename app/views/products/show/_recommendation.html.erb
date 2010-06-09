@@ -4,7 +4,7 @@
   </span>
   <span class="dvd">
     <%= product_image_tag recommendation.image, :width => 76, :height => 118, :alt => "#{recommendation.title} (#{recommendation.year})" %>
-    <span class="new"></span>
+    <%= content_tag(:span, '', :class => 'new') if recommendation.is_new? %>
   </span>
   <a href="#" class="like-btn"><%= t '.add' %></a>
   <%= recommendation.title %>

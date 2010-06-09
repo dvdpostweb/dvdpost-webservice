@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   def new
+    @product=Product.find(params[:product_id])
     @review = Review.new(:products_id => params[:product_id])
     respond_to do |format|
       format.html

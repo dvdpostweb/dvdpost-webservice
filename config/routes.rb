@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
       product.seen 'seen', :controller => :products, :action => :seen
       product.awards 'awards', :controller => :products, :action => :awards
+      product.awards 'awards', :controller => :products, :action => :awards
     end
 
     localized.resources :categories, :only => [] do |category|

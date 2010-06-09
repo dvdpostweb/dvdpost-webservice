@@ -6,7 +6,7 @@
     <ul id="carousel-content">
       <%= render :partial => 'products/show/recommendation', :collection => recommendations %>
     </ul>
-    <a href="#" class="like-btn" id="prev">Previous</a>
-    <a href="#" class="like-btn" id="next">Next</a>
+    <%= will_paginate recommendations, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :recommendation_page, :id => 'prev', :class => 'like-btn', :container => false %>
+    <%= will_paginate recommendations, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :recommendation_page, :id => 'next', :class => 'like-btn', :container => false %>
   </div>
 </div>
