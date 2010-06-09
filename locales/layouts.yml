@@ -16,6 +16,9 @@ fr:
       contact: Contact
       account: Mon compte
       news: News infos
+      fr: Français
+      nl: Nederlands
+      en: English
     list_indicator:
       indicator: Indicateur
       title: LIST INDICATOR
@@ -42,3 +45,16 @@ fr:
       contest: Concours
       quizz: Quizz
       copyright: "&copy; 2002-2010 DVDpost  | Home Entertainment Services S.A."
+en:
+  layouts:
+    header:
+      fr: Français
+      nl: Nederlands
+      en: English
+nl:
+  layouts:
+     header:
+       fr: Français
+       nl: Nederlands
+       en: English
+      

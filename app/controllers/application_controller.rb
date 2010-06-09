@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_params
+    params[:locale]||='fr'
     available_locales.include?(params[:locale].to_sym) ? params[:locale] : nil
   end
 
