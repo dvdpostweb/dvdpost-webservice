@@ -21,7 +21,7 @@ $(function() {
     return false;
   });
 
-  $(".suppendre_newsletter_partner").live("click", function() {
+  $(".suppendre_newsletter_parnter").live("click", function() {
     url = $(this).attr('href');
     html_item = $(this).parent();
     content = html_item.html();

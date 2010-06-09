@@ -115,7 +115,12 @@ li.links a {
 .adresse {
   padding-top:10px;
 }
-
+.transit {
+  padding-top:3px;
+}
+.transit a{
+  color: #505050;
+}
 .bottom_text {
   padding-bottom:10px;
 }
