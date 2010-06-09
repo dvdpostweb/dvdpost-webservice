@@ -148,3 +148,21 @@ li.links a {
   padding-bottom:10px;
   padding-left:38px;
 }
+.rotation_dvd
+{
+  margin:0px;
+}
+.rotation_dvd .title
+{
+  position:absolute;
+  width:210px;
+  text-align: right;
+}
+.rotation_dvd .dvd
+{
+  margin-left:220px;
+}
+.rotation_dvd .dvd img
+{
+  vertical-align: middle;
+}

@@ -62,13 +62,17 @@
       <tr>
         <td align="right" class="adresse"><strong><%= t '.newsletters' %></strong></td>
         <td align="left" class="adresse">
-          <%= render :partial => 'customers/show/active', :locals => {:active => true} %>
+          <div>
+          <%= render :partial => 'customers/show/active', :locals => {:active => customer.newsletter, :type => 'newsletter'} %>
+          </div>
         </td>
       </tr>
       <tr>
         <td align="right"><strong><%= t '.newsletters_partner' %></strong></td>
         <td align="left">
-          
+          <div>
+          <%= render :partial => 'customers/show/active', :locals => {:active => customer.newsletter_parnter, :type => 'newsletter_parnter'} %>
+          </div>
         </td>
       </tr>
     </table>

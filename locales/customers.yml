@@ -1,6 +1,12 @@
 fr:
   customers:
     show:
+      rotation:
+        rotation_dvd: 'DVD DVDPost en rotation :'
+        adult_rotation_dvd: 'DVD MOVIX en rotation :'
+      active:
+        active_status: 'Activé'
+        deactive_status: 'Désactivé'
       account:
         title: 'Mon compte'
         client_id: 'N° client'
@@ -15,9 +21,6 @@ fr:
         gift: 'Chêques cadeaux'
         gift_offer: 'Offrir un chêque cadeau'
         active_gift: 'ACTIVER VOTRE CODE CADEAU'
-        active:
-          active_status: 'Activé'
-          deactive_status: 'Désactivé'
       subscription:
         title: 'Mon abonnement'
         abo: "Type d'abonnement :"
@@ -26,8 +29,6 @@ fr:
         count_dvd: 'DVD dans votre liste :'
         modify_abo: 'Modifier mon abonnement'
         suspend_abo: 'Suspendre mon abonnement'
-        rotation_dvd: 'DVD DVDPost en rotation :'
-        adult_rotation_dvd: 'DVD MOVIX en rotation :'
         date_abo: "Date d'abonnement :"
         date_end_abo: "Activation valable jusqu'au :"
         type_abo: 'Type de paiement :'

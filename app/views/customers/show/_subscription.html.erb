@@ -34,22 +34,7 @@
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>
-      <tr>
-        <td align="right"><strong><%= t '.rotation_dvd' %></strong></td>
-        <td  align="left">
-          <%= image_tag 'dvd.png', :align => 'absmiddle'%>
-          <%= "#{customer.normal_count} DVD" %>
-        </td>
-      </tr>
-      <tr>
-        <td align="right" class="adulte_text"><strong><%= t '.adult_rotation_dvd' %></strong></td>
-        <td align="left" class="adulte_text">
-          <%= image_tag 'dvd_x.png', :align => 'absmiddle'%>
-          <%= "#{customer.adult_count} DVD" %>
-          <span><%= image_tag 'delimiter.gif' %></span>
-          <%= link_to 'Activer', nil, :class => 'suppendre' %>
-        </td>
-      </tr>
+      <%= render :partial => 'customers/show/rotation', :locals => {:customer => customer} %>
       <tr>
         <td colspan="2" height="10"></td>
       </tr>

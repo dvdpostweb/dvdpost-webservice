@@ -18,6 +18,8 @@ class Customer < ActiveRecord::Base
   alias_attribute :normal_count,                 :customers_abo_dvd_norm
   alias_attribute :adult_count,                  :customers_abo_dvd_adult
   alias_attribute :subscription_expiration_date, :customers_abo_validityto
+  alias_attribute :newsletter, :customers_newsletter
+  alias_attribute :newsletter_parnter, :customers_newsletterpartner
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
@@ -96,5 +98,27 @@ class Customer < ActiveRecord::Base
 
   def substract_dvd_at_home!
     update_attribute(:dvds_at_home_count, (dvds_at_home_count - 1))
+  end
+
+  def newsletter!(type,value)
+    if type == 'newsletter_parnter'
+      update_attribute(:newsletter_parnter, value)
+    else
+      update_attribute(:newsletter, value)
+    end
+  end
+
+  def rotation_dvd!(type,value)
+    if type == 'adult'
+      if normal_count > 0
+        update_attribute(:adult_count, (adult_count + value))
+        update_attribute(:normal_count, (normal_count - value))
+      end
+    else
+      if adult_count > 0
+        update_attribute(:normal_count, (normal_count + value))
+        update_attribute(:adult_count, (adult_count - value))
+      end
+    end
   end
 end
