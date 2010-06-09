@@ -37,7 +37,7 @@ class WishlistItemsController < ApplicationController
       end
       redirect_back_or @wishlist_item.product
     rescue Exception => e
-      if @wishlist && @wishlist.product
+      if @wishlist_item && @wishlist_item.product
         flash[:notice] = "#{@wishlist_item.product.title} could not added to your wishlist."
         redirect_to @wishlist.product
       else
@@ -75,5 +75,11 @@ class WishlistItemsController < ApplicationController
     wishlist_item.save
     DVDPost.send_evidence_recommendations('AddToWishlist', params[:product_id], current_customer, request.remote_ip, {:priority => params[:priority]})
     wishlist_item
+  end
+
+  def redirect_back_or(path)
+    redirect_to :back
+  rescue ActionController::RedirectBackError
+    redirect_to path
   end
 end
