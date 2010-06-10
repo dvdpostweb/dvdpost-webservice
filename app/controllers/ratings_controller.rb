@@ -9,7 +9,11 @@ class RatingsController < ApplicationController
         when 'homepage'
           not_rated_products = current_customer.not_rated_products
           not_rated_product = not_rated_products[rand(not_rated_products.count)]
-          render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product} if not_rated_product 
+          if not_rated_product 
+            render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product}
+          else
+            render :nothing => true
+          end
         else
           render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background].to_sym}
         end

@@ -26,8 +26,8 @@
   </tr>
   <% end %>
   </table>
-  <div id="cotez">
-    <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} if @not_rated_product %>
-  </div>
+  <% if @not_rated_product %>
+    <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} %>
+  <% end %>
 </div>
 <div class="clear"></div>

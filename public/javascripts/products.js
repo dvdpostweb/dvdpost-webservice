@@ -43,10 +43,12 @@ $(function() {
       success: function(data) {
         if (url.match(/replace=homepage/)){
           item = html_item.parent();
+          item.replaceWith(data);
         }else{
           item = html_item;
+          item.html(data);
         }
-        item.html(data);
+        
       },
       error: function() {
         html_item.html(content);

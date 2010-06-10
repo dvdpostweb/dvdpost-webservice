@@ -47,7 +47,6 @@ fr:
         original_title: "titre original :"
         duration: "Durée :"
         genre: "Genre :"
-        rate: Cotez ce film
         country: "Pays :"
         audience: "Public :"
         trailer: Bande-annonce
@@ -56,10 +55,11 @@ fr:
         subtitles: "Sous-titres :"
         image: "Image :"
         sound: "Détail du son :"
+      rate: Cotez ce film
       synopsis: Synopsis
       dvdpost_choice: Coup de coeur DVDPost
       members_critic: CRITIQUES DES MEMBRES DVDPOST
-      cinopsis: LA CRITIQUE DE CINOPSIS.BE
+      cinopsis_critic: LA CRITIQUE DE CINOPSIS.BE
       no_review: "Pas de critique d'utilisateur:"
       be_the_first: Soyez le premier à publier une critique de
     left_column:
