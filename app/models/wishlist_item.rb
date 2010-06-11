@@ -17,7 +17,7 @@ class WishlistItem < ActiveRecord::Base
   validates_inclusion_of :type, :in => DVDPost.product_kinds.values
   validates_uniqueness_of :product_id, :scope => [:customers_id, :product_id]
 
-  named_scope :ordered, :order => 'priority ASC'
+  named_scope :ordered, :order => 'priority ASC imdb_id DESC'
   named_scope :movies, :joins => :product, :conditions => {:products => {:products_product_type => 'Movie'}}
   named_scope :current, :conditions => {:products => {:products_next => 0}}
   named_scope :future, :conditions => {:products => {:products_next => 1}}
