@@ -14,8 +14,11 @@ class MessagesController < ApplicationController
   end
 
   def create
+    
     @message = Message.new(params[:message])
-
+    @message.customers_id = current_customer.to_param
+    @message.language_id = DVDPost.product_languages[I18n.locale]
+    @message.messagesent = 0
     if @message.save
       flash[:notice] = "Message sent successfully"
       redirect_to messages_path

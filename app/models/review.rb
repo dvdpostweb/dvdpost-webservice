@@ -41,7 +41,7 @@ class Review < ActiveRecord::Base
   end
 
   def set_defaults
-    self.customers_name = customer.name
+    self.customers_name = customer.first_name
   end
 
   def set_created_at

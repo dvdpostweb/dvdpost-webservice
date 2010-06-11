@@ -75,7 +75,7 @@
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
             <% else %>
               <%= t '.no_review' %>
-              <%= link_to "#{t('.be_the_first')} #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'new_review' %>
+              <%= link_to "#{t('.be_the_first')} #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'add_new_review' %>
             <% end %>
           </div>
           <div id="tab2" class="tab_content" style="display:none">

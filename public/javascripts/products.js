@@ -284,14 +284,4 @@ $(function() {
     });
     return false;
   });
-  
-  $("#new_review").live("click", function() {
-    review = $(this);
-    jQuery.facebox(function() {
-      $.getScript(review.attr('href'), function(data) {
-        jQuery.facebox(data);
-      });
-    });
-    return false;
-  });
 });

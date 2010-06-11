@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   def new
-    @order = current_user.orders.find(params[:order_id])
+    @order = current_customer.orders.find(params[:order_id])
     respond_to do |format|
       format.html
       format.js {render :layout => false}
@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     if params[:status] == 'envelope'
       render :action => :envelope
     else
-      @order = current_user.orders.find(params[:order_id])
+      @order = current_customer.orders.find(params[:order_id])
       if DVDPost.product_dvd_statuses.include?(params[:status].to_sym)
         status = DVDPost.product_dvd_statuses[params[:status].to_sym]
 

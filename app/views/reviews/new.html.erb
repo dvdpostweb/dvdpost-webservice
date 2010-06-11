@@ -1,23 +1,22 @@
-<div style="display: block;" class="content">
-
-<div id="critical_title"><%= "#{@product.title} (#{@product.year})"%></div>
-    <% form_for @review, :url => product_reviews_path(:product_id => @review.products_id) do |f| %>
-    <fieldset>
+<div class="content">
+  <div id="critical_title"><%= "#{@product.title} (#{@product.year})"%></div>
+  <% form_for @review, :url => product_reviews_path(:product_id => @review.products_id) do |f| %>
+  <fieldset>
 		<p class="critical_explain"> 
-		  <%= f.label t('.review_note') %> : <img alt="Star-on" class="star" id="215_1" init="star-on.jpg" name="star" nb="1" product_id="215" src="star-on.jpg"><img alt="Star-on" class="star" id="215_2" init="star-on.jpg" name="star" nb="2" product_id="215" src="star-on.jpg"><img alt="Star-on" class="star" id="215_3" init="star-on.jpg" name="star" nb="3" product_id="215" src="star-on.jpg"><img alt="Star-half" class="star" id="215_4" init="star-half.jpg" name="star" nb="4" product_id="215" src="star-half.jpg"><img alt="Star-off" class="star" id="215_5" init="star-off.jpg" name="star" nb="5" product_id="215" src="star-off.jpg">
-		  </p>
-	    <%= f.text_field :text %>
-		  <p class="critical_explain">
+	    <%= f.label t('.review_note') %> : 
+	  </p>
+	  <%= f.text_field :rating %>
+		<p class="critical_explain">
 		    <%= f.label t('.review_title') %> :
-		  </p>
-		  <%= f.text_area :rating, :class => 'input',:cols => 45, :rows => 10 %>
-	    <p class="critical_explain_footer">
+		</p>
+		<%= f.text_area :text, :class => 'input',:cols => 45, :rows => 10 %>
+	  <p class="critical_explain_footer">
 	     <%= t('.review_warning') %>
-	    </p>
-	    <p align="right">
+	  </p>
+	  <p align="right">
 	    <%= f.submit 'create', :class => 'like-btn review_new' %>
-	    </p>
+	  </p>
   </fieldset>
-    <br/>
+  <br/>
 <% end %>
 </div>
