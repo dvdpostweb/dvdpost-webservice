@@ -28,6 +28,10 @@ class MessagesController < ApplicationController
     end
   end
 
+  def faq
+    @faqs = Faq.all
+  end
+
   def destroy
     @message = Message.destroy(params[:id])
     flash[:notice] = "Message #{@message.id} was removed from your messages."

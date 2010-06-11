@@ -1697,6 +1697,7 @@ html ul.tabs li.active a:hover {
 }
 #tabs-rotator .panel {
   height: 230px;
+  width:540px;
   overflow: hidden;
   position: relative;
 }

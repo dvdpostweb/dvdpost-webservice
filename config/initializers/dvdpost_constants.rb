@@ -5,7 +5,7 @@ module DVDPost
     end
 
     def images_carousel_path
-      'http://www.dvdpost.be/images/dvdpost_public/landings'
+      'landings'
     end
     def news_url
        HashWithIndifferentAccess.new.merge({

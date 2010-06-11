@@ -249,7 +249,19 @@ $(function() {
     });
     return false;
   });
-
+  search_text=$('#s').attr('value')
+  $('#s').live('focus',function(){
+    if($('#s').attr('value') == search_text)
+    {
+      $('#s').val('');
+    }
+  });
+  $('#s').live('blur',function(){
+    if($('#s').attr('value') == '')
+    {
+      $('#s').val(search_text);
+    }
+  });
 
   $('#carousel-wrap a.next_page').live('click',function(){
     url = this.href;

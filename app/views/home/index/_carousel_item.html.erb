@@ -1,10 +1,10 @@
 <% path = carousel_path(carousel_item) %>
 <div class="panel">
   <div class="capt">
-    <h2><%= link_to carousel_item.name, path %></h2>
+    <h2><%= link_to t(".name_#{carousel_item.id}"), path %></h2>
     <ul>
       <li>
-        <%= link_to carousel_name_link(carousel_item), path, :class => :rent %>
+        <%= link_to t(".link_#{carousel_item.id}"), path, :class => :rent %>
       </li>
       <% if carousel_item.type == 'MOVIE' && carousel_item.product.trailer %>
       <li class="delim"></li>

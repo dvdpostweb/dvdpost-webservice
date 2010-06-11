@@ -1,82 +1,29 @@
 <div id="faq">
   <ul id="faq-nav">
-    <li>
-      <a href="#" class='menu_faq'>
-        <%= t('.title') %>
-      </a>
-      <ul style='display:none'>
-        <li>
-          <a href="#">test</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>LES ENVOIS</a>
-      <ul style='display:none'>
-        <li><a href="#" id="q1" class="q">En combien de temps les DVD me parviennent-ils?</a></li>
-        <li><a href="#" id="q2" class="q">Dans quel emballage les DVD arrivent-ils chez moi?</a></li>
-        <li><a href="#" id="q3" class="q">Suis-je obligé(e) de faire la queue à la poste pour réceptionner mes films?</a></li>
-        <li><a href="#" id="q4" class="q">Une fois les DVD visionnés, comment dois-je les renvoyer?</a></li>
-        <li><a href="#" id="q5" class="q">Dois-je renvoyer tous les DVD en même temps?</a></li>
-        <li><a href="#" id="q6" class="q">Les frais de port sont-ils compris?</a></li>
-        <li><a href="#" id="q7" class="q">Puis-je suivre les envois par Internet?</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>MA LISTE DE DVD</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>LA GESTION DE L’ABONNEMENT</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>LA FACTURATION</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>LE SERVICE à LA CLIENTèLE</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>PROBLèME DE CONNECTION</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>LES PROMOTIONS</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class='menu_faq'>LES JEUX CONCOURS</a>
-      <ul style='display:none'>
-        <li><a href="#">test</a></li>
-      </ul>
-    </li>
+    <% @faqs.each do |faq| %>
+      <li>
+        <a href="#" class='menu_faq'>
+          <%= t(".cat_#{faq.to_param}") %>
+        </a>
+        <ul style='display:none'>
+            <% faq.nb_questions.times do |i| %>          
+              <li>
+                <a href="#" class="q" id="<%= "q#{faq.to_param}_#{(i+1)}" %>"><%= t(".q#{faq.to_param}_#{(i+1)}") %></a>
+              </li>
+            <% end %>
+        </ul>
+      </li>
+    <% end %>
   </ul>
-  <div class="faq-answer" id ='r1' style="display:none">
-    <h3>En combien de temps les DVD me parviennent-ils?</h3>
-    <div class="box">
-      <p>Tous nos envois se font endéans les 48 heures.</p>
-    </div>
-  </div>
-  <div class="faq-answer" id ='r2' style="display:none">
-    <h3>Dans quel emballage les DVD arrivent-ils chez moi?</h3>
-    <div class="box">
-      <p>Chaque DVD est rangé dans un étui de protection anti-rayures, ce qui garantit le maintien de son bon état lors de l'acheminement. Les enveloppes que nous utilisons servent à l'aller comme au retour et sont prévues pour <strong>contenir à chaque fois 2 DVD</strong>. Veuillez lire attentivement la notice d'utilisation sur l'enveloppe pour l'utiliser correctement.</p>
-      <p align="center"><img src="/images/faq-img.png" alt="" /></p>
-    </div>
-  </div>
+  <% @faqs.each do |faq| %>
+    <% faq.nb_questions.times do |i| %>
+      <div class="faq-answer" id ="<%= "r#{faq.to_param}_#{(i+1)}" %>" style="display:none">
+        <h3><%= t(".q#{faq.to_param}_#{(i+1)}") %></h3>
+        <div class="box">
+          <%= t(".r#{faq.to_param}_#{(i+1)}") %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
   <div class="clear"></div>
 </div>

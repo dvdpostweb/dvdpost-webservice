@@ -1,6 +1,11 @@
 fr:
   products:
     index:
+      technology: Technologie
+      public: Public
+      country: Pays
+      year: Année
+      close: Fermer
       filters:
         refine: AFFINER MA RECHERCHE
         tech: Technologie
