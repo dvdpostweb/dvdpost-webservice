@@ -42,11 +42,9 @@ $(function() {
       type: 'POST',
       success: function(data) {
         if (url.match(/replace=homepage/)){
-          item = html_item.parent();
-          item.replaceWith(data);
+          html_item.parent().replaceWith(data);
         }else{
-          item = html_item;
-          item.html(data);
+          html_item.html(data);
         }
         
       },
