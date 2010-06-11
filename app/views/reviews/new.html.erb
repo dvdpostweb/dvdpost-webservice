@@ -5,7 +5,9 @@
 		<p class="critical_explain"> 
 	    <%= f.label t('.review_note') %> : 
 	  </p>
-	  <%= f.text_field :rating %>
+	  <%= render :partial => 'products/rating_review', :locals => {:product => @product} %>
+	  <%= f.hidden_field :rating %>
+	  
 		<p class="critical_explain">
 		    <%= f.label t('.review_title') %> :
 		</p>

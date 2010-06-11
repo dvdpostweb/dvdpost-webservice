@@ -3,6 +3,15 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
+  def rating_review_image_links(product,  replace=nil)
+    links = []
+    5.times do |i|
+      i += 1
+      links << rating_review_image_link(product, i, replace)
+    end
+    links
+  end
+  
   def rating_image_links(product, background=nil, replace=nil)
     rating = product.rating(current_customer)
     links = []
@@ -14,6 +23,15 @@ module ProductsHelper
     links
   end
 
+  def rating_review_image_link(product, value, replace)
+    name = 'star-voted'
+    class_name = 'star'
+    image_name = "#{name}-off.jpg"
+
+    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+    link_to(image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace))
+  end
+  
   def rating_image_link(product, rating, value, background=nil, replace=nil)
     if current_customer.has_rated?(product)
       name = 'star-voted'
