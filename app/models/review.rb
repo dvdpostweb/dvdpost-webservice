@@ -27,6 +27,8 @@ class Review < ActiveRecord::Base
 
   default_scope :order => 'customers_best_rating DESC, customers_bad_rating ASC, date_added DESC'
   named_scope :approved, :conditions => :reviews_check
+  named_scope :by_language, :conditions => {:languages_id => DVDPost.product_languages[I18n.locale]}
+  
 
   def likeable_count
     like_count + dislike_count

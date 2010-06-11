@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.available.by_kind(:normal)
+    @products = Product.available.ordered.by_kind(:normal)
     @products = @products.filtered_by_ids(retrieve_recommendations_for_index) if params[:recommended]
     @products = @products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @products = @products.by_top(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
     @products = @products.by_country(params[:country]) if params[:country] && !params[:country] == 0
     @products = Product.search_clean(params[:search]).sphinx_by_kind(:normal) if params[:search]
     @products = @products.paginate(:page => params[:page])
+    
     @countries = ProductCountry.visible
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && !params[:country] == 0
   end
@@ -18,8 +19,8 @@ class ProductsController < ApplicationController
   def show
     @product = Product.available.find(params[:id])
     @product.views_increment
-    @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
-    @reviews_count = @product.reviews.approved.count
+    @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
+    @reviews_count = @product.reviews.approved.by_language.count
     @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:recommendation_page], :per_page => 6)
     respond_to do |format|
       format.html do
