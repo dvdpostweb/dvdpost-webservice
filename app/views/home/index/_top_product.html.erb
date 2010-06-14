@@ -7,11 +7,11 @@
     <%= rating_image_small(top_product, :black) %>
     <p>
       <%= t '.by' %>
-      <%= link_to top_product.director.name %>
+      <%= link_to top_product.director.name, director_products_path(:director_id => top_product.director.to_param) %>
     </p>
     <p>
       <%= t '.actors' %>
-      <%= top_product.actors.collect{|actor| link_to actor.name}.join(', ') %>
+      <%= top_product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %>
     </p>
     <p><%= product_description_text(top_product) %></p>
     <%= render :partial => 'products/wishlist', :locals => {:product => top_product} %>

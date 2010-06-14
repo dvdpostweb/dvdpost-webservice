@@ -118,4 +118,15 @@ module ProductsHelper
   def filter_checkbox_tag(attribute, sub_attribute)
     check_box_tag "#{attribute}[#{sub_attribute}]", 1, params[attribute] && params[attribute][sub_attribute]
   end
+  
+  def title()
+    title = t('.director') +' : '+ Director.find(params[:director_id]).name if params[:director_id] && !params[:director_id].empty?
+    title = t('.actor') +' : '+ Actor.find(params[:actor_id]).name if params[:actor_id] && !params[:actor_id].empty?
+    title = t('.recommendation') if params[:recommended]
+    title = t('.categorie') +' : '+ Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name if params[:category_id] && !params[:category_id].empty?
+    title = t('.top') +' : '+  ProductList.find(params[:top_id]).name if params[:top_id] && !params[:top_id].empty?
+    title = t('.theme') +' : '+  ProductList.find(params[:theme_id]).name if params[:theme_id] && !params[:theme_id].empty?
+    title = t('.search') +' : '+ params[:search] if params[:search]
+    title
+  end   
 end

@@ -3,6 +3,8 @@ class ProductsController < ApplicationController
     @products = Product.available.ordered.by_kind(:normal)
     @products = @products.filtered_by_ids(retrieve_recommendations_for_index) if params[:recommended]
     @products = @products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
+    @products = @products.by_actor(params[:actor_id]) if params[:actor_id] && !params[:actor_id].empty?
+    @products = @products.by_director(params[:director_id]) if params[:director_id] && !params[:director_id].empty?
     @products = @products.by_top(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
     @products = @products.by_theme(params[:theme_id]) if params[:theme_id] && !params[:theme_id].empty?
     @products = @products.by_media(params[:media].keys) if params[:media]

@@ -1,6 +1,7 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
+<% title = title() %>
 <div id="maincontent" >
-  <div id="title"></div>
+  <div id="title"><%= title if title %></div>
   <ul id="filtered" class="clearfix">
     <li>
       <strong><%= t '.technology' %></strong>

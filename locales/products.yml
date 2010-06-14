@@ -6,6 +6,13 @@ fr:
       country: Pays
       year: Année
       close: Fermer
+      director: Réalisateur
+      actor: Acteur
+      recommendation: Recommandations
+      categorie: Catégorie
+      top: Top 10
+      theme: Thème
+      search: Recherche
       filters:
         refine: AFFINER MA RECHERCHE
         tech: Technologie

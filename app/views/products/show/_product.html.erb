@@ -2,11 +2,11 @@
   <% if product.director %>
     <li>
       <strong>
-        <%= "#{t('.directed_by')} #{link_to product.director.name}" %>
+        <%= "#{t('.directed_by')} #{link_to product.director.name, director_products_path(:director_id => product.director.to_param)}" %>
       </strong>
     </li>
   <% end %>
-  <% actors = product.actors.collect{|actor| link_to actor.name }.join(', ') %>
+  <% actors = product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param) }.join(', ') %>
   <% if actors %>
   <li>
     <strong>

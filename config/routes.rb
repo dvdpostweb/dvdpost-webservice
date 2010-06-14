@@ -24,11 +24,16 @@ ActionController::Routing::Routes.draw do |map|
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
       product.seen 'seen', :controller => :products, :action => :seen
       product.awards 'awards', :controller => :products, :action => :awards
-      product.awards 'awards', :controller => :products, :action => :awards
     end
 
     localized.resources :categories, :only => [] do |category|
       category.resources :products, :only => :index
+    end
+    localized.resources :actors, :only => [] do |actor|
+      actor.resources :products, :only => :index
+    end
+    localized.resources :directors, :only => [] do |director|
+      director.resources :products, :only => :index
     end
 
     localized.resources :tops, :only => [] do |top|

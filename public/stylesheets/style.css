@@ -608,7 +608,10 @@ cursor: default;
   margin: 0 6px;
   padding-left: 16px;
 }
-
+.movie-info a
+{
+  color: #352C2C;
+}
 #titles-wrap .movie-descr a.trailer, #movie-info p.links a.trailer {
   background-image: url(../images/trailer-icon.png);
 }

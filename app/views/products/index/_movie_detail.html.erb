@@ -19,17 +19,19 @@
       <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
       <%= image_tag product.public.image, :alt => product.public.description %>
     </div>
+    <% if product.actors.count > 0  %>
     <div class="cast">
       <h3>
         <%= t '.actors' %> 
       </h3>
-      <p><%= product.actors.collect{|actor| actor.name}.join(', ') %></p>
+      <p><%= product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
     </div>
+    <% end %>
     <% if product.director %>
       <h3>
         <%= t '.director' %>
       </h3>
-      <p><%= product.director.name %></p>
+      <p><%= link_to product.director.name, director_products_path(:director_id => product.director.to_param) %></p>
     <% end %>
   </div>
   <div class="action">
