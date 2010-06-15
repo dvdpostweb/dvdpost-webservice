@@ -1,0 +1,9 @@
+fr:
+  addresses:
+    edit:
+      firstname: Prénom
+      lastname: Nom
+      street: Adresse
+      postal_code: Code postal
+      city: Commune
+      title: Modifier mon adresse

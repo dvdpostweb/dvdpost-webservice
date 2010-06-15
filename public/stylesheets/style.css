@@ -2688,6 +2688,28 @@ text-align:center;
 text-decoration:none;
 top:0;
 }
+
+.bouton_probleme .submit_fr{
+  background:url("../images/fr/account_modify.png") no-repeat scroll 0 0 transparent;
+}
+.bouton_probleme .submit_nl{
+  background:url("../images/nl/account_modify.png") no-repeat scroll 0 0 transparent;
+}
+.bouton_probleme .submit_en{
+  background:url("../images/en/account_modify.png") no-repeat scroll 0 0 transparent;
+}
+.bouton_probleme .submit{
+  border-style:hidden;
+  display:block;
+  font-size:0;
+  height:40px;
+  margin: 0 0 0 40px;
+  width:170px;
+}
+table.champ_compte
+{
+  border-collapse: separate !important;
+}
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
 .navbar .navprevbtn span {

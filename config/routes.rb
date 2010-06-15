@@ -62,9 +62,10 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :partners
 
-    localized.resources :customers, :only => [:show] do |customer|
+    localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
+      customer.resource 'addresses', :only => [:edit, :update]
     end
   end
 end

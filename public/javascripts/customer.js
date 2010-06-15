@@ -77,5 +77,24 @@ $(function() {
     });
     return false;
   });
+  $(".modification_account").live("click", function() {
+    url = $(this);
+    jQuery.facebox(function() {
+      $.getScript(url.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
+  $(".modification_address").live("click", function() {
+    url = $(this);
+    jQuery.facebox(function() {
+      $.getScript(url.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
+  
 
 });

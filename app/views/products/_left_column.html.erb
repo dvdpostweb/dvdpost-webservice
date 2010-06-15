@@ -4,31 +4,45 @@
     <%= text_field_tag :search, t('.search'), :id => 's' %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
   <% end %>
+  <% if @category %>
+  <% end %>
   <ul id="left-nav">
     <li><%= link_to t('.recommendations'), products_path(:recommended => true) %></li>
-    <li>
+    <!--<li>
       <%= link_to t('.tops') %>
       <ul>
         <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
           <li><%= link_to top.name, top_products_path(:top_id => top) %></li>
         <% end %>
       </ul>
-    </li>
+    </li>-->
     <li>
       <%= link_to t('.categories') %>
-      <ul>
-        <% Category.active.roots.movies.by_kind(:normal).ordered.collect do |category| %>
-        <li><%= link_to category.name, category_products_path(:category_id => category) %></li>
+      <ul id="cat">
+        <% Category.active.roots.movies.by_kind(:normal).remove_theme.ordered.collect do |category| %>
+        <li class="cat" <%= "style='display:none'" if @category && category.id != @category.id && category.id != @category.parent_id %>>
+          <%= link_to category.name, category_products_path(:category_id => category) %>
+        </li>
+        
+        <% if @category && (category.id == @category.id || category.id == @category.parent_id) %>
+          <% Category.active.movies.by_kind(:normal).remove_theme.ordered.find_all_by_parent_id(category.id).collect do |sub_category| %>
+            <li class="subcat"> 
+              <%= link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category) %>
+            </li>  
+          <% end %>
+          <li><a href="#" id ="all_categorie"><%= t('.category_back') %></a></li>
         <% end %>
+      <% end %>
+        
       </ul>
     </li>
-    <li><%= link_to t('.themes') %>
+    <!--<li><%= link_to t('.themes') %>
       <ul>
         <% ProductList.status.theme.not_highlighted.by_language(DVDPost.product_languages[I18n.locale]).collect do |theme| %>
           <li><%= link_to theme.name, theme_products_path(:theme_id => theme) %></li>
         <% end %>
       </ul>
-    </li>
+    </li>-->
   </ul>
   <p id="special">
     <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>

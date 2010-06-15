@@ -18,6 +18,8 @@ bolywood=[
     ListedProduct.create(:product_id => product_id, :product_list_id => productList.to_param, :order => (j+1))
   end
 end
+Faq.delete_all
+
 faq=[10,8,7,5,8,7,4,3,1].each_with_index do |q, i|
   Faq.create(:active => 1, :nb_questions => q, :name => "cat_#{i}")
 end

@@ -294,4 +294,10 @@ $(function() {
     });
     return false;
   });
+  $('#all_categorie').live('click',function(){
+    $('.cat').show();
+    $('.subcat').hide();
+    $(this).hide();
+    return false;
+  });
 });

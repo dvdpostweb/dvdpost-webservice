@@ -2,9 +2,29 @@ class CustomersController < ApplicationController
   def show
     @customer = current_customer
   end
+
+  def edit
+    @customer = current_customer
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
+  end 
+
+  def update
+    @customer = current_customer
+    
+    params[:customer][:birthday]= "#{params['year']}-#{params['month']}-#{params['day']}"
+    if @customer.update_attributes(params[:customer])
+      flash[:notice] = 'Votre compte a été modifié avec succès.'
+      redirect_to customer_path
+    else
+      render :action => :edit
+    end
+  end
   
   def newsletter
-    @customer = Customer.find(current_customer)
+    @customer = current_customer
     @customer.newsletter!(params[:type],params[:value])
     if params[:type] == 'newsletter'
       data = @customer.newsletter

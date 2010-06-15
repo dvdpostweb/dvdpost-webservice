@@ -13,6 +13,7 @@ class ReviewsController < ApplicationController
       @product = Product.available.find(params[:product_id])
       review = @product.reviews.build(params[:review])
       review.customer = current_customer
+      review.languages_id = DVDPost.product_languages[I18n.locale]
       review.save
       flash[:notice] = 'Your review has been saved. It will appear once it\'s approved by an admin.'
     rescue Exception => e  

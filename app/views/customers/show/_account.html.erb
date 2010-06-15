@@ -13,6 +13,24 @@
         <td align="left"><%= customer.email %></td>
       </tr>
       <tr>
+        <td align="right"><strong><%= t '.last_name' %></strong></td>
+        <td align="left"><%= customer.last_name %></td>
+      </tr>
+      <tr>
+        <td align="right"><strong><%= t '.first_name' %></strong></td>
+        <td align="left"><%= customer.first_name %></td>
+      </tr>
+      <tr>
+        <td align="right" valign="top" class="adresse"></td>
+        <td align="right" valign="top" id="modif">
+          <ul>
+            <li class="links">
+              <%= link_to 'Modifier mon compte', edit_customer_path(), :class => 'modification_account' %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
         <td align="right" valign="top" class="adresse"><strong><%= t '.address' %></strong></td>
         <td align="left" valign="top" class="adresse">
           <%= customer.address.name %><br/>
@@ -25,7 +43,7 @@
         <td align="right" valign="top" id="modif">
           <ul>
             <li class="links">
-              <%= link_to 'Modifier mon compte', nil, :class => 'modif' %>
+              <%= link_to 'Modifier mon adresse', edit_customer_addresses_path(:customer_id => current_customer), :class => 'modification_address' %>
             </li>
           </ul>
         </td>

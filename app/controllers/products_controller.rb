@@ -14,6 +14,8 @@ class ProductsController < ApplicationController
     @products = Product.search_clean(params[:search]).sphinx_by_kind(:normal) if params[:search]
     @products = @products.paginate(:page => params[:page])
     
+    @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
+    
     @countries = ProductCountry.visible
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && !params[:country] == 0
   end

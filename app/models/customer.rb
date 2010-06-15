@@ -18,8 +18,12 @@ class Customer < ActiveRecord::Base
   alias_attribute :normal_count,                 :customers_abo_dvd_norm
   alias_attribute :adult_count,                  :customers_abo_dvd_adult
   alias_attribute :subscription_expiration_date, :customers_abo_validityto
-  alias_attribute :newsletter, :customers_newsletter
-  alias_attribute :newsletter_parnter, :customers_newsletterpartner
+  alias_attribute :newsletter,                   :customers_newsletter
+  alias_attribute :newsletter_parnter,           :customers_newsletterpartner
+  alias_attribute :phone,                        :customers_telephone
+  alias_attribute :birthday,                     :customers_dob
+  alias_attribute :gender,                     :customers_gender
+  
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
@@ -121,4 +125,19 @@ class Customer < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+  def convert_created_at
+    begin
+      self.created_at = Date.civil(self.year.to_i, self.month.to_i, self.day.to_i)
+    rescue ArgumentError
+      false
+    end
+  end
+
+  def validate_created_at
+    errors.add("Created at date", "is invalid.") unless convert_created_at
+  end
+  
 end

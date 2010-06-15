@@ -71,7 +71,7 @@
   padding-left:40px;
 }
 
-.modif { 
+.modif, .modification_account, .modification_address { 
   font-size:14px;
   font-family:Arial, Helvetica, sans-serif;
   color:#ff4b00;
@@ -87,7 +87,7 @@ ul, ol, dl, dt, dd {
   list-style:none outside none;
 }	
 
-li.links a.modif {
+li.links a.modification_account, li.links a.modification_address{
   background: url(../images/crayon.gif) no-repeat scroll 0 0 transparent;
   padding-left:19px;
   text-decoration:underline;

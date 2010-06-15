@@ -1,5 +1,13 @@
 fr:
   customers:
+    edit:
+      miss: Madame
+      mister: Monsieur
+      title: Modifier mon compte
+      firstname: Prénom
+      lastname: Nom
+      birthday: Date de naissance
+      phone: Téléphone
     show:
       rotation:
         rotation_dvd: 'DVD DVDPost en rotation :'
@@ -9,7 +17,9 @@ fr:
         deactive_status: 'Désactivé'
       account:
         title: 'Mon compte'
-        client_id: 'N° client'
+        client_id: 'N° client :'
+        last_name: 'Nom :'
+        first_name: 'Prénom :'
         identification: 'Identifiant DVDpost :'
         address: 'Adresse de livraison :'
         sponsorship_points: 'Mes points parrainage :'
