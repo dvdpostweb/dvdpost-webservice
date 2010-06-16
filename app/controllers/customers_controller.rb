@@ -16,9 +16,11 @@ class CustomersController < ApplicationController
     
     params[:customer][:birthday]= "#{params['year']}-#{params['month']}-#{params['day']}"
     if @customer.update_attributes(params[:customer])
-      flash[:notice] = 'Votre compte a été modifié avec succès.'
+      flash[:notice] = t(:customer_modify)
       redirect_to customer_path
     else
+      error = @customer.errors.each_error{|attr,err| err.type.to_s }
+      flash[:notice] = error
       render :action => :edit
     end
   end

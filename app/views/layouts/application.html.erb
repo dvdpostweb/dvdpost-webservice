@@ -38,7 +38,11 @@
     <%= render :partial => 'layouts/header' %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
+		<% if flash[:notice] %>
+		<p class="notice">
       <%= flash[:notice] %>
+		</p>
+		<% end %>
       <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->

@@ -1,4 +1,5 @@
 fr:
+  address_modify: 'Votre adresse a été modifié avec succès.'
   addresses:
     edit:
       firstname: Prénom

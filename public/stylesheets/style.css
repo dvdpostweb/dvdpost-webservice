@@ -2710,6 +2710,13 @@ table.champ_compte
 {
   border-collapse: separate !important;
 }
+p.notice {
+  background:none repeat scroll 0 0 #BCD1C1;
+  border:1px dashed #3B7049;
+  margin:9px;
+  padding:7px;
+  width:400px;
+}
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
 .navbar .navprevbtn span {

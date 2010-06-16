@@ -22,7 +22,13 @@ class Customer < ActiveRecord::Base
   alias_attribute :newsletter_parnter,           :customers_newsletterpartner
   alias_attribute :phone,                        :customers_telephone
   alias_attribute :birthday,                     :customers_dob
-  alias_attribute :gender,                     :customers_gender
+  alias_attribute :gender,                       :customers_gender
+  
+  validates_length_of :first_name, :minimum => 2, :too_short => "trop court"
+  validates_length_of :last_name, :minimum => 2, :message =>"too short"
+  
+  validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
+  
   
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type

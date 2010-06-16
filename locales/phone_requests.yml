@@ -23,3 +23,9 @@ fr:
         call_date: Date souhaitée de rappel
         time_slots: Créneaux Horaires
         contact: Me recontacter
+        promo_invalid: "Mon code promo ne fonctionne pas"
+        password_not_received: "Je n’ai pas reçu de mot de passe"
+        payment: "Problème de paiement"
+        delivery: "Problème de livraison"
+        profile_update: "Mise à jour de mon profil"
+        other: "Autre"
