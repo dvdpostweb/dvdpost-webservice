@@ -10,3 +10,4 @@ db/schema.rb
 rerun.txt
 public/images/logo
 public/images/tmp
+.bundle
