@@ -1,0 +1,130 @@
+--- 
+dependencies: 
+  rails: 
+    group: 
+    - :default
+    version: = 2.3.5
+  mysql: 
+    group: 
+    - :bundle
+    version: ">= 0"
+  rails_warden: 
+    group: 
+    - :default
+    version: ">= 0"
+  will_paginate: 
+    group: 
+    - :default
+    version: ~> 2.3.12
+  capistrano-ext: 
+    group: 
+    - :default
+    version: ">= 0"
+    require: 
+    - capistrano
+  json: 
+    group: 
+    - :default
+    version: ">= 0"
+  hoptoad_notifier: 
+    group: 
+    - :default
+    version: ~> 2.2.2
+  warden: 
+    group: 
+    - :default
+    version: ">= 0"
+  hpricot: 
+    group: 
+    - :default
+    version: ~> 0.8.2
+  oauth2: 
+    group: 
+    - :default
+    version: ">= 0"
+  warden_oauth: 
+    group: 
+    - :default
+    version: ">= 0"
+  orderedhash: 
+    group: 
+    - :default
+    version: ">= 0"
+specs: 
+- rake: 
+    version: 0.8.7
+- activesupport: 
+    version: 2.3.5
+- rack: 
+    version: 1.0.1
+- actionpack: 
+    version: 2.3.5
+- actionmailer: 
+    version: 2.3.5
+- activerecord: 
+    version: 2.3.5
+- activeresource: 
+    version: 2.3.5
+- addressable: 
+    version: 2.1.2
+- highline: 
+    version: 1.5.2
+- net-ssh: 
+    version: 2.0.23
+- net-scp: 
+    version: 1.0.2
+- net-sftp: 
+    version: 2.0.4
+- net-ssh-gateway: 
+    version: 1.0.1
+- capistrano: 
+    version: 2.5.18
+- capistrano-ext: 
+    version: 1.2.1
+- faraday: 
+    version: 0.4.6
+- hoptoad_notifier: 
+    version: 2.2.6
+- hpricot: 
+    version: 0.8.2
+- json: 
+    version: 1.4.3
+- mysql: 
+    version: 2.8.1
+- yajl-ruby: 
+    version: 0.7.6
+- oauth2: 
+    version: 0.0.9
+    source: 3
+- orderedhash: 
+    version: 0.0.6
+- rails: 
+    version: 2.3.5
+- warden: 
+    version: 0.10.3
+    source: 2
+- rails_warden: 
+    version: 0.5.2
+    source: 0
+- warden_oauth: 
+    version: 0.2.0
+    source: 1
+- will_paginate: 
+    version: 2.3.14
+hash: 275e5c86a5cf4c6fd6a8a4f7bdaf06384b05a870
+sources: 
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/gems/rails_warden-0.5.2
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/gems/warden_oauth-0.2.0
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/gems/warden-0.10.3
+- Git: 
+    uri: git://github.com/jeroenj/oauth2.git
+    git: git://github.com/jeroenj/oauth2.git
+    ref: 56e05c934b62bc5ade287dbd0111003c7f820a07
+- Rubygems: 
+    uri: http://rubygems.org

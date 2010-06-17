@@ -31,6 +31,7 @@ module ApplicationHelper
       # current user provided by Warden, returns a token in this case
       token = current_user
       json = token.get("/me")
+      logger.info json
       id = JSON.parse(json)["id"]
       Customer.find(id)
     end

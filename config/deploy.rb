@@ -10,6 +10,7 @@ require 'hoptoad_notifier/capistrano'
 
 before 'deploy:update_code', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
+after "deploy:symlink", "deploy:bundle_gems"
 
 after 'deploy:symlink' do
   run "ln -nfs #{deploy_to}/shared/uploaded/partner_logos #{deploy_to}/#{current_dir}/public/images/logo"
@@ -80,5 +81,9 @@ namespace :deploy do
     symlink_sphinx_indexes
     thinking_sphinx.configure
     thinking_sphinx.start
+  end
+  
+  task :bundle_gems do
+    run "cd #{current_path} && bundle install --relock"
   end
 end
