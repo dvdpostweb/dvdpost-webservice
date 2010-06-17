@@ -8,10 +8,11 @@ end
 
 require 'hoptoad_notifier/capistrano'
 
-after "deploy:symlink", "deploy:bundle_gems"
 
 before 'deploy:update_code', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
+
+after 'deploy:symlink', 'deploy:bundle_gems'
 
 after 'deploy:symlink' do
   run "ln -nfs #{deploy_to}/shared/uploaded/partner_logos #{deploy_to}/#{current_dir}/public/images/logo"
@@ -85,6 +86,6 @@ namespace :deploy do
   end
   
   task :bundle_gems do
-    run "cd #{current_path} && bundle install --relock"
+    run "cd #{current_path} && export PATH=/opt/ruby/bin:$PATH && bundle install --relock"
   end
 end
