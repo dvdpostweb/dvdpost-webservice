@@ -8,9 +8,11 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
-    localized.oauth_authenticate 'oauth/authenticate', :controller => :oauth, :action => :authenticate, :conditions => {:method => :get}
-    localized.oauth_callback     'oauth/callback',     :controller => :oauth, :action => :callback,     :conditions => {:method => :get}
-    localized.logout             'logout',             :controller => :oauth, :action => :logout,       :conditions => {:method => :get}
+    localized.with_options :controller => :oauth do |oauth|
+      oauth.oauth_authenticate 'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
+      oauth.oauth_callback     'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
+      oauth.logout             'logout',             :action => :logout,       :conditions => {:method => :get}
+    end
 
     localized.with_options :controller => :home do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}
