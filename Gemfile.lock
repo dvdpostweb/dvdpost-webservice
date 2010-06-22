@@ -26,6 +26,10 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
+  rmagick: 
+    group: 
+    - :default
+    version: ">= 0"
   hoptoad_notifier: 
     group: 
     - :default
@@ -105,12 +109,14 @@ specs:
 - rails_warden: 
     version: 0.5.2
     source: 0
+- rmagick: 
+    version: 2.13.1
 - warden_oauth: 
     version: 0.2.0
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: 5262c5afd67f7d91eeb2f56b0d8b1d1be7589cfb
+hash: cfa759cdfe3444ecbb1421c078e31086e1fe30fa
 sources: 
 - Path: 
     path: !ruby/object:Pathname 

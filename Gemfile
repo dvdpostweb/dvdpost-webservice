@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '2.3.5' # This should become 2.3.8
 gem 'mysql', :group => :bundle
 
+gem 'rmagick'
+
 gem 'capistrano-ext', :require => 'capistrano'
 gem 'hoptoad_notifier', '~> 2.2.2'
 
