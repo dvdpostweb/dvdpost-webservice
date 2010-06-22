@@ -13,16 +13,32 @@ end
 # Setup Session Serialization
 class Warden::SessionSerializer
   def serialize(record)
-    [record.token]
+    [record.class, record.id]
   end
-
+  
   def deserialize(keys)
-    params = OAUTH.clone
-    client = ::OAuth2::Client.new(params.delete(:client_secret), params.delete(:client_id), params)
-    ::OAuth2::AccessToken.new(client, keys.first)
+    klass, id = keys
+    klass.find(:first, :conditions => {klass.primary_key => id})
   end
+  
+#  def serialize(record)
+#    [record.token]
+#  end
+#
+#  def deserialize(keys)
+#    params = OAUTH.clone
+#    client = ::OAuth2::Client.new(params.delete(:client_secret), params.delete(:client_id), params)
+#    ::OAuth2::AccessToken.new(client, keys.first)
+#  end
 end
 
 Warden::OAuth2.user_finder(:dvdpost) do |user_id|
   Customer.find(user_id)
+end
+
+
+Warden::Manager.after_set_user do |user, auth, opts|
+  puts "after set user"
+  strategy =  Warden::Strategies[:dvdpost_oauth]
+  strategy.validate_token!(auth.raw_session[:oauth_token], auth.raw_session[:refresh_token])
 end

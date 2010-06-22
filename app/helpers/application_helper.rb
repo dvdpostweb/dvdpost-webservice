@@ -43,14 +43,7 @@ module ApplicationHelper
   end
 
   def current_customer
-    @current_user ||= if current_user
-      # current_user method is provided by Warden, it returns a token in this case
-      begin
-        get_user_from_token
-      rescue OAuth2::AccessDenied => e
-        
-      end
-    end
+    current_user
   end
 
   def oauth_client
@@ -97,14 +90,5 @@ module ApplicationHelper
   def parent_layout(layout)
     @content_for_layout = self.output_buffer
     self.output_buffer = render(:file => "layouts/#{layout}")
-  end
-
-  private
-  def get_user_from_token
-    token = current_user
-    json = token.get("/me")
-    id = JSON.parse(json)["id"]
-
-    Customer.find(id)
   end
 end

@@ -46,8 +46,17 @@ module Warden
             fail!("User with access token not found")
             throw_error_with_oauth_info
           end
-
-          success!(access_token)
+          
+          user = find_user(user_id)
+          if user.nil?
+            puts "User with access token #{session_oauth_token} not found with id #{user_id}"
+            logger.debug "User with access token #{session_oauth_token} not found with id #{user_id}"
+            clean_session
+            fail!("User with id not found")
+            throw_error_with_oauth_info
+          else
+            success!(user)
+          end
         end
       end
 
@@ -59,6 +68,16 @@ module Warden
       ###################
       ### OAuth Logic ###
       ###################
+      def self.validate_token!(access_token, refresh_token)
+        token = token_instance(access_token)
+        begin
+          token.get('/me')
+          true
+        rescue ::OAuth2::AccessDenied => e
+          fail!("Token not valid anymore")
+          throw_error_with_oauth_info
+        end
+      end
 
       def client
         @client ||= ::OAuth2::Client.new(config.client_id, config.client_secret, config.options)
@@ -66,6 +85,11 @@ module Warden
 
       def access_token
         @access_token ||= ::OAuth2::AccessToken.new(client, session_oauth_token)
+      end
+
+      def self.token_instance(oauth_token)
+        client = ::OAuth2::Client.new(config.client_id, config.client_secret, config.options)
+        ::OAuth2::AccessToken.new(client, oauth_token)
       end
 
       def session_oauth_token
@@ -126,6 +150,10 @@ module Warden
 
       def config
         self.class::CONFIG
+      end
+
+      def self.config
+        const_get("CONFIG")
       end
 
     end
