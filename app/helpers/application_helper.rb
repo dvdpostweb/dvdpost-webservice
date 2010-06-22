@@ -26,17 +26,6 @@ module ApplicationHelper
     image_tag File.join(I18n.locale.to_s, source), options
   end
 
-  def current_customer
-    @current_user ||= if current_user
-      # current user provided by Warden, returns a token in this case
-      token = current_user
-      json = token.get("/me")
-      logger.info json
-      id = JSON.parse(json)["id"]
-      Customer.find(id)
-    end
-  end
-
   def wishlist_size
     @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
   end
@@ -51,6 +40,10 @@ module ApplicationHelper
 
   def load_partners
     @partners = Partner.active.by_language(I18n.locale).ordered
+  end
+
+  def current_customer
+    current_user
   end
 
   def oauth_client
