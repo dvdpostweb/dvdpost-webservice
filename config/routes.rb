@@ -11,7 +11,6 @@ ActionController::Routing::Routes.draw do |map|
     localized.with_options :controller => :oauth do |oauth|
       oauth.oauth_authenticate 'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
       oauth.oauth_callback     'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
-      oauth.oauth_refresh      'oauth/refresh',      :action => :refresh,      :conditions => {:method => :get} # This is just for testing purposes and should probably not be used.
       oauth.logout             'logout',             :action => :logout,       :conditions => {:method => :get}
     end
 
