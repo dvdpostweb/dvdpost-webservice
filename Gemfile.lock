@@ -95,14 +95,13 @@ specs:
     version: 2.8.1
 - oauth2: 
     version: 0.0.10
-    source: 3
+    source: 2
 - orderedhash: 
     version: 0.0.6
 - rails: 
     version: 2.3.5
 - warden: 
-    version: 0.10.3
-    source: 2
+    version: 0.10.7
 - rails_warden: 
     version: 0.5.2
     source: 0
@@ -111,7 +110,7 @@ specs:
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: 275e5c86a5cf4c6fd6a8a4f7bdaf06384b05a870
+hash: a647c62be4a5167d9b31b16ac07db4bc7d54e0ea
 sources: 
 - Path: 
     path: !ruby/object:Pathname 
@@ -119,9 +118,6 @@ sources:
 - Path: 
     path: !ruby/object:Pathname 
       path: vendor/gems/warden_oauth-0.2.0
-- Path: 
-    path: !ruby/object:Pathname 
-      path: vendor/gems/warden-0.10.3
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
