@@ -110,14 +110,14 @@ specs:
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: a647c62be4a5167d9b31b16ac07db4bc7d54e0ea
+hash: 5262c5afd67f7d91eeb2f56b0d8b1d1be7589cfb
 sources: 
 - Path: 
     path: !ruby/object:Pathname 
-      path: vendor/gems/rails_warden-0.5.2
+      path: vendor/submodules/rails_warden
 - Path: 
     path: !ruby/object:Pathname 
-      path: vendor/gems/warden_oauth-0.2.0
+      path: vendor/submodules/warden_oauth
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
