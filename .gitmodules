@@ -1,6 +1,6 @@
 [submodule "vendor/submodules/warden_oauth"]
 	path = vendor/submodules/warden_oauth
-	url = git://github.com/mrs/warden_oauth.git
+	url = git://github.com:mrs/warden_oauth.git
 [submodule "vendor/submodules/rails_warden"]
 	path = vendor/submodules/rails_warden
-	url = git://github.com/mrs/rails_warden.git
+	url = git://github.com:mrs/rails_warden.git
