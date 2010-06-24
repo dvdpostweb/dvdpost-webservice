@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     
     @countries = ProductCountry.visible
-    @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country] != 0
+    @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != 0
   end
 
   def show
