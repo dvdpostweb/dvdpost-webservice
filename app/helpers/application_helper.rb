@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def redirect_after_registration
-    if current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+    if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
       redirect_to site_url
     end
   end

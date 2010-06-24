@@ -9,10 +9,9 @@ ActionController::Routing::Routes.draw do |map|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
     localized.with_options :controller => :oauth do |oauth|
-      oauth.oauth_authenticate    'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
-      oauth.oauth_callback        'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
-      oauth.logout                'logout',             :action => :logout,       :conditions => {:method => :get}
-      oauth.redirect_after_login  'redirect_after_login',       :action => :redirect_after_login,       :conditions => {:method => :get}
+      oauth.oauth_authenticate 'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
+      oauth.oauth_callback     'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
+      oauth.logout             'logout',             :action => :logout,       :conditions => {:method => :get}
     end
 
     localized.with_options :controller => :home do |home|
