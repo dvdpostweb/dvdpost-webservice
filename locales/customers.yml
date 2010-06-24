@@ -17,6 +17,7 @@ fr:
         active_status: 'Activé'
         deactive_status: 'Désactivé'
       account:
+        parrain: Parrainer un ami
         title: 'Mon compte'
         client_id: 'N° client :'
         last_name: 'Nom :'
@@ -24,7 +25,7 @@ fr:
         identification: 'Identifiant DVDpost :'
         address: 'Adresse de livraison :'
         sponsorship_points: 'Mes points parrainage :'
-        sponsorship_points: 'Mes DVD achetés :'
+        number_dvd_buy: 'Mes DVD achetés :'
         cotations: 'Mes cotations :'
         critiques: 'Mes critiques :'
         newsletters: 'Newsletters infos DVDPost :'
