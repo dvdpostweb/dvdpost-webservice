@@ -24,8 +24,8 @@ class Customer < ActiveRecord::Base
   alias_attribute :birthday,                     :customers_dob
   alias_attribute :gender,                       :customers_gender
   
-  validates_length_of :first_name, :minimum => 2, :too_short => "trop court"
-  validates_length_of :last_name, :minimum => 2, :message =>"too short"
+  validates_length_of :first_name, :minimum => 2
+  validates_length_of :last_name, :minimum => 2
   
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
   
@@ -145,5 +145,4 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
-  
 end

@@ -1,0 +1,15 @@
+fr:
+
+  activerecord:
+    errors:
+      models:
+        customer:
+          attributes:
+            first_name:
+              too_short: 'test'
+      template: 
+        header: ""
+        body: "Votre compte n'a pas été modifié"
+    customer:
+      first_name:
+        too_short: Votre prénom est trop court

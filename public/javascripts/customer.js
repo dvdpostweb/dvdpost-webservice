@@ -95,6 +95,30 @@ $(function() {
     });
     return false;
   });
-  
-
+  var options = {
+    	success: showResponse  // post-submit callback
+	};
+    	 address_street
+  $('#submit_account').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('.content form').ajaxSubmit(options);
+    return false; // prevent default behaviour
+  });
+  $('#submit_address').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('.content form').ajaxSubmit(options);
+    return false; // prevent default behaviour
+  });
+    	 
+  // post-submit callback
+  function showResponse(responseText, statusText)  {
+  	if(jQuery.trim(responseText) == "Success"){
+  	  $.facebox.close;
+  	  window.location.href = window.location.pathname;
+    } else {
+    	$('.content').html(responseText);
+    }
+  }
 });

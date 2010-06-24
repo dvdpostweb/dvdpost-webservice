@@ -12,10 +12,22 @@ class AddressesController < ApplicationController
     @customer = current_customer
 
     if @address.update_attributes(params[:address])
-      flash[:notice] = t(:address_modify)
-      redirect_to customer_path(:id => current_customer.to_param)
-    else
-      render :action => :edit
-    end
+       respond_to do |format|
+          format.html do 
+            flash[:notice] = t(:address_modify)
+            redirect_to customer_path(:id => current_customer.to_param)
+          end
+          format.js 
+        end
+      else
+        respond_to do |format|
+          format.html do 
+            render :action => :edit
+          end
+          format.js do 
+            render :action => :edit, :layout => false
+          end
+        end
+      end
   end
 end
