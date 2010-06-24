@@ -16,12 +16,24 @@ class CustomersController < ApplicationController
     
     params[:customer][:birthday]= "#{params['year']}-#{params['month']}-#{params['day']}"
     if @customer.update_attributes(params[:customer])
-      flash[:notice] = t(:customer_modify)
-      redirect_to customer_path
+      
+      
+      respond_to do |format|
+        format.html do 
+          flash[:notice] = t(:customer_modify)
+          redirect_to customer_path
+        end
+        format.js 
+      end
     else
-      error = @customer.errors.each_error{|attr,err| err.type.to_s }
-      flash[:notice] = error
-      render :action => :edit
+      respond_to do |format|
+        format.html do 
+          render :action => :edit
+        end
+        format.js do 
+          render :action => :edit, :layout => false
+        end
+      end
     end
   end
   

@@ -2,6 +2,11 @@
 <% form_for(:address, :url => customer_addresses_path, :html => { :method => :put }) do |f| %>
 <table class="champ_compte" align="center" cellpadding="0" cellspacing="8" width="450">
   <tr>
+    <td colspan="3">
+      <%= error_messages_for :address %>
+    </td>
+  </tr>
+  <tr>
     <td align="right">
       <span class="explain_text"><strong><%= t '.firstname' %> :</strong></span>							
     </td>
@@ -55,7 +60,7 @@
   <tr>
     <td colspan="3">  
       <p class="bouton_probleme" align="right">
-        <%= submit_tag 'Create', :class => "submit submit_#{I18n.locale}" %>
+        <%= submit_tag 'Create', :id => "submit_address", :class => "submit submit_#{I18n.locale}" %>
       </p>
     </td>
   </tr>               

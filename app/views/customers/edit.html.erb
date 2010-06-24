@@ -1,6 +1,12 @@
 <div id="addwishlist_title"><%= t '.title' %></div>
-<% form_for(:customer, :url => customer_path, :html => { :method => :put }) do |f| %>
+<% form_for(:customer, :url => customer_path,:id => :form_account, :html => { :method => :put }) do |f| %>
+
 <table class="champ_compte" align="center" cellpadding="0" cellspacing="8" width="450">
+  <tr>
+    <td colspan="3">
+      <%= error_messages_for :customer %>
+    </td>
+  </tr>
   <tr>
     <td width="171"></td>
     <td width="228" align="right" class="explain_text_gender">
@@ -88,7 +94,7 @@
   <tr>
     <td colspan="3">  
       <p class="bouton_probleme" align="right">
-        <%= submit_tag 'Create', :class => "submit submit_#{I18n.locale}" %>
+        <%= submit_tag 'Create',:id => "submit_account", :class => "submit submit_#{I18n.locale}" %>
       </p>
     </td>
   </tr>               
