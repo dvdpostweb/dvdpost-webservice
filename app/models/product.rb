@@ -46,7 +46,7 @@ class Product < ActiveRecord::Base
   named_scope :by_country,          lambda {|country| {:include => :country, :conditions => {:products_countries => {:countries_id => country.to_param}}}}
   named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
   named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
-  named_scope :with_subtitles,      lambda {|language_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:language_id => language_ids}}}}
+  named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
 
   named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :available,           :conditions => ['products_status != ?', '-1']

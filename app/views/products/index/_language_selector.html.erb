@@ -1,6 +1,0 @@
-<% Language.by_language(I18n.locale).each do |lang| %>
-  <label>
-    <%= filter_checkbox_tag attribute, lang.to_param %>
-    <%= lang.languages_description %>
-  </label>
-<% end %>
