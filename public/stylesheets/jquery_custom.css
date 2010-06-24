@@ -47,3 +47,7 @@ ul#year_labels li {
   width: 20px;
   padding: 0;
 }
+ul#ratings_labels li {
+  width: 30px;
+  padding: 0;
+}

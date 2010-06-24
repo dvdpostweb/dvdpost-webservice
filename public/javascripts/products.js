@@ -214,6 +214,18 @@ $(function() {
     }
   });
 
+  $("#ratings-slider-range").slider({
+    range: true,
+    min: 0,
+    max: 5,
+    values: [0,1,2,3,4,5],
+    step: 1,
+    slide: function(event, ui) {
+      $("#ratings_min").val(0);
+      $("#ratings_max").val(5);
+    }
+  });
+
   $('#carousel #next').live('click',function(){
     url = this.href;
     html_item = $('#carousel-wrap');

@@ -21,6 +21,10 @@ fr:
         public: Public
         countries: Pays
         year: Année
+        ratings: Ratings
+        dvdpost_choice: Coup de coeur
+        audio: Audio
+        subtitles: Subtitles
         apply: Apply
       movie_detail:
         trailer: Bande-annonce

@@ -51,6 +51,36 @@
           <div id="year-slider-range"></div>
         </div>
       </li>
+      <li class="ratings open">
+        <%= link_to t('.ratings') %>
+        <div id="ratings-slider">
+          <%= hidden_field_tag :ratings_min, (params[:ratings_min] || 0) %>
+          <%= hidden_field_tag :ratings_max, (params[:ratings_max] || 5) %>
+          <ul id="ratings_labels">
+            <% ['0', '1', '2', '3', '4', '5'].collect do |rating| %>
+              <li><%= rating %></li>
+            <% end %>
+          </ul>
+        <div id="ratings-slider-range"></div>
+      </li>
+      <li class="dvdpost_choice open">
+        <%= link_to t('.dvdpost_choice') %>
+        <div>
+          dvdpost_choice
+        </div>
+      </li>
+      <li class="audio open">
+        <%= link_to t('.audio') %>
+        <div>
+          Audio
+        </div>
+      </li>
+      <li class="subtitles open">
+        <%= link_to t('.subtitles') %>
+        <div>
+          Subtitles
+        </div>
+      </li>
       <li class='li_submit'>
         <%= submit_tag t('.apply'), :name => nil, :class => "submit submit_#{I18n.locale}" %>
       </li>
