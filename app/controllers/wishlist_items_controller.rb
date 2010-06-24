@@ -41,7 +41,7 @@ class WishlistItemsController < ApplicationController
         flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
         redirect_to @wishlist.product
       else
-        flash[:notice] = t('wishlist_items.index.product_error_unexpected')"An unexpected problem happened when trying to add this product to your wishlist."
+        flash[:notice] = t('wishlist_items.index.product_error_unexpected')
         redirect_to wishlist_path
       end
     end

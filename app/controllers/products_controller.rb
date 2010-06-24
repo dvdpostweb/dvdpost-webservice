@@ -13,6 +13,13 @@ class ProductsController < ApplicationController
     
     @countries = ProductCountry.visible
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != 0
+    if params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == 0)) || params[:languages] || params[:subtitles]
+      @filter = true
+    else
+      @filter = false
+    end
+    
+    
   end
 
   def show
