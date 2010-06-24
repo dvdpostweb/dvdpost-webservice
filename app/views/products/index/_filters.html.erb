@@ -67,7 +67,10 @@
       <li class="dvdpost_choice open">
         <%= link_to t('.dvdpost_choice') %>
         <div>
-          <%= filter_checkbox_tag :dvdpost_choice, true %>
+          <label>
+            <%= filter_checkbox_tag :dvdpost_choice, true %>
+            <%= t '.dvdpost_choice' %>
+          </label>
         </div>
       </li>
       <li class="audio open">

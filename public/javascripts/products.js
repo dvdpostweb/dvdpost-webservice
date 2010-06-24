@@ -54,6 +54,7 @@ $(function() {
     });
     return false;
   });
+
   $(".stars .star").live("mouseover", function(){
     data = $(this).attr('id').replace('star_','').split('_');
     product_id = data[0];
@@ -73,6 +74,7 @@ $(function() {
       $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.jpg');
     }
   });
+  
   $(".stars .star").live("mouseout", function() {
     product_id = $(this).attr('id').replace('star_','').split('_')[0];
     for(var i=1; i<=5; i++)
@@ -154,6 +156,10 @@ $(function() {
       $("#filters li.year").toggleClass('open');
       $("#filters li.year").find("div").toggle(1);
     }
+    if($.query.get('ratings_max') == '' || ($.query.get('ratings_min') == 0 && $.query.get('ratings_max') == 5)){
+      $("#filters li.ratings").toggleClass('open');
+      $("#filters li.ratings").find("div").toggle(1);
+    }
     if($.query.get('country') == '' || $.query.get('country') == 0){
       $("#filters li.country").toggleClass('open');
       $("#filters li.country").find("div").toggle(1);
@@ -218,11 +224,11 @@ $(function() {
     range: true,
     min: 0,
     max: 5,
-    values: [0,1,2,3,4,5],
+    values: [$("#ratings_min").val(),$("#ratings_max").val()],
     step: 1,
     slide: function(event, ui) {
-      $("#ratings_min").val(0);
-      $("#ratings_max").val(5);
+      $("#ratings_min").val(ui.values[0]);
+      $("#ratings_max").val(ui.values[1]);
     }
   });
 
