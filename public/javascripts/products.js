@@ -28,7 +28,7 @@ $(function() {
     return false;
   });
 
-  $(".stars .star").live("click", function() {
+  $(".stars .star, #cotez .star").live("click", function() {
     url = $(this).parent().attr('href');
     html_item = $(this).parent().parent();
     content = html_item.html();
@@ -54,7 +54,7 @@ $(function() {
     });
     return false;
   });
-  $(".stars .star").live("mouseover", function(){
+  $(".stars .star, #cotez .star").live("mouseover", function(){
     data = $(this).attr('id').replace('star_','').split('_');
     product_id = data[0];
     rating_value = data[1];
@@ -73,7 +73,7 @@ $(function() {
       $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.jpg');
     }
   });
-  $(".stars .star").live("mouseout", function() {
+  $(".stars .star, #cotez .star").live("mouseout", function() {
     product_id = $(this).attr('id').replace('star_','').split('_')[0];
     for(var i=1; i<=5; i++)
     {

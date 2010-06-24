@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :delegate_locale
   before_filter :messages_size
   before_filter :load_partners
+  before_filter :redirect_after_registration
 
   before_filter :set_locale_from_params
 
