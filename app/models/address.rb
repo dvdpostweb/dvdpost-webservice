@@ -8,11 +8,11 @@ class Address < ActiveRecord::Base
   alias_attribute :postal_code, :entry_postcode
   alias_attribute :city, :entry_city
 
-  validates_length_of :first_name, :minimum => 2, :message => I18n.translate('activerecord.customer.first_name.too_short')
-  validates_length_of :last_name, :minimum => 2, :message => I18n.translate('activerecord.customer.last_name.too_short')
-  validates_length_of :street, :minimum => 5, :too_short => I18n.translate('activerecord.customer.first_name.too_short')
-  validates_length_of :postal_code, :minimum => 4, :message => I18n.translate('activerecord.customer.last_name.too_short')
-  validates_length_of :city, :minimum => 4, :message => I18n.translate('activerecord.customer.last_name.too_short')
+  validates_length_of :first_name, :minimum => 2
+  validates_length_of :last_name, :minimum => 2
+  validates_length_of :street, :minimum => 5
+  validates_length_of :postal_code, :minimum => 4
+  validates_length_of :city, :minimum => 4
   
   def name
     "#{first_name} #{last_name}"

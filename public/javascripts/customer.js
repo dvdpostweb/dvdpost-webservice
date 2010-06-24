@@ -98,7 +98,6 @@ $(function() {
   var options = {
     	success: showResponse  // post-submit callback
 	};
-    	 address_street
   $('#submit_account').live("click", function(){
     loader = 'ajax-loader.gif';
     $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
