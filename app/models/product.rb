@@ -91,7 +91,7 @@ class Product < ActiveRecord::Base
     products = products.by_media(params[:media].keys)                       if params[:media]
     products = products.by_public(params[:public_min], params[:year_max])   if params[:public_min] && params[:public_max]
     products = products.by_period(params[:year_min], params[:year_max])     if params[:year_min] && params[:year_max]
-    products = products.by_country(params[:country])                        if params[:country] && !params[:country] == 0
+    products = products.by_country(params[:country])                        if params[:country] && params[:country] != 0
     products = products.with_languages(params[:languages].keys)             if params[:languages]
     products = products.with_subtitles(params[:subtitles].keys)             if params[:subtitles]
 
