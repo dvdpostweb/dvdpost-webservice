@@ -34,6 +34,8 @@ fr:
         action: Action
     show:
       review:
+        review_save: "Your review has been saved. It will appear once it's approved by an admin."
+        review_not_save: There was a problem when trying to save your review.
         members: membres sur
         found_useful: ont trouvés cette critique pertinente
         published_on: Publié le

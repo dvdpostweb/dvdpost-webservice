@@ -1,6 +1,10 @@
 fr:
   wishlist_items:
     index:
+      product_add: "{{title}} has been added to your wishlist with a {{priority}} priority."
+      product_serie_add: "{{title}} and all other parts of this series have been added to your wishlist with a {{priority}} priority."
+      product_not_add: "{{title}} could not added to your wishlist."
+      product_error_unexpected: "An unexpected problem happened when trying to add this product to your wishlist."
       transit_history_list:
         out: "DVD chez vous ou en transit :"
         history: "History :"

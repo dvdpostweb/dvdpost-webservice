@@ -15,9 +15,9 @@ class ReviewsController < ApplicationController
       review.customer = current_customer
       review.languages_id = DVDPost.product_languages[I18n.locale]
       review.save
-      flash[:notice] = 'Your review has been saved. It will appear once it\'s approved by an admin.'
+      flash[:notice] = t('products.show.review.review_save')
     rescue Exception => e  
-      flash[:notice] = 'There was a problem when trying to save your review.'
+      flash[:notice] = t('products.show.review.review_not_save')
     end
     redirect_to product_path(:id => @product)
   end

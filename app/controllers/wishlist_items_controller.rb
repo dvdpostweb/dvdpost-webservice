@@ -30,18 +30,18 @@ class WishlistItemsController < ApplicationController
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
         end
         @wishlist_item = current_customer.wishlist_items.by_product(product)
-        flash[:notice] = "#{product.title} and all other parts of this series have been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
+        flash[:notice] = t('wishlist_items.index.product_serie_add', :title => product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
       else
         @wishlist_item = create_wishlist_item(params[:wishlist_item])
-        flash[:notice] = "#{@wishlist_item.product.title} has been added to your wishlist with a #{DVDPost.wishlist_priorities.invert[@wishlist_item.priority]} priority."
+        flash[:notice] = t('wishlist_items.index.product_add', :title => @wishlist_item.product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
       end
       redirect_back_or @wishlist_item.product
     rescue Exception => e
       if @wishlist_item && @wishlist_item.product
-        flash[:notice] = "#{@wishlist_item.product.title} could not added to your wishlist."
+        flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
         redirect_to @wishlist.product
       else
-        flash[:notice] = "An unexpected problem happened when trying to add this product to your wishlist."
+        flash[:notice] = t('wishlist_items.index.product_error_unexpected')"An unexpected problem happened when trying to add this product to your wishlist."
         redirect_to wishlist_path
       end
     end
@@ -61,7 +61,7 @@ class WishlistItemsController < ApplicationController
   def destroy
     @wishlist_item = WishlistItem.destroy(params[:id])
     DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
-    flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
+    #flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
     respond_to do |format|
       format.html {redirect_to wishlist_path}
       format.js   {render :status => :ok, :layout => false}
