@@ -73,13 +73,23 @@
       <li class="audio open">
         <%= link_to t('.audio') %>
         <div>
-          <%= render :partial => 'products/index/language_selector', :locals => {:attribute => :languages} %>
+          <% Language.by_language(I18n.locale).each do |lang| %>
+            <label>
+              <%= filter_checkbox_tag :languages, lang.to_param %>
+              <%= lang.languages_description %>
+            </label>
+          <% end %>
         </div>
       </li>
       <li class="subtitles open">
         <%= link_to t('.subtitles') %>
         <div>
-          <%= render :partial => 'products/index/language_selector', :locals => {:attribute => :subtitles} %>
+          <% Subtitle.by_language(I18n.locale).each do |sub| %>
+            <label>
+              <%= filter_checkbox_tag :subtitles, sub.to_param %>
+              <%= sub.undertitles_description %>
+            </label>
+          <% end %>
         </div>
       </li>
       <li class='li_submit'>
