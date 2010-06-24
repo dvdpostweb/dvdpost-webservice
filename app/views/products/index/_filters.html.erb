@@ -61,24 +61,25 @@
               <li><%= rating %></li>
             <% end %>
           </ul>
+        </div>
         <div id="ratings-slider-range"></div>
       </li>
       <li class="dvdpost_choice open">
         <%= link_to t('.dvdpost_choice') %>
         <div>
-          dvdpost_choice
+          <%= filter_checkbox_tag :dvdpost_choice, true %>
         </div>
       </li>
       <li class="audio open">
         <%= link_to t('.audio') %>
         <div>
-          Audio
+          <%= render :partial => 'products/index/language_selector', :locals => {:attribute => :languages} %>
         </div>
       </li>
       <li class="subtitles open">
         <%= link_to t('.subtitles') %>
         <div>
-          Subtitles
+          <%= render :partial => 'products/index/language_selector', :locals => {:attribute => :subtitles} %>
         </div>
       </li>
       <li class='li_submit'>

@@ -45,6 +45,9 @@ class Product < ActiveRecord::Base
   named_scope :by_period,           lambda {|min, max| {:conditions => {:products_year => min..max}}}
   named_scope :by_country,          lambda {|country| {:include => :country, :conditions => {:products_countries => {:countries_id => country.to_param}}}}
   named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
+  named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
+  named_scope :with_subtitles,      lambda {|language_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:language_id => language_ids}}}}
+
   named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :available,           :conditions => ['products_status != ?', '-1']
   named_scope :by_public,           lambda {|min, max|
@@ -76,6 +79,24 @@ class Product < ActiveRecord::Base
   #sphinx_scope(:sphinx_available) {'products_status != -1'}
 
   sphinx_scope(:sphinx_by_kind) {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+
+  def self.filter(params)
+    products = self.available.ordered.by_kind(:normal)
+    products = products.filtered_by_ids(retrieve_recommendations_for_index) if params[:recommended]
+    products = products.by_category(params[:category_id])                   if params[:category_id] && !params[:category_id].empty?
+    products = products.by_actor(params[:actor_id])                         if params[:actor_id] && !params[:actor_id].empty?
+    products = products.by_director(params[:director_id])                   if params[:director_id] && !params[:director_id].empty?
+    products = products.by_top(params[:top_id])                             if params[:top_id] && !params[:top_id].empty?
+    products = products.by_theme(params[:theme_id])                         if params[:theme_id] && !params[:theme_id].empty?
+    products = products.by_media(params[:media].keys)                       if params[:media]
+    products = products.by_public(params[:public_min], params[:year_max])   if params[:public_min] && params[:public_max]
+    products = products.by_period(params[:year_min], params[:year_max])     if params[:year_min] && params[:year_max]
+    products = products.by_country(params[:country])                        if params[:country] && !params[:country] == 0
+    products = products.with_languages(params[:languages].keys)             if params[:languages]
+    products = products.with_subtitles(params[:subtitles].keys)             if params[:subtitles]
+
+    products
+  end
 
   def description
     descriptions.by_language(I18n.locale).first
