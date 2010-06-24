@@ -126,6 +126,8 @@ fr:
         date: Date
         answer: Réponse
         details: Details
+        phone_request_send_successfully: Phone request sent successfully
+        phone_request_not_send_successfully: Phone request not sent successfully
       question:
         intro: Cochez sur le lien qui correspond le plus à votre question. Vous y trouverez probablement déjà une réponse, et si ce n'est pas le cas, vous aurez la possibilité de nous l'adresser dans chacune des rubriques.
         thanks: Merci de nous faire part du problème rencontré

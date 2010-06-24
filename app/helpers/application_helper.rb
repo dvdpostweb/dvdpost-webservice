@@ -22,6 +22,12 @@ module ApplicationHelper
     end
   end
 
+  def redirect_after_registration
+    if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
+      redirect_to site_url
+    end
+  end
+
   def localized_image_tag(source, options={})
     image_tag File.join(I18n.locale.to_s, source), options
   end
@@ -61,6 +67,10 @@ module ApplicationHelper
 
   def sso_sign_out_path
     "#{OAUTH[:site]}/logout"
+  end
+  
+  def site_url
+    "http://www.dvdpost.be/index.php"
   end
 
   def blog_url
