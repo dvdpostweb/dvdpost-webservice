@@ -2,7 +2,7 @@
 <% title = title() %>
 <div id="maincontent" >
   <div id="title"><%= title if title %></div>
-  <% if @filter == true %>
+  <% if @filter %>
   <ul id="filtered" class="clearfix">
     <li>
       <strong><%= t '.technology' %></strong>
