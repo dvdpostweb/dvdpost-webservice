@@ -30,21 +30,26 @@ class WishlistItemsController < ApplicationController
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
         end
         @wishlist_item = current_customer.wishlist_items.by_product(product)
-        flash[:notice] = t('wishlist_items.index.product_serie_add', :title => product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
+        flash[:notice] = t('wishlist_items.index.product_serie_add', :title => product.title, :priority => DVDPost.wishlist_priorities.invert[params[:wishlist_item][:priority].to_i])
       else
         @wishlist_item = create_wishlist_item(params[:wishlist_item])
         flash[:notice] = t('wishlist_items.index.product_add', :title => @wishlist_item.product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
       end
       redirect_back_or @wishlist_item.product
-    rescue Exception => e
-      if @wishlist_item && @wishlist_item.product
-        flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
-        redirect_to @wishlist.product
-      else
-        flash[:notice] = t('wishlist_items.index.product_error_unexpected')
-        redirect_to wishlist_path
-      end
-    end
+   rescue Exception => e
+     if @wishlist_item && @wishlist_item.product
+       if params[:add_all_from_series]
+         flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
+         redirect_to product
+       else
+         flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
+         redirect_to @wishlist.product
+       end
+     else
+       flash[:notice] = t('wishlist_items.index.product_error_unexpected')
+       redirect_to wishlist_path
+     end
+   end
   end
 
   def update

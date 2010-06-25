@@ -23,7 +23,7 @@ class WishlistItem < ActiveRecord::Base
   named_scope :future, :conditions => {:products => {:products_next => 1}}
   named_scope :games, :joins => :product, :conditions => {:products => {:products_product_type => 'Game'}}
   named_scope :include_products, :include => :product
-  named_scope :by_product, lambda {|product| {:conditions => {:products_id => product.to_param}}}
+  named_scope :by_product, lambda {|product| {:conditions => {:product_id => product.to_param}}}
 
   private
   def set_created_at
