@@ -50,7 +50,7 @@ namespace :deploy do
       username: webuser
       password: 3gallfir-
       database: dvdpost_be_prod
-      host: localhost
+      host: 192.168.100.204
     EOF
     
     put db_config, "#{release_path}/config/database.yml"
