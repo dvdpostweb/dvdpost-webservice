@@ -47,18 +47,10 @@ namespace :deploy do
     pre_production:    
       adapter: mysql
       encoding: utf8
-      username: dvdpost
-      password: p0ststrm
-      database: dvdpost_pre_production
-      host: localhost
-    dvdpost_main:
-      adapter: mysql
-      encoding: utf8
-      database: dvdpost_be_prod
       username: webuser
       password: 3gallfir-
-      host: matadi
-      port: 3306
+      database: dvdpost_be_prod
+      host: localhost
     EOF
     
     put db_config, "#{release_path}/config/database.yml"
