@@ -48,6 +48,7 @@ class Product < ActiveRecord::Base
   named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
   named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
   named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
+  named_scope :dvdpost_choice,      :conditions => {:products_dvdpostchoice => 1}
 
   named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :available,           :conditions => ['products_status != ?', '-1']
@@ -93,7 +94,7 @@ class Product < ActiveRecord::Base
     products = products.by_country(params[:country])                           if params[:country] && !(params[:country].to_i == 0)
     products = products.with_languages(params[:languages].keys)                if params[:languages]
     products = products.with_subtitles(params[:subtitles].keys)                if params[:subtitles]
-
+    products = products.dvdpost_choice                                         if params[:dvdpost_choice]
     products
   end
 
