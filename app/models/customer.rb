@@ -30,6 +30,8 @@ class Customer < ActiveRecord::Base
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
   
   
+  
+  
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
