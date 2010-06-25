@@ -1,3 +1,4 @@
 <%= javascript 'products','reviews' %>
+<% content_for :body_id do %>product_body<% end %>
 <%= yield %>
 <% parent_layout 'application' %>
