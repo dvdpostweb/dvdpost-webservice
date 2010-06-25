@@ -6,7 +6,7 @@ require 'rss/2.0'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   include ApplicationHelper
-  
+
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
 
@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
   before_filter :messages_size
   before_filter :load_partners
   before_filter :redirect_after_registration
-
   before_filter :set_locale_from_params
 
   # Scrub sensitive parameters from your log
