@@ -68,7 +68,7 @@
         <%= link_to t('.dvdpost_choice') %>
         <div>
           <label>
-            <%= filter_checkbox_tag :dvdpost_choice, true %>
+            <%= check_box_tag :dvdpost_choice, params[:dvdpost_choice] %>
             <%= t '.dvdpost_choice' %>
           </label>
         </div>
