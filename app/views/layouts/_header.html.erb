@@ -41,6 +41,8 @@
   </ul>
   <ul id="nav">
   <% id = yield :body_id %>
+  <% logger.debug(yield :body_id)%>
+  <% logger.debug('@@@')%>
     <li><%= link_to t('.home'), root_path, {:id => 'n1', :class => (( id == 'one-col') ? 'active': '')} %></li>
     <li><%= link_to t('.explore'), products_path, {:id => 'n2', :class => (( id == 'product_body') ? 'active': '')} %></li>
     <li><%= link_to t('.wishlist'), wishlist_path, {:id => 'n3', :class => (( id == 'mywhishlist') ? 'active': '')} %></li>
