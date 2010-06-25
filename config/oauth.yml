@@ -22,3 +22,9 @@ production:
   site: 'https://sso.dvdpost.be'
   authorize_path: 'authorization/new'
   access_token_path: 'authorization/token'
+pre_production:
+  client_id: dvdpost_client
+  client_secret: 'dvdpost_client_secret'
+  site: 'https://staging.sso.dvdpost.be'
+  authorize_path: 'authorization/new'
+  access_token_path: 'authorization/token'
