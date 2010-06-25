@@ -29,8 +29,9 @@ class ReportsController < ApplicationController
                                          :messagesent => 1)
 
         @order.product_dvd.update_status!(product_status)
-
-        if status.keys.include?('at_home')
+        
+        
+        if status.keys.include?(:at_home)
           if status[:at_home]
             current_customer.add_dvd_at_home!
           else
@@ -38,7 +39,7 @@ class ReportsController < ApplicationController
           end
         end
 
-        if status.keys.include?('order_status')
+        if status.keys.include?(:order_status)
           order_status = OrderStatus.by_language(I18n.locale).find(status[:order_status])
           @order.update_status!(order_status)
         end

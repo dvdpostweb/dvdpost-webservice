@@ -11,7 +11,7 @@ class Order < ActiveRecord::Base
   has_many :status_histories, :class_name => 'OrderStatusHistory', :foreign_key => :orders_id
   has_many :messages, :foreign_key => :orders_id
 
-  named_scope :in_transit, :conditions => {:orders_status => [1,2]}
+  named_scope :in_transit, :conditions => {:orders_status => [1,2,12,17,18]}
 
   def changed_at
     updated_at || created_at

@@ -141,8 +141,8 @@ module DVDPost
       statuses.push(:broken,         {:message => 22, :message_category => 2,  :product_status => 4, :compensation => true})
       statuses.push(:damaged,        {:message => 11, :message_category => 11, :product_status => 2, :compensation => false})
       statuses.push(:lost,           {:message => 12, :message_category => 14, :product_status => 5, :compensation => false})
-      statuses.push(:delayed,        {:message => 5,  :message_category => 3,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false})
-      statuses.push(:delayed_return, {:message => 7,  :message_category => 5,  :product_status => 5, :compensation => false, :order_status => 12, :at_home => false})
+      statuses.push(:delayed,        {:message => 5,  :message_category => 3,  :product_status => 5, :compensation => false, :order_status => 17, :at_home => false})
+      statuses.push(:delayed_return, {:message => 7,  :message_category => 5,  :product_status => 5, :compensation => false, :order_status => 18, :at_home => false})
       statuses.push(:envelope,       {})
       statuses.push(:arrived,        {:message => 20, :message_category => 19, :product_status => 1, :compensation => false, :order_status => 2,  :at_home => true})
       statuses
