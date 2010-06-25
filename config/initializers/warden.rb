@@ -28,5 +28,6 @@ end
 
 Warden::Manager.after_set_user do |user, auth, opts|
   strategy =  Warden::Strategies[:dvdpost_oauth]
+  puts auth.inspect
   strategy.validate_token!(auth.raw_session[:oauth_token], auth.raw_session[:refresh_token], auth.request.parameters)
 end
