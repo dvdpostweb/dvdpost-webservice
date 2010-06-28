@@ -1,6 +1,6 @@
 <div class="on-way-with-nav">
   <div class="box" id="on-way">
-    <ul>
+    <ul class="<%= list_indicator_class(@wishlist_size) %>">
       <li class="first">
         <% if transit_items %>
           <h2><%= t '.out' %> <span><%= "#{transit_items.count} DVD" %></span></h2>
