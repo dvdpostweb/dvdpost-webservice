@@ -14,7 +14,6 @@ class MessagesController < ApplicationController
   end
 
   def create
-    
     @message = Message.new(params[:message])
     @message.customers_id = current_customer.to_param
     @message.language_id = DVDPost.product_languages[I18n.locale]
@@ -34,7 +33,7 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = Message.destroy(params[:id])
-    #flash[:notice] = "Message #{@message.id} was removed from your messages."
+    
     respond_to do |format|
       format.html {redirect_to messages_path}
       format.js   {render :status => :ok, :layout => false}
