@@ -5,7 +5,7 @@
   <ul id="login" class="subnav">
     <li class="first">
       <% if current_customer %>
-        <%= "#{link_to t('.logout'), logout_path} (#{current_customer.email})" %>
+        <%= "#{link_to t('.logout'), sign_out_path} (#{current_customer.email})" %>
       <% else %>
         <%= link_to t('.login'), sign_in_path %>
       <% end %>

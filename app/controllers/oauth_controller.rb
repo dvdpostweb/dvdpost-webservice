@@ -19,8 +19,19 @@ class OauthController < ApplicationController
     redirect_to attempted_path ? attempted_path : root_path
   end
 
-  def logout
-    warden.logout
-    redirect_to sso_sign_out_path
+  def sign_out
+    options = {:site => OAUTH['site'], :authorize_path => OAUTH['authorization/new'], :access_token_path => OAUTH['authorization/token']}
+    client = OAuth2::Client.new(OAUTH['client_id'], OAUTH['client_secret'], options)
+    access_token = OAuth2::AccessToken.new(client, session[:oauth_token])
+    begin
+      json = access_token.post('/sign_out')
+      logger.info "*** SSO Response after sign_out: #{json}"
+    rescue Exception => e
+      # Catching sign_out silently because this means that either oauth_token and/or refresh_token are invalid
+      # This means that the client already is logged out
+      logger.error '*** sign_out on SSO failed but is cought silently ***'
+    end
+    logout
+    redirect_to redirect_url_after_sign_out
   end
 end
