@@ -50,6 +50,8 @@ class Customer < ActiveRecord::Base
   has_many :messages, :foreign_key => :customers_id
   has_many :compensations, :foreign_key => :customers_id
   has_many :addresses, :foreign_key => :customers_id
+  has_many :payment_offline_request, :foreign_key => :customers_id
+  
   has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
@@ -134,6 +136,14 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def credit_empty?
+    if self.credits == 0 and self.suspension_status == 0 and self.subscription_type.credits > 0 and self.subscription_expiration_date.to_date !=  Time.now.to_date
+      true
+    else
+      false
+    end
+  end 
+
   private
 
   def convert_created_at
@@ -147,4 +157,5 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
+
 end

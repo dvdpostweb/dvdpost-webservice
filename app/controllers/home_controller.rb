@@ -7,7 +7,14 @@ class HomeController < ApplicationController
         @new = Product.by_kind(:normal).available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
         not_rated_products = current_customer.not_rated_products
-        @not_rated_product = not_rated_products[rand(not_rated_products.count)]
+        @offline_request = current_customer.payment_offline_request.recovery
+        if @offline_request.count == 0 
+          if current_customer.credit_empty?
+            @renew_subscription = true
+          else
+              @not_rated_product = not_rated_products[rand(not_rated_products.count)]
+          end
+        end
         @contest = ContestName.by_language(I18n.locale).last
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]

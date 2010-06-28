@@ -13,7 +13,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :use_sudo, false
 set :scm_verbose, true
-set :rails_env, "pre_production" 
+set :rails_env, "pre_production"
 
 #############################################################
 #	Servers
@@ -44,14 +44,7 @@ namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
     db_config = <<-EOF
-    pre_production:    
-      adapter: mysql
-      encoding: utf8
-      username: dvdpost
-      password: p0ststrm
-      database: dvdpost_pre_production
-      host: localhost
-    dvdpost_main:
+    pre_production:
       adapter: mysql
       encoding: utf8
       database: dvdpost_be_prod
@@ -60,7 +53,6 @@ namespace :deploy do
       host: matadi
       port: 3306
     EOF
-    
     put db_config, "#{release_path}/config/database.yml"
   end
   

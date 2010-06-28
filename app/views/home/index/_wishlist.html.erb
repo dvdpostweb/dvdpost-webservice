@@ -26,7 +26,11 @@
   </tr>
   <% end %>
   </table>
-  <% if @not_rated_product %>
+  <% if @offline_request.count > 0 %>
+    <%= render :partial => 'home/index/offline_request', :locals => {:offline_request => @offline_request} %>
+  <% elsif @renew_subscription  %>
+    <%= render :partial => 'home/index/credit_empty', :locals => {:offline_request => @offline_request} %>
+  <% elsif @not_rated_product %>
     <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} %>
   <% end %>
 </div>
