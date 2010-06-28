@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
     localized.with_options :controller => :oauth do |oauth|
       oauth.oauth_authenticate 'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
       oauth.oauth_callback     'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
-      oauth.logout             'logout',             :action => :logout,       :conditions => {:method => :get}
+      oauth.sign_out           'sign_out',           :action => :sign_out,     :conditions => {:method => :get}
     end
 
     localized.with_options :controller => :home do |home|
