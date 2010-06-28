@@ -1,5 +1,6 @@
 <% path = carousel_path(carousel_item) %>
-<div class="panel">
+<% counter = carousel_item_counter + 1 %>
+<div class="panel" id ="panel<%= counter %>">
   <div class="capt">
     <h2><%= link_to t(".name_#{carousel_item.id}"), path %></h2>
     <ul>
