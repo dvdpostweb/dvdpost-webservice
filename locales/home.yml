@@ -41,7 +41,10 @@ fr:
         lent: "DVD chez vous ou en transit :"
       wishlist_rating:
         title: Cotez ce film
-
+      offline_request:
+        title: "Problème de paiement (<a href='{{link}}' id='offline_request_detail'>détails</a>)"
+      credit_empty:  
+        title: "Vos crédits location sont épuisés jusqu'au {{reconduction_date}} <br />(<a href='{{link}}' id='renew_subscription'>renouveler maintenant votre abonnement</a>)"
 nl:
   home:
     index:

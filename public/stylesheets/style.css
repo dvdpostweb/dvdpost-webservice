@@ -1789,12 +1789,23 @@ html ul.tabs li.active a:hover {
   color: white;
   min-height: 85px;
 }
-#welcome #cotez a
+#welcome #cotez a, #welcome #cotez a
 {
   color: white;
 }
-
-* html #welcome #cotez {
+#welcome #message {
+  padding: 22px 24px 15px 15px;
+  text-align: center;
+  position: relative;
+  background: #2d2d2c url(../images/cotez-bg.gif) 0 0 repeat-x;
+  color: white;
+  min-height: 85px;
+}
+#welcome .credit_empty h4
+{
+  font-size: 1em;
+}
+* html #welcome #cotez,* html #welcome #message {
   height: 85px;
 }
 
