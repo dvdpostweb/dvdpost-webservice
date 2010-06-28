@@ -11,10 +11,10 @@
   <!-- BIENVENUE  -->
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items, :transit_items_count => @transit_items_count} %>
 
-  <!-- Flash News  -->
-  <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
   <!-- Recommandations  -->
   <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
+  <!-- Flash News  -->
+  <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
 
   <!-- Top 10  -->
   <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
