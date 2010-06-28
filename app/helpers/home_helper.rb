@@ -45,7 +45,7 @@ module HomeHelper
       when 'MOVIE'
         product_path(:id => carousel.reference_id)
       when 'OTHER'
-        t(".url_#{carousel.id}")
+        info_path(:page_name => carousel.name)
       when 'TOP'
         top_products_path(:top_id => carousel.reference_id) 
       when 'THEME'
