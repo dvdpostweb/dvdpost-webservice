@@ -1,5 +1,6 @@
 <% item_number = carousel_item_title_counter + 1 %>
-<% class_name = (item_number == 5) ? 'active' : '' %>
+<% class_name = 'menu_carousel' %>
+<% class_name += (item_number == 5) ? ' active' : '' %>
 <li>
-  <%= link_to t(".title_#{carousel_item_title.id}"), carousel_path(carousel_item_title), :id => "carousel_#{item_number}", :class => class_name %>
+  <%= link_to t(".title_#{carousel_item_title.id}"), nil , :id => "carousel_#{item_number}", :class => class_name %>
 </li>

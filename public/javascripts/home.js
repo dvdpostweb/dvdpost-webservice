@@ -51,20 +51,34 @@ $(function() {
   });
   
   //carousel
-  
-  $('.panels').cycle({ 
+  var current;
+  setCurrent(5);
+  $container = $('.panels').cycle({ 
       fx: 'turnLeft', 
       timeout: 15000,
       before: change_carousel
   });
-
+  
+  function getCurrent()
+  {
+    return current;
+  }
+  function setCurrent(_current)
+  {
+    current = _current;
+  }
+  $('.menu_carousel').click(function() { 
+      id = $(this).attr('id');
+      id = parseInt(id.replace("carousel_",""),10);
+      setCurrent(id-1)
+      $container.cycle(id-1); 
+      return false; 
+  });
   function change_carousel()
   {
-    id = $('#tabs-rotator #tabs a.active').attr('id');
-    id = id.replace("carousel_","");
-    next_id = parseInt( id ) + 1;
-    if( next_id == 6) next_id = 1;
+    setCurrent(getCurrent() + 1);
+    if(getCurrent() == 6) setCurrent( 1);
     $('#tabs-rotator #tabs a.active').removeClass('active');
-    $('#carousel_'+next_id).addClass('active');
+    $('#carousel_'+getCurrent()).addClass('active');
   }
 });
