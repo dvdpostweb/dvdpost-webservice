@@ -64,6 +64,9 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :partners
 
+    localized.info '/info/:page_name' , :controller => :info
+
+
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
