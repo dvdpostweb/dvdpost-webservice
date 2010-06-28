@@ -3,6 +3,10 @@ class PhoneRequest < ActiveRecord::Base
   
   belongs_to :customer,         :foreign_key => :customers_id
 
+  validates_presence_of :name
+  validates_presence_of :phone
+  validates_presence_of :call_me_reason
+
   def self.time_slots
     slots = OrderedHash.new
     slots.push("9h00 - 9h30", 1)
