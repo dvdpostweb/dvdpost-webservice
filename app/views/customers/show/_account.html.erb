@@ -59,16 +59,6 @@
           <%= link_to t('.parrain'), 'http://www.dvdpost.be/member_get_member.php', :class => 'modif' %>
         </td>
       </tr>
-      <% if false %>
-      <tr>
-        <td align="right" class="adresse"><strong><%= t '.buy_dvds' %></strong></td>
-        <td align="left" class="adresse">
-          2 DVD
-          <span><%= image_tag 'delimiter.gif' %></span>
-          <%= link_to 'Voir mon achats', nil, :class => 'modif' %>
-        </td>
-      </tr>
-      <% end %>
       <tr>
         <td align="right" class="adresse"><strong><%= t '.cotations' %></strong></td>
         <td align="left" class="adresse"><%= customer.ratings.count %></td>
@@ -95,21 +85,4 @@
       </tr>
     </table>
   </div>
-  <% if false %>
-  <div id="code_cado">
-    <div id="title"><strong><%= t '.gift' %></strong><%= image_tag 'icon_info.png', :align => 'absmiddle' %></div>
-    <div id="cado">
-      <%= image_tag 'pack.png', :align => 'absmiddle' %>
-      <%= link_to t('.gift_offer'), nil, :class => 'modif' %>
-    </div>
-    <div id="code">
-      <form>
-        <input name="" class="code_text" value="<%= t '.active_gift'%>" size="15" type="text">
-    </div><!-- WTF? closing a div here inside the form? -->
-        <div>
-          <input class="code_bouton"src="/images/bouton_go.png" type="image">
-        </div>
-      </form>
-  </div>
-  <% end %>
 </div>
