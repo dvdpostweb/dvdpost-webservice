@@ -51,9 +51,9 @@ module HomeHelper
       when 'THEME'
         theme_products_path(:theme_id => carousel.reference_id)
       when 'DIRECTOR'
-        ''#TO DO
+        director_products_path(:director_id => carousel.reference_id)
       when 'ACTOR'
-        ''#TO DO
+        actor_products_path(:actor_id => carousel.reference_id)
       when 'CATEGORY'
         category_products_path(:category_id => carousel.reference_id)
     end
