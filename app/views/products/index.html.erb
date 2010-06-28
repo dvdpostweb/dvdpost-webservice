@@ -20,6 +20,22 @@
       <strong><%= t '.year' %></strong>
       <%= "de #{params[:year_min]} à #{params[:year_max]}" if params[:year_min] && params[:year_max] %>
     </li>
+    <li>
+      <strong><%= t '.ratings' %></strong>
+      <%= "de #{params[:ratings_min]} à #{params[:ratings_max]}" if params[:ratings_min] && params[:ratings_max] %>
+    </li>
+    <li>
+      <strong><%= t '.dvdpost_choice' %></strong>
+      <%= params[:dvdpost_choice] ? 'yes' : 'no' %>
+    </li>
+    <li>
+      <strong><%= t '.audio' %></strong>
+      <%= Language.find(params[:languages].keys).collect(&:name).join(', ') if params[:languages] %>
+    </li>
+    <li>
+      <strong><%= t '.subtitles' %></strong>
+      <%= Subtitle.by_language(I18n.locale).find(params[:subtitles].keys).collect(&:name).join(', ') if params[:subtitles] %>
+    </li>
     <li id="close-f">
       <%= link_to t('.close'), nil, :class => 'like-btn'%>
     </li>

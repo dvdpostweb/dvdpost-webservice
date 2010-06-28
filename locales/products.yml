@@ -5,6 +5,10 @@ fr:
       public: Public
       country: Pays
       year: Année
+      ratings: Ratings
+      dvdpost_choice: DVDPost Choice
+      audio: Audio
+      subtitles: Subtitles
       close: Fermer
       director: Réalisateur
       actor: Acteur

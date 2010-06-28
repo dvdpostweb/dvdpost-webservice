@@ -79,7 +79,7 @@
           <% Language.by_language(I18n.locale).each do |lang| %>
             <label>
               <%= filter_checkbox_tag :languages, lang.to_param %>
-              <%= lang.languages_description %>
+              <%= lang.name %>
             </label>
           <% end %>
         </div>
@@ -90,7 +90,7 @@
           <% Subtitle.by_language(I18n.locale).each do |sub| %>
             <label>
               <%= filter_checkbox_tag :subtitles, sub.to_param %>
-              <%= truncate sub.undertitles_description, :length => 25  %>
+              <%= truncate sub.name, :length => 25  %>
             </label>
           <% end %>
         </div>
