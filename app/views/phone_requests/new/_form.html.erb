@@ -1,13 +1,15 @@
+<% reason_init = phone_request.call_me_reason || :blank %>
 <% form_for phone_request do |f| %>
   <p>
     <%= t '.intro' %>
   </p>
+  <%= f.error_messages %>
   <%= f.label :name, t('.name') %>
   <%= f.text_field :name, :class => "fld" %>
   <%= f.label :phone, t('.phone') %>
   <%= f.text_field :phone, :class => "fld" %>
   <%= f.label :call_me_reason, t('.reason') %>
-  <%= f.collection_select(:call_me_reason, reasons_collection_for_select, :first, :last, {:include_blank => true}) %>
+  <%= f.collection_select(:call_me_reason, reasons_collection_for_select, :first, :last, {:include_blank => true, :selected => reason_init}) %>
 
   <div>
     <%= t '.call_date' %>

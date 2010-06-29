@@ -55,6 +55,10 @@
       </div>
     </div>
     <!-- End Detail -->
+    <!-- Carousel -->
+    <%= render :partial => 'products/show/recommendations', :object => @recommendations %>
+    <!-- End Carousel -->
+    
     <!-- Critique -->
     <ul class="tabs">
       <li class="active" id='tab1_li'>
@@ -85,9 +89,6 @@
       </div>
     </div>
     <!-- End Critique -->
-    <!-- Carousel -->
-    <%= render :partial => 'products/show/recommendations', :object => @recommendations %>
-    <!-- End Carousel -->
     <div class="end"></div>
   </div>
 </div>

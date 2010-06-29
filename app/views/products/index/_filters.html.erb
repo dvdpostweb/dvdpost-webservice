@@ -35,7 +35,7 @@
       <li class="country open">
         <%= link_to t('.countries') %>
         <div>
-          <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', 0]), :selected => params[:country]) %>
+          <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', -1]), :selected => params[:country]) %>
         </div>
       </li>
       <li class="year open">

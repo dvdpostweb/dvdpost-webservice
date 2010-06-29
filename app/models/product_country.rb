@@ -8,4 +8,6 @@ class ProductCountry < ActiveRecord::Base
   has_many :products, :foreign_key => :products_countries_id
 
   named_scope :visible, :conditions => {:inprod => 1}
+  named_scope :order, :order => 'countries_name asc'
+  
 end

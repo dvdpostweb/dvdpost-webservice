@@ -28,10 +28,6 @@ class Customer < ActiveRecord::Base
   validates_length_of :last_name, :minimum => 2
   
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
-  
-  
-  
-  
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
@@ -61,7 +57,7 @@ class Customer < ActiveRecord::Base
   end
 
   def not_rated_products
-    seen_products.all(:conditions => ['products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+    assigned_products.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
   end
 
   def has_rated?(product)

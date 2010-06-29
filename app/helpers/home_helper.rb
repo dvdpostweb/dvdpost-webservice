@@ -45,15 +45,15 @@ module HomeHelper
       when 'MOVIE'
         product_path(:id => carousel.reference_id)
       when 'OTHER'
-        t(".url_#{carousel.id}")
+        info_path(:page_name => carousel.name)
       when 'TOP'
         top_products_path(:top_id => carousel.reference_id) 
       when 'THEME'
         theme_products_path(:theme_id => carousel.reference_id)
       when 'DIRECTOR'
-        ''#TO DO
+        director_products_path(:director_id => carousel.reference_id)
       when 'ACTOR'
-        ''#TO DO
+        actor_products_path(:actor_id => carousel.reference_id)
       when 'CATEGORY'
         category_products_path(:category_id => carousel.reference_id)
     end

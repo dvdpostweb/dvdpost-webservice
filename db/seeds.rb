@@ -25,7 +25,7 @@ faq=[10,8,7,5,8,7,4,3,1].each_with_index do |q, i|
 end
 Landing.delete([55,56,57,58,59])
 keys= Hash.new
-keys[55] = Hash.new(:id => 0   , :kind => 'OTHER',       :name => 'new site')
+keys[55] = Hash.new(:id => 0   , :kind => 'OTHER',       :name => 'new_website')
 keys[56] = Hash.new(:id => 0   , :kind => 'OTHER',       :name => 'parrainage')
 keys[57] = Hash.new(:id => 15  , :kind => 'CATEGORY',    :name => 'nine')
 keys[58] = Hash.new(:id => 58  , :kind => 'ACTOR',      :name => 'ben stiller')
