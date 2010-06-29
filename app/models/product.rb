@@ -79,7 +79,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_kind) {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
 
   def self.filter(params)
-    products = self.available.ordered.by_kind(:normal)
+    products = available.ordered.by_kind(:normal)
     products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
     products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
@@ -93,7 +93,7 @@ class Product < ActiveRecord::Base
     products = products.with_languages(params[:languages].keys)                if params[:languages]
     products = products.with_subtitles(params[:subtitles].keys)                if params[:subtitles]
     products = products.dvdpost_choice                                         if params[:dvdpost_choice]
-    products
+    products.find(:all, :conditions => :products_title)
   end
 
   def recommendations
@@ -102,7 +102,11 @@ class Product < ActiveRecord::Base
   end
 
   def self.customer_recommendations(customer)
-    find(:all,:conditions => { :products_id => DVDPost.home_page_recommendations(customer)})
+    raw = find(:all,:conditions => { :products_id => DVDPost.home_page_recommendations(customer)})
+    customer.rated_products.each do |excluded|
+      raw.delete(excluded)
+    end
+    raw
   end
 
   def description

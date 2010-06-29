@@ -2,6 +2,7 @@ class RatingsController < ApplicationController
   def create
     @product = Product.available.find(params[:product_id])
     @product.ratings.create(:customer => current_customer, :value => params[:value])
+    current_customer.seen_products << @product
     respond_to do |format|
       format.html {redirect_to product_path(@product)}
       format.js   {
