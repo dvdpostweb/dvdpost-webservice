@@ -20,11 +20,8 @@ class OauthController < ApplicationController
   end
 
   def sign_out
-    options = {:site => OAUTH['site'], :authorize_path => OAUTH['authorization/new'], :access_token_path => OAUTH['authorization/token']}
-    client = OAuth2::Client.new(OAUTH['client_id'], OAUTH['client_secret'], options)
-    access_token = OAuth2::AccessToken.new(client, session[:oauth_token])
     begin
-      json = access_token.post('/sign_out')
+      json = oauth_token.post('/sign_out')
       logger.info "*** SSO Response after sign_out: #{json}"
     rescue Exception => e
       # Catching sign_out silently because this means that either oauth_token and/or refresh_token are invalid
