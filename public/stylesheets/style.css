@@ -226,34 +226,49 @@ fieldset {
   background-repeat: no-repeat;
   display: block;
   height: 43px;
+  line-height: 43px;
+  color: white;
+  font-size: 1.5em;
   outline: none;
-  text-indent: -999em;
+  /*text-indent: -999em;*/
   width: 139px;
   background: url(../images/nav-bg.png) 0 0 no-repeat;
+   text-shadow: 1px 1px 1px #000000;
+}
+#nav li a:hover {
+  text-decoration: none;
 }
 
-#nav li a#n1 { width: 140px;
+
+#nav li a#n1 {
+  width: 140px;
+  text-indent: 54px;
 }
 
 #nav li a#n2 {
   background-position: -141px 0;
+  text-indent: 52px;
 }
 
 #nav li a#n3 {
   background-position: -281px 0;
+  text-indent: 55px;
 }
 
 #nav li a#n4 {
   background-position: -421px 0;
   position: relative;
+  text-indent: 61px;
 }
 
 #nav li a#n5 {
   width: 138px;
   background-position: -561px 0;
+  text-indent: 55px;
 }
 #nav li a#n6 {
   background-position: 100% 0;
+  text-indent: 39px;
 }
 
 #nav li a#n1:hover {
@@ -279,35 +294,35 @@ fieldset {
 #nav li a#n6:hover {
 background-position: 100% -58px;
 }
+#nav li a.active {
+  color: #353535;
+  cursor: default;
+  text-shadow: none;
+}
+
 
 #nav li a#n1.active {
    background-position: 0 100%;
-   cursor: default;
 }
 
 #nav li a#n2.active {
-cursor: default;
   background-position: -141px 100%;
 }
 
 #nav li a#n3.active {
   background-position: -281px 100%;
-  cursor: default;
 }
 
 #nav li a#n4.active {
   background-position: -421px 100%;
-  cursor: default;
 }
 
 #nav li a#n5.active {
- cursor: default;
   background-position: -561px 100%;
 }
 
 #nav li a#n6.active {
 background-position: 100% 100%;
-cursor: default;
 }
 
 #nav li a#n4 span {
@@ -321,7 +336,8 @@ cursor: default;
   top: 15px;
   left: 32px;
   color: white;
-  font-size: 0.83em;
+  font-size: 0.56em;
+  text-shadow: none;
 }
 
 #nav li a#n4.active span {
@@ -337,6 +353,7 @@ cursor: default;
 
 #nav li a#n7 {
   width: 130px;
+  text-indent: -999em;
 }
 
 #nav li a#n7.low {
@@ -647,6 +664,7 @@ cursor: default;
   float: left;
   height: 132px;
   width: 171px;
+  text-align: center;
 }
 
 * html #titles-wrap .action {
@@ -678,6 +696,7 @@ cursor: default;
 
 #titles-wrap .action .links {
   text-align: center;
+  margin-bottom: 9px;
 }
 
 #titles-wrap .action a, #titles-wrap .action span, #detail-wrap .action li.links a, #detail-wrap .action li.links span {
@@ -699,17 +718,23 @@ cursor: default;
   padding-left: 16px;
 }
 
-#titles-wrap .action a.like-btn {
+#titles-wrap .action a.btn {
   background: url(../images/ajouter-btn.png) 0 0 no-repeat;
   display: block;
   float: left;
   height: 41px;
-  margin: 9px 0 0 2px;
-  width: 166px;
+  line-height: 35px;
+  margin: 0 0 0 3px;
+  width: 132px;
+  padding: 2px 0 0 40px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
 }
 
-#titles-wrap .action a.like-btn:hover {
-  background: url(../images/ajouter-btn.png) 0 100% no-repeat;
+#titles-wrap .action a.btn:hover {
+  background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
 }
 
 
@@ -1246,30 +1271,50 @@ display: block;
   background: url(../images/bluray-btn.png) 0 0 no-repeat;
   display: block;
   height: 27px;
+  line-height: 27px;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 1px #555555;
   margin-bottom: 10px;
 }
 
 #detail-wrap .action #bluray-btn:hover {
   background: url(../images/bluray-btn.png) 0 100% no-repeat;
+  text-decoration: none;
 }
 
 #detail-wrap .action #dvd-btn {
   background: url(../images/dvd-btn.jpg) 0 0 no-repeat;
   display: block;
   height: 27px;
+  line-height: 28px;
+  text-align: center;
+  color: white;
   margin-bottom: 10px;
 }
 
 #detail-wrap .action #dvd-btn:hover {
   background: url(../images/dvd-btn.jpg) 0 100% no-repeat;
+  text-decoration: none;
 }
 #detail-wrap .action .dispo-btn {
 display: block;
-height: 41px;
+height: 35px;
 margin-bottom: 10px;
-text-indent: -999em;
+/*text-indent: -999em;*/
+padding: 3px 0 0 23px;
+color: white;
 margin-left: -3px;
+line-height:29px;
+text-shadow: 1px 1px 1px #555555;
+background: url(../images/dispo-btn-bg.png) 0 100% no-repeat;
 }
+#detail-wrap .action .dispo-btn:hover {
+  text-decoration: none;
+  background-position: 0 100%;
+}
+
+
 #detail-wrap .action #dispo-btn_fr_fr {
   background: url(../images/dispo_fr_fr.png) 0 0 no-repeat;
 }
@@ -1363,16 +1408,21 @@ margin-left: -3px;
   width: 60px;
 }
 
-#details .cover a.like-btn {
+#details .cover a.btn {
   background: url(../images/ajouterbtn.png) 0 0 no-repeat;
   display: block;
   height: 38px;
-  width: 166px;
-
+  line-height: 34px;
+  width: 130px;
+  padding-left: 36px;
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 1px #555555;
 }
 
-#details .cover a.like-btn:hover {
+#details .cover a.btn:hover {
   background: url(../images/ajouterbtn.png) 0 100% no-repeat;
+  text-decoration: none;
 }
 #details .cover a.like-btn2 {
   background: url(../images/allserie-btn.gif) 0 0 no-repeat;
@@ -1615,14 +1665,22 @@ html ul.tabs li.active a:hover {
   width: 47px;
 }
 
-#carousel li a.like-btn {
+#carousel li a.btn {
   background: url(../images/ajouter-btn-mid.png) no-repeat;
   display: block;
   height: 27px;
+  line-height: 24px;
+  padding-left: 27px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
   margin: 0 0 4px 2px;
 }
-#carousel li a.like-btn:hover {
+#carousel li a.btn:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -28px no-repeat;
+  text-decoration: none;
 }
 
 #carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
@@ -1794,20 +1852,36 @@ html ul.tabs li.active a:hover {
   color: white;
 }
 #welcome #message {
+
   padding: 22px 24px 15px 15px;
+
   text-align: center;
+
   position: relative;
+
   background: #2d2d2c url(../images/cotez-bg.gif) 0 0 repeat-x;
+
   color: white;
+
   min-height: 85px;
+
 }
 #welcome .credit_empty h4
+
 {
+
   font-size: 1em;
+
 }
-* html #welcome #cotez,* html #welcome #message {
+
+* html #welcome #cotez, * html #welcome #message {
+
   height: 85px;
+
 }
+
+
+
 
 
 #welcome #cotez h4 {
@@ -1853,9 +1927,10 @@ html ul.tabs li.active a:hover {
 
 
 h3.hp-ttls {
-  text-indent: -999em;
-  background-position: 0 0;
-   background-repeat: no-repeat;
+  padding-left: 40px;
+  font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
+  color: #ff4b00;  background-position: 0 0;
+  background-repeat: no-repeat;
 }
 #fl-news {
   height: 26px;
@@ -1868,12 +1943,18 @@ h3.hp-ttls {
 #fl-news h3 {
   width: 128px;
   height: 26px;
+  padding-left: 40px;
+  font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
+  color: #ff4b00;
+  
   background: url(../images/flash-news-ttl.png) 0 0 no-repeat;
 }
 #recom h3 {
-  width: 184px;
-  height: 29px;
-  background: url(../images/recommandations.png) 0 0 no-repeat;
+  min-height: 29px;
+  font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
+  color: #ff4b00;
+  padding-left: 40px;
+  background: url(../images/recommandations-icon.png) 0 0 no-repeat;
 }
 
 
@@ -1883,6 +1964,12 @@ h3.hp-ttls {
 #fl-news li a {
   margin-top: 8px;
 }
+#recom li+li {
+  background: url(../images/delimiter.gif) 0 100% no-repeat;
+  padding-left: 10px;
+}
+
+
 #recom li a {
   margin-top: 10px;
 }
@@ -1992,7 +2079,6 @@ font-weight: bold;
 #top10-wrap h3.hp-ttls {
   background: url(../images/top10-ttl.png) 0 0 no-repeat;
   height: 34px;
-  font-size: 1em;
   font-weight: normal;
   margin-bottom: 10px;
 }
@@ -2001,9 +2087,7 @@ font-weight: bold;
 #top10-wrap h3.hp-ttls span {
    text-indent: 0;
    color: #ff4b00;
-   font-size: 1.25em;
-   margin: 0 0 0 100px;
-   display: block;
+   font-size: 0.8em;
 }
 #top10 {
   border: 1px solid #556065;
@@ -2051,13 +2135,19 @@ font-weight: bold;
 }
 
 
-.top10 .like-btn {
+.top10 .btn {
   position: absolute;
   top: 5px;
   right: 7px;
   display: block;
-  width: 86px;
   height: 27px;
+  line-height: 24px;
+  padding-left: 27px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
   background: url(../images/ajouter-btn-mid.png) 0 0 no-repeat;
 }
 div.top10.last {
@@ -2081,7 +2171,7 @@ div.top10.first .number {
   top:52px;
   left: 0;
 }
-div.top10.first .like-btn {
+div.top10.first a.btn {
   left: 27px;
   top: 164px;
   background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
@@ -2124,10 +2214,13 @@ div.top10.first p a {
   float: left;
   margin-left: 18px;
 }
-#new-m .hp-ttls {
-  height: 37px;
+#new-m h3 {
+  min-height: 27px;
   margin-bottom: 7px;
-  background: url(../images/Prochainement-ttl.png) 0 0 no-repeat;
+  font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
+  color: #ff4b00;
+  padding: 10px 0 0 44px;
+  background: url(../images/Prochainement-icon.png) 0 0 no-repeat;
 }
 #new-m ul {
   display: block;
@@ -2165,10 +2258,18 @@ div.top10.first p a {
 #new-m li .bluray {
   background: url(../images/bluray-cover-new-m.png) 0 0 no-repeat;
 }
-#new-m li  a.like-btn {
- width: 86px;
- height: 27px;
- display: block;
+#new-m li  a.btn {
+
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 27px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+
  margin: 7px 0 3px;
  background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
 }
@@ -2375,7 +2476,7 @@ div.top10.first p a {
 #filters li.li_submit{
   background: #fff;
 }
-#filters .submit_fr{
+/*#filters .submit_fr{
   background:url("../images/fr/search_filtres.png") no-repeat scroll 0 0 transparent;
 }
 #filters .submit_nl{
@@ -2383,16 +2484,24 @@ div.top10.first p a {
 }
 #filters .submit_en{
   background:url("../images/en/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
+}*/
 #filters .submit{
   cursor:pointer;
   border-style:hidden;
   display:block;
-  font-size:0;
-  height:34px;
+  color: white;
+  height:35px;
   margin: 0 0 0 40px;
   width:91px;
+  background:url(../images/search_filtres.png) no-repeat scroll 0 0 transparent;
+  text-shadow: 1px 1px 1px #999999;
+  font-size: 1em;
 }
+#filters .submit:hover {
+  background-position: 0 100%;
+}
+
+
 /*   ============   FOOTER   ============   */
 
 #footer{
@@ -2604,7 +2713,7 @@ fieldset {
 	padding: 2px 5px;
 }
 
-.products-pagination a:hover { 
+.products-pagination a:hover {
 	color:#FFF; 
 	text-decoration:none; 
 	border:1px solid #5b6377;
@@ -2679,12 +2788,15 @@ fieldset {
 .review_new {
   border-style:hidden;
   display:block;
-  font-size:0;
+   color: white;
+   text-shadow: 1px 1px 1px #555555;
   height:42px;
   margin:0 0 0 40px;
   width:166px;
   background:url("../images/review_new.png") no-repeat scroll 0 0 transparent;
   cursor:pointer;
+  line-height: 38px;
+  padding-bottom: 7px;
 }
 #critical_title {
 border-bottom:1px solid #454545;
@@ -2701,7 +2813,7 @@ text-decoration:none;
 top:0;
 }
 
-.bouton_probleme .submit_fr{
+/*.bouton_probleme .submit_fr{
   background:url("../images/fr/account_modify.png") no-repeat scroll 0 0 transparent;
 }
 .bouton_probleme .submit_nl{
@@ -2709,15 +2821,22 @@ top:0;
 }
 .bouton_probleme .submit_en{
   background:url("../images/en/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-.bouton_probleme .submit{
+}*/
+.bouton_probleme .submit {
   border-style:hidden;
   display:block;
-  font-size:0;
+  color: white;
+  text-shadow: 1px 1px 1px #555555;
   height:40px;
   margin: 0 0 0 40px;
   width:170px;
+  background:url("../images/account_modify.png") no-repeat scroll 0 0 transparent;
 }
+.bouton_probleme .submit:hover {
+  background-position: 0 100%; 
+}
+
+
 table.champ_compte
 {
   border-collapse: separate !important;

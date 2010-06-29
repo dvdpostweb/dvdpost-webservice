@@ -23,7 +23,7 @@
   </div>
   <%= f.collection_select(:call_me_hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %>
 
-  <button type="submit" class="like-btn">
+  <button type="submit">
     <%= t '.contact' %>
   </button>
 <% end %>

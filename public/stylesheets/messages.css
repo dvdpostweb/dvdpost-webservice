@@ -257,7 +257,7 @@
   font-size: 0.79em;
 
 }
-#contact-wrap #contact button.like-btn {
+#contact-wrap #contact button {
   /*float: left;*/
   display: block;
   width: 137px;
@@ -266,6 +266,9 @@
   background: url(../images/recontacter-btn.png) 0 0 no-repeat;
   border: none;
   clear: both;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 1px #333333;
 }
 #contact-wrap #contact ul {
   float: left;
@@ -388,13 +391,15 @@ padding-top: 14px;
   border: 1px solid #000000;
   background: white;
 }
-#contact-wrap #question button.like-btn {
+#contact-wrap #question button {
   width: 91px;
   height: 27px;
   display: block;
   border: none;
   background: url(../images/envoyer-btn.png) 0 0 no-repeat;
   margin: 5px 0 0 705px;
+  color: white;
+   text-shadow: 1px 1px 1px #555555;
 }
 #messages a {
   color:#000;

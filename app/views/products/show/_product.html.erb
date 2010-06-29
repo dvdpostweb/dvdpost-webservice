@@ -78,5 +78,5 @@
     <%= product_image_tag product.image, :width => 143, :height => 218, :alt => "#{product.title} (#{product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
-  <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long} %>
 </div>

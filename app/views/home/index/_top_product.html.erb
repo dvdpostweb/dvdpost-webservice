@@ -14,7 +14,7 @@
       <%= top_product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %>
     </p>
     <p><%= product_description_text(top_product) %></p>
-    <%= render :partial => 'products/wishlist', :locals => {:product => top_product} %>
+    <%= render :partial => 'products/wishlist', :locals => {:product => top_product, :text => :short} %>
     <% link_to product_path(:id => top_product.to_param), :class => "cover #{product_media_id(top_product.media)}" do %>
       <%= product_image_tag top_product.image, :width => 76, :height => 118 %>
     <% end %>
@@ -24,7 +24,7 @@
   <div class="top10<%= item_number == 10 ? ' last' : '' %>">
     <h2><%= link_to top_product.title, product_path(:id => top_product.to_param) %></h2>
     <p class='top-description' style="display:none"><%= product_description_text(top_product) %></p>
-    <%= render :partial => 'products/wishlist', :locals => {:product => top_product} %>
+    <%= render :partial => 'products/wishlist', :locals => {:product => top_product, :text => :short} %>
     <%= image_tag "#{item_number}.gif", :alt => item_number, :class => 'number'%>
     <%= link_to 'Toggle', product_path(:id => top_product.to_param), :class => 't-arrow open' %>
   </div>
