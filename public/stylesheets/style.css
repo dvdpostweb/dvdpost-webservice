@@ -453,6 +453,9 @@ background-position: 100% 100%;
   padding: 0 13px 0 0;
   text-indent: 0;
   width: auto;
+  height:20px;
+  line-height:14px;
+  text-shadow:0 0 0;
 }
 
 *:first-child + html #nav li#indicator #close a {
@@ -2490,15 +2493,15 @@ div.top10.first p a {
   border-style:hidden;
   display:block;
   color: white;
-  height:35px;
+  height:25px;
   margin: 0 0 0 40px;
   width:91px;
-  background:url(../images/search_filtres.png) no-repeat scroll 0 0 transparent;
+  background:url(../images/search_filtres.png) no-repeat scroll 0 -6px transparent;
   text-shadow: 1px 1px 1px #999999;
   font-size: 1em;
 }
 #filters .submit:hover {
-  background-position: 0 100%;
+  background-position: 0 -37px;
 }
 
 
@@ -2847,6 +2850,44 @@ p.notice {
   margin:9px;
   padding:7px;
   width:400px;
+}
+#add_to_wishlist .item
+{
+  background:url("../images/ajouterbtn.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  height:38px;
+  line-height:35px;
+  margin:0 0 0 3px;
+  padding:2px 0 0 40px;
+  text-align:left;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:163px;
+  border-style:hidden;
+  cursor:pointer;
+}
+#add_to_wishlist .item:hover
+{
+  background:url("../images/ajouterbtn.png") no-repeat scroll 0 -39px transparent;
+}
+#add_to_wishlist .serie
+{
+  background:url("../images/ajouterbtn_serie.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  height:38px;
+  line-height:35px;
+  margin:0 0 0 3px;
+  padding:2px 0 0 40px;
+  text-align:left;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:163px;
+  border-style:hidden;
+  cursor:pointer;
+}
+#add_to_wishlist .serie:hover
+{
+  background:url("../images/ajouterbtn_serie.png") no-repeat scroll 0 -39px transparent;
 }
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
