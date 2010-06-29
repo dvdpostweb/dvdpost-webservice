@@ -133,7 +133,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    if self.credits == 0 and self.suspension_status == 0 and self.subscription_type.credits > 0 and self.subscription_expiration_date.to_date !=  Time.now.to_date
+    if self.credits == 0 and self.suspension_status == 0 and self.subscription_type.credits > 0 and self.subscription_expiration_date.to_date != Time.now.to_date
       true
     else
       false

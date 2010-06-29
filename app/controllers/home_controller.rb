@@ -22,7 +22,7 @@ class HomeController < ApplicationController
         @transit_items_count = current_customer.orders.in_transit.count
         @transit_items = current_customer.orders.in_transit.all( :order => 'orders.date_purchased ASC')
         @news_items = retrieve_news
-        @recommendations = retrieve_recommendations(true)
+        @recommendations = Product.customer_recommendations(current_customer)
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
         @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
       }
@@ -47,14 +47,5 @@ class HomeController < ApplicationController
       DVDPost.home_page_news
     end
     news_items.paginate(:per_page => 3, :page => params[:news_page] || 1)
-  end
-
-  def retrieve_recommendations(expire=false)
-    name = "#{I18n.locale.to_s}/home/recommendations"
-    expire_timed_fragment(name) if expire
-    recommended_ids = when_fragment_expired name do
-      DVDPost.home_page_recommendations(current_customer)
-    end
-    Product.filtered_by_ids(recommended_ids).paginate(:per_page => 8, :page => params[:recommendation_page] || 1)
   end
 end
