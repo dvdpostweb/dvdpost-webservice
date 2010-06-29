@@ -130,6 +130,6 @@ sources:
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
-    ref: 8f95c764fcad62b9e2895c400068113a3e39c233
+    ref: bdd30ea98405405924a674a66a58426747105700
 - Rubygems: 
     uri: http://rubygems.org
