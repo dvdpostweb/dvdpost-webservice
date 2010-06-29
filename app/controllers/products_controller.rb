@@ -66,13 +66,16 @@ class ProductsController < ApplicationController
   end
 
   def uninterested
+    customer = current_customer
     begin
       @product = Product.available.find(params[:product_id])
-      @product.uninterested_customers << current_customer
-      DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
-      respond_to do |format|
-        format.html {redirect_to product_path(:id => @product.to_param)}
-        format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+      unless (customer.rated_products.include?(@product ) || customer.seen_products.include?(@product))
+        @product.uninterested_customers << customer
+        DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, customer, request.remote_ip)
+        respond_to do |format|
+          format.html {redirect_to product_path(:id => @product.to_param)}
+          format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
+        end
       end
     end
   end
