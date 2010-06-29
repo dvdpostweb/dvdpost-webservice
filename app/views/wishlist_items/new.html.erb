@@ -34,8 +34,8 @@
     </table>
   </fieldset>
   <p class="align">
-  <%= image_submit_tag 'modal_ajouterbtn.png' %>
-  <%= image_submit_tag 'modal_ajouterbtn_serie.png',
+  <%= f.submit_tag title_add_to_wishlist(:long) %>
+  <%= f.submit_tag 'modal_ajouterbtn_serie.png',
                        :name => 'add_all_from_series',
                        :value => true if @wishlist_item.product.series? %>
   </p>

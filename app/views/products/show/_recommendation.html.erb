@@ -7,6 +7,6 @@
     <%= product_image_tag recommendation.image, :width => 76, :height => 118, :alt => "#{recommendation.title} (#{recommendation.year})" %>
     <%= content_tag(:span, '', :class => 'new') if recommendation.is_new? %>
   <% end %>
-  <%= render :partial => 'products/wishlist', :locals => {:product => recommendation} %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => recommendation, :text => :short} %>
   <%= link_to recommendation.title, path, :class => 'more' %>
 </li>

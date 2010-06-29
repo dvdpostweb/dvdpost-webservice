@@ -8,6 +8,6 @@
       <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
     </span>
   <% end %>
-  <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :short} %>
   <%= link_to product.title, product_path(:id => product.to_param), :class => 'more'  %>
 </li>

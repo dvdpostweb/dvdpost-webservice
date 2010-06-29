@@ -44,7 +44,7 @@
     <div class="links" id="seen-uninterested-<%= product.to_param %>">
       <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
     </div>
-    <%= render :partial => 'products/wishlist', :locals => {:product => product} %>
+    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long} %>
   </div>
   <div>
     <% link_to path, :class => :cover do %>

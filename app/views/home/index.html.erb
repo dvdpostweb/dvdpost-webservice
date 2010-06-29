@@ -29,8 +29,8 @@
 
   <!-- Prochainement/Nouveautés   -->
   <div id="new-m">
+    <%= render :partial => 'home/index/theme', :locals => {:products => @new,  :id => 'new'} %>
     <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
-    <%= render :partial => 'home/index/theme', :locals => {:products => @new,  :id => 'nouv'} %>
   </div>
 
   <div class="clear"></div>

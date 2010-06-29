@@ -58,10 +58,10 @@ module ProductsHelper
     unless product.series?
       if product.dvd?
         bluray = Product.by_media(:bluray).by_imdb_id(product.imdb_id).by_language(I18n.locale).first
-        link_to('Disponible en Blu-ray Disc', product_path(:id => bluray), :id => 'bluray-btn', :class => 'like-btn') if bluray
+        link_to(t('.dispo_bluray'), product_path(:id => bluray), :id => 'bluray-btn') if bluray
       elsif product.bluray?
         dvd = Product.by_media(:dvd).by_imdb_id(product.imdb_id).by_language(I18n.locale).first
-        link_to('Disponible en DVD', product_path(:id => dvd), :id => 'dvd-btn', :class => 'like-btn') if dvd
+        link_to(t('.dispo_dvd'), product_path(:id => dvd), :id => 'dvd-btn') if dvd
       else
         ''
       end
@@ -73,9 +73,9 @@ module ProductsHelper
   def available_on_other_language(product)
     if product.products_other_language.to_i > 0 
       if product.languages.preferred.include?(Language.find(1))
-        link_to('Disponible dans une autre langue', product_path(:id => product.products_other_language), :id => 'dispo-btn_'+I18n.locale.to_s+'_nl', :class => 'dispo-btn like-btn')  
+        link_to(t('.dispo_nl'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')  
       else
-        link_to('Disponible dans une autre langue', product_path(:id => product.products_other_language), :id => 'dispo-btn_'+I18n.locale.to_s+'_fr', :class => 'dispo-btn like-btn')  
+        link_to(t('.dispo_fr'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')  
       end
     end
   end
@@ -98,7 +98,7 @@ module ProductsHelper
             content += "#{awards[i]}<br />"
           end
           content += '</p>'
-          content += "<p id=\"oscars\">#{link_to 'Lire la suite', product_awards_path(:product_id => product.to_param)}</p>"
+          content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => product.to_param)}</p>"
       else
         content += "<p>#{product.description.products_awards}</p>"
       end
@@ -128,5 +128,13 @@ module ProductsHelper
     title = t('.theme') +' : '+  ProductList.find(params[:theme_id]).name if params[:theme_id] && !params[:theme_id].empty?
     title = t('.search') +' : '+ params[:search] if params[:search]
     title
-  end   
+  end
+
+  def title_add_to_wishlist(type_text)
+    if type_text == :short
+      t('products.wishlist.short_add')
+    else
+      t('products.wishlist.add')
+    end
+  end 
 end

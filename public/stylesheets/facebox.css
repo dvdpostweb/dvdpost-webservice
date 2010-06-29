@@ -64,6 +64,22 @@
   margin-top: 10px;
   text-align: right;
 }
+#facebox .footer a.close {
+  background:transparent url(../images/close-icon.gif) no-repeat scroll 100% 0;
+color:#505050;
+float:none;
+font-size:0.83em;
+height:auto;
+margin-right:5px;
+padding:0 13px 0 0;
+text-indent:0;
+ text-transform: uppercase;
+}
+#facebox .footer a.close:hover {
+  background-position: 100% -20px;
+text-decoration:none;
+}
+
 
 #facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
   height: 10px;

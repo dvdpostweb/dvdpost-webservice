@@ -6,6 +6,6 @@
     <%= product_image_tag advertising_product.image, :width => 56,:height=> 88, :alt => "#{advertising_product.title} (#{advertising_product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if advertising_product.is_new? %>
   <% end %>
-  <%= render :partial => 'products/wishlist', :locals => {:product => advertising_product} %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => advertising_product, :text => :short} %>
   <%= link_to advertising_product.title, product_path(:id => advertising_product.to_param), :class => 'more'  %>
 </li>

@@ -12,7 +12,7 @@ class HomeController < ApplicationController
           if current_customer.credit_empty?
             @renew_subscription = true
           else
-              @not_rated_product = not_rated_products[rand(not_rated_products.count)]
+            @not_rated_product = not_rated_products[rand(not_rated_products.count)]
           end
         end
         @contest = ContestName.by_language(I18n.locale).last
