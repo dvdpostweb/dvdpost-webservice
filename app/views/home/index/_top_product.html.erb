@@ -4,7 +4,9 @@
     <h2>
       <%= link_to top_product.title, product_path(:id => top_product.to_param) %>
     </h2>
-    <%= rating_image_small(top_product, :black) %>
+    <div class="stars" id="rating-stars-<%= top_product.to_param %>" product_id ="<%= top_product.to_param %>">
+      <%= render :partial => 'products/rating', :locals => {:product => top_product, :background => :black} %>
+    </div>
     <p>
       <%= t '.by' %>
       <%= link_to top_product.director.name, director_products_path(:director_id => top_product.director.to_param) %>

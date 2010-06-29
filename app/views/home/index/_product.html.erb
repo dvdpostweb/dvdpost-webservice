@@ -1,7 +1,7 @@
 <li>
-  <span class="stars">
-    <%= rating_image_small(product) %>
-  </span>
+  <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
+    <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white} %>
+  </div>
   <% link_to product_path(:id => product.to_param) do %>
     <span class="<%= product_media_id(product.media) %>">
       <%= product_image_tag product.image, :width => 76,:height=> 118, :alt => "#{product.title} (#{product.year})" %>

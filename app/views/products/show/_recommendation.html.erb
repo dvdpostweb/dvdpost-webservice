@@ -1,8 +1,8 @@
 <% path = product_path(:id => recommendation.to_param, :recommendation => 1) %>
 <li>
-  <span class="stars">
-    <%= rating_image_small(recommendation) %>
-  </span>
+  <div class="stars" id="rating-stars-<%= recommendation.to_param %>" product_id ="<%= recommendation.to_param %>">
+    <%= render :partial => 'products/rating', :locals => {:product => recommendation, :background => :white} %>
+  </div>
   <% link_to path, :class => product_media_id(recommendation.media) do %> 
     <%= product_image_tag recommendation.image, :width => 76, :height => 118, :alt => "#{recommendation.title} (#{recommendation.year})" %>
     <%= content_tag(:span, '', :class => 'new') if recommendation.is_new? %>

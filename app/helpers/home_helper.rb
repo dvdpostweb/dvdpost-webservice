@@ -1,21 +1,4 @@
 module HomeHelper
-  def rating_image_small(product, background=nil)
-    rating = product.rating
-    images = []
-    5.times do |i|
-      state = if rating >= 2
-        'on'
-      elsif rating == 1
-        'half'
-      else
-        'off'
-      end
-      images << image_tag("#{'black-' if background == :black}little-star-#{state}.jpg", :alt => 'star')
-      rating -= 2
-    end 
-    images
-  end
-
   def link_to_banner_image(type)
     case type 
     when 'quizz'
