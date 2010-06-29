@@ -62,7 +62,7 @@ module ApplicationHelper
   end
 
   def oauth_token
-    session[:token] ? OAuth2::AccessToken.new(oauth_client, session[:oauth_token]) : nil
+    session[:oauth_token] ? OAuth2::AccessToken.new(oauth_client, session[:oauth_token]) : nil
   end
 
   def redirect_url_after_sign_out

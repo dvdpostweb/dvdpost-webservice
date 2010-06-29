@@ -24,9 +24,11 @@ class OauthController < ApplicationController
       json = oauth_token.post('/sign_out')
       logger.info "*** SSO Response after sign_out: #{json}"
     rescue Exception => e
+      logger.error e.message
+      logger.error e.backtrace
       # Catching sign_out silently because this means that either oauth_token and/or refresh_token are invalid
       # This means that the client already is logged out
-      logger.error '*** sign_out on SSO failed but is cought silently ***'
+      logger.error '*** sign_out on SSO failed but is caught silently ***'
     end
     logout
     redirect_to redirect_url_after_sign_out

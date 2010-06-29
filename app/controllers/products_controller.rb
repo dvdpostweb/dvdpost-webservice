@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   def index
-    if params[:search]
+    if params[:recommended]
+      @products = Product.customer_recommendations(customer)
+    elsif params[:search]
       @products = Product.search_clean(params[:search]).sphinx_by_kind(:normal)
     else
       @products = Product.filter(params)

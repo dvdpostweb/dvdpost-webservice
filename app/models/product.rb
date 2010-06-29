@@ -80,7 +80,6 @@ class Product < ActiveRecord::Base
 
   def self.filter(params)
     products = self.available.ordered.by_kind(:normal)
-    products = products.find(retrieve_recommendations_for_index)               if params[:recommended]
     products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
     products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
@@ -103,9 +102,9 @@ class Product < ActiveRecord::Base
   end
 
   def self.customer_recommendations(customer)
-    DVDPost.home_page_recommendations(:all, customer)
+    find(:all,:conditions => { :products_id => DVDPost.home_page_recommendations(customer)})
   end
-  
+
   def description
     descriptions.by_language(I18n.locale).first
   end
