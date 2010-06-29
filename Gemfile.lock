@@ -116,17 +116,14 @@ specs:
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: 2c8e4eed6929040cc9625ef85d9490ba9c6e4585
+hash: d5a727ddeb6f4fb61d441a7ae8cf55047e9d4c67
 sources: 
-- Git: 
-    uri: git://github.com/mrs/rails_warden.git
-    git: git://github.com/mrs/rails_warden.git
-    ref: d224a5f39ad1ffe9a29e4bfae62c269bada2e728
-- Git: 
-    uri: git://github.com/mrs/warden_oauth.git
-    branch: oauth2
-    git: git://github.com/mrs/warden_oauth.git
-    ref: d3b77c4575444d6e7c2cf4b521a8d97ec19c6ed0
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/submodules/rails_warden
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/submodules/warden_oauth
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
