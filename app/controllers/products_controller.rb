@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   def index
-    if params[:search]
+    if params[:recommended]
+      @products = Product.customer_recommendations(customer)
+    elsif params[:search]
       @products = Product.search_clean(params[:search]).sphinx_by_kind(:normal)
     else
       @products = Product.filter(params)
@@ -19,7 +21,8 @@ class ProductsController < ApplicationController
     @product.views_increment
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
-    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:recommendation_page], :per_page => 6)
+    @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
+    
     respond_to do |format|
       format.html do
         @categories = @product.categories
@@ -41,7 +44,7 @@ class ProductsController < ApplicationController
   end
 
   def recommendations_paginate
-    @recommendations = Product.filtered_by_ids(retrieve_recommendations_for_show(@product)).paginate(:page => params[:recommendation_page], :per_page => 6)
+    @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
 
     respond_to do |format|
       format.html do
@@ -89,19 +92,6 @@ class ProductsController < ApplicationController
     @product = Product.available.find(params[:product_id])
     respond_to do |format|
       format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
-    end
-  end
-
-  private
-  def retrieve_recommendations_for_index
-    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations" do
-      DVDPost.home_page_recommendations(current_customer)
-    end
-  end
-
-  def retrieve_recommendations_for_show(product)
-    when_fragment_expired "#{I18n.locale.to_s}/home/recommendations/show" do
-      DVDPost.product_linked_recommendations(current_customer, product)
     end
   end
 end

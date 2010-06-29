@@ -58,7 +58,6 @@ class Product < ActiveRecord::Base
   }
   named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
-  named_scope :filtered_by_ids,     lambda {|*ids| {:conditions => {:products_id => ids.flatten}}}
   named_scope :ordered, :order => 'products.products_id desc'
 
   define_index do
@@ -81,7 +80,6 @@ class Product < ActiveRecord::Base
 
   def self.filter(params)
     products = self.available.ordered.by_kind(:normal)
-    products = products.filtered_by_ids(retrieve_recommendations_for_index)    if params[:recommended]
     products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
     products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
@@ -96,6 +94,15 @@ class Product < ActiveRecord::Base
     products = products.with_subtitles(params[:subtitles].keys)                if params[:subtitles]
     products = products.dvdpost_choice                                         if params[:dvdpost_choice]
     products
+  end
+
+  def recommendations
+    recommendation_ids = DVDPost.product_linked_recommendations(self)
+    self.class.find(:all, recommendation_ids)
+  end
+
+  def self.customer_recommendations(customer)
+    find(:all,:conditions => { :products_id => DVDPost.home_page_recommendations(customer)})
   end
 
   def description
@@ -151,10 +158,6 @@ class Product < ActiveRecord::Base
     quantity_to_sale > 0
   end
 
-  def recommendations
-    
-  end
-
   def views_increment
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
@@ -173,11 +176,6 @@ class Product < ActiveRecord::Base
   end
 
   def self.replace_specials(str)
-#    specials = {'ˆ' => 'a', '‡' => 'a', '‰' => 'a', '‹' => 'a', 'Š' => 'a', '' => 'c', '' => 'e','Ž' => 'e','' => 'e', '‘' => 'e', '“' => 'i','’' => 'i','”' => 'i','•' => 'i', '–' => 'n', '˜' => 'o','—' => 'o','™' => 'o', '›' => 'o','š' => 'o', '' => 'u','œ' => 'u','ž' => 'u','Ÿ' => 'u', '?' => 'y','Ø' => 'y', 'Ë' => 'A', 'ç' => 'A','å' => 'A','Ì' => 'A','€' => 'A', '‚' => 'C', 'é' => 'E','ƒ' => 'E','æ' => 'E','è' => 'E', 'í' => 'I','ê' => 'I','ë' => 'I','ì' => 'I', '„' => 'N', 'ñ' => 'O','î' => 'O','ï' => 'O','Í' => 'O', '…' => 'O', 'ô' => 'U','ò' => 'U','ó' => 'U','†' => 'U', '?' => 'Y'}
-
-#    specials.each do |special, regular|
-#      str.gsub!(special, regular)
-#    end
     str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end
 end
