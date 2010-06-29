@@ -6,7 +6,7 @@ class WishlistItemsController < ApplicationController
       @history_items = current_customer.assigned_items
       locals = {:transit_items => nil, :history_items => @history_items}
     else
-      @transit_items = current_customer.orders.in_transit_plus(:order => "orders.date_purchased ASC")
+      @transit_items = current_customer.orders.in_transit_plus.ordered
       locals = {:transit_items => @transit_items, :history_items => nil}
     end
     respond_to do |format|

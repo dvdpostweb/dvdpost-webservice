@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   set_primary_key :orders_id
 
   alias_attribute :updated_at, :last_modified
-  alias_attribute :updated_at, :date_purchased
+  alias_attribute :created_at, :date_purchased
 
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :status, :class_name => 'OrderStatus', :foreign_key => :orders_status, :conditions => {:language_id => DVDPost.product_languages[I18n.locale]}
@@ -13,6 +13,7 @@ class Order < ActiveRecord::Base
 
   named_scope :in_transit, :conditions => {:orders_status => [1,2]}
   named_scope :in_transit_plus, :conditions => {:orders_status => [1,2,12,17,18]}
+  named_scope :ordered, :order => "date_purchased desc"
   
 
   def changed_at
@@ -21,6 +22,10 @@ class Order < ActiveRecord::Base
 
   def product_dvd
     order_product.product_dvd
+  end
+
+  def is_new?
+    created_at.to_date + 2.days > Time.now.to_date
   end
 
   def update_status!(new_status)
