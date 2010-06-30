@@ -12,12 +12,12 @@ module ProductsHelper
     links
   end
   
-  def rating_image_links(product, background=nil, replace=nil)
+  def rating_image_links(product, background=nil, size=nil, replace=nil)
     rating = product.rating(current_customer)
     links = []
     5.times do |i|
       i += 1
-      links << rating_image_link(product, rating, i, background, replace)
+      links << rating_image_link(product, rating, i, background, size, replace)
       rating -= 2
     end
     links
@@ -32,7 +32,7 @@ module ProductsHelper
     link_to(image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace))
   end
   
-  def rating_image_link(product, rating, value, background=nil, replace=nil)
+  def rating_image_link(product, rating, value, background=nil, size=nil, replace=nil)
     if current_customer.has_rated?(product)
       name = 'star-voted'
       class_name = ''
@@ -40,18 +40,30 @@ module ProductsHelper
       name = 'star'
       class_name = 'star'
     end
-    name = "black-#{name}" if background == :black
-
-    image_name = if rating >= 2
-      "#{name}-on.jpg"
-    elsif rating == 1
-      "#{name}-half.jpg"
+    if size == :small
+      name = "small-#{name}" 
     else
-      "#{name}-off.jpg"
+      name = "black-#{name}" if background == :black
     end
-
+    if size == :small
+      image_name = if rating >= 2
+        "#{name}-on.png"
+      elsif rating == 1
+        "#{name}-half.png"
+      else
+        "#{name}-off.png"
+      end
+    else
+      image_name = if rating >= 2
+        "#{name}-on.jpg"
+      elsif rating == 1
+        "#{name}-half.jpg"
+      else
+        "#{name}-off.jpg"
+      end      
+    end
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :replace => replace))
+    link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace))
   end
 
   def available_on_other_media(product)

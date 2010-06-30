@@ -3001,6 +3001,33 @@ a#all_categorie, a#all_categorie:hover
   
 }
 
+#alert {
+background:url("../images/bg.png");
+background-repeat:no-repeat;
+min-height:85px;
+text-align:center;
+width:307px;
+margin-top:10px;
+}
+
+#alert h4 {
+	text-transform:uppercase;
+	font-size:1.13em;
+	padding-top:10px;
+}
+
+.details_alert a{
+	color:#FF4B00; 
+	text-decoration: underline;	
+}
+	
+.details_alert {
+	margin-top:10px;
+}	
+	
+.details_alert img {
+  vertical-align:middle;
+}
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
 .navbar .navprevbtn span {

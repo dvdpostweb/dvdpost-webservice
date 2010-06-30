@@ -36,6 +36,9 @@ $(function() {
     if ($(this).attr('src').match(/black-star-/i)){
       loader = 'black-'+loader;
     }
+    if ($(this).attr('src').match(/small-star-/i)){
+      loader = 'small-'+loader;
+    }
     html_item.html("<img src='/images/"+loader+"'/>");
     $.ajax({
       url: url,
@@ -64,6 +67,15 @@ $(function() {
     if ($(this).attr('src').match(/black-star-(on|half|off)/i)){
       image = 'black-'+image;
     }
+    if ($(this).attr('src').match(/small-star-(on|half|off)/i)){
+      image = 'small-'+image;
+      ext = 'png'
+    }
+    else
+    {
+      ext = 'jpg'
+    }
+    
     for(var i=1; i<=5; i++)
     {
       if(i <= rating_value){
@@ -71,7 +83,7 @@ $(function() {
       }else{
         full_image = image+'off';
       }
-      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.jpg');
+      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.'+ext);
     }
   });
 

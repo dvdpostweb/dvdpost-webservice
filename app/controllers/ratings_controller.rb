@@ -16,7 +16,7 @@ class RatingsController < ApplicationController
             render :nothing => true
           end
         else
-          render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background].to_sym}
+          render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background].to_sym, :size => params[:size].to_sym}
         end
       }
     end

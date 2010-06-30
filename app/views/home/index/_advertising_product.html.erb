@@ -1,6 +1,6 @@
 <li>
   <div class="stars" id="rating-stars-<%= advertising_product.to_param %>" product_id ="<%= advertising_product.to_param %>">
-    <%= render :partial => 'products/rating', :locals => {:product => advertising_product, :background => :black} %>
+    <%= render :partial => 'products/rating', :locals => {:product => advertising_product, :background => :black, :size => :small} %>
   </div>
   <% link_to product_path(:id => advertising_product.to_param), :class => "cover #{product_media_id(advertising_product.media)}" do %>
     <%= product_image_tag advertising_product.image, :width => 56,:height=> 88, :alt => "#{advertising_product.title} (#{advertising_product.year})" %>
