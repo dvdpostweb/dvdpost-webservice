@@ -47,9 +47,9 @@ namespace :deploy do
     pre_production:
       adapter: mysql
       encoding: utf8
-      database: dvdpost_test
-      username: test_devuser
-      password: 1nterD3nt
+      database: dvdpost_be_prod
+      username: webuser
+      password: 3gallfir-
       host: matadi
       port: 3306
     EOF
