@@ -884,12 +884,23 @@ display: block;
 }
 
 #on-way ul{
-  background: url(../images/on-way-bg.gif) 0 0 repeat-y;
   border-bottom: 3px solid white;
   display: block;
   height: 21px;
   padding-left: 9px;
   width: 877px;
+}
+#on-way ul.high
+{
+  background: url(../images/on-way-bg.gif) 0 0 repeat-y;
+}
+#on-way ul.medium
+{
+  background: url(../images/on-way-bg_orange.gif) 0 0 repeat-y;
+}
+#on-way ul.low
+{
+  background: url(../images/on-way-bg_red.gif) 0 0 repeat-y;
 }
 
 #on-way li {
@@ -993,6 +1004,16 @@ display: block;
 
 #on-way .status .ok {
   background: url(../images/success-icon.png) 0 0 no-repeat;
+  display: block;
+  padding-left: 42px;
+}
+#on-way .status .transit {
+  background: url(../images/expedit-icon.png) 0 0 no-repeat;
+  display: block;
+  padding-left: 42px;
+}
+#on-way .status .not_ok {
+  background: url(../images/delay-icon.png) 0 0 no-repeat;
   display: block;
   padding-left: 42px;
 }
