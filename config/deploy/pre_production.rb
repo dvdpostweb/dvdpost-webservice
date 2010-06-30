@@ -44,12 +44,12 @@ namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
     db_config = <<-EOF
-    pre_production:
+    staging:
       adapter: mysql
       encoding: utf8
-      database: dvdpost_be_prod
-      username: webuser
-      password: 3gallfir-
+      database: dvdpost_test
+      username: test_devuser
+      password: 1nterD3nt
       host: matadi
       port: 3306
     EOF
@@ -67,3 +67,14 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 end
+
+=begin
+    pre_production:
+      adapter: mysql
+      encoding: utf8
+      database: dvdpost_be_prod
+      username: webuser
+      password: 3gallfir-
+      host: matadi
+      port: 3306
+=end
