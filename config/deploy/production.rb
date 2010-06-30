@@ -20,7 +20,7 @@ set :rails_env, "production"
 #############################################################
 
 set :user, "dvdpostapp"
-set :domain, "staging.dvdpost.be"
+set :domain, "private.dvdpost.com"
 set :port, 22012
 server domain, :app, :web
 role :db, domain, :primary => true
