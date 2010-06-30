@@ -126,7 +126,7 @@ sources:
     uri: git://github.com/mrs/warden_oauth.git
     branch: oauth2
     git: git://github.com/mrs/warden_oauth.git
-    ref: d3b77c4575444d6e7c2cf4b521a8d97ec19c6ed0
+    ref: d109e190249b6a56d4e6e18635b40dffc6288d50
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
