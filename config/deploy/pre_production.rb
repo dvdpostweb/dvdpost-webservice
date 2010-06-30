@@ -44,7 +44,7 @@ namespace :deploy do
   desc "Create the database yaml file"
   after "deploy:update_code" do
     db_config = <<-EOF
-    staging:
+    pre_production:
       adapter: mysql
       encoding: utf8
       database: dvdpost_test
