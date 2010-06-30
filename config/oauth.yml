@@ -23,8 +23,8 @@ pre_production:
   authorize_path: 'authorization/new'
   access_token_path: 'authorization/token'
 production:
-  client_id: dvdpost_rails_staging_client
-  client_secret: 'dvdpost_rails_staging_client_secret'
+  client_id: dvdpost_rails_client
+  client_secret: dvdpost_rails_client_secret
   site: 'https://staging.sso.dvdpost.be'
   authorize_path: 'authorization/new'
   access_token_path: 'authorization/token'

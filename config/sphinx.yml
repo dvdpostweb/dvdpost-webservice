@@ -5,10 +5,25 @@ development:
   pid_file: "log/searchd.pid"
 test:
   port: 8444
-  pid_file: log/searchd.test.pid
+  pid_file: log/searchd.pid
+  searchd_log_file: "log/searchd.log"
+  query_log_file: "log/searchd_query.log"
+  pid_file: "log/searchd.pid"
 staging:
-  port: 8444
-  pid_file: log/searchd.staging.pid
+  port: 7444
+  pid_file: log/searchd.pid
+  searchd_log_file: "log/searchd.log"
+  query_log_file: "log/searchd_query.log"
+  pid_file: "log/searchd.pid"
+pre_production:
+  port: 7444
+  pid_file: log/searchd.pid
+  searchd_log_file: "log/searchd.log"
+  query_log_file: "log/searchd_query.log"
+  pid_file: "log/searchd.pid"
 production:
-  port: 8444
-  pid_file: log/searchd.production.pid
+  port: 6444
+  pid_file: log/searchd.pid
+  searchd_log_file: "log/searchd.log"
+  query_log_file: "log/searchd_query.log"
+  pid_file: "log/searchd.pid"
