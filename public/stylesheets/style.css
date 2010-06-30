@@ -2987,6 +2987,20 @@ p.notice {
 {
   background:url("../images/ajouterbtn_serie.png") no-repeat scroll 0 -39px transparent;
 }
+
+#all_categorie
+{
+  text-decoration:underline !important;
+  background:url("../images/menu-arrow_orange.gif") no-repeat scroll 5px 0 transparent !important;
+}
+a#all_categorie, a#all_categorie:hover
+{
+  color:#FF4B00 !important;
+  font-weight: normal !important;
+  padding-left:23px !important;
+  
+}
+
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
 .navbar .navprevbtn span {
