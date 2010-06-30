@@ -100,7 +100,7 @@ class Product < ActiveRecord::Base
 
   def recommendations
     recommendation_ids = DVDPost.product_linked_recommendations(self)
-    self.class.find(:all, recommendation_ids)
+    self.class.find_all_by_products_id(recommendation_ids)
   end
 
   def self.customer_recommendations(customer)

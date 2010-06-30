@@ -1,6 +1,8 @@
 <% if current_customer.wishlist_products.include?(product) %>
-  Already in your wishlist
+  <% title = title_remove_from_wishlist(text) %>
+  <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.to_param) %>
+  <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param), :method => :delete, :class => 'btn_remove wishlist_button' %>
 <% else %>
-  <% text = title_add_to_wishlist(text) %>
-  <%= link_to text, new_product_wishlist_item_path(:product_id => product.to_param), :class => 'btn add_to_wishlist_button' %>
+  <% title = title_add_to_wishlist(text) %>
+  <%= link_to title, new_product_wishlist_item_path(:product_id => product.to_param), :class => 'btn add_to_wishlist_button' %>
 <% end %>

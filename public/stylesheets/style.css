@@ -739,6 +739,24 @@ background-position: 100% 100%;
 #titles-wrap .action a.btn:hover {
   background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
 }
+#titles-wrap .action a.btn_remove {
+  background: url(../images/drop-btn.png) 0 0 no-repeat;
+  display: block;
+  float: left;
+  height: 41px;
+  line-height: 35px;
+  margin: 0 0 0 3px;
+  width: 132px;
+  padding: 2px 0 0 36px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+}
+
+#titles-wrap .action a.btn_remove:hover {
+  background: url(../images/drop-btn.png) 0 -39px no-repeat;
+}
 
 
 #titles-wrap .dvd .cover, #titles-wrap .bluray .cover {
@@ -1412,7 +1430,7 @@ background: url(../images/dispo-btn-bg.png) 0 100% no-repeat;
 }
 
 #details .cover a.btn {
-  background: url(../images/ajouterbtn.png) 0 0 no-repeat;
+  background: url(../images/ajouterbtn.png) 0 -3px no-repeat;
   display: block;
   height: 38px;
   line-height: 34px;
@@ -1427,6 +1445,24 @@ background: url(../images/dispo-btn-bg.png) 0 100% no-repeat;
   background: url(../images/ajouterbtn.png) 0 100% no-repeat;
   text-decoration: none;
 }
+
+#details .cover a.btn_remove {
+  background: url(../images/drop-btn.png) 0 -4px no-repeat;
+  display: block;
+  height: 38px;
+  line-height: 34px;
+  width: 130px;
+  padding-left: 36px;
+  color: white;
+  font-size: 1em;
+  text-shadow: 1px 1px 1px #555555;
+}
+
+#details .cover a.btn_remove:hover {
+  background: url(../images/drop-btn.png) 0 -43px no-repeat;
+  text-decoration: none;
+}
+
 #details .cover a.like-btn2 {
   background: url(../images/allserie-btn.gif) 0 0 no-repeat;
   display: block;
@@ -2153,6 +2189,22 @@ font-weight: bold;
   font-size: 1.09em;
   background: url(../images/ajouter-btn-mid.png) 0 0 no-repeat;
 }
+.top10 .btn_remove {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 22px;
+  width: 63px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+  background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
+}
+
 div.top10.last {
   background: transparent;
 }
@@ -2179,6 +2231,16 @@ div.top10.first a.btn {
   top: 164px;
   background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
 }
+div.top10.first a.btn_remove {
+  left: 27px;
+  top: 164px;
+  background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
+}
+div.top10 img.star
+{
+  
+}
+
 div.top10.first .cover {
   position: absolute;
   top: 12px;
@@ -2261,7 +2323,7 @@ div.top10.first p a {
 #new-m li .bluray {
   background: url(../images/bluray-cover-new-m.png) 0 0 no-repeat;
 }
-#new-m li  a.btn {
+#new-m li a.btn {
 
   display: block;
   height: 27px;
@@ -2275,6 +2337,21 @@ div.top10.first p a {
 
  margin: 7px 0 3px;
  background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
+}
+#new-m li a.btn_remove {
+
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 25px;
+  width: 61px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+
+ margin: 7px 0 3px;
+ background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
 }
 
 #new-m #nouv {

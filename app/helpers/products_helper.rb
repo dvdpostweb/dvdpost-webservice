@@ -136,5 +136,14 @@ module ProductsHelper
     else
       t('products.wishlist.add')
     end
-  end 
+  end
+   
+  def title_remove_from_wishlist(type_text)
+    if type_text == :short
+      t('products.wishlist.short_remove')
+    else
+      t('products.wishlist.remove')
+    end
+  end
+  
 end
