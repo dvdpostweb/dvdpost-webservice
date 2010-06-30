@@ -16,13 +16,13 @@ staging:
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
 pre_production:
-  port: 7444
+  port: 6444
   pid_file: log/searchd.pid
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
 production:
-  port: 6444
+  port: 5444
   pid_file: log/searchd.pid
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
