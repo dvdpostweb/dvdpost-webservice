@@ -93,7 +93,9 @@ class Product < ActiveRecord::Base
     products = products.with_languages(params[:languages].keys)                if params[:languages]
     products = products.with_subtitles(params[:subtitles].keys)                if params[:subtitles]
     products = products.dvdpost_choice                                         if params[:dvdpost_choice]
-    products.find(:all, :conditions => :products_title)
+    # Next condition can not use the shortcut {:conditions => :products_title} because of
+    # a bug on 'private method scan called onSymbol'
+    products.all(:conditions => ["products_title IS NOT NULL"])
   end
 
   def recommendations
