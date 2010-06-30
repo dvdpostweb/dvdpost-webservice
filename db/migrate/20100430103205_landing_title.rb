@@ -1,9 +1,9 @@
 class LandingTitle < ActiveRecord::Migration
   def self.up
-	add_column :landings, :title, :string
+    add_column :landings, :title, :string
   end
 
   def self.down
-	remove_column :landings, :title
+    remove_column :landings, :title
   end
 end
