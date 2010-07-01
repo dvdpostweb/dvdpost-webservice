@@ -268,7 +268,8 @@ fieldset {
 }
 #nav li a#n6 {
   background-position: 100% 0;
-  text-indent: 39px;
+  text-indent: 48px;
+  font-size: 1.2em;
 }
 
 #nav li a#n1:hover {
@@ -2931,10 +2932,10 @@ top:0;
   height:40px;
   margin: 0 0 0 40px;
   width:170px;
-  background:url("../images/account_modify.png") no-repeat scroll 0 0 transparent;
+  background:url("../images/account_modify.png") no-repeat scroll 0 2px transparent;
 }
 .bouton_probleme .submit:hover {
-  background-position: 0 100%; 
+  background-position: 0 -37px; 
 }
 
 
