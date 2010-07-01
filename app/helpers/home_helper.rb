@@ -2,11 +2,11 @@ module HomeHelper
   def link_to_banner_image(type)
     case type 
     when 'quizz'
-      link_to image_tag(@quizz.image), 'http://www.dvdpost.be/quizz.php'
+      link_to image_tag(@quizz.image), "#{php_path}quizz.php"
     when 'contest'
-      link_to image_tag(@contest.image), 'http://www.dvdpost.be/contest.php'
+      link_to image_tag(@contest.image), "#{php_path}contest.php"
     when 'shop'
-      link_to image_tag(@shop.image), @shop.url
+      link_to image_tag(@shop.image), "#{php_path()}#{@shop.url}"
     when 'community'
       case rand(4)
       when 0
@@ -14,7 +14,7 @@ module HomeHelper
       when 1
         link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), "http://www.facebook.com/s.php?q=20460859834&sid=4587e86f26b471cb22ab4b18b3ec5047#/group.php?sid=4587e86f26b471cb22ab4b18b3ec5047&gid=20460859834"
       when 2  
-        link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), "http://www.dvdpost.be/member_get_member.php"
+        link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), "#{php_path}member_get_member.php"
       when 3  
         link_to image_tag('banner_twitter.gif', :alt => 'twitter dvdpost'), "http://twitter.com/dvdpost"
       end 

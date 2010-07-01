@@ -2929,13 +2929,14 @@ top:0;
   display:block;
   color: white;
   text-shadow: 1px 1px 1px #555555;
-  height:40px;
+  height:31px;
   margin: 0 0 0 40px;
   width:170px;
-  background:url("../images/account_modify.png") no-repeat scroll 0 2px transparent;
+  padding: 0 0 3px 0;
+  background:url("../images/account_modify.png") no-repeat scroll 0 -5px transparent;
 }
 .bouton_probleme .submit:hover {
-  background-position: 0 -37px; 
+  background-position: 0 -44px; 
 }
 
 

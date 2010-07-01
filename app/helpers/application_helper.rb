@@ -66,11 +66,11 @@ module ApplicationHelper
   end
 
   def redirect_url_after_sign_out
-    'http://www.dvdpost.be/'
+    php_path
   end
   
   def site_url
-    "http://www.dvdpost.be/index.php"
+    "#{php_path}index.php"
   end
 
   def blog_url
@@ -100,5 +100,29 @@ module ApplicationHelper
   def parent_layout(layout)
     @content_for_layout = self.output_buffer
     self.output_buffer = render(:file => "layouts/#{layout}")
+  end
+  
+  def php_path()
+    country_id = current_customer.addresses.first.entry_country_id if current_customer
+    case  Rails.env
+      when 'development'
+        "http://localhost/"
+      when 'staging'
+        'http://test/'
+      when 'pre_predocution'
+        production_path((country_id rescue nil))
+      when 'production'   
+        production_path((country_id rescue nil))
+      else
+        production_path((country_id rescue nil))
+    end
+  end  
+
+  def production_path(country_id = nil)
+    if country_id.to_i != 21
+      'http://www.dvdpost.nl/'
+    else
+      'http://www.dvdpost.be/'
+    end  
   end
 end

@@ -24,9 +24,9 @@
         <td colspan="2">
           <ul>
             <li class="links">
-              <%= link_to t('.modify_abo'), 'http://www.dvdpost.be/subscription_change_limited.php', :class => 'modif' %>
+              <%= link_to t('.modify_abo'), "#{php_path}subscription_change_limited.php", :class => 'modif' %>
               <span><%= image_tag 'delimiter.gif' %></span>
-              <%= link_to t('.suspend_abo'), 'http://www.dvdpost.be/holiday_form.php', :class => 'suppendre' %>
+              <%= link_to t('.suspend_abo'), "#{php_path}/holiday_form.php", :class => 'suppendre' %>
             </li>
           </ul>
         </td>

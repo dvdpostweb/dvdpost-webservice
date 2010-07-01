@@ -15,7 +15,7 @@ class HomeController < ApplicationController
             @not_rated_product = not_rated_products[rand(not_rated_products.count)]
           end
         end
-        @contest = ContestName.by_language(I18n.locale).last
+        @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
         @wishlist_count = current_customer.wishlist_items.count
