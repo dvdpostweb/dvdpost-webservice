@@ -156,7 +156,7 @@ $(function() {
       $("#filters li.public").toggleClass('open');
       $("#filters li.public").find("div").toggle(1);
     }
-    if($.query.get('country') == '' || $.query.get('country') == 0){
+    if($.query.get('country') == '' || $.query.get('country') == -1){
       $("#filters li.country").toggleClass('open');
       $("#filters li.country").find("div").toggle(1);
     }
