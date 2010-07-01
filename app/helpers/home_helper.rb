@@ -6,7 +6,7 @@ module HomeHelper
     when 'contest'
       link_to image_tag(@contest.image), "#{php_path}contest.php"
     when 'shop'
-      link_to image_tag(@shop.image), @shop.url
+      link_to image_tag(@shop.image), "#{php_path()}#{@shop.url}"
     when 'community'
       case rand(4)
       when 0
