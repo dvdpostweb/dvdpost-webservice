@@ -2,9 +2,7 @@ class OauthController < ApplicationController
   skip_before_filter :authenticate!
 
   def authenticate
-    redirect_to oauth_client.web_server.authorize_url(
-      :redirect_uri => oauth_callback_url
-    )
+    redirect_to oauth_client.web_server.authorize_url(:redirect_uri => oauth_callback_url, :locale => I18n.locale)
   end
 
   def callback
