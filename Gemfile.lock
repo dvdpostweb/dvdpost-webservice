@@ -12,20 +12,24 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  will_paginate: 
+  timed_fragment_cache: 
     group: 
     - :default
-    version: ~> 2.3.12
+    version: ">= 0"
+  json: 
+    group: 
+    - :default
+    version: ">= 0"
   capistrano-ext: 
     group: 
     - :default
     version: ">= 0"
     require: 
     - capistrano
-  json: 
+  will_paginate: 
     group: 
     - :default
-    version: ">= 0"
+    version: ~> 2.3.12
   rmagick: 
     group: 
     - :default
@@ -34,15 +38,7 @@ dependencies:
     group: 
     - :default
     version: ~> 2.2.2
-  warden: 
-    group: 
-    - :default
-    version: ">= 0"
-  hpricot: 
-    group: 
-    - :default
-    version: ~> 0.8.2
-  oauth2: 
+  orderedhash: 
     group: 
     - :default
     version: ">= 0"
@@ -50,7 +46,15 @@ dependencies:
     group: 
     - :default
     version: ">= 0"
-  orderedhash: 
+  oauth2: 
+    group: 
+    - :default
+    version: ">= 0"
+  hpricot: 
+    group: 
+    - :default
+    version: ~> 0.8.2
+  warden: 
     group: 
     - :default
     version: ">= 0"
@@ -111,12 +115,14 @@ specs:
     source: 0
 - rmagick: 
     version: 2.13.1
+- timed_fragment_cache: 
+    version: 0.0.1
 - warden_oauth: 
     version: 0.2.0
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: a6c5d33344bc17827e6aa1c8481dbca8d91fb685
+hash: 01391d1a01a49f4fb892effa4637e97dbe93f518
 sources: 
 - Git: 
     uri: git://github.com/mrs/rails_warden.git

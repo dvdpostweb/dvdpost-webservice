@@ -19,3 +19,4 @@ gem 'rails_warden', :git => 'git://github.com/mrs/rails_warden.git'
 
 gem 'orderedhash'
 gem 'will_paginate', '~> 2.3.12'
+gem 'timed_fragment_cache'
