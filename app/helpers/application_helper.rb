@@ -103,10 +103,10 @@ module ApplicationHelper
   end
   
   def php_path()
-    current_customer.addresses.first.entry_country_id if current_customer
+    country_id = current_customer.addresses.first.entry_country_id if current_customer
     case  Rails.env
       when 'development'
-        'http://localhost/'
+        production_path((country_id rescue nil))
       when 'staging'
         'http://test/'
       when 'pre_predocution'
@@ -119,10 +119,10 @@ module ApplicationHelper
   end  
 
   def production_path(country_id = nil)
-    if country_id.to_i == 21
-      'http://www.dvdpost.be/'
-    else
+    if country_id.to_i != 21
       'http://www.dvdpost.nl/'
+    else
+      'http://www.dvdpost.be/'
     end  
   end
 end
