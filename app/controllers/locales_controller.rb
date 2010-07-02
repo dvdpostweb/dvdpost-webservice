@@ -1,5 +1,6 @@
 class LocalesController < ApplicationController
   layout 'translator'
+  before_filter :http_authenticate
 
   def index
     @locales = Locale.all(:order => 'iso')

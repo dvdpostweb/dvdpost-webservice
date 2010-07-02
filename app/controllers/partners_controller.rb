@@ -1,4 +1,6 @@
 class PartnersController < ApplicationController
+  before_filter :http_authenticate
+
   def index
     @partners = Partner.all
   end
@@ -36,4 +38,5 @@ class PartnersController < ApplicationController
     @partner.destroy
     redirect_to partners_path
   end
+
 end
