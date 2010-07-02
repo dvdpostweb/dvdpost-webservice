@@ -1,9 +1,9 @@
 <% reason_init = phone_request.call_me_reason || :blank %>
 <% form_for phone_request do |f| %>
+<%= f.error_messages %>
   <p>
     <%= t '.intro' %>
   </p>
-  <%= f.error_messages %>
   <%= f.label :name, t('.name') %>
   <%= f.text_field :name, :class => "fld" %>
   <%= f.label :phone, t('.phone') %>

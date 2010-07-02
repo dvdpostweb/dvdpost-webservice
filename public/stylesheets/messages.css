@@ -234,7 +234,7 @@
   width: 363px;
   height: 463px;
   background: url(../images/contact-form-bg.jpg) 0 0 no-repeat;
-  padding: 25px;
+  padding: 5px 25px 40px 25px;
   font-size: 1.17em;
 }
 #contact-wrap #contact label {
@@ -406,7 +406,22 @@ padding-top: 14px;
 }
 
 
-
+.errorExplanation {
+color:#e78c15 !important;
+font-size:1.1em !impotant; 
+text-shadow:0 0 0 #000000;
+background:url(../images/attention_icon.png) no-repeat;
+height:33px;
+padding-left:50px;
+}
+.errorExplanation p{
+  margin:0;
+}
+.errorExplanation li{
+color:#e78c15 !important;
+font-size:0.9em !important; 
+margin:0 !important;
+}
 
 
 
