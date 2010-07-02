@@ -37,7 +37,11 @@ module ApplicationHelper
   end
 
   def delegate_locale
-    set_locale(params[:locale])
+    if params[:locale].nil? 
+      set_locale('fr')
+    else 
+      set_locale(params[:locale])
+    end
   end
 
   def messages_size
