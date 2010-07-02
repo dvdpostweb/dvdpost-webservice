@@ -68,7 +68,7 @@ class WishlistItemsController < ApplicationController
     DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
     #flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
     respond_to do |format|
-      format.html {redirect_to wishlist_path}
+      format.html {redirect_back_or  wishlist_path}
       format.js   {render :status => :ok, :layout => false}
     end
   end
