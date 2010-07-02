@@ -106,9 +106,9 @@ module ApplicationHelper
     country_id = current_customer ? current_customer.addresses.first.entry_country_id : nil
     case  Rails.env
       when 'development'
-        'http://localhost'
+        'http://localhost/'
       when 'staging'
-        'http://test'
+        'http://test/'
       when 'pre_predocution'
         production_path(country_id)
       when 'production'
