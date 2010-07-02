@@ -7,10 +7,10 @@ module ApplicationHelper
 
   def product_media_id(media)
     case media
-    when 'DVD', 'HDD', 'PS3', 'Wii' then media.downcase
-    when 'BlueRay'                  then 'bluray'
-    when 'XBOX 360'                 then 'xbox'
-    else ''
+      when 'DVD', 'HDD', 'PS3', 'Wii' then media.downcase
+      when 'BlueRay'                  then 'bluray'
+      when 'XBOX 360'                 then 'xbox'
+      else ''
     end
   end
 
@@ -57,7 +57,7 @@ module ApplicationHelper
     client_id = params.delete(:client_id)
     client_secret = params.delete(:client_secret)
     @client ||= OAuth2::Client.new(
-      client_id, client_secret, params 
+      client_id, client_secret, params
     )
   end
 
@@ -68,7 +68,7 @@ module ApplicationHelper
   def redirect_url_after_sign_out
     php_path
   end
-  
+
   def site_url
     "#{php_path}index.php"
   end
@@ -101,28 +101,28 @@ module ApplicationHelper
     @content_for_layout = self.output_buffer
     self.output_buffer = render(:file => "layouts/#{layout}")
   end
-  
-  def php_path()
-    country_id = current_customer.addresses.first.entry_country_id if current_customer
+
+  def php_path
+    country_id = current_customer ? current_customer.addresses.first.entry_country_id : nil
     case  Rails.env
       when 'development'
-        "http://localhost/"
+        'http://localhost'
       when 'staging'
-        'http://test/'
+        'http://test'
       when 'pre_predocution'
-        production_path((country_id rescue nil))
-      when 'production'   
-        production_path((country_id rescue nil))
+        production_path(country_id)
+      when 'production'
+        production_path(country_id)
       else
-        production_path((country_id rescue nil))
+        production_path(country_id)
     end
-  end  
+  end
 
   def production_path(country_id = nil)
     if country_id.to_i != 21
       'http://www.dvdpost.nl/'
     else
       'http://www.dvdpost.be/'
-    end  
+    end
   end
 end

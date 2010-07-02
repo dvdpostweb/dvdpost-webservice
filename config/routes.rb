@@ -1,18 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :locale => :fr, :controller => :home, :action => :index, :conditions => {:method => :get}
+  map.root :controller => :home, :action => :index, :conditions => {:method => :get}
 
   map.resources :locales, :except => [:show], :member => {:reload => :post} do |locale|
     locale.resources :translations, :except => [:show], :member => {:update_in_place => :post}
   end
 
+  map.with_options :controller => :oauth do |oauth|
+    oauth.oauth_authenticate 'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
+    oauth.oauth_callback     'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
+    oauth.sign_out           'sign_out',           :action => :sign_out,     :conditions => {:method => :get}
+  end
+
   map.with_options :path_prefix => '/:locale' do |localized|
     localized.root :controller => :home, :action => :index, :conditions => {:method => :get}
-
-    localized.with_options :controller => :oauth do |oauth|
-      oauth.oauth_authenticate 'oauth/authenticate', :action => :authenticate, :conditions => {:method => :get}
-      oauth.oauth_callback     'oauth/callback',     :action => :callback,     :conditions => {:method => :get}
-      oauth.sign_out           'sign_out',           :action => :sign_out,     :conditions => {:method => :get}
-    end
 
     localized.with_options :controller => :home do |home|
       home.indicator_closed 'home/indicator_closed', :action => :indicator_closed, :conditions => {:method => :get}
