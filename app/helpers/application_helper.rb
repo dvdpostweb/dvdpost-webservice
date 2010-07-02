@@ -101,20 +101,20 @@ module ApplicationHelper
     @content_for_layout = self.output_buffer
     self.output_buffer = render(:file => "layouts/#{layout}")
   end
-  
-  def php_path()
-    country_id = current_customer.addresses.first.entry_country_id if current_customer
+
+  def php_path
+    country_id = current_customer ? current_customer.addresses.first.entry_country_id : nil
     case  Rails.env
       when 'development'
-        "http://localhost/"
+        'http://localhost'
       when 'staging'
-        'http://test/'
+        'http://test'
       when 'pre_predocution'
-        production_path((country_id rescue nil))
+        production_path(country_id rescue nil)
       when 'production'   
-        production_path((country_id rescue nil))
+        production_path(country_id rescue nil)
       else
-        production_path((country_id rescue nil))
+        production_path(country_id rescue nil)
     end
   end  
 
