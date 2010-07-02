@@ -110,11 +110,11 @@ module ApplicationHelper
       when 'staging'
         'http://test'
       when 'pre_predocution'
-        production_path(country_id rescue nil)
+        production_path(country_id)
       when 'production'   
-        production_path(country_id rescue nil)
+        production_path(country_id)
       else
-        production_path(country_id rescue nil)
+        production_path(country_id)
     end
   end  
 
