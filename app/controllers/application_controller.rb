@@ -39,4 +39,12 @@ class ApplicationController < ActionController::Base
   def default_url_options(options={})
     options.keys.include?(:locale) ? options : options.merge( :locale => I18n.locale )
   end
+
+  private
+  def http_authenticate
+    authenticate_or_request_with_http_basic do |id, password|
+      id == 'dvdpostadmin' && password == 'Chase-GiorgioMoroder@dvdpost'
+    end
+    warden.custom_failure! if performed?
+  end
 end

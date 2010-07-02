@@ -1,5 +1,6 @@
 class TranslationsController < ApplicationController
   layout 'translator'
+  before_filter :http_authenticate
 
   before_filter :find_locale
   protect_from_forgery :only => []

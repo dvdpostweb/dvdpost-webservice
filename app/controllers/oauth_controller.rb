@@ -2,7 +2,15 @@ class OauthController < ApplicationController
   skip_before_filter :authenticate!
 
   def authenticate
-    redirect_to oauth_client.web_server.authorize_url(:redirect_uri => oauth_callback_url, :locale => I18n.locale)
+    # We need to send the locale so that SSO is in the correct locale
+    # If we use I18n.locale it will default back to :fr if there is no locale param given
+    # This means that we have to parse it out of the uri, so that we do not send a locale if it's has no locale param
+    # If there is a locale here, this will be the locale when we get redirected back (The one from SSO will get lost)
+    # If there is no locale, the one that SSO sets for us will be used in this client app
+    locale = $1 if request.path.match /\/(#{available_locales.join('|')})(\/.*|)/
+    options = {:redirect_uri => oauth_callback_url(:locale => locale)}
+    options.merge!(:locale => locale) if locale
+    redirect_to oauth_client.web_server.authorize_url(options)
   end
 
   def callback
