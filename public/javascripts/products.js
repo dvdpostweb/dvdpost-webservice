@@ -36,9 +36,6 @@ $(function() {
     if ($(this).attr('src').match(/black-star-/i)){
       loader = 'black-'+loader;
     }
-    if ($(this).attr('src').match(/small-star-/i)){
-      loader = 'small-'+loader;
-    }
     html_item.html("<img src='/images/"+loader+"'/>");
     $.ajax({
       url: url,
