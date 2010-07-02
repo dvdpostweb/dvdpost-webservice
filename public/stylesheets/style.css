@@ -1727,7 +1727,7 @@ html ul.tabs li.active a:hover {
 }
 
 #carousel li a.btn {
-  background: url(../images/ajouter-btn-mid.png) no-repeat;
+  background: url(../images/ajouter-btn-mid.png) 0 -1px no-repeat;
   display: block;
   height: 27px;
   line-height: 24px;
@@ -1740,7 +1740,7 @@ html ul.tabs li.active a:hover {
   margin: 0 0 4px 2px;
 }
 #carousel li a.btn:hover {
-  background: url(../images/ajouter-btn-mid.png) 0 -28px no-repeat;
+  background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
 }
 

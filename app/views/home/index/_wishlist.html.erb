@@ -36,6 +36,8 @@
   <% elsif @not_rated_product %>
     <%= render :partial => 'home/index/wishlist_rating', :locals => {:product => @not_rated_product} %>
     </div>
+  <% else %>
+    </div>
   <% end %>
 
 <div class="clear"></div>
