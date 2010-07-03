@@ -178,7 +178,7 @@ class Product < ActiveRecord::Base
     end
     query_string = qs.join(' ')
     
-    self.search(query_string, :conditions => {'products_status != -1'}, :per_page => 1000)
+    self.search(query_string, :per_page => 1000)
   end
 
   def self.replace_specials(str)

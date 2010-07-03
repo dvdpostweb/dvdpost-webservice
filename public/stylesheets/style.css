@@ -2945,11 +2945,13 @@ table.champ_compte
   border-collapse: separate !important;
 }
 p.notice {
-  background:none repeat scroll 0 0 #BCD1C1;
-  border:1px dashed #3B7049;
-  margin:9px;
-  padding:7px;
-  width:400px;
+  background:none repeat scroll 0 0 #CDE4EC;
+  border:1px solid #888888;
+  font-size:14px;
+  margin:9px auto;
+  padding:10px;
+  text-align:center;
+  width:900px;
 }
 #add_to_wishlist .item
 {
