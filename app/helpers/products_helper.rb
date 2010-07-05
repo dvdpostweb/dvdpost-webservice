@@ -40,12 +40,12 @@ module ProductsHelper
       name = 'star'
       class_name = 'star'
     end
-    if size == :small
+    if size == 'small' || size == :small
       name = "small-#{name}" 
     else
       name = "black-#{name}" if background == :black
     end
-    if size == :small
+    if size == 'small' || size == :small
       image_name = if rating >= 2
         "#{name}-on.png"
       elsif rating == 1
