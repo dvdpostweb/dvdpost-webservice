@@ -9,9 +9,9 @@ class ProductsController < ApplicationController
       @products.filter(params)
     end
     @products = @products.paginate(:page => params[:page], :per_page => 10)
-    
+
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
-    
+
     @countries = ProductCountry.visible.order
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != -1
     @filter = params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == -1)) || params[:languages] || params[:subtitles] || params[:dvdpost_choice]
@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-    
+
     respond_to do |format|
       format.html do
         @categories = @product.categories
@@ -37,10 +37,10 @@ class ProductsController < ApplicationController
       format.js {
         if params[:reviews_page]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
-        elsif params[:recommendation_page] 
+        elsif params[:recommendation_page]
           render :partial => 'products/show/recommendations', :object => @recommendations
         end
-      }  
+      }
     end
   end
 
@@ -91,7 +91,7 @@ class ProductsController < ApplicationController
       end
     end
   end
-  
+
   def awards
     @product = Product.available.find(params[:product_id])
     respond_to do |format|
