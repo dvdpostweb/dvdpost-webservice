@@ -307,7 +307,7 @@ $(function() {
   
   $('#carousel-wrap a.prev_page').live('click',function(){
     url = this.href;
-    html_item = $('#home_recommendations');
+    html_item = $('#carousel-wrap');
     content = html_item.html()
     $.ajax({
       url: url,
