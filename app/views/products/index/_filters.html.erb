@@ -2,8 +2,7 @@
   <h3>
     <%= t '.refine' %>
   </h3>
-  <% path = params[:category_id] && !params[:category_id].empty? ? category_products_path(:category_id => params[:category_id]) : products_path %>
-  <% form_tag path, :method => :get do %>
+  <% form_tag filter_path, :method => :get do %>
     <% field_set_tag do %>
     <ul>
       <li class="technology open">
