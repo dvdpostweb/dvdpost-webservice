@@ -25,6 +25,7 @@ class WishlistItemsController < ApplicationController
   def create
     begin
       if params[:add_all_from_series]
+        
         product = Product.find(params[:wishlist_item][:product_id])
         Product.find_all_by_products_series_id(product.series_id).collect do |product|
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
