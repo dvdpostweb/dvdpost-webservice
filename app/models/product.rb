@@ -95,7 +95,8 @@ class Product < ActiveRecord::Base
     products = products.dvdpost_choice                                         if params[:dvdpost_choice]
     # Next condition can not use the shortcut {:conditions => :products_title} because of
     # a bug on 'private method scan called onSymbol'
-    products.all(:conditions => ["products_title IS NOT NULL"])
+    #products.all(:conditions => ["products_title IS NOT NULL"])
+    products
   end
 
   def recommendations
