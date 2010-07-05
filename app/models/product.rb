@@ -49,7 +49,6 @@ class Product < ActiveRecord::Base
   named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
   named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
   named_scope :dvdpost_choice,      :conditions => {:products_dvdpostchoice => 1}
-
   named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
   named_scope :available,           :conditions => ['products_status != ?', '-1']
   named_scope :by_public,           lambda {|min, max|
@@ -58,7 +57,7 @@ class Product < ActiveRecord::Base
   }
   named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
-  named_scope :ordered, :order => 'products.products_id desc'
+  named_scope :ordered,             :order => 'products.products_id desc'
 
   define_index do
     indexes products_type

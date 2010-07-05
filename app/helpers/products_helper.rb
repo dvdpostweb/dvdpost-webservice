@@ -11,7 +11,7 @@ module ProductsHelper
     end
     links
   end
-  
+
   def rating_image_links(product, background=nil, size=nil, replace=nil)
     rating = product.rating(current_customer)
     links = []
@@ -31,7 +31,7 @@ module ProductsHelper
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
     link_to(image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace))
   end
-  
+
   def rating_image_link(product, rating, value, background=nil, size=nil, replace=nil)
     if current_customer.has_rated?(product)
       name = 'star-voted'
@@ -41,7 +41,7 @@ module ProductsHelper
       class_name = 'star'
     end
     if size == 'small' || size == :small
-      name = "small-#{name}" 
+      name = "small-#{name}"
     else
       name = "black-#{name}" if background == :black
     end
@@ -60,7 +60,7 @@ module ProductsHelper
         "#{name}-half.jpg"
       else
         "#{name}-off.jpg"
-      end      
+      end
     end
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
     link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace))
@@ -83,11 +83,11 @@ module ProductsHelper
   end
 
   def available_on_other_language(product)
-    if product.products_other_language.to_i > 0 
+    if product.products_other_language.to_i > 0
       if product.languages.preferred.include?(Language.find(1))
-        link_to(t('.dispo_nl'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')  
+        link_to(t('.dispo_nl'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')
       else
-        link_to(t('.dispo_fr'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')  
+        link_to(t('.dispo_fr'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')
       end
     end
   end
@@ -105,16 +105,16 @@ module ProductsHelper
     if !product.description.products_awards.empty?
       awards = product.description.products_awards.split('<br>')
       if count_awards(awards) > 3
-          content += '<p id ="oscars_text">'
-          3.times do |i|
-            content += "#{awards[i]}<br />"
-          end
-          content += '</p>'
-          content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => product.to_param)}</p>"
+        content += '<p id ="oscars_text">'
+        3.times do |i|
+          content += "#{awards[i]}<br />"
+        end
+        content += '</p>'
+        content += "<p id=\"oscars\">#{link_to t('.read_more'), product_awards_path(:product_id => product.to_param)}</p>"
       else
         content += "<p>#{product.description.products_awards}</p>"
       end
-    end 
+    end
   end
 
   def count_awards(awards)
@@ -130,7 +130,7 @@ module ProductsHelper
   def filter_checkbox_tag(attribute, sub_attribute)
     check_box_tag "#{attribute}[#{sub_attribute}]", 1, params[attribute] && params[attribute][sub_attribute]
   end
-  
+
   def title()
     title = t('.director') +' : '+ Director.find(params[:director_id]).name if params[:director_id] && !params[:director_id].empty?
     title = t('.actor') +' : '+ Actor.find(params[:actor_id]).name if params[:actor_id] && !params[:actor_id].empty?
@@ -149,7 +149,7 @@ module ProductsHelper
       t('products.wishlist.add')
     end
   end
-   
+
   def title_remove_from_wishlist(type_text)
     if type_text == :short
       t('products.wishlist.short_remove')
@@ -157,5 +157,14 @@ module ProductsHelper
       t('products.wishlist.remove')
     end
   end
-  
+
+  def filter_path
+    if params[:category_id] && !params[:category_id].empty?
+      category_products_path(:category_id => params[:category_id])
+    elsif params[:actor_id] && !params[:actor_id].empty?
+      actor_products_path(:actor_id => params[:actor_id])
+    else
+      products_path
+    end
+  end
 end

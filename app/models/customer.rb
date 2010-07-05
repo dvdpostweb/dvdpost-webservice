@@ -34,7 +34,6 @@ class Customer < ActiveRecord::Base
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
 
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
-
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -49,7 +48,6 @@ class Customer < ActiveRecord::Base
   has_many :compensations, :foreign_key => :customers_id
   has_many :addresses, :foreign_key => :customers_id
   has_many :payment_offline_request, :foreign_key => :customers_id
-  
   has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
