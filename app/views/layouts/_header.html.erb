@@ -22,9 +22,7 @@
   </ul>
   <ul id="subnav" class="subnav">
     <li class="first">
-      <a href="#">
-        <strong><%= t '.rent' %></strong>
-      </a>
+      <%= link_to content_tag(:strong, t('.rent')) %>
     </li>
     <li>
       <a href="<%= "#{php_path}mydvdxpost.php" %>">
