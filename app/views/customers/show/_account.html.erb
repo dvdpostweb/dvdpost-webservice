@@ -25,7 +25,7 @@
         <td align="right" valign="top" id="modif">
           <ul>
             <li class="links">
-              <%= link_to 'Modifier mon compte', edit_customer_path(), :class => 'modification_account' %>
+              <%= link_to t('.customer_edit'), edit_customer_path(), :class => 'modification_account' %>
             </li>
           </ul>
         </td>
@@ -43,7 +43,7 @@
         <td align="right" valign="top" id="modif">
           <ul>
             <li class="links">
-              <%= link_to 'Modifier mon adresse', edit_customer_addresses_path(:customer_id => current_customer), :class => 'modification_address' %>
+              <%= link_to t('.address_edit'), edit_customer_addresses_path(:customer_id => current_customer), :class => 'modification_address' %>
             </li>
           </ul>
         </td>
