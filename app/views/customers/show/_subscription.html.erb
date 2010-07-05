@@ -55,7 +55,7 @@
       <tr>
         <td align="right" class="adresse"><strong><%= t '.date_abo' %></strong></td>
         <td align="left" class="adresse">
-          <%= customer.subscription.created_at.strftime("%d/%m/%Y") if customer.subscription.created_at %>
+          <%= customer.subscription.created_at.strftime("%d/%m/%Y") if customer.subscription and customer.subscription.created_at %>
         </td>
       </tr>
       <tr>
