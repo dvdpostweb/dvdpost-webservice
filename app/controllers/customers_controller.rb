@@ -9,37 +9,34 @@ class CustomersController < ApplicationController
       format.html
       format.js {render :layout => false}
     end
-  end 
+  end
 
   def update
     @customer = current_customer
-    
     params[:customer][:birthday]= "#{params['year']}-#{params['month']}-#{params['day']}"
     if @customer.update_attributes(params[:customer])
-      
-      
       respond_to do |format|
-        format.html do 
+        format.html do
           flash[:notice] = t(:customer_modify)
           redirect_to customer_path
         end
-        format.js 
+        format.js
       end
     else
       respond_to do |format|
-        format.html do 
+        format.html do
           render :action => :edit
         end
-        format.js do 
+        format.js do
           render :action => :edit, :layout => false
         end
       end
     end
   end
-  
+
   def newsletter
     @customer = current_customer
-    @customer.newsletter!(params[:type],params[:value])
+    @customer.newsletter!(params[:type], params[:value])
     if params[:type] == 'newsletter'
       data = @customer.newsletter
     else
@@ -47,19 +44,20 @@ class CustomersController < ApplicationController
     end
     respond_to do |format|
       format.html do
-         render :action => :show
+        render :action => :show
       end
-      format.js { render :partial => 'customers/show/active', :locals => {:active => data, :type => params[:type]}}
-    end        
+      format.js {render :partial => 'customers/show/active', :locals => {:active => data, :type => params[:type]}}
+    end
   end
+
   def rotation_dvd
     @customer = Customer.find(current_customer)
     @customer.rotation_dvd!(params[:type],params[:value].to_i)
     respond_to do |format|
       format.html do
-         render :action => :show
+        render :action => :show
       end
-      format.js { render :partial => 'customers/show/rotation', :locals => {:customer => @customer}}
-    end        
+      format.js {render :partial => 'customers/show/rotation', :locals => {:customer => @customer}}
+    end
   end
 end

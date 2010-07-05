@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def index
-    @messages = current_customer.messages.ordered.paginate(:page => params[:page] || 1)
+    @messages = current_customer.messages.ordered.all(:include => :product).paginate(:page => params[:page] || 1)
   end
 
   def new
@@ -33,7 +33,6 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = Message.destroy(params[:id])
-    
     respond_to do |format|
       format.html {redirect_to messages_path}
       format.js   {render :status => :ok, :layout => false}

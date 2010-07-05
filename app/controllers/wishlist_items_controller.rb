@@ -6,7 +6,7 @@ class WishlistItemsController < ApplicationController
       @history_items = current_customer.assigned_items
       locals = {:transit_items => nil, :history_items => @history_items}
     else
-      @transit_items = current_customer.orders.in_transit_plus.ordered
+      @transit_items = current_customer.orders.in_transit_plus.ordered.all(:include => [:product, :status])
       locals = {:transit_items => @transit_items, :history_items => nil}
     end
     respond_to do |format|
@@ -25,7 +25,6 @@ class WishlistItemsController < ApplicationController
   def create
     begin
       if params[:add_all_from_series]
-        
         product = Product.find(params[:wishlist_item][:product_id])
         Product.find_all_by_products_series_id(product.series_id).collect do |product|
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
@@ -37,20 +36,20 @@ class WishlistItemsController < ApplicationController
         flash[:notice] = t('wishlist_items.index.product_add', :title => @wishlist_item.product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
       end
       redirect_back_or @wishlist_item.product
-   rescue Exception => e
-     if @wishlist_item && @wishlist_item.product
-       if params[:add_all_from_series]
-         flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
-         redirect_to product
-       else
-         flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
-         redirect_to @wishlist.product
-       end
-     else
-       flash[:notice] = t('wishlist_items.index.product_error_unexpected')
-       redirect_to wishlist_path
-     end
-   end
+    rescue Exception => e
+      if @wishlist_item && @wishlist_item.product
+        if params[:add_all_from_series]
+          flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
+          redirect_to product
+        else
+          flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
+          redirect_to @wishlist.product
+        end
+      else
+        flash[:notice] = t('wishlist_items.index.product_error_unexpected')
+        redirect_to wishlist_path
+      end
+    end
   end
 
   def update

@@ -43,7 +43,7 @@
           <strong><%= "#{t('.transit')} : #{customer.orders.in_transit.count} DVD" %></strong>
         </td>
       </tr>
-      <% customer.orders.in_transit.each do |transit_item| %>
+      <% customer.orders.in_transit.all(:include => :product).each do |transit_item| %>
       <tr>
         <td align="left" class="transit"><%= link_to truncate(transit_item.product.title, :length => 50), product_path(:id => transit_item.product.to_param) %></td>
         <td align="right" class="transit"><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>

@@ -2,13 +2,13 @@ class HomeController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products
+        @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors])
         @soon = Product.by_kind(:normal).available.soon
         @new = Product.by_kind(:normal).available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
         not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
-        if @offline_request.count == 0 
+        if @offline_request.count == 0
           if current_customer.credit_empty?
             @renew_subscription = true
           else
@@ -19,7 +19,7 @@ class HomeController < ApplicationController
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
         @wishlist_count = current_customer.wishlist_items.count
-        @transit_items = current_customer.orders.in_transit.all(:order => 'orders.date_purchased ASC')
+        @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
         @news_items = retrieve_news
         @recommendations = retrieve_recommendations
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
