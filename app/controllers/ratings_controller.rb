@@ -18,7 +18,7 @@ class RatingsController < ApplicationController
             render :nothing => true
           end
         else
-          render :partial => 'products/rating', :locals => {:product => @product, :background => params[':background'], :size => params[:size]}
+          render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background], :size => params[:size]}
         end
       }
     end

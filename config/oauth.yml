@@ -19,7 +19,7 @@ staging:
 pre_production:
   client_id: dvdpost_rails_pre_prod_client
   client_secret: 'dvdpost_rails_pre_prod_client_secret'
-  site: 'https://secure.dvdpost.eu  '
+  site: 'https://sso.dvdpost.be'
   authorize_path: 'authorization/new'
   access_token_path: 'authorization/token'
 production:
