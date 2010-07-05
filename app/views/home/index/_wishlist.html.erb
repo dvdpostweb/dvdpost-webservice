@@ -15,7 +15,7 @@
     <th colspan="2">
       <%= t '.lent' %>
       <span>
-        <%= transit_items.count %> <%= t '.dvd' %>
+        <%= transit_items.count if transit_items %> <%= t '.dvd' %>
       </span>
     </th>
   </tr>
