@@ -35,6 +35,6 @@
   </fieldset>
   <p class="align" id="add_to_wishlist">
   <%= f.submit title_add_to_wishlist(:long), :class => 'item' %>
-  <%= f.submit t('.add_serie'), :class => 'serie' if @wishlist_item.product.series? %>
+  <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series' if @wishlist_item.product.series? %>
   </p>
 <% end %>
