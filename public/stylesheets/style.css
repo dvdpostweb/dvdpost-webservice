@@ -1345,12 +1345,13 @@ display: block;
 height: 35px;
 margin-bottom: 10px;
 /*text-indent: -999em;*/
-padding: 3px 0 0 23px;
+padding: 3px 0 0 0;
 color: white;
 margin-left: -3px;
 line-height:29px;
 text-shadow: 1px 1px 1px #555555;
 background: url(../images/dispo-btn-bg.png) 0 100% no-repeat;
+text-align:center;
 }
 #detail-wrap .action .dispo-btn:hover {
   text-decoration: none;
@@ -1743,7 +1744,23 @@ html ul.tabs li.active a:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
 }
-
+#carousel li a.btn_remove {
+  background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 24px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+  margin: 0 0 4px 2px;
+}
+#carousel li a.btn_remove:hover {
+  background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
 #carousel #prev, #carousel #next,#carousel .prev_page, #carousel .next_page {
   background: url(../images/carousel-arrows.png) 0 0 no-repeat;
   display: block;
