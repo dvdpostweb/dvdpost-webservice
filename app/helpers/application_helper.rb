@@ -122,6 +122,34 @@ module ApplicationHelper
     end
   end
 
+  def sponsor_path
+    "#{php_path}member_get_member.php"
+  end
+
+  def contest_path
+    "#{php_path}contest.php"
+  end
+
+  def quizz_path
+    "#{php_path}quizz.php"
+  end
+
+  def who_we_are_path
+    "#{php_path}whoweare.php"
+  end
+
+  def press_path
+    "#{php_path}presse.php"
+  end
+
+  def privacy_path
+    "#{php_path}privacy.php"
+  end
+
+  def conditions_path
+    "#{php_path}conditions.php"
+  end
+
   def production_path(country_id = nil)
     if country_id.to_i == 21 || country_id == nil 
       'http://www.dvdpost.be/' 
