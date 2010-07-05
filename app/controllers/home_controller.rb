@@ -19,8 +19,7 @@ class HomeController < ApplicationController
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
         @wishlist_count = current_customer.wishlist_items.count
-        @transit_items_count = current_customer.orders.in_transit.count
-        @transit_items = current_customer.orders.in_transit.all( :order => 'orders.date_purchased ASC')
+        @transit_items = current_customer.orders.in_transit.all(:order => 'orders.date_purchased ASC')
         @news_items = retrieve_news
         @recommendations = retrieve_recommendations
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
