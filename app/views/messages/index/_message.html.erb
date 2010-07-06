@@ -1,4 +1,4 @@
-<tr <%= "class='new'" unless message.is_read %>>
+<tr<%= " class='new'" unless message.read? %>>
   <td>
     <%= message.id %>
   </td>
