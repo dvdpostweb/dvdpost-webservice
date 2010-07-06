@@ -63,7 +63,7 @@
   </strong>
   <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
 </p>
-<%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small' } %>
+<%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>
 <p>
   <strong>
     <%= t '.image' %>
