@@ -150,6 +150,10 @@ module ApplicationHelper
     "#{php_path}conditions.php"
   end
 
+  def customers_reviews_path(customer)
+    "#{php_path}reviews_member.php?custid=#{customer.to_param}"
+  end
+
   def production_path(country_id = nil)
     if country_id.to_i == 21 || country_id == nil 
       'http://www.dvdpost.be/' 
