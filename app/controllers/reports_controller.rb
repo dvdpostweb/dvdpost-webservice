@@ -33,9 +33,17 @@ class ReportsController < ApplicationController
         
         if status.keys.include?(:at_home)
           if status[:at_home]
-            current_customer.add_dvd_at_home!
+            if @order.product.products_type == DVDPost.product_kinds[:adult]
+              current_customer.add_dvd_at_home_adult!
+            else
+              current_customer.add_dvd_at_home!
+            end
           else
-            current_customer.substract_dvd_at_home!
+            if @order.product.products_type == DVDPost.product_kinds[:adult]
+              current_customer.substract_dvd_at_home_adult!
+            else
+              current_customer.substract_dvd_at_home!
+            end
           end
         end
 

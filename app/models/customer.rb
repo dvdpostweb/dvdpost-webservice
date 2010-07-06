@@ -12,6 +12,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :language,                     :customers_language
   alias_attribute :suspension_status,            :customers_abo_suspended
   alias_attribute :dvds_at_home_count,           :customers_abo_dvd_home_norm
+  alias_attribute :dvds_at_home_adult_count,           :customers_abo_dvd_home_adult
   alias_attribute :address_id,                   :customers_default_address_id
   alias_attribute :inviation_points,             :mgm_points
   alias_attribute :credits,                      :customers_abo_dvd_credit
@@ -99,6 +100,14 @@ class Customer < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def add_dvd_at_home_adult!
+    update_attribute(:dvds_at_home_adult_count, (dvds_at_home_adult_count + 1))
+  end
+
+  def substract_dvd_at_home_adult!
+    update_attribute(:dvds_at_home_adult_count, (dvds_at_home_adult_count - 1))
   end
 
   def add_dvd_at_home!
