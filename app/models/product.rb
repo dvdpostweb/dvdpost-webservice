@@ -104,11 +104,10 @@ class Product < ActiveRecord::Base
   end
 
   def self.customer_recommendations(customer)
-    raw = find(:all, :conditions => {:products_id => DVDPost.home_page_recommendations(customer)})
-    customer.rated_products.each do |excluded|
-      raw.delete(excluded)
-    end
-    raw
+    rocommendation_ids = DVDPost.home_page_recommendations(customer)
+    rated_ids = customer.rated_products.collect(&:id)
+    result_ids = rocommendation_ids - rated_ids
+    all(:conditions => {:products_id => result_ids})
   end
 
   def description
