@@ -29,7 +29,7 @@ module ProductsHelper
     image_name = "#{name}-off.jpg"
 
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to(image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace))
+    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
   end
 
   def rating_image_link(product, rating, value, background=nil, size=nil, replace=nil)
