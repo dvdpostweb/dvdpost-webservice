@@ -61,7 +61,7 @@
       <tr>
         <td align="right"><strong><%= t '.date_end_abo' %></strong></td>
         <td align="left">
-          <%= customer.subscription_expiration_date.strftime("%d/%m/%Y") %>
+          <%= customer.subscription_expiration_date.strftime("%d/%m/%Y") if customer.subscription_expiration_date %>
         </td>
       </tr>
       <tr>
