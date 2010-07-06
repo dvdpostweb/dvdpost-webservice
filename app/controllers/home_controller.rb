@@ -6,7 +6,7 @@ class HomeController < ApplicationController
         @soon = Product.normal.available.soon
         @new = Product.normal.available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
-        not_rated_products = current_customer.not_rated_products.normal.available
+        not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
         if @offline_request.count == 0
           if current_customer.credit_empty?
