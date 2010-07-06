@@ -6,12 +6,14 @@
   <ul>
     <% statuses.each do |event| %>
       <li class="add_problem_space">
-        <% if (event.to_s != 'arrived' && event.to_s != 'delayed')  %>
-          <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
-        <% elsif (event.to_s == 'arrived' && (@order.status.orders_status_id == 17 || @order.status.orders_status_id == 12)) %>
-          <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
-        <% elsif event.to_s == 'delayed' && @order.status.orders_status_id == 2 %>
-          <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
+        <% if (@order.status.orders_status_id == 17 || @order.status.orders_status_id == 12) %>
+          <%= link_to_report(t(".#{event}"), @order.to_param, event) if event.to_s == 'arrived' %>
+        <% else %>
+          <% if event.to_s == 'delayed' && @order.status.orders_status_id == 2 %>
+            <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
+          <% else (event.to_s != 'arrived' && event.to_s != 'delayed')  %>
+            <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
+          <% end %>
         <% end %>
       </li>
     <% end %>

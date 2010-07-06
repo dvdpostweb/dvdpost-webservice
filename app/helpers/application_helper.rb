@@ -169,4 +169,12 @@ module ApplicationHelper
       product_path(:id => product.to_param)
     end
   end
+  
+  def product_addigned_title(product)
+    if product.products_type == DVDPost.product_kinds[:adult]
+      t('wishlit_items.index.adult_title')
+    else
+      product.title
+    end
+  end
 end
