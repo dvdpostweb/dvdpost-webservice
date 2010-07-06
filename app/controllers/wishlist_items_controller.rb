@@ -38,13 +38,8 @@ class WishlistItemsController < ApplicationController
       redirect_back_or @wishlist_item.product
     rescue Exception => e
       if @wishlist_item && @wishlist_item.product
-        if params[:add_all_from_series]
-          flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
-          redirect_to product
-        else
-          flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
-          redirect_to @wishlist_item.product
-        end
+        flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
+        redirect_to product
       else
         flash[:notice] = t('wishlist_items.index.product_error_unexpected')
         redirect_to wishlist_path
