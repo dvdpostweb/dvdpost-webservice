@@ -6,7 +6,7 @@ gem 'mysql', :group => :bundle
 gem 'rmagick'
 
 gem 'capistrano-ext', :require => 'capistrano'
-gem 'hoptoad_notifier', '~> 2.2.2'
+gem 'hoptoad_notifier', '~> 2.3.0'
 
 gem 'json'
 gem 'hpricot', '~> 0.8.2'
