@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.available.filter(params)
+    @products = Product.filter(params)
     @products = if params[:recommended]
       @products.customer_recommendations(current_customer)
     elsif params[:search]
