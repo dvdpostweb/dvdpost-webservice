@@ -16,6 +16,7 @@ class Message < ActiveRecord::Base
   alias_attribute :response,    :adminmessage
   alias_attribute :category_id, :custserv_cat_id
   alias_attribute :content,     :adminmessage
+  alias_attribute :read,        :is_read
 
   belongs_to :product, :primary_key => :products_id, :foreign_key => :products_id
   belongs_to :order, :primary_key => :orders_id, :foreign_key => :orders_id
