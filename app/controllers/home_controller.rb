@@ -3,10 +3,10 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html {
         @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors])
-        @soon = Product.by_kind(:normal).available.soon
-        @new = Product.by_kind(:normal).available.new_products
+        @soon = Product.normal.available.soon
+        @new = Product.normal.available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
-        not_rated_products = current_customer.not_rated_products
+        not_rated_products = current_customer.not_rated_products.normal.available
         @offline_request = current_customer.payment_offline_request.recovery
         if @offline_request.count == 0
           if current_customer.credit_empty?
@@ -49,6 +49,6 @@ class HomeController < ApplicationController
   end
 
   def retrieve_recommendations
-    Product.customer_recommendations(current_customer).paginate(:per_page => 8, :page => params[:recommendation_page] || 1)
+    Product.normal.available.customer_recommendations(current_customer).paginate(:per_page => 8, :page => params[:recommendation_page] || 1)
   end
 end

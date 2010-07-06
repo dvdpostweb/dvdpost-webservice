@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.available.find(params[:id])
+    @product = Product.normal.available.find(params[:id])
     @product.views_increment
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
@@ -46,10 +46,9 @@ class ProductsController < ApplicationController
 
   def recommendations_paginate
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-
     respond_to do |format|
       format.html do
-        @product = Product.available.find(params[:id])
+        @product = Product.normal.available.find(params[:id])
         @product.views_increment
         @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
         @reviews_count = @product.reviews.approved.count
@@ -68,7 +67,7 @@ class ProductsController < ApplicationController
 
   def uninterested
     begin
-      @product = Product.available.find(params[:product_id])
+      @product = Product.normal.available.find(params[:product_id])
       unless (current_customer.rated_products.include?(@product ) || current_customer.seen_products.include?(@product))
         @product.uninterested_customers << current_customer
         DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
@@ -82,7 +81,7 @@ class ProductsController < ApplicationController
 
   def seen
     begin
-      @product = Product.available.find(params[:product_id])
+      @product = Product.normal.available.find(params[:product_id])
       @product.seen_customers << current_customer
       respond_to do |format|
         format.html {redirect_to product_path(:id => @product.to_param)}
@@ -92,7 +91,7 @@ class ProductsController < ApplicationController
   end
 
   def awards
-    @product = Product.available.find(params[:product_id])
+    @product = Product.normal.available.find(params[:product_id])
     respond_to do |format|
       format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
     end

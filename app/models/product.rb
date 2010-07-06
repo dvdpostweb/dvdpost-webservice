@@ -58,6 +58,7 @@ class Product < ActiveRecord::Base
   named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :ordered,             :order => 'products.products_id desc'
+  named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
   define_index do
     indexes products_type
@@ -77,7 +78,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_kind) {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
 
   def self.filter(params)
-    products = available.ordered.by_kind(:normal)
+    products = normal.available.ordered
     products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
     products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
