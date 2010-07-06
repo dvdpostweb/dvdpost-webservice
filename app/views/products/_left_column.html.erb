@@ -20,14 +20,33 @@
       <%= link_to t('.categories') %>
       <ul id="cat">
         <% Category.active.roots.movies.by_kind(:normal).remove_theme.ordered.collect do |category| %>
-        <li class="cat" <%= "style='display:none'" if @category && category.id != @category.id && category.id != @category.parent_id %>>
-          <%= link_to category.name, category_products_path(:category_id => category) %>
+        <% 
+          if @category && category.id != @category.id && category.id != @category.parent_id 
+            param= "class='cat' style='display:none'"
+            actived = ''
+          elsif @category && category.id == @category.id
+            actived = 'actived'
+          else
+            actived = ''
+            param= "class='cat'"
+          end
+        %>
+        <li <%= param %>>
+          <%= link_to category.name, category_products_path(:category_id => category), :class => actived %>
         </li>
         
         <% if @category && (category.id == @category.id || category.id == @category.parent_id) %>
           <% Category.active.movies.by_kind(:normal).remove_theme.ordered.find_all_by_parent_id(category.id).collect do |sub_category| %>
+            <% 
+            if sub_category.id == @category.id 
+              actived = 'actived'
+            else
+              actived = ''
+            end
+            %>
+            
             <li class="subcat"> 
-              <%= link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category) %>
+              <%= link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => actived %>
             </li>  
           <% end %>
           <li><a href="#" id ="all_categorie"><%= t('.category_back') %></a></li>

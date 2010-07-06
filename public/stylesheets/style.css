@@ -2458,7 +2458,7 @@ div.top10.first p a {
   width: 148px;
 }
 
-#leftcolumn #left-nav li a:hover {
+#leftcolumn #left-nav li a:hover,#leftcolumn #left-nav li a.actived {
   color: black;
   text-decoration: none;
 }
@@ -2486,7 +2486,7 @@ div.top10.first p a {
   text-transform: none;
 }
 
-#leftcolumn #left-nav li li a:hover {
+#leftcolumn #left-nav li li a:hover, #leftcolumn #left-nav li li a.actived {
   font-weight: bold;
 }
 
