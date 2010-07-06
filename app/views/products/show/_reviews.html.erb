@@ -1,6 +1,6 @@
 <div class="numbers">
   <%= link_to t('.new_review'), new_product_review_path(:product_id => product.to_param), :id => 'add_new_review' %>
-  <%= "#{reviews_count} #{reviews_count == 1 ? t('review') : t('.reviews')}" %>
+  <%= "#{reviews_count} #{reviews_count == 1 ? t('.review') : t('.reviews')}" %>
 </div>
 <%= render :partial => 'products/show/review', :collection => reviews %>
 <%= will_paginate reviews, :param_name => 'reviews_page',
