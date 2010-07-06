@@ -43,7 +43,7 @@ class WishlistItemsController < ApplicationController
           redirect_to product
         else
           flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
-          redirect_to @wishlist.product
+          redirect_to @wishlist_item.product
         end
       else
         flash[:notice] = t('wishlist_items.index.product_error_unexpected')
