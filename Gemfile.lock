@@ -41,7 +41,7 @@ dependencies:
   hoptoad_notifier: 
     group: 
     - :default
-    version: ~> 2.2.2
+    version: ~> 2.3.0
   warden: 
     group: 
     - :default
@@ -98,7 +98,7 @@ specs:
 - faraday: 
     version: 0.4.6
 - hoptoad_notifier: 
-    version: 2.2.6
+    version: 2.3.1
 - hpricot: 
     version: 0.8.2
 - json: 
@@ -128,7 +128,7 @@ specs:
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: 9e09311203d01d2a759707eda105cada481f8b61
+hash: 867ae827eee932ff6d1f7baa32b0df3d675756f8
 sources: 
 - Git: 
     uri: git://github.com/mrs/rails_warden.git
