@@ -1,6 +1,6 @@
 class WishlistItemsController < ApplicationController
   def index
-    @wishlist_items = current_customer.wishlist_items.ordered.include_products
+    @wishlist_items = current_customer.wishlist_items.available.by_kind(:normal).ordered.include_products
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
       @history_items = current_customer.assigned_items
