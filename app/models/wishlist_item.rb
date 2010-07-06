@@ -18,6 +18,8 @@ class WishlistItem < ActiveRecord::Base
   validates_uniqueness_of :product_id, :scope => [:customers_id, :product_id]
 
   named_scope :ordered, :order => 'priority ASC, imdb_id DESC, products_id asc'
+  named_scope :by_kind, lambda {|kind| {:conditions => {:wishlist_type => DVDPost.product_kinds[kind]}}}
+  named_scope :available, :conditions => ['products_status != ?', '-1']
   named_scope :movies, :joins => :product, :conditions => {:products => {:products_product_type => 'Movie'}}
   named_scope :current, :conditions => {:products => {:products_next => 0}}
   named_scope :future, :conditions => {:products => {:products_next => 1}}
