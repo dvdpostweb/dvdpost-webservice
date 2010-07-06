@@ -6,7 +6,7 @@ class RatingsController < ApplicationController
     DVDPost.send_evidence_recommendations('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
     
     respond_to do |format|
-      format.html {redirect_to product_path(@product)}
+      format.html {redirect_to product_path(:id => @product)}
       format.js   {
         case params[:replace]
         when 'homepage'

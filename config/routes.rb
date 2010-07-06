@@ -21,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :products, :only => [:index, :show] do |product|
       product.resource :rating, :only => :create
+      product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
       product.resources :wishlist_items, :only => [:new, :create]
       product.resources :reviews, :only => [:new, :create]
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
