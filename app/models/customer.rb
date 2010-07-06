@@ -23,16 +23,15 @@ class Customer < ActiveRecord::Base
   alias_attribute :phone,                        :customers_telephone
   alias_attribute :birthday,                     :customers_dob
   alias_attribute :gender,                       :customers_gender
-  
+
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
-  
+
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
-
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
@@ -65,7 +64,7 @@ class Customer < ActiveRecord::Base
   end
 
   def active?
-    (abo_active? and suspension_status == 0)
+    (abo_active? && suspension_status == 0)
   end
 
   def suspended?
@@ -133,15 +132,14 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    if self.credits == 0 and self.suspension_status == 0 and self.subscription_type.credits > 0 and self.subscription_expiration_date and self.subscription_expiration_date.to_date !=  Time.now.to_date
+    if self.credits == 0 && self.suspension_status == 0 && self.subscription_type.credits > 0 && self.subscription_expiration_date && self.subscription_expiration_date.to_date != Time.now.to_date
       true
     else
       false
     end
-  end 
+  end
 
   private
-
   def convert_created_at
     begin
       self.created_at = Date.civil(self.year.to_i, self.month.to_i, self.day.to_i)
@@ -153,5 +151,4 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
-
 end

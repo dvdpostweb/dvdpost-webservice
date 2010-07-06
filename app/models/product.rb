@@ -61,9 +61,8 @@ class Product < ActiveRecord::Base
 
   define_index do
     indexes products_type
-    indexes actors.actors_name,      :as => :actors_names
-    indexes director.directors_name, :as => :director_name
-
+    indexes actors.actors_name,                 :as => :actors_names
+    indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
 
@@ -140,7 +139,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_new?
-    availability > 0 and created_at.between?(3.months.ago, Time.now) and products_next == 0
+    availability > 0 && created_at.between?(3.months.ago, Time.now) && products_next == 0
   end
 
   def dvdposts_choice?
@@ -176,7 +175,7 @@ class Product < ActiveRecord::Base
       qs << "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
     end
     query_string = qs.join(' ')
-    
+
     self.search(query_string, :per_page => 1000)
   end
 
