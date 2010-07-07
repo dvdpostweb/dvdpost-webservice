@@ -61,6 +61,7 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :orders, :only => [] do |orders|
       orders.resource :report, :only => [:new, :create]
+      orders.report 'report', :controller => :reports, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
     end
 
     localized.resources :partners
