@@ -150,11 +150,31 @@ module ApplicationHelper
     "#{php_path}conditions.php"
   end
 
+  def customers_reviews_path(customer)
+    "#{php_path}reviews_member.php?custid=#{customer.to_param}"
+  end
+
   def production_path(country_id = nil)
     if country_id.to_i == 21 || country_id == nil 
       'http://www.dvdpost.be/' 
     else
       'http://www.dvdpost.nl/'
+    end
+  end
+
+  def product_assigned_path(product)
+    if product.products_type == DVDPost.product_kinds[:adult]
+      "#{php_path}product_info_adult.php?products_id=#{product.to_param}"
+    else
+      product_path(:id => product.to_param)
+    end
+  end
+  
+  def product_assigned_title(product)
+    if product.products_type == DVDPost.product_kinds[:adult]
+      t('wishlit_items.index.adult_title')
+    else
+      product.title
     end
   end
 end

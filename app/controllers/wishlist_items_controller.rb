@@ -17,7 +17,7 @@ class WishlistItemsController < ApplicationController
 
   def new
     session[:return_to] = request.env["HTTP_REFERER"]
-    product = Product.available.find(params[:product_id])
+    product = Product.normal.available.find(params[:product_id])
     @wishlist_item = product.wishlist_items.build
     render :layout => false
   end
@@ -25,8 +25,8 @@ class WishlistItemsController < ApplicationController
   def create
     begin
       if params[:add_all_from_series]
-        product = Product.find(params[:wishlist_item][:product_id])
-        Product.find_all_by_products_series_id(product.series_id).collect do |product|
+        product = Product.normal.available.find(params[:wishlist_item][:product_id])
+        Product.normal.available.find_all_by_products_series_id(product.series_id).collect do |product|
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
         end
         @wishlist_item = current_customer.wishlist_items.by_product(product)
@@ -38,13 +38,8 @@ class WishlistItemsController < ApplicationController
       redirect_back_or @wishlist_item.product
     rescue Exception => e
       if @wishlist_item && @wishlist_item.product
-        if params[:add_all_from_series]
-          flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
-          redirect_to product
-        else
-          flash[:notice] = t('wishlist_items.index.product_not_add', :title => @wishlist_item.product.title)
-          redirect_to @wishlist.product
-        end
+        flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
+        redirect_to product
       else
         flash[:notice] = t('wishlist_items.index.product_error_unexpected')
         redirect_to wishlist_path
@@ -66,7 +61,6 @@ class WishlistItemsController < ApplicationController
   def destroy
     @wishlist_item = WishlistItem.destroy(params[:id])
     DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
-    #flash[:notice] = "#{@wishlist_item.product.title} was removed from your wishlist."
     respond_to do |format|
       format.html {redirect_back_or  wishlist_path}
       format.js   {render :status => :ok, :layout => false}

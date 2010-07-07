@@ -41,7 +41,7 @@ dependencies:
   hoptoad_notifier: 
     group: 
     - :default
-    version: ~> 2.2.2
+    version: ~> 2.3.0
   warden: 
     group: 
     - :default
@@ -98,7 +98,7 @@ specs:
 - faraday: 
     version: 0.4.6
 - hoptoad_notifier: 
-    version: 2.2.6
+    version: 2.3.2
 - hpricot: 
     version: 0.8.2
 - json: 
@@ -128,7 +128,7 @@ specs:
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: 000a7d8a0fac73cf7872c46e9c99c175b6682ad0
+hash: 11e87663b0dade6b75ef0102dd9834146a46a111
 sources: 
 - Path: 
     path: !ruby/object:Pathname 

@@ -7,30 +7,31 @@ module DVDPost
     def images_carousel_path
       'landings'
     end
+
     def news_url
-       HashWithIndifferentAccess.new.merge({
-          :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
-          :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
-          :en => 'http://syndication.cinenews.be/rss/newsnl.xml'
-        })
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
+        :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
+        :en => 'http://syndication.cinenews.be/rss/newsnl.xml'
+      })
     end
 
     def images_language_path
-       HashWithIndifferentAccess.new.merge({
-          :fr => 'http://www.dvdpost.be/images/www3/languages/french/images',
-          :nl => 'http://www.dvdpost.be/images/www3/languages/dutch/images',
-          :en => 'http://www.dvdpost.be/images/www3/languages/english/images'
-        })
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.dvdpost.be/images/www3/languages/french/images',
+        :nl => 'http://www.dvdpost.be/images/www3/languages/dutch/images',
+        :en => 'http://www.dvdpost.be/images/www3/languages/english/images'
+      })
     end
 
     def images_shop_path
-       HashWithIndifferentAccess.new.merge({
-          :fr => 'http://www.dvdpost.be/images/www3/languages/french/images/shop',
-          :nl => 'http://www.dvdpost.be/images/www3/languages/dutch/images/shop',
-          :en => 'http://www.dvdpost.be/images/www3/languages/english/images/shop'
-        })
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.dvdpost.be/images/www3/languages/french/images/shop',
+        :nl => 'http://www.dvdpost.be/images/www3/languages/dutch/images/shop',
+        :en => 'http://www.dvdpost.be/images/www3/languages/english/images/shop'
+      })
     end
-    
+
     def banner_size
       HashWithIndifferentAccess.new.merge({
         :small => '180x150'
@@ -129,7 +130,7 @@ module DVDPost
       end
     end
 
-    def send_evidence_recommendations(type, product_id,customer, ip, args=nil)
+    def send_evidence_recommendations(type, product_id, customer, ip, args=nil)
       url = "http://partners.thefilter.com/DVDPostService/CaptureService.ashx?cmd=AddEvidence&eventType=#{type}&userLanguage=#{I18n.locale.to_s.upcase}&clientIp=#{ip}&userId=#{customer.to_param}&catalogId=#{product_id}"
       url = "#{url}&#{args.collect{|key,value| "#{key}=#{value}"}.join('&')}" if args
       Rails.env == "production" ? open(url) : url

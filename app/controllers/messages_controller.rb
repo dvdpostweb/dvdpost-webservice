@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def show
     @message = current_customer.messages.find(params[:id])
-    @message.update_attribute(:is_read, true) unless @message.is_read
+    @message.update_attribute(:read, true) unless @message.read?
     render :layout => false
   end
 

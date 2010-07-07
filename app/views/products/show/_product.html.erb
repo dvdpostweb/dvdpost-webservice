@@ -54,25 +54,26 @@
   <%= link_to(t('.official'), product.description.full_url, {:class => 'link', :target => :_blank}) if product.description.url_present? %>
 </p>
 <p>
+  <strong>
   <%= t('.audio') %>
+  </strong>
   <%= Language.by_language(I18n.locale).preferred.collect{|language| image_tag "#{language.code}-#{product.languages.preferred.include?(language) ? 'yes' : 'no'}.png" } %>
-  
+  <strong>
   <%= t('.subtitles') %>
+  </strong>
   <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
 </p>
-<%= render :partial => 'products/show/awards', :locals => {:product => product , :size=> 'small' } %>
+<%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>
 <p>
   <strong>
     <%= t '.image' %>
   </strong>
   <%= product.picture_format.name %><br />
-
   <strong>
     <%= t '.sound' %>
   </strong>
   <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
 </p>
-
 <div class="cover">
   <span id="<%= product_media_id(product.media) %>">
     <%= product_image_tag product.image, :width => 143, :height => 218, :alt => "#{product.title} (#{product.year})" %>

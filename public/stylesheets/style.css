@@ -2458,7 +2458,7 @@ div.top10.first p a {
   width: 148px;
 }
 
-#leftcolumn #left-nav li a:hover {
+#leftcolumn #left-nav li a:hover,#leftcolumn #left-nav li a.actived {
   color: black;
   text-decoration: none;
 }
@@ -2486,7 +2486,7 @@ div.top10.first p a {
   text-transform: none;
 }
 
-#leftcolumn #left-nav li li a:hover {
+#leftcolumn #left-nav li li a:hover, #leftcolumn #left-nav li li a.actived {
   font-weight: bold;
 }
 
@@ -3021,7 +3021,10 @@ a#all_categorie, a#all_categorie:hover
   padding-left:23px !important;
   
 }
-
+.link_payment,.link_payment a 
+{
+  color: #FF4B00;
+}
 #alert {
 background:url("../images/bg.png");
 background-repeat:no-repeat;

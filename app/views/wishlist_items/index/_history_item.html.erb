@@ -1,5 +1,5 @@
 <div class="<%= product_media_id(history_item.product.media) %> clearfix">
-  <div class="title"><%= link_to truncate(history_item.product.title, :length => 50), product_path(:id => history_item.product.to_param) %></div>
+  <div class="title"><%= link_to truncate(product_assigned_title(history_item.product), :length => 50), product_assigned_path(history_item.product) %></div>
   <div class="status">
   </div>
 </div>

@@ -12,6 +12,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :language,                     :customers_language
   alias_attribute :suspension_status,            :customers_abo_suspended
   alias_attribute :dvds_at_home_count,           :customers_abo_dvd_home_norm
+  alias_attribute :dvds_at_home_adult_count,     :customers_abo_dvd_home_adult
   alias_attribute :address_id,                   :customers_default_address_id
   alias_attribute :inviation_points,             :mgm_points
   alias_attribute :credits,                      :customers_abo_dvd_credit
@@ -23,16 +24,16 @@ class Customer < ActiveRecord::Base
   alias_attribute :phone,                        :customers_telephone
   alias_attribute :birthday,                     :customers_dob
   alias_attribute :gender,                       :customers_gender
-  
+  alias_attribute :payment_method,               :customers_abo_payment_method
+
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
-  
+
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
 
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
-
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
@@ -57,7 +58,7 @@ class Customer < ActiveRecord::Base
   end
 
   def not_rated_products
-    assigned_products.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+    assigned_products.normal.available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
   end
 
   def has_rated?(product)
@@ -65,7 +66,7 @@ class Customer < ActiveRecord::Base
   end
 
   def active?
-    (abo_active? and suspension_status == 0)
+    (abo_active? && suspension_status == 0)
   end
 
   def suspended?
@@ -102,12 +103,21 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def add_dvd_at_home!
-    update_attribute(:dvds_at_home_count, (dvds_at_home_count + 1))
+  def update_dvd_at_home!(operator, product)
+    attribute = if product.kind == DVDPost.product_kinds[:adult]
+      :customers_abo_dvd_home_adult
+    else  
+      :customers_abo_dvd_home_norm
+    end
+    operator == :increment ? increment!(attribute) : decrement!(attribute)
   end
 
-  def substract_dvd_at_home!
-    update_attribute(:dvds_at_home_count, (dvds_at_home_count - 1))
+  def add_dvd_at_home!(product)
+    update_dvd_at_home!(:increment, product)
+  end
+
+  def substract_dvd_at_home!(product)
+    update_dvd_at_home!(:decrement, product)
   end
 
   def newsletter!(type,value)
@@ -133,15 +143,14 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    if self.credits == 0 and self.suspension_status == 0 and self.subscription_type.credits > 0 and self.subscription_expiration_date and self.subscription_expiration_date.to_date !=  Time.now.to_date
+    if self.credits == 0 && self.suspension_status == 0 && self.subscription_type.credits > 0 && self.subscription_expiration_date && self.subscription_expiration_date.to_date != Time.now.to_date
       true
     else
       false
     end
-  end 
+  end
 
   private
-
   def convert_created_at
     begin
       self.created_at = Date.civil(self.year.to_i, self.month.to_i, self.day.to_i)
@@ -153,5 +162,4 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
-
 end

@@ -29,8 +29,8 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
-  has_and_belongs_to_many :subtitles, :join_table => :products_to_undertitles, :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
-  has_and_belongs_to_many :languages, :join_table => :products_to_languages, :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
+  has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
+  has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
 
@@ -58,12 +58,12 @@ class Product < ActiveRecord::Base
   named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :ordered,             :order => 'products.products_id desc'
+  named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
   define_index do
     indexes products_type
-    indexes actors.actors_name,      :as => :actors_names
-    indexes director.directors_name, :as => :director_name
-
+    indexes actors.actors_name,                 :as => :actors_names
+    indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
 
@@ -78,7 +78,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_kind) {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
 
   def self.filter(params)
-    products = available.ordered.by_kind(:normal)
+    products = normal.available.ordered
     products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
     products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
@@ -104,11 +104,10 @@ class Product < ActiveRecord::Base
   end
 
   def self.customer_recommendations(customer)
-    raw = find(:all, :conditions => {:products_id => DVDPost.home_page_recommendations(customer)})
-    customer.rated_products.each do |excluded|
-      raw.delete(excluded)
-    end
-    raw
+    rocommendation_ids = DVDPost.home_page_recommendations(customer)
+    rated_ids = customer.rated_products.collect(&:id)
+    result_ids = rocommendation_ids - rated_ids
+    all(:conditions => {:products_id => result_ids})
   end
 
   def description
@@ -141,7 +140,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_new?
-    availability > 0 and created_at.between?(3.months.ago, Time.now) and products_next == 0
+    availability > 0 && created_at.between?(3.months.ago, Time.now) && products_next == 0
   end
 
   def dvdposts_choice?
@@ -177,7 +176,7 @@ class Product < ActiveRecord::Base
       qs << "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
     end
     query_string = qs.join(' ')
-    
+
     self.search(query_string, :per_page => 1000)
   end
 

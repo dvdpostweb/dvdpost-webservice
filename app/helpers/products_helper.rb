@@ -29,7 +29,7 @@ module ProductsHelper
     image_name = "#{name}-off.jpg"
 
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to(image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace))
+    link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
   end
 
   def rating_image_link(product, rating, value, background=nil, size=nil, replace=nil)
@@ -69,10 +69,10 @@ module ProductsHelper
   def available_on_other_media(product)
     unless product.series?
       if product.dvd?
-        bluray = Product.by_media(:bluray).by_imdb_id(product.imdb_id).by_language(I18n.locale).first
+        bluray = Product.normal.available.by_media(:bluray).by_imdb_id(product.imdb_id).by_language(I18n.locale).first
         link_to(t('.dispo_bluray'), product_path(:id => bluray), :id => 'bluray-btn') if bluray
       elsif product.bluray?
-        dvd = Product.by_media(:dvd).by_imdb_id(product.imdb_id).by_language(I18n.locale).first
+        dvd = Product.normal.available.by_media(:dvd).by_imdb_id(product.imdb_id).by_language(I18n.locale).first
         link_to(t('.dispo_dvd'), product_path(:id => dvd), :id => 'dvd-btn') if dvd
       else
         ''

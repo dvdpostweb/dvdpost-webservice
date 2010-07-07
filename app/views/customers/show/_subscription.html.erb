@@ -55,7 +55,7 @@
       <tr>
         <td align="right" class="adresse"><strong><%= t '.date_abo' %></strong></td>
         <td align="left" class="adresse">
-          <%= customer.subscription.created_at.strftime("%d/%m/%Y") if customer.subscription and customer.subscription.created_at %>
+          <%= customer.subscription.created_at.strftime("%d/%m/%Y") if customer.subscription %>
         </td>
       </tr>
       <tr>
@@ -67,6 +67,19 @@
       <tr>
         <td align="right"><strong><%= t '.type_abo' %></strong></td>
         <td align="left"><%= customer.subscription_payment_method.name.downcase %></td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <ul>
+            <li class='link_payment'>
+              <% if current_customer.payment_method == 1 %>
+                <%= link_to t('.ogone_payment_method_change'),"#{php_path}payment_method_change.php?payment=ogone_change" %>
+                <span><%= image_tag 'delimiter.gif' %></span>
+              <% end %>
+              <%= link_to t('.payment_method_change'),"#{php_path}payment_method_change.php"%>
+            </li>
+          </ul>
+        </td>  
       </tr>
     </table>
   </div>

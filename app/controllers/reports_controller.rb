@@ -33,9 +33,9 @@ class ReportsController < ApplicationController
         
         if status.keys.include?(:at_home)
           if status[:at_home]
-            current_customer.add_dvd_at_home!
-          else
-            current_customer.substract_dvd_at_home!
+            current_customer.add_dvd_at_home!(@order.product)
+          else  
+            current_customer.substract_dvd_at_home!(@order.product)
           end
         end
 
