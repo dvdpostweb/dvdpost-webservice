@@ -11,7 +11,7 @@
         <% else %>
           <% if event.to_s == 'delayed' && @order.status.orders_status_id == 2 %>
             <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
-          <% else (event.to_s != 'arrived' && event.to_s != 'delayed')  %>
+          <% elsif (event.to_s != 'arrived')  %>
             <%= link_to_report(t(".#{event}"), @order.to_param, event) %>
           <% end %>
         <% end %>
