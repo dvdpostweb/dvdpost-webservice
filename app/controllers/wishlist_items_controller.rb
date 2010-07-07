@@ -37,7 +37,7 @@ class WishlistItemsController < ApplicationController
       end
       redirect_back_or @wishlist_item.product
     rescue Exception => e
-      if @wishlist_item && @wishlist_item.product
+      if @wishlist_item && product
         flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
         redirect_to product
       else
