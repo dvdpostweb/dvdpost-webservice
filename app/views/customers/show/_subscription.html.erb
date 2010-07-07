@@ -68,6 +68,19 @@
         <td align="right"><strong><%= t '.type_abo' %></strong></td>
         <td align="left"><%= customer.subscription_payment_method.name.downcase %></td>
       </tr>
+      <tr>
+        <td colspan='2'>
+          <ul>
+            <li class='link_payment'>
+              <% if current_customer.payment_method == 1 %>
+                <%= link_to t('.ogone_payment_method_change'),"#{php_path}payment_method_change.php?payment=ogone_change" %>
+                <span><%= image_tag 'delimiter.gif' %></span>
+              <% end %>
+              <%= link_to t('.payment_method_change'),"#{php_path}payment_method_change.php"%>
+            </li>
+          </ul>
+        </td>  
+      </tr>
     </table>
   </div>
   <p><%= image_tag 'help.png' %></p>

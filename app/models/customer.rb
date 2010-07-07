@@ -12,7 +12,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :language,                     :customers_language
   alias_attribute :suspension_status,            :customers_abo_suspended
   alias_attribute :dvds_at_home_count,           :customers_abo_dvd_home_norm
-  alias_attribute :dvds_at_home_adult_count,           :customers_abo_dvd_home_adult
+  alias_attribute :dvds_at_home_adult_count,     :customers_abo_dvd_home_adult
   alias_attribute :address_id,                   :customers_default_address_id
   alias_attribute :inviation_points,             :mgm_points
   alias_attribute :credits,                      :customers_abo_dvd_credit
@@ -24,6 +24,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :phone,                        :customers_telephone
   alias_attribute :birthday,                     :customers_dob
   alias_attribute :gender,                       :customers_gender
+  alias_attribute :payment_method,               :customers_abo_payment_method
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
