@@ -78,12 +78,12 @@ namespace :ts do
 end
 
 namespace :deploy do
-=begin
+
   task :stop_ts do
     # Stop Thinking Sphinx before the update so it finds its configuration file.
     thinking_sphinx.stop rescue nil # Don't fail if it's not running, though.
   end
-=end
+
 
   desc "Link up Sphinx's indexes."
   task :symlink_sphinx_indexes, :roles => [:app] do
