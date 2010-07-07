@@ -19,6 +19,12 @@ class OauthController < ApplicationController
     session[:oauth_token] = access_token.token
     session[:expires_in] = access_token.expires_in
     session[:refresh_token] = access_token.refresh_token
+    
+    unless access_token.refresh_token.blank?
+      cookies[:oauth_token] = access_token.token
+      cookies[:expires_in] = access_token.expires_in
+      cookies[:refresh_token] = access_token.refresh_token
+    end
 
     attempted_path = session[:attempted_path]
 

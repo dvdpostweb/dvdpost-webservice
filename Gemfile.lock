@@ -98,7 +98,7 @@ specs:
 - faraday: 
     version: 0.4.6
 - hoptoad_notifier: 
-    version: 2.3.1
+    version: 2.3.2
 - hpricot: 
     version: 0.8.2
 - json: 
@@ -128,17 +128,14 @@ specs:
     source: 1
 - will_paginate: 
     version: 2.3.14
-hash: 867ae827eee932ff6d1f7baa32b0df3d675756f8
+hash: 11e87663b0dade6b75ef0102dd9834146a46a111
 sources: 
-- Git: 
-    uri: git://github.com/mrs/rails_warden.git
-    git: git://github.com/mrs/rails_warden.git
-    ref: d224a5f39ad1ffe9a29e4bfae62c269bada2e728
-- Git: 
-    uri: git://github.com/mrs/warden_oauth.git
-    branch: oauth2
-    git: git://github.com/mrs/warden_oauth.git
-    ref: d109e190249b6a56d4e6e18635b40dffc6288d50
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/submodules/rails_warden
+- Path: 
+    path: !ruby/object:Pathname 
+      path: vendor/submodules/warden_oauth
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
