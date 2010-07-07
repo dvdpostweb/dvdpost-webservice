@@ -93,9 +93,9 @@ namespace :deploy do
   task :update_ts do
     symlink_sphinx_indexes
     thinking_sphinx.configure
-    #thinking_sphinx.start
+    thinking_sphinx.start
   end
 end
 
-#before 'deploy:update_code', 'deploy:stop_ts'
+before 'deploy:update_code', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
