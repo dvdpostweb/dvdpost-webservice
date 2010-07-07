@@ -10,7 +10,7 @@ class RatingsController < ApplicationController
       format.js   {
         case params[:replace]
         when 'homepage'
-          not_rated_products = current_customer.not_rated_products.normal.available
+          not_rated_products = current_customer.not_rated_products
           not_rated_product = not_rated_products[rand(not_rated_products.count)]
           if not_rated_product 
             render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product}

@@ -170,7 +170,7 @@ module ApplicationHelper
     end
   end
   
-  def product_addigned_title(product)
+  def product_assigned_title(product)
     if product.products_type == DVDPost.product_kinds[:adult]
       t('wishlit_items.index.adult_title')
     else

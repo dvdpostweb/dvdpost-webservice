@@ -21,7 +21,7 @@
   </tr>
   <% transit_items.each do |transit_item| %>
   <tr>
-    <td><%= link_to truncate(product_addigned_title(transit_item.product), :length => 50), product_assigned_path(transit_item.product) %></td>
+    <td><%= link_to truncate(product_assigned_title(transit_item.product), :length => 50), product_assigned_path(transit_item.product) %></td>
     <td><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
   </tr>
   <% end %>

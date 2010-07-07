@@ -3021,7 +3021,10 @@ a#all_categorie, a#all_categorie:hover
   padding-left:23px !important;
   
 }
-
+.link_payment,.link_payment a 
+{
+  color: #FF4B00;
+}
 #alert {
 background:url("../images/bg.png");
 background-repeat:no-repeat;

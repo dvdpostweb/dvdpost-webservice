@@ -1,5 +1,5 @@
 <div class="<%= product_media_id(transit_item.product.media) %> clearfix">
-  <div class="title"><%= link_to truncate(product_addigned_title(transit_item.product), :length => 500), product_assigned_path(transit_item.product) %></div>
+  <div class="title"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 500), product_assigned_path(transit_item.product) %></div>
   <div class="status">
   <% if transit_item.is_new? == false %>
     <% text = (transit_item.orders_status != 17 &&  transit_item.orders_status != 12)?  'notify' : 'arrive' %>

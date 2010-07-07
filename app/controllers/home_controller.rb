@@ -6,7 +6,7 @@ class HomeController < ApplicationController
         @soon = Product.normal.available.soon
         @new = Product.normal.available.new_products
         @quizz = QuizzName.find_last_by_focus(1)
-        not_rated_products = current_customer.not_rated_products.normal.available
+        not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
         if @offline_request.count == 0
           if current_customer.credit_empty?
@@ -18,7 +18,7 @@ class HomeController < ApplicationController
         @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
-        @wishlist_count = current_customer.wishlist_items.count
+        @wishlist_count = current_customer.wishlist_items.available.by_kind(:normal).include_products.count
         @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
         @news_items = retrieve_news
         @recommendations = retrieve_recommendations
