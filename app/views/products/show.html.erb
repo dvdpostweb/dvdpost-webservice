@@ -62,7 +62,7 @@
       <li class="active" id='tab1_li'>
         <%= link_to t('.members_critic'), '#tab1', :id => 'tab1_menu' %>
       </li>
-      <% unless @cinopsis.empty? %>
+      <% if @cinopsis && !@cinopsis.empty? %>
         <li id='tab2_li'>
           <%= link_to t('.cinopsis_critic'), '#tab2', :id => 'tab2_menu' %>
         </li>
