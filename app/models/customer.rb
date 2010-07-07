@@ -103,20 +103,21 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def add_dvd_at_home_adult!
-    update_attribute(:dvds_at_home_adult_count, (dvds_at_home_adult_count + 1))
+  def update_dvd_at_home!(operator, product)
+    attribute = if product.kind == DVDPost.product_kinds[:adult]
+      :customers_abo_dvd_home_adult
+    else  
+      :customers_abo_dvd_home_norm
+    end
+    operator == :increment ? increment!(attribute) : decrement!(attribute)
   end
 
-  def substract_dvd_at_home_adult!
-    update_attribute(:dvds_at_home_adult_count, (dvds_at_home_adult_count - 1))
+  def add_dvd_at_home!(product)
+    update_dvd_at_home!(:increment, product)
   end
 
-  def add_dvd_at_home!
-    update_attribute(:dvds_at_home_count, (dvds_at_home_count + 1))
-  end
-
-  def substract_dvd_at_home!
-    update_attribute(:dvds_at_home_count, (dvds_at_home_count - 1))
+  def substract_dvd_at_home!(product)
+    update_dvd_at_home!(:decrement, product)
   end
 
   def newsletter!(type,value)
