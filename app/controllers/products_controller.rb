@@ -1,14 +1,13 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.filter(params)
     @products = if params[:recommended]
-      @products.customer_recommendations(current_customer)
+      current_customer.recommendations(params)
     elsif params[:search]
-      @products.search_clean(params[:search]).sphinx_by_kind(:normal)
+      Product.search_clean(params[:search]).sphinx_by_kind(:normal)
     else
-      @products
+      Product.filter(params)
     end
-    @products = @products.paginate(:page => params[:page], :per_page => 10)
+    @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
 
@@ -41,27 +40,6 @@ class ProductsController < ApplicationController
           render :partial => 'products/show/recommendations', :object => @recommendations
         end
       }
-    end
-  end
-
-  def recommendations_paginate
-    @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-    respond_to do |format|
-      format.html do
-        @product = Product.normal.available.find(params[:id])
-        @product.views_increment
-        @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
-        @reviews_count = @product.reviews.approved.count
-        @categories = @product.categories
-        @already_seen = current_customer.assigned_products.include?(@product)
-        @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-        if params[:recommendation] == "1"
-          DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
-        end
-        DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
-        render :action => :show
-      end
-      format.js {render :partial => 'products/show/recommendations', :object => @recommendations}
     end
   end
 

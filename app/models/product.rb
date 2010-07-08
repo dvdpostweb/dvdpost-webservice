@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   cattr_reader :per_page
-  @@per_page = 10
+  @@per_page = 20
 
   set_primary_key :products_id
 
@@ -102,13 +102,6 @@ class Product < ActiveRecord::Base
   def recommendations
     recommendation_ids = DVDPost.product_linked_recommendations(self)
     self.class.find_all_by_products_id(recommendation_ids)
-  end
-
-  def self.customer_recommendations(customer)
-    rocommendation_ids = DVDPost.home_page_recommendations(customer)
-    rated_ids = customer.rated_products.collect(&:id)
-    result_ids = rocommendation_ids - rated_ids
-    all(:conditions => {:products_id => result_ids})
   end
 
   def description

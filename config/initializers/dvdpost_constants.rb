@@ -119,14 +119,14 @@ module DVDPost
     def product_linked_recommendations(product)
       url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=DVDRecommendDVDs&id=#{product.id}&number=30"
       open url do |data|
-        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id']}
+        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
       end
     end
 
     def home_page_recommendations(customer)
       url = "http://partners.thefilter.com/DVDPostService/RecommendationService.ashx?cmd=UserDVDRecommendDVDs&id=#{customer.to_param}&number=100&includeAdult=false&verbose=false"
       open url do |data|
-        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id']}
+        Hpricot(data).search('//dvds').collect{|dvd| dvd.attributes['id'].to_i}
       end
     end
 
