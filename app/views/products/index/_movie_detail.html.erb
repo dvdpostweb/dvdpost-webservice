@@ -17,7 +17,7 @@
   <div class="movie-info">
     <div class="subs">
       <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
-      <%= image_tag product.public.image, :alt => product.public.description %>
+      <%= image_tag product.public.image, :alt => product.public.description if product.public %>
     </div>
     <% if product.actors.count > 0  %>
     <div class="cast">
