@@ -3,7 +3,7 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
-  def rating_review_image_links(product,  replace=nil)
+  def rating_review_image_links(product, replace=nil)
     links = []
     5.times do |i|
       i += 1
