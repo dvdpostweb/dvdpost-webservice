@@ -1,5 +1,5 @@
 <h3>
-  <%= t ".#{id}" %>
+  <%= t ".#{id}" %> <%= link_to t(".see_all"), products_path(:viewmode => id), :class => :small %>
 </h3>
 <ul class="clearfix">
   <%= render :partial => 'home/index/advertising_product', :collection => products %>

@@ -2329,6 +2329,11 @@ div.top10.first p a {
   padding: 10px 0 0 44px;
   background: url(../images/Prochainement-icon.png) 0 0 no-repeat;
 }
+#new-m h3 a.small{
+  font-size: 0.8em;
+  color: #ff4b00;
+}
+
 #new-m ul {
   display: block;
   margin-bottom: 10px;
