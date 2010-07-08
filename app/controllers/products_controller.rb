@@ -44,27 +44,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def recommendations_paginate
-    @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-    respond_to do |format|
-      format.html do
-        @product = Product.normal.available.find(params[:id])
-        @product.views_increment
-        @reviews = @product.reviews.approved.paginate(:page => params[:reviews_page])
-        @reviews_count = @product.reviews.approved.count
-        @categories = @product.categories
-        @already_seen = current_customer.assigned_products.include?(@product)
-        @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-        if params[:recommendation] == "1"
-          DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
-        end
-        DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
-        render :action => :show
-      end
-      format.js {render :partial => 'products/show/recommendations', :object => @recommendations}
-    end
-  end
-
   def uninterested
     begin
       @product = Product.normal.available.find(params[:product_id])
