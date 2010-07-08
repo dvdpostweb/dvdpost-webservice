@@ -104,10 +104,20 @@ class Customer < ActiveRecord::Base
   end
 
   def recommendations(filter={})
-    recommendation_ids = DVDPost.home_page_recommendations(self)
-    hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
-    result_ids = recommendation_ids - hidden_ids
-    Product.normal.available.filter(filter).all(:conditions => {:products_id => result_ids})
+    begin
+      # external service call can't be allowed to crash the app
+      recommendation_ids = DVDPost.home_page_recommendations(self)
+    rescue => e
+      logger.errors("Failed to retrieve recommendations: #{e.message}")
+    end
+    
+    results = if recommendation_ids
+      hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
+      result_ids = recommendation_ids - hidden_ids
+      Product.normal.available.filter(filter).all(:conditions => {:products_id => result_ids})
+    else
+      []
+    end
   end
 
   def update_dvd_at_home!(operator, product)
