@@ -3098,6 +3098,11 @@ text-align:left; }
 width: 800px;
 padding-left: 70px;
 height:51px;}
+
+.envelop
+{
+  width: 710px;
+}
 /*.navbypagefull .navbar .navnextbtn { margin-left:4px; }
 
 .navbar .navprevbtn span {
