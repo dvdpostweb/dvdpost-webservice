@@ -11,7 +11,7 @@
     <table align="center">
       <tr>
         <td width="100" align="center">
-          <%= f.label :priority_1, image_tag('high.gif', :alt => 'Hight') %>
+          <%= f.label :priority_1, image_tag('high.gif', :alt => 'High') %>
         </td>
         <td width="100" align="center">
           <%= f.label :priority_2, image_tag('med.gif', :alt => 'Medium') %>
@@ -22,13 +22,13 @@
       </tr>
       <tr>
         <td width="100" align="center">
-          <%= f.radio_button :priority, '1' %>
+          <%= f.radio_button :priority, '1', :checked => DVDPostConfig[:default_wishlist_priority] == :high %>
         </td>
         <td width="100" align="center">
-          <%= f.radio_button :priority, '2', :checked => true %>
+          <%= f.radio_button :priority, '2', :checked => DVDPostConfig[:default_wishlist_priority] == :medium %>
         </td>
         <td width="100" align="center">
-          <%= f.radio_button :priority, '3' %>
+          <%= f.radio_button :priority, '3', :checked => DVDPostConfig[:default_wishlist_priority] == :low %>
         </td>
       </tr>
     </table>
