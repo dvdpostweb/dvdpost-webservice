@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors])
+        @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
         @soon = Product.normal.available.soon
         @new = Product.normal.available.new_products
         @quizz = QuizzName.find_last_by_focus(1)

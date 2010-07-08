@@ -2681,6 +2681,11 @@ div.top10.first p a {
   font-size: 1.08em;
 }
 
+#subfooter #footer-nav ul li h4 a {
+  color: #00a3d6;
+  font-size: 1.08em;
+}
+
 #subfooter #footer-nav ul li a {
   color: white;
   display: block;
