@@ -1,12 +1,11 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.filter(params)
     @products = if params[:recommended]
-      @products.customer_recommendations(current_customer)
+      current_customer.recommendations(params)
     elsif params[:search]
-      @products.search_clean(params[:search]).sphinx_by_kind(:normal)
+      Product.search_clean(params[:search]).sphinx_by_kind(:normal)
     else
-      @products
+      Product.filter(params)
     end
     @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
 

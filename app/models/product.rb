@@ -103,13 +103,6 @@ class Product < ActiveRecord::Base
     self.class.find_all_by_products_id(recommendation_ids)
   end
 
-  def self.customer_recommendations(customer)
-    rocommendation_ids = DVDPost.home_page_recommendations(customer)
-    rated_ids = customer.rated_products.collect(&:id)
-    result_ids = rocommendation_ids - rated_ids
-    all(:conditions => {:products_id => result_ids})
-  end
-
   def description
     descriptions.by_language(I18n.locale).first
   end
