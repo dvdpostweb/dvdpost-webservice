@@ -7,8 +7,6 @@ fr:
       year: Année
       ratings: Ratings
       dvdpost_choice: DVDPost Choice
-      audio: Audio
-      subtitles: Subtitles
       close: Fermer
       director: Réalisateur
       actor: Acteur
@@ -73,8 +71,6 @@ fr:
         audience: "Public :"
         trailer: Bande-annonce
         official: Site officiel
-        audio: "Audio :"
-        subtitles: "Sous-titres :"
         image: "Image :"
         sound: "Détail du son :"
       rate: Cotez ce film

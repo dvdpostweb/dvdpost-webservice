@@ -3,6 +3,24 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
+  def language_bubbles(product)
+    audio = product.languages.by_language(I18n.locale).preferred
+    subtitles = product.subtitles.by_language(I18n.locale).preferred
+
+    bubbles = []
+    3.times do |i|
+      i += 1
+      bubble = audio.first(:conditions => {Language.primary_key => i}) || subtitles.first(:conditions => {Subtitle.primary_key => i})
+      bubbles << content_tag(:span, DVDPost.product_languages.invert[bubble.to_param.to_i].upcase, :class => bubble.class.name.underscore) if bubble
+    end
+
+    if audio.empty?
+      language = product.languages.by_language(I18n.locale).first
+      bubbles << content_tag(:span, language.name) if language
+    end
+    bubbles
+  end
+
   def rating_review_image_links(product, replace=nil)
     links = []
     5.times do |i|

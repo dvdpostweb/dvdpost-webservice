@@ -3154,6 +3154,16 @@ a#all_categorie, a#all_categorie:hover {
   width: 710px;
 }
 
+.language {
+  background: url(/images/audio.png);
+  color: #fff;
+}
+
+.subtitle {
+  background: url(/images/subtitle.png);
+  color: #fff;
+}
+
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }
