@@ -74,7 +74,7 @@
   </strong>
   <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
 </p>
-<% if product.products_next = 1 and product.available_at%>
+<% if product.products_next == 1 and product.available_at%>
 <p>
   <strong>
     <%= t '.available' %>
