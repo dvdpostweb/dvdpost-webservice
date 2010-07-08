@@ -103,6 +103,13 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def recommendations(filter={})
+    recommendation_ids = DVDPost.home_page_recommendations(self)
+    hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
+    result_ids = recommendation_ids - hidden_ids
+    Product.normal.available.filter(filter).all(:conditions => {:products_id => result_ids})
+  end
+
   def update_dvd_at_home!(operator, product)
     attribute = if product.kind == DVDPost.product_kinds[:adult]
       :customers_abo_dvd_home_adult
