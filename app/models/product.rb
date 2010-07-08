@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   cattr_reader :per_page
-  @@per_page = 10
+  @@per_page = 20
 
   set_primary_key :products_id
 

@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     else
       @products
     end
-    @products = @products.paginate(:page => params[:page], :per_page => 10)
+    @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
 
