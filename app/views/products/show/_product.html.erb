@@ -74,6 +74,15 @@
   </strong>
   <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
 </p>
+<% if product.products_next = 1 %>
+<p>
+  <strong>
+    <%= t '.available' %>
+  </strong>
+  <%= product.available_at.strftime("%d/%m/%Y") %>
+  
+</p>
+<% end %>
 <div class="cover">
   <span id="<%= product_media_id(product.media) %>">
     <%= product_image_tag product.image, :width => 143, :height => 218, :alt => "#{product.title} (#{product.year})" %>

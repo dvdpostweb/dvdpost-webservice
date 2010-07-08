@@ -37,4 +37,12 @@
   <%= f.submit title_add_to_wishlist(:long), :class => 'item' %>
   <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series' if @wishlist_item.product.series? %>
   </p>
+  <% if @wishlist_item.product.products_next == 1 %>
+    <p class="align">
+      <strong>
+        <%= t '.available' %>
+      </strong>
+      <%= @wishlist_item.product.available_at.strftime("%d/%m/%Y") %>
+    </p>
+  <% end %>
 <% end %>

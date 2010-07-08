@@ -1024,6 +1024,9 @@ display: block;
   padding-left: 21px;
   width: 502px;
 }
+.box .title_transit {
+  width: 400px !important;
+}
 
 .box .availability, .box .status {
   border-left: 2px solid #FFFFFF;
