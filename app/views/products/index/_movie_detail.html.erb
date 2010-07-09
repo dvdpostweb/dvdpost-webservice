@@ -36,7 +36,7 @@
   </div>
   <div class="action">
     <h4>
-      <%= t '.action' %>
+      <%= product.categories.first.name unless product.categories.empty? %>
     </h4>
     <div class="stars" id="rating-stars-<%= product.to_param %>" product_id="<%= product.to_param %>">
       <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white} %>
