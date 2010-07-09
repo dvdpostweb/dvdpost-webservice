@@ -181,7 +181,7 @@ module ApplicationHelper
     php_path 'mydvdshop.php'
   end
 
-  def carousel_path(carousel)
+  def remote_carousel_path(carousel)
     php_path carousel
   end
 
