@@ -1678,7 +1678,15 @@ html ul.tabs li.active a:hover {
   position: relative;
   width: 612px;
 }
-
+#carousel .error, #flash-news .error, .tab_container .error
+{
+  background: url("../images/attention_icon.png") no-repeat scroll 0 0 transparent;
+  padding: 18px 0 0 50px;
+}
+#flash-news .error, .tab_container .error
+{
+  margin: 0 0 0 30px ;
+}
 #carousel ul {
   display: block;
   left: 33px;

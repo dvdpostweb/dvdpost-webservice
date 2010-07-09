@@ -10,9 +10,9 @@ module DVDPost
 
     def news_url
       HashWithIndifferentAccess.new.merge({
-        :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
-        :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
-        :en => 'http://syndication.cinenews.be/rss/newsnl.xml'
+        :fr => 'http://syndication.cinenews.b/rss/newsfr.xml',
+        :nl => 'http://syndication.cinenews.b/rss/newsnl.xml',
+        :en => 'http://syndication.cinenews.b/rss/newsnl.xml'
       })
     end
 
@@ -111,7 +111,7 @@ module DVDPost
     end
 
     def cinopsis_critics(imdb_id)
-      open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{imdb_id}") do |data|
+      open("http://www.cinopsis.b/dvdpost_test.cfm?imdb_id=#{imdb_id}") do |data|
         Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
       end
     end
