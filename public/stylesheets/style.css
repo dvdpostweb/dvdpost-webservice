@@ -3173,7 +3173,12 @@ a#all_categorie, a#all_categorie:hover {
   text-align:center;
   margin: 0 2px 0 0;
 }
-
+.language_text
+{
+  float : left;
+  padding: 4px 0 0 0;
+  margin: 0 4px 0 0;
+}
 .subtitle {
   background: url(/images/subtitle.png) no-repeat;
   color: #fff;
