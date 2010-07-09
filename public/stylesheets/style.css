@@ -3155,15 +3155,32 @@ a#all_categorie, a#all_categorie:hover {
 }
 
 .language {
-  background: url(/images/audio.png);
+  background: url(/images/audio.png) no-repeat;
   color: #fff;
+  float : left;
+  width: 22px;
+  height: 22px;
+  font-weight: bold;
+  padding: 4px 0 0 0;
+  text-align:center;
+  margin: 0 2px 0 0;
 }
 
 .subtitle {
-  background: url(/images/subtitle.png);
+  background: url(/images/subtitle.png) no-repeat;
   color: #fff;
+  float : left;
+  width: 22px;
+  height: 22px;
+  font-weight: bold;
+  padding: 4px 0 0 0;
+  text-align:center;
+  margin: 0 2px 0 0;
 }
-
+.language_title{
+  float:left;
+  padding: 4px 2px 0 0 ;
+}
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }
