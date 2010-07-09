@@ -57,7 +57,8 @@ class Product < ActiveRecord::Base
     {:conditions => {:products_public => ages}}
   }
   named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added > DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3']
-  named_scope :orderd_rand,         :order => 'rand()'
+  named_scope :ordered_rand,        :order => 'rand()'
+  named_scope :ordered_availaible,  :order => 'products_date_available desc'
   named_scope :limit,               lambda {|limit| {:limit => limit}}
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :ordered,             :order => 'products.products_id desc'
