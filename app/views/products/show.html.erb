@@ -21,10 +21,8 @@
               </div>
             <% end %>
             <div align="center">
-              <strong>
                 <%= t '.rate' %>
-                <%= "(#{@product.rating_count} #{t('.rate')})" %>
-              </strong>
+                <%= "(#{@product.rating_count} #{t('.count')})" %>
             </div>
             <ul>
               <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
