@@ -1,11 +1,7 @@
 class ProductsController < ApplicationController
   def index
-<<<<<<< HEAD
     @products = if params[:viewmode] == 'recommended'
-=======
-    @products = if params[:recommended]
       @recommended = true
->>>>>>> adc2b5e7cb4e6b9ab9582041d6a1e00036efc84b
       current_customer.recommendations(params)
     elsif params[:viewmode] == 'recent'
       Product.new_products.normal.available.ordered_availaible

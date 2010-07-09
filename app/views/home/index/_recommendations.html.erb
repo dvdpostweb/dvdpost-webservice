@@ -5,17 +5,11 @@
         <%= t '.title' %>
       </h3>
     </li>
-<<<<<<< HEAD
-    <li>
-      <%= link_to t('.see_all'), products_path(:viewmode => :recommended) %>
-    </li>
-=======
     <% if products.size > 0 %>
       <li>
-        <%= link_to t('.see_all'), products_path(:recommended => true) %>
+        <%= link_to t('.see_all'), products_path(:viewmode => :recommended) %>
       </li>
     <% end %>
->>>>>>> adc2b5e7cb4e6b9ab9582041d6a1e00036efc84b
   </ul>
   <!-- Carousel -->
   <div id="carousel-wrap-hp">
