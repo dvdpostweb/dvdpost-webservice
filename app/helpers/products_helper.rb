@@ -11,7 +11,7 @@ module ProductsHelper
     3.times do |i|
       i += 1
       bubble = audio.first(:conditions => {Language.primary_key => i}) || subtitles.first(:conditions => {Subtitle.primary_key => i})
-      bubbles << content_tag(:span, DVDPost.product_languages.invert[bubble.to_param.to_i].upcase, :class => bubble.class.name.underscore) if bubble
+      bubbles << content_tag(:div, DVDPost.product_languages.invert[bubble.to_param.to_i].upcase, :class => bubble.class.name.underscore) if bubble
     end
 
     if audio.empty?
