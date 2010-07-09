@@ -30,7 +30,7 @@ module HomeHelper
       when 'OTHER'
         info_path(:page_name => carousel.name)
       when 'OLD_SITE'
-        "#{php_path}#{t(".url_#{carousel.id}")}"
+        remote_carousel_path(t(".url_#{carousel.id}"))
       when 'TOP'
         top_products_path(:top_id => carousel.reference_id)
       when 'THEME'
