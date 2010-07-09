@@ -4,19 +4,19 @@
       <%= t '.intro' %>
     </h3>
     <!--to do -->
-    <p><%= link_to t('messages.index.radio_question.labels.dvd'), "#{php_path}custserproblemdvd.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing'), "#{php_path}custserfact.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.number'), "#{php_path}custserproblemdvd.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.billing'), "#{php_path}custserdvdxy.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.transfer'), "#{php_path}custserdom.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.promo_code'), "#{php_path}custsercodes.php" %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.dvd'), php_path('custserproblemdvd.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.billing'), php_path('custserfact.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.number'), php_path('custserproblemdvd.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.billing'), php_path('custserdvdxy.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.transfer'), php_path('custserdom.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.promo_code'), php_path('custsercodes.php') %></p>
     <p><%= link_to t('messages.index.radio_question.labels.personal_info'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.delivery_info'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.mail_password'), customer_path(:id => current_customer) %></p>
     <p><%= link_to t('messages.index.radio_question.labels.pwd_forgotten'), customer_path(:id => current_customer)  %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.add_to_list'), "#{php_path}custserproblemdvd.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.technical'), "#{php_path}custservtecherror.php" %></p>
-    <p><%= link_to t('messages.index.radio_question.labels.vacation'), "#{php_path}holiday_form.php" %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.add_to_list'), php_path('custserproblemdvd.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.technical'), php_path('custservtecherror.php') %></p>
+    <p><%= link_to t('messages.index.radio_question.labels.vacation'), suspension_path %></p>
     <%= f.hidden_field(:category_id, :value =>  6) %>
     <p>
       <%= t '.thanks' %>
@@ -26,7 +26,6 @@
     <% content_tag :button, :type => :submit do %>
       <%= t '.send' %>
     <% end %>
-    
   <% end %>
   <div class="clear"></div>
 </div>

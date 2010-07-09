@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def redirect_after_registration
     if current_customer && current_customer.customers_registration_step.to_i != 100  && current_customer.customers_registration_step.to_i != 95
-      redirect_to site_url
+      redirect_to php_path
     end
   end
 
@@ -32,14 +32,18 @@ module ApplicationHelper
     image_tag File.join(I18n.locale.to_s, source), options
   end
 
+  def save_attempted_path
+    session[:attempted_path] = request.request_uri
+  end
+
   def wishlist_size
     @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
   end
 
   def delegate_locale
-    if params[:locale].nil? 
+    if params[:locale].nil?
       set_locale('fr')
-    else 
+    else
       set_locale(params[:locale])
     end
   end
@@ -73,10 +77,6 @@ module ApplicationHelper
     php_path
   end
 
-  def site_url
-    "#{php_path}index.php"
-  end
-
   def blog_url
     "http://insidedvdpost.blogspot.com/"
   end
@@ -106,57 +106,96 @@ module ApplicationHelper
     self.output_buffer = render(:file => "layouts/#{layout}")
   end
 
-  def php_path
+  def php_path(path=nil)
     country_id = current_customer ? current_customer.addresses.first.entry_country_id : nil
-    case  Rails.env
+    host = case  Rails.env
       when 'development'
         'http://localhost/'
       when 'staging'
         'http://test/'
-      when 'pre_predocution'
-        production_path(country_id)
-      when 'production'
-        production_path(country_id)
       else
         production_path(country_id)
     end
+    result = "#{host}#{path}"
+    "#{result}#{result.include?('?') ? '&' : '?'}language=#{I18n.locale}"
   end
 
   def sponsor_path
-    "#{php_path}member_get_member.php"
+    php_path 'member_get_member.php'
   end
 
   def contest_path
-    "#{php_path}contest.php"
+    php_path 'contest.php'
   end
 
   def quizz_path
-    "#{php_path}quizz.php"
+    php_path 'quizz.php'
   end
 
   def who_we_are_path
-    "#{php_path}whoweare.php"
+    php_path 'whoweare.php'
   end
 
   def press_path
-    "#{php_path}presse.php"
+    php_path 'presse.php'
   end
 
   def privacy_path
-    "#{php_path}privacy.php"
+    php_path 'privacy.php'
   end
 
   def conditions_path
-    "#{php_path}conditions.php"
+    php_path 'conditions.php'
+  end
+
+  def limited_subscription_change_path
+    php_path 'subscription_change_limited.php'
+  end
+
+  def suspension_path
+    php_path 'holiday_form.php'
+  end
+
+  def product_shop_path(product)
+    php_path "product_info_shop.php?products_id=#{product.to_param}"
+  end
+
+  def payment_method_change_path(type=nil)
+    path = php_path 'member_get_member.php'
+    type ? "#{path}?payment=#{type}" : path
+  end
+
+  def reconduction_path
+    php_path 'basic_reconduction_info.php'
+  end
+
+  def urgent_messages_path
+    php_path 'messages_urgent.php'
+  end
+
+  def adult_path
+    php_path 'mydvdxpost.php'
+  end
+
+  def my_shop_path
+    php_path 'mydvdshop.php'
+  end
+
+  def remote_carousel_path(carousel)
+    php_path carousel
   end
 
   def customers_reviews_path(customer)
-    "#{php_path}reviews_member.php?custid=#{customer.to_param}"
+    php_path "reviews_member.php?custid=#{customer.to_param}"
   end
 
-  def production_path(country_id = nil)
-    if country_id.to_i == 21 || country_id == nil 
-      'http://www.dvdpost.be/' 
+  def shop_path(url)
+    php_path url
+  end
+
+  def production_path(country_id=nil)
+    if country_id.to_i == 21 || country_id == nil
+      'http://www.dvdpost.be/'
     else
       'http://www.dvdpost.nl/'
     end
@@ -164,12 +203,12 @@ module ApplicationHelper
 
   def product_assigned_path(product)
     if product.products_type == DVDPost.product_kinds[:adult]
-      "#{php_path}product_info_adult.php?products_id=#{product.to_param}"
+      php_path "product_info_adult.php?products_id=#{product.to_param}"
     else
       product_path(:id => product.to_param)
     end
   end
-  
+
   def product_assigned_title(product)
     if product.products_type == DVDPost.product_kinds[:adult]
       t('wishlit_items.index.adult_title')

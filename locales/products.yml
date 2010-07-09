@@ -7,9 +7,9 @@ fr:
       year: Année
       ratings: Ratings
       dvdpost_choice: DVDPost Choice
-      audio: Audio
-      subtitles: Subtitles
       close: Fermer
+      audio: 
+      subtitles: 
       director: Réalisateur
       actor: Acteur
       recommendation: Recommandations
@@ -35,7 +35,8 @@ fr:
         more: "En savoir +"
         actors: Acteurs
         director: Réalisateur
-        action: Action
+        audio: 
+        subtitles: 
     show:
       review:
         review_save: "Your review has been saved. It will appear once it's approved by an admin."
@@ -73,10 +74,10 @@ fr:
         audience: "Public :"
         trailer: Bande-annonce
         official: Site officiel
-        audio: "Audio :"
-        subtitles: "Sous-titres :"
         image: "Image :"
         sound: "Détail du son :"
+        aduio: 
+        subtitles: 
       rate: Cotez ce film
       synopsis: Synopsis
       dvdpost_choice: Coup de coeur DVDPost

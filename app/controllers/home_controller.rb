@@ -20,7 +20,13 @@ class HomeController < ApplicationController
         @shop = shops[rand(shops.count)]
         @wishlist_count = current_customer.wishlist_items.available.by_kind(:normal).include_products.count
         @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
-        @news_items = retrieve_news
+        begin
+          @news_items = retrieve_news
+        rescue => e
+          logger.error("Failed to retrieve news: #{e.message}")
+        end
+        
+        
         @recommendations = retrieve_recommendations
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
         @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5

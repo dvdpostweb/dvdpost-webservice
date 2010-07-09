@@ -62,6 +62,7 @@ class Product < ActiveRecord::Base
   named_scope :limit,               lambda {|limit| {:limit => limit}}
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :ordered,             :order => 'products.products_id desc'
+  named_scope :list_ordered,        :order => 'listed_products.order asc'
   named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
   define_index do
@@ -82,7 +83,11 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_kind) {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
 
   def self.filter(params)
-    products = normal.available.ordered
+    if params[:top_id] && !params[:top_id].empty?
+      products = normal.available.list_ordered
+    else
+      products = normal.available.ordered
+    end
     products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
     products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
@@ -96,15 +101,17 @@ class Product < ActiveRecord::Base
     products = products.with_languages(params[:languages].keys)                if params[:languages]
     products = products.with_subtitles(params[:subtitles].keys)                if params[:subtitles]
     products = products.dvdpost_choice                                         if params[:dvdpost_choice]
-    # Next condition can not use the shortcut {:conditions => :products_title} because of
-    # a bug on 'private method scan called onSymbol'
-    #products.all(:conditions => ["products_title IS NOT NULL"])
     products
   end
 
   def recommendations
-    recommendation_ids = DVDPost.product_linked_recommendations(self)
-    self.class.find_all_by_products_id(recommendation_ids)
+    begin
+      # external service call can't be allowed to crash the app
+      recommendation_ids = DVDPost.product_linked_recommendations(self)
+    rescue => e
+      logger.errors("Failed to retrieve recommendations: #{e.message}")
+    end
+    self.class.find_all_by_products_id(recommendation_ids) if recommendation_ids
   end
 
   def description

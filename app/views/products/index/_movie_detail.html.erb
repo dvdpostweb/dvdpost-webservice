@@ -16,9 +16,13 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-      <%= Subtitle.by_language(I18n.locale).preferred.collect{|subtitle| image_tag "#{subtitle.code}-#{product.subtitles.preferred.include?(subtitle) ? 'yes' : 'no'}.png" } %>
+        <%= audio_bubbles(product) %>
+        <%= subtitle_bubbles(product) %>
       <%= image_tag product.public.image, :alt => product.public.description if product.public %>
+      <div style ='clear:left'></div>
+      
     </div>
+    
     <% if product.actors.count > 0  %>
     <div class="cast">
       <h3>
@@ -36,9 +40,9 @@
   </div>
   <div class="action">
     <h4>
-      <%= t '.action' %>
+      <%= product.categories.first.name unless product.categories.empty? %>
     </h4>
-    <div class="stars" id="rating-stars-<%= product.to_param %>" product_id ="<%= product.to_param %>">
+    <div class="stars" id="rating-stars-<%= product.to_param %>" product_id="<%= product.to_param %>">
       <%= render :partial => 'products/rating', :locals => {:product => product, :background => :white} %>
     </div>
     <div class="links" id="seen-uninterested-<%= product.to_param %>">

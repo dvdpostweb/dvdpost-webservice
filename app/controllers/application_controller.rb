@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
 
+  before_filter :save_attempted_path
   before_filter :authenticate!
   before_filter :wishlist_size
   before_filter :delegate_locale
