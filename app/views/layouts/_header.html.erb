@@ -25,14 +25,10 @@
       <%= link_to content_tag(:strong, t('.rent')) %>
     </li>
     <li>
-      <a href="<%= "#{php_path}mydvdxpost.php" %>">
-        <%= t '.adult' %>
-      </a>
+      <%= link_to t('.adult'), adult_path %>
     </li>
     <li>
-      <a href="<%= "#{php_path}mydvdshop.php" %>" id="cart">
-        <%= t '.buy' %>
-      </a>
+      <%= link_to t('.buy'), my_shop_path, :id => 'cart' %>
     </li>
   </ul>
   <ul id="nav">
@@ -46,7 +42,7 @@
       <% end %>
     </li>
     <li><%= link_to t('.compte'), customer_path(:id => current_customer), {:id => 'n5', :class => (( id == 'moncompte') ? 'active': '')} %></li>
-    <li><%= link_to t('.summer_card'), "#{php_path}member_get_member.php", {:id => 'n6'} %></li>
+    <li><%= link_to t('.summer_card'), sponsor_path, {:id => 'n6'} %></li>
     <li id="indicator">
       <%= render :partial => 'layouts/list_indicator', :locals => {:wishlist_size => @wishlist_size} %>
     </li>

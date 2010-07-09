@@ -150,8 +150,45 @@ module ApplicationHelper
     "#{php_path}conditions.php"
   end
 
+  def limited_subscription_change_path
+    "#{php_path}subscription_change_limited.php"
+  end
+
+  def suspension_path
+    "#{php_path}holiday_form.php"
+  end
+
+  def product_shop_path(product)
+    "#{php_path}product_info_shop.php?products_id=#{product.to_param}"
+  end
+
+  def payment_method_change_path(type=nil)
+    path = "#{php_path}payment_method_change.php"
+    type ? "#{path}?payment=#{type}" : path
+  end
+
+  def reconduction_path
+    "#{php_path}basic_reconduction_info.php"
+  end
+
+  def urgent_messages_path
+    "#{php_path}messages_urgent.php"
+  end
+
+  def adult_path
+    "#{php_path}mydvdxpost.php"
+  end
+
+  def my_shop_path
+    "#{php_path}mydvdshop.php"
+  end
+
   def customers_reviews_path(customer)
     "#{php_path}reviews_member.php?custid=#{customer.to_param}"
+  end
+
+  def shop_path(url)
+    "#{php_path}#{url}"
   end
 
   def production_path(country_id=nil)
