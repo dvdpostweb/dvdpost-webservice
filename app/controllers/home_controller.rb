@@ -3,8 +3,8 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html {
         @top10 = ProductList.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
-        @soon = Product.normal.available.soon
-        @new = Product.normal.available.new_products
+        @soon = Product.normal.available.soon.orderd_rand.limit(3)
+        @new = Product.normal.available.new_products.orderd_rand.limit(3)
         @quizz = QuizzName.find_last_by_focus(1)
         not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
