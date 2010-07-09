@@ -3,9 +3,9 @@ class ProductsController < ApplicationController
     @products = if params[:viewmode] == 'recommended'
       current_customer.recommendations(params)
     elsif params[:viewmode] == 'recent'
-      Product.new_products.filter(params)
+      Product.new_products.normal.available.ordered_availaible
     elsif params[:viewmode] == 'soon'
-      Product.soon.filter(params)
+      Product.soon.normal.available.ordered_availaible
     elsif params[:search]
       Product.search_clean(params[:search]).sphinx_by_kind(:normal)
     else
