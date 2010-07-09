@@ -8,6 +8,8 @@ fr:
       ratings: Ratings
       dvdpost_choice: DVDPost Choice
       close: Fermer
+      audio: 
+      subtitles: 
       director: Réalisateur
       actor: Acteur
       recommendation: Recommandations
@@ -72,6 +74,8 @@ fr:
         official: Site officiel
         image: "Image :"
         sound: "Détail du son :"
+        aduio: 
+        subtitles: 
       rate: Cotez ce film
       synopsis: Synopsis
       dvdpost_choice: Coup de coeur DVDPost
