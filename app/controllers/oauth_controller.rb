@@ -1,4 +1,5 @@
 class OauthController < ApplicationController
+  skip_before_filter :save_attempted_path
   skip_before_filter :authenticate!
 
   def authenticate

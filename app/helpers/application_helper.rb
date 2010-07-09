@@ -32,6 +32,10 @@ module ApplicationHelper
     image_tag File.join(I18n.locale.to_s, source), options
   end
 
+  def save_attempted_path
+    session[:attempted_path] = request.request_uri
+  end
+
   def wishlist_size
     @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
   end
