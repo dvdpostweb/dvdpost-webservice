@@ -2978,17 +2978,6 @@ fieldset {
   top: 0;
 }
 
-/*.bouton_probleme .submit_fr {
-  background: url("../images/fr/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-.bouton_probleme .submit_nl {
-  background: url("../images/nl/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-.bouton_probleme .submit_en {
-  background: url("../images/en/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-*/
-
 .bouton_probleme .submit {
   border-style: hidden;
   display: block;
@@ -2998,7 +2987,8 @@ fieldset {
   margin: 0 0 0 40px;
   width: 170px;
   padding: 0 0 3px 0;
-  background: url("../images/account_modify.png") no-repeat scroll 0 -5px transparent;
+  background: url(/images/account_modify.png) no-repeat scroll 0 -5px transparent;
+  cursor: pointer;
 }
 
 .bouton_probleme .submit:hover {
