@@ -117,10 +117,6 @@ module ApplicationHelper
         'http://localhost/'
       when 'staging'
         'http://test/'
-      when 'pre_predocution'
-        production_path(country_id)
-      when 'production'
-        production_path(country_id)
       else
         production_path(country_id)
     end
@@ -158,7 +154,7 @@ module ApplicationHelper
     "#{php_path}reviews_member.php?custid=#{customer.to_param}"
   end
 
-  def production_path(country_id = nil)
+  def production_path(country_id=nil)
     if country_id.to_i == 21 || country_id == nil 
       'http://www.dvdpost.be/' 
     else
