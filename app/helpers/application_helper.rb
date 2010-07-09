@@ -117,10 +117,6 @@ module ApplicationHelper
         'http://localhost/'
       when 'staging'
         'http://test/'
-      when 'pre_predocution'
-        production_path(country_id)
-      when 'production'
-        production_path(country_id)
       else
         production_path(country_id)
     end
