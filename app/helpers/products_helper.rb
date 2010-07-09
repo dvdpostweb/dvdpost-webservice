@@ -9,7 +9,7 @@ module ProductsHelper
       audio
     else
       language = product.languages.by_language(I18n.locale).first
-      content_tag(:span, language.name) if language
+      content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text") if language
     end
   end
 

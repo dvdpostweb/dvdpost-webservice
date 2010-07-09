@@ -54,16 +54,24 @@
   <%= link_to(t('.official'), product.description.full_url, {:class => 'link', :target => :_blank}) if product.description.url_present? %>
 </p>
 <p>
-<div class='language_title'>
-  <strong>
-    <%= t '.audio' %>
-  </strong>
-  <%= audio_bubbles(product) %>
-  <strong>
-    <%= t '.subtitles' %>
-  </strong>
-  <%= subtitle_bubbles(product) %>
-</div>
+<% audio = audio_bubbles(product) %>
+<% if !audio.empty? %>
+  <div class='language_title'>
+    <strong>
+      <%= t '.audio' %>
+    </strong>
+  </div>
+  <%= audio %>
+<% end %>
+<% subtitle = subtitle_bubbles(product) %>
+<% if !subtitle.empty? %>
+  <div class='language_title'>
+    <strong>
+      <%= t '.subtitles' %>
+    </strong>
+  </div>
+  <%= subtitle %>
+<% end %>
 </p>
 <%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>
 <p>
@@ -76,6 +84,15 @@
   </strong>
   <%= product.soundtracks.collect{|soundtrack| soundtrack.name}.join(', ') %>
 </p>
+<% if product.products_next == 1 and product.available_at%>
+<p>
+  <strong>
+    <%= t '.available' %>
+  </strong>
+  <%= product.available_at.strftime("%d/%m/%Y") %>
+  
+</p>
+<% end %>
 <div class="cover">
   <span id="<%= product_media_id(product.media) %>">
     <%= product_image_tag product.image, :width => 143, :height => 218, :alt => "#{product.title} (#{product.year})" %>

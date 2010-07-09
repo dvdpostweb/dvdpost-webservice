@@ -1,12 +1,16 @@
+<% if transit_item.product %>
 <div class="<%= product_media_id(transit_item.product.media) %> clearfix">
   <div class="title"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 500), product_assigned_path(transit_item.product) %></div>
   <div class="status">
   <% if transit_item.is_new? == false %>
     <% text = (transit_item.orders_status != 17 &&  transit_item.orders_status != 12)?  'notify' : 'arrive' %>
     <%= link_to t(".#{text}"), new_order_report_path(:order_id => transit_item.to_param, :type => text), :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' if transit_item.orders_status !=1 %>
+    
   <% end %>
     <span class="<%= class_transit(transit_item) %>">
       <%= transit_item.status.name %>
+      <%= "#{t('.the')} #{transit_item.changed_at.strftime("%d/%m/%Y")}" if transit_item.orders_status == 2 %>
     </span>
   </div>
 </div>
+<% end %>

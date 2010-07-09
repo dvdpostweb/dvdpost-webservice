@@ -7,7 +7,7 @@
     </li>
     <% if products.size > 0 %>
       <li>
-        <%= link_to t('.see_all'), products_path(:recommended => true) %>
+        <%= link_to t('.see_all'), products_path(:viewmode => :recommended) %>
       </li>
     <% end %>
   </ul>
@@ -21,7 +21,10 @@
         <%= will_paginate products, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :recommendation_page, :id => 'prev', :class => 'like-btn', :container => false %>
         <%= will_paginate products, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :recommendation_page, :id => 'next', :class => 'like-btn', :container => false %>
       <% else %>
-        <%= t '.recommendations_unavailable' %>
+        <br />
+        <p class='error'>
+          <%= t '.recommendations_unavailable' %>
+        <p>
       <% end %>
     </div>
   </div>

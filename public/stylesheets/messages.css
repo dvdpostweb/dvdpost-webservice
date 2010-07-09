@@ -399,7 +399,8 @@ padding-top: 14px;
   background: url(../images/envoyer-btn.png) 0 0 no-repeat;
   margin: 5px 0 0 705px;
   color: white;
-   text-shadow: 1px 1px 1px #555555;
+  text-shadow: 1px 1px 1px #555555;
+  cursor: pointer;
 }
 #messages a {
   color:#000;

@@ -14,6 +14,7 @@ class Product < ActiveRecord::Base
   alias_attribute :availability,   :products_availability
   alias_attribute :original_title, :products_title
   alias_attribute :series_id,      :products_series_id
+  alias_attribute :available_at,   :products_date_available
 
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
@@ -55,7 +56,10 @@ class Product < ActiveRecord::Base
     ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
     {:conditions => {:products_public => ages}}
   }
-  named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_added < DATE_SUB(now(), INTERVAL 3 MONTH) and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
+  named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
+  named_scope :ordered_rand,        :order => 'rand()'
+  named_scope :ordered_availaible,  :order => 'products_date_available desc'
+  named_scope :limit,               lambda {|limit| {:limit => limit}}
   named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   named_scope :ordered,             :order => 'products.products_id desc'
   named_scope :list_ordered,        :order => 'listed_products.order asc'
@@ -140,7 +144,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_new?
-    availability > 0 && created_at.between?(3.months.ago, Time.now) && products_next == 0
+    availability > 0 && created_at < Time.now && available_at > 3.months.ago && products_next == 0
   end
 
   def dvdposts_choice?

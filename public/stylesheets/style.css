@@ -1027,6 +1027,9 @@ a#next10 {
   padding-left: 21px;
   width: 502px;
 }
+.box .title_transit {
+  width: 400px !important;
+}
 
 .box .availability, .box .status {
   border-left: 2px solid #FFFFFF;
@@ -1678,7 +1681,15 @@ html ul.tabs li.active a:hover {
   position: relative;
   width: 612px;
 }
-
+#carousel .error, #flash-news .error, .tab_container .error
+{
+  background: url("../images/attention_icon.png") no-repeat scroll 0 0 transparent;
+  padding: 18px 0 0 50px;
+}
+#flash-news .error, .tab_container .error
+{
+  margin: 0 0 0 30px ;
+}
 #carousel ul {
   display: block;
   left: 33px;
@@ -2370,6 +2381,11 @@ div.top10.first p a {
   background: url(../images/Prochainement-icon.png) 0 0 no-repeat;
 }
 
+#new-m h3 a.small{
+  font-size: 0.8em;
+  color: #ff4b00;
+}
+
 #new-m ul {
   display: block;
   margin-bottom: 10px;
@@ -2723,6 +2739,11 @@ div.top10.first p a {
 }
 
 #subfooter #footer-nav ul li h4 {
+  color: #00a3d6;
+  font-size: 1.08em;
+}
+
+#subfooter #footer-nav ul li h4 a {
   color: #00a3d6;
   font-size: 1.08em;
 }
@@ -3155,7 +3176,12 @@ a#all_categorie, a#all_categorie:hover {
   text-align:center;
   margin: 0 2px 0 0;
 }
-
+.language_text
+{
+  float : left;
+  padding: 4px 0 0 0;
+  margin: 0 4px 0 0;
+}
 .subtitle {
   background: url(/images/subtitle.png) no-repeat;
   color: #fff;

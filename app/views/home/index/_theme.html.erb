@@ -1,5 +1,6 @@
 <h3>
-  <%= t ".#{id}" %>
+  <% viewmode = (id == 'new') ? 'recent' : 'soon' %>
+  <%= t ".#{id}" %> <%= link_to t(".see_all"), products_path(:viewmode => viewmode), :class => :small %>
 </h3>
 <ul class="clearfix">
   <%= render :partial => 'home/index/advertising_product', :collection => products %>

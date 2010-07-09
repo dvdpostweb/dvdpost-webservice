@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_after_registration
   before_filter :set_locale_from_params
 
+  rescue_from ActionController::MethodNotAllowed do |exception|
+    logger.warn "*** #{exception} Path: #{request.path} ***"
+    render :file => "#{Rails.root}/public/404.html", :status => 404
+  end
+
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
