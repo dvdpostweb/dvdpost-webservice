@@ -41,9 +41,9 @@ module ApplicationHelper
   end
 
   def delegate_locale
-    if params[:locale].nil? 
+    if params[:locale].nil?
       set_locale('fr')
-    else 
+    else
       set_locale(params[:locale])
     end
   end
@@ -155,7 +155,7 @@ module ApplicationHelper
   end
 
   def production_path(country_id=nil)
-    if country_id.to_i == 21 || country_id == nil 
+    if country_id.to_i == 21 || country_id == nil
       'http://www.dvdpost.be/'
     else
       'http://www.dvdpost.nl/'
@@ -169,7 +169,7 @@ module ApplicationHelper
       product_path(:id => product.to_param)
     end
   end
-  
+
   def product_assigned_title(product)
     if product.products_type == DVDPost.product_kinds[:adult]
       t('wishlit_items.index.adult_title')
