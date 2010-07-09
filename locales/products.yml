@@ -35,6 +35,8 @@ fr:
         more: "En savoir +"
         actors: Acteurs
         director: Réalisateur
+        audio: 
+        subtitles: 
     show:
       review:
         review_save: "Your review has been saved. It will appear once it's approved by an admin."

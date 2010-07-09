@@ -16,7 +16,16 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-      <%= language_bubbles(product) %>
+      <div class='language_title'>
+        <strong>
+          <%= t '.audio' %>
+        </strong>
+        <%= audio_bubbles(product) %>
+        <strong>
+          <%= t '.subtitles' %>
+        </strong>
+        <%= subtitle_bubbles(product) %>
+      </div>
       <%= image_tag product.public.image, :alt => product.public.description if product.public %>
     </div>
     <% if product.actors.count > 0  %>
