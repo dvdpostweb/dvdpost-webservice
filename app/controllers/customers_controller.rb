@@ -13,7 +13,7 @@ class CustomersController < ApplicationController
 
   def update
     @customer = current_customer
-    params[:customer][:birthday]= "#{params['year']}-#{params['month']}-#{params['day']}"
+    params[:customer][:birthday] = "#{params[:date][:year]}-#{params[:date][:month]}-#{params[:date][:day]}"
     if @customer.update_attributes(params[:customer])
       respond_to do |format|
         format.html do

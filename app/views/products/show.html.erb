@@ -21,9 +21,8 @@
               </div>
             <% end %>
             <div align="center">
-              <strong>
                 <%= t '.rate' %>
-              </strong>
+                <%= "(#{@product.rating_count} #{t('.count')})" %>
             </div>
             <ul>
               <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
@@ -37,8 +36,8 @@
             <%= available_on_other_language(@product) %>
             <% if @product.available_to_sale? %>
               <div id="buy">
-                <%= link_to t('.buy'), "#{php_path}product_info_shop.php?products_id=#{@product.products_id}", :class => 'like-btn', :id => 'acheter-btn' , :target=> :_blank %>
-                <%= "&euro; #{@product.products_sale_price} " %>
+                <%= link_to t('.buy'), product_shop_path(@product), :class => 'like-btn', :id => 'acheter-btn' , :target => :_blank %>
+                <%= "&euro; #{@product.products_sale_price}" %>
               </div>
             <% end %>
             <%= image_tag 'oeil.gif', :alt => 'already seen' if @already_seen %>
@@ -55,14 +54,14 @@
     </div>
     <!-- End Detail -->
     <!-- Carousel -->
-    <%= render :partial => 'products/show/recommendations', :object => @recommendations %>
+    <%= render :partial => 'products/show/recommendations', :object => @recommendations if @recommendations && @recommendations.size > 0 %>
     <!-- End Carousel -->
     <!-- Critique -->
     <ul class="tabs">
       <li class="active" id='tab1_li'>
         <%= link_to t('.members_critic'), '#tab1', :id => 'tab1_menu' %>
       </li>
-      <% if @cinopsis && !@cinopsis.empty? %>
+      <% if (@cinopsis && !@cinopsis.empty?) || @cinopsis_error %>
         <li id='tab2_li'>
           <%= link_to t('.cinopsis_critic'), '#tab2', :id => 'tab2_menu' %>
         </li>
@@ -81,7 +80,14 @@
             <% end %>
           </div>
           <div id="tab2" class="tab_content" style="display:none">
-            <%= @cinopsis %>
+            <% if @cinopsis_error == true %>
+              <br />
+              <p class='error'>
+                <%= t '.critic_unavailable' %>
+              </p>
+            <% else %>
+              <%= @cinopsis %>
+            <% end %>
           </div>
         </div>
       </div>

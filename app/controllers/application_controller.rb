@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   helper_method :current_customer
 
+  before_filter :save_attempted_path
   before_filter :authenticate!
   before_filter :wishlist_size
   before_filter :delegate_locale
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::Base
   before_filter :load_partners
   before_filter :redirect_after_registration
   before_filter :set_locale_from_params
+
+  rescue_from ActionController::MethodNotAllowed do |exception|
+    logger.warn "*** #{exception} Path: #{request.path} ***"
+    render :file => "#{Rails.root}/public/404.html", :status => 404
+  end
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password

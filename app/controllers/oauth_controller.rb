@@ -1,4 +1,5 @@
 class OauthController < ApplicationController
+  skip_before_filter :save_attempted_path
   skip_before_filter :authenticate!
 
   def authenticate
@@ -14,21 +15,29 @@ class OauthController < ApplicationController
   end
 
   def callback
-    access_token = oauth_client.web_server.get_access_token(params[:code], :redirect_uri => oauth_callback_url)
+    begin
+      access_token = oauth_client.web_server.get_access_token(params[:code], :redirect_uri => oauth_callback_url)
 
-    session[:oauth_token] = access_token.token
-    session[:expires_in] = access_token.expires_in
-    session[:refresh_token] = access_token.refresh_token
+      session[:oauth_token] = access_token.token
+      session[:expires_in] = access_token.expires_in
+      session[:refresh_token] = access_token.refresh_token
     
-    unless access_token.refresh_token.blank?
-      cookies[:oauth_token] = { :value => access_token.token, :expires => 10.year.from_now }
-      cookies[:expires_in] = { :value => access_token.expires_in, :expires => 10.year.from_now }
-      cookies[:refresh_token] = { :value => access_token.refresh_token, :expires => 10.year.from_now }
+      unless access_token.refresh_token.blank?
+        cookies[:oauth_token] = { :value => access_token.token, :expires => 10.year.from_now }
+        cookies[:expires_in] = { :value => access_token.expires_in, :expires => 10.year.from_now }
+        cookies[:refresh_token] = { :value => access_token.refresh_token, :expires => 10.year.from_now }
+      end
+
+      attempted_path = session[:attempted_path]
+
+      redirect_to attempted_path || root_path
+    rescue Exception => e
+      logger.warn "*** Invalid authorization code used. ***"
+      session.delete(:oauth_token)
+      session.delete(:expires_in)
+      session.delete(:refresh_token)
+      redirect_to session.delete(:attempted_path) || root_path
     end
-
-    attempted_path = session[:attempted_path]
-
-    redirect_to attempted_path ? attempted_path : root_path
   end
 
   def sign_out

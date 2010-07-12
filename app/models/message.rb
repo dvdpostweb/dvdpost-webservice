@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   set_primary_key :custserv_id
 
   validates_presence_of :custserv_cat_id, :on => :create
-  validates_presence_of :content
+  validates_presence_of :question
 
   alias_attribute :created_at,  :customer_date
   alias_attribute :updated_at,  :admindate

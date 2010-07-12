@@ -3,7 +3,7 @@
     <%= link_to truncate(wishlist_item.product.title, :length => 65), product_path(:id => wishlist_item.product.to_param) %> 
     <%= image_tag 'oeil.gif', :alt => 'already seen', :class => 'oeil' if wishlist_item.already_rented == 'YES' %>
   </div>
-  <div class="availability">&nbsp;</div>
+  <div class="availability"><%= wishlist_item.product.products_next == 1 ? wishlist_item.product.available_at.strftime("%d/%m/%Y") : '&nbsp;' %></div>
   <ul class="HML" id="<%= wishlist_item.to_param %>">
     <%= render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => wishlist_item} %>
   </ul>

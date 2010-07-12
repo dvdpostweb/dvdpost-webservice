@@ -10,13 +10,20 @@
                                       :page_links => false,
                                       :param_name => :news_page,
                                       :id => 'news_next',
-                                      :container => false %>
+                                      :container => false if news_items %>
       </li>
     <% else %>
-      <%= t '.new_unavailable' %>
+      <%= t '.news_unavailable' %>
     <% end %>
   </ul>
   <ul id="flash-news">
-    <%= render :partial => '/home/index/news_item', :collection => news_items %>
+    <% if news_items %>
+      <%= render :partial => '/home/index/news_item', :collection => news_items if news_items %>
+    <% else %>
+      <br />
+      <p class="error">
+        <%= t '.news_unavailable' %>
+      </p>
+    <% end %>
   </ul>
 </div>
