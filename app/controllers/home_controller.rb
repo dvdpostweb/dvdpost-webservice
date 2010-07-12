@@ -42,10 +42,17 @@ class HomeController < ApplicationController
 
   private
   def retrieve_news
-    news_items = when_fragment_expired "#{I18n.locale.to_s}/home/news", 1.hour.from_now do
-      DVDPost.home_page_news
+    fragment_name = "#{I18n.locale.to_s}/home/news"
+    news_items = when_fragment_expired fragment_name, 1.hour.from_now do
+      begin
+        DVDPost.home_page_news
+      rescue => e
+        logger.error "Homepage news unavailable: #{e.message}"
+        expire_fragment_with_meta(fragment_name)
+        nil
+      end
     end
-    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1)
+    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_item
   end
 
   def retrieve_recommendations

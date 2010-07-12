@@ -3,14 +3,18 @@
     <li>
       <h3>Flash News</h3>
     </li>
-    <li>
-      <%= will_paginate news_items, :previous_label => '',
-                                    :next_label => t('.other_publications'),
-                                    :page_links => false,
-                                    :param_name => :news_page,
-                                    :id => 'news_next',
-                                    :container => false %>
-    </li>
+    <% if news_items %>
+      <li>
+        <%= will_paginate news_items, :previous_label => '',
+                                      :next_label => t('.other_publications'),
+                                      :page_links => false,
+                                      :param_name => :news_page,
+                                      :id => 'news_next',
+                                      :container => false %>
+      </li>
+    <% else %>
+      <%= t '.new_unavailable' %>
+    <% end %>
   </ul>
   <ul id="flash-news">
     <%= render :partial => '/home/index/news_item', :collection => news_items %>
