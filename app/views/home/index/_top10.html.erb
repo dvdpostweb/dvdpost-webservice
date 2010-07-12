@@ -1,9 +1,6 @@
 <div id="top10-wrap">
   <h3 class="hp-ttls">
-    <%= t '.title' %>
-    <span>
-      <%= t '.subtitle' %>
-    </span>
+    <%= @top_title %>
   </h3>
   <div id="top10">
     <%= render :partial => 'home/index/top_product', :collection => products %>
