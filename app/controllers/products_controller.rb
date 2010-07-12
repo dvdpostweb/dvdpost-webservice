@@ -34,18 +34,11 @@ class ProductsController < ApplicationController
         @already_seen = current_customer.assigned_products.include?(@product)
         begin
           @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
-<<<<<<< HEAD
-        rescue => e
-          logger.error "Cinopsis service unavailable: #{e.message}"
-        end
-
-=======
           @cinopsis_error = false
         rescue => e
           @cinopsis_error = true
           logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
         end
->>>>>>> 4f9dbf2f7a4c824e3ab6eff85ca70511fac1fbbf
         if params[:recommendation] == "1"
           DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
