@@ -55,7 +55,7 @@
 </p>
 <p>
 <% audio = audio_bubbles(product) %>
-<% if !audio.empty? %>
+<% unless audio.blank? %>
   <div class='language_title'>
     <strong>
       <%= t '.audio' %>
@@ -63,14 +63,14 @@
   </div>
   <%= audio %>
 <% end %>
-<% subtitle = subtitle_bubbles(product) %>
-<% if !subtitle.empty? %>
+<% subtitles = subtitle_bubbles(product) %>
+<% unless subtitles.blank? %>
   <div class='language_title'>
     <strong>
       <%= t '.subtitles' %>
     </strong>
   </div>
-  <%= subtitle %>
+  <%= subtitles %>
 <% end %>
 </p>
 <%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>
