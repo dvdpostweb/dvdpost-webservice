@@ -129,14 +129,6 @@ class Customer < ActiveRecord::Base
     operator == :increment ? increment!(attribute) : decrement!(attribute)
   end
 
-  def add_dvd_at_home!(product)
-    update_dvd_at_home!(:increment, product)
-  end
-
-  def substract_dvd_at_home!(product)
-    update_dvd_at_home!(:decrement, product)
-  end
-
   def newsletter!(type,value)
     if type == 'newsletter_parnter'
       update_attribute(:newsletter_parnter, value)

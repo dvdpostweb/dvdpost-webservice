@@ -31,11 +31,8 @@ class ReportsController < ApplicationController
         @order.product_dvd.update_status!(product_status)
 
         if status.keys.include?(:at_home)
-          if status[:at_home]
-            current_customer.add_dvd_at_home!(@order.product)
-          else
-            current_customer.substract_dvd_at_home!(@order.product)
-          end
+          operator = status[:at_home] ? :increment || :decrement
+          current_customer.update_dvd_at_home!(operator, product)
         end
 
         if status.keys.include?(:order_status)
