@@ -32,7 +32,7 @@ class ReportsController < ApplicationController
 
         if status.keys.include?(:at_home)
           operator = status[:at_home] ? :increment : :decrement
-          current_customer.update_dvd_at_home!(operator, product)
+          current_customer.update_dvd_at_home!(operator, @order.product)
         end
 
         if status.keys.include?(:order_status)
