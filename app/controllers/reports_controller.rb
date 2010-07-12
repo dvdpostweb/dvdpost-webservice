@@ -29,12 +29,11 @@ class ReportsController < ApplicationController
                                          :messagesent => 1)
 
         @order.product_dvd.update_status!(product_status)
-        
-        
+
         if status.keys.include?(:at_home)
           if status[:at_home]
             current_customer.add_dvd_at_home!(@order.product)
-          else  
+          else
             current_customer.substract_dvd_at_home!(@order.product)
           end
         end
