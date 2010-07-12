@@ -15,28 +15,24 @@ class ReportsController < ApplicationController
       if DVDPost.product_dvd_statuses.include?(params[:status].to_sym)
         status = DVDPost.product_dvd_statuses[params[:status].to_sym]
 
-        message = MessageAutoReply.by_language(I18n.locale).find(status[:message]).content
+        message_content = MessageAutoReply.by_language(I18n.locale).find(status[:message]).content
         message_category = MessageCategory.by_language(I18n.locale).find(status[:message_category])
         product_status = ProductDvdStatus.find(status[:product_status])
 
-        current_customer.messages.create(:language_id => DVDPost.product_languages[I18n.locale],
-                                         :category_id => message_category.to_param,
-                                         :order => @order,
-                                         :product => @order.product,
-                                         :admindate => Time.now.to_s(:db),
-                                         :adminby => 99,
-                                         :adminmessage => message,
-                                         :messagesent => 1)
+        message = current_customer.messages.create(:language_id => DVDPost.product_languages[I18n.locale],
+                                                   :category_id => message_category.to_param,
+                                                   :order => @order,
+                                                   :product => @order.product,
+                                                   :admindate => Time.now.to_s(:db),
+                                                   :adminby => 99,
+                                                   :adminmessage => message_content,
+                                                   :messagesent => 1)
 
         @order.product_dvd.update_status!(product_status)
-        
-        
+
         if status.keys.include?(:at_home)
-          if status[:at_home]
-            current_customer.add_dvd_at_home!(@order.product)
-          else  
-            current_customer.substract_dvd_at_home!(@order.product)
-          end
+          operator = status[:at_home] ? :increment : :decrement
+          current_customer.update_dvd_at_home!(operator, product)
         end
 
         if status.keys.include?(:order_status)
@@ -45,7 +41,7 @@ class ReportsController < ApplicationController
         end
 
         if params[:status] == 'arrived'
-          ProductDvdArrived.create(:message => @order.messages.last,
+          ProductDvdArrived.create(:message => message,
                                    :customer => current_customer,
                                    :order => @order,
                                    :product => @order.product,
