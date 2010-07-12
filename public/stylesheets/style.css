@@ -999,6 +999,12 @@ a#next10 {
   margin-right: 12px;
   text-decoration: underline;
 }
+#on-way .dvd .status .error, #on-way .bluray .status .error
+{
+  color: #454545;
+  float: right;
+  margin-right: 12px;
+}
 
 #on-way .dvd .status a:hover, #on-way .bluray .status a:hover {
   text-decoration: none;
@@ -2040,7 +2046,7 @@ html ul.tabs li.active a:hover {
 
 h3.hp-ttls {
   padding-left: 40px;
-  font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
+  font: normal 1.8em "MisoBold", Arial, Helvetica, sans-serif;
   color: #ff4b00;
   background-position: 0 0;
   background-repeat: no-repeat;
