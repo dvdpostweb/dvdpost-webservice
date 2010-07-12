@@ -8,14 +8,14 @@
   <% end %>
   <ul id="left-nav">
     <li><%= link_to t('.recommendations'), products_path(:viewmode => :recommended) %></li>
-    <!--<li>
+    <li>
       <%= link_to t('.tops') %>
       <ul>
         <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
           <li><%= link_to top.name, top_products_path(:top_id => top) %></li>
         <% end %>
       </ul>
-    </li>-->
+    </li>
     <li>
       <%= link_to t('.categories') %>
       <ul id="cat">

@@ -150,7 +150,7 @@ module ProductsHelper
     title = t('.actor') +' : '+ Actor.find(params[:actor_id]).name if params[:actor_id] && !params[:actor_id].empty?
     title = t('.recommendation') if params[:recommended]
     title = t('.categorie') +' : '+ Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name if params[:category_id] && !params[:category_id].empty?
-    title = t('.top') +' : '+  ProductList.find(params[:top_id]).name if params[:top_id] && !params[:top_id].empty?
+    title = ProductList.find(params[:top_id]).name if params[:top_id] && !params[:top_id].empty?
     title = t('.theme') +' : '+  ProductList.find(params[:theme_id]).name if params[:theme_id] && !params[:theme_id].empty?
     title = t('.search') +' : '+ params[:search] if params[:search]
     title

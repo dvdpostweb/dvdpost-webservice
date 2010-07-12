@@ -16,17 +16,15 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-        <%= audio_bubbles(product) %>
-        <%= subtitle_bubbles(product) %>
+      <%= audio_bubbles(product) %>
+      <%= subtitle_bubbles(product) %>
       <%= image_tag product.public.image, :alt => product.public.description if product.public %>
       <div style ='clear:left'></div>
-      
     </div>
-    
     <% if product.actors.count > 0  %>
     <div class="cast">
       <h3>
-        <%= t '.actors' %> 
+        <%= t '.actors' %>
       </h3>
       <p><%= product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
     </div>

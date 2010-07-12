@@ -161,8 +161,8 @@ module ApplicationHelper
   end
 
   def payment_method_change_path(type=nil)
-    path = php_path 'member_get_member.php'
-    type ? "#{path}?payment=#{type}" : path
+    path = php_path 'payment_method_change.php'
+    type ? "#{path}&payment=#{type}" : path
   end
 
   def reconduction_path
