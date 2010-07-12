@@ -1,8 +1,8 @@
 <div class="modal-window-content">
   <h3>
-    <span><% @message.created_at.strftime("%d/%m/%Y") %></span>  
+    <span><% @message.created_at.strftime("%d/%m/%Y") %></span>
     <%= h @message.category.name if @message.category_id > 0 %>
-    <%= " : #{h @message.product.description.title}" if @message.products_id %>
+    <%= " : #{h @message.product.description.title}" if @message.product %>
   </h3>
   <div class="content">
     <h4>
