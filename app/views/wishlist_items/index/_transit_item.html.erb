@@ -2,18 +2,18 @@
   <div class="<%= product_media_id(transit_item.product.media) %> clearfix">
     <div class="title"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 50), product_assigned_path(transit_item.product) %></div>
     <div class="status">
-    <% dvd_status = transit_item.order_product.product_dvd.products_dvd_status %>
-    <% order_status = transit_item.orders_status %>
-    <% if dvd_status == 1 || (dvd_status == 5 && (order_status == 17 || order_status == 12)) %>
-      <% if transit_item.is_new? == false %>
-        <% text = (order_status != 17 && order_status != 12)?  'notify' : 'arrive' %>
-        <%= link_to t(".#{text}"), new_order_report_path(:order_id => transit_item.to_param, :type => text), :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' if order_status !=1 %>
+      <% dvd_status = transit_item.order_product.product_dvd.products_dvd_status %>
+      <% order_status = transit_item.orders_status %>
+      <% if dvd_status == 1 || (dvd_status == 5 && (order_status == 17 || order_status == 12)) %>
+        <% unless transit_item.is_new? %>
+          <% text = (order_status != 17 && order_status != 12) ? 'notify' : 'arrive' %>
+          <%= link_to t(".#{text}"), new_order_report_path(:order_id => transit_item.to_param, :type => text), :id => "report_transit_item_#{transit_item.to_param}", :class => 'report_transit_item' if order_status !=1 %>
+        <% end %>
+      <% else %>
+        <div class="error">
+          <%= t(".status_#{dvd_status}")%>
+        </div>
       <% end %>
-    <% else %>
-    <div class="error">
-      <%= t(".status_#{dvd_status}")%>
-    </div>
-    <% end %>
       <span class="<%= class_transit(transit_item) %>">
         <%= transit_item.status.name %>
         <%= "#{t('.the')} #{transit_item.changed_at.strftime("%d/%m/%Y")}" if order_status == 2 %>
