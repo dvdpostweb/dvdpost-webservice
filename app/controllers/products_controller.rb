@@ -55,27 +55,23 @@ class ProductsController < ApplicationController
   end
 
   def uninterested
-    begin
-      @product = Product.normal.available.find(params[:product_id])
-      unless (current_customer.rated_products.include?(@product ) || current_customer.seen_products.include?(@product))
-        @product.uninterested_customers << current_customer
-        DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
-        respond_to do |format|
-          format.html {redirect_to product_path(:id => @product.to_param)}
-          format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
-        end
-      end
+    @product = Product.normal.available.find(params[:product_id])
+    unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product)
+      @product.uninterested_customers << current_customer
+      DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
+    end
+    respond_to do |format|
+      format.html {redirect_to product_path(:id => @product.to_param)}
+      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
     end
   end
 
   def seen
-    begin
-      @product = Product.normal.available.find(params[:product_id])
-      @product.seen_customers << current_customer
-      respond_to do |format|
-        format.html {redirect_to product_path(:id => @product.to_param)}
-        format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
-      end
+    @product = Product.normal.available.find(params[:product_id])
+    @product.seen_customers << current_customer
+    respond_to do |format|
+      format.html {redirect_to product_path(:id => @product.to_param)}
+      format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
     end
   end
 
