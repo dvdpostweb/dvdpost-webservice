@@ -67,10 +67,17 @@ class Product < ActiveRecord::Base
 
   define_index do
     indexes products_type
-    indexes actors.actors_name, :as => :actors_names
-    indexes director.directors_name, :as => :director_name
-    indexes descriptions.products_description, :as => :descriptions_text
-    indexes descriptions.products_name, :as => :descriptions_title
+    indexes products_media
+    indexes actors.actors_id,                   :as => :actors_id
+    indexes actors.actors_name,                 :as => :actors_name
+    indexes categories.categories_id,           :as => :category_id
+    indexes director.directors_id,              :as => :director_id
+    indexes director.directors_name,            :as => :director_name
+    indexes descriptions.products_description,  :as => :descriptions_text
+    indexes descriptions.products_name,         :as => :descriptions_title
+    # indexes product_lists.id,                   :as => :products_lists_ids # This one is not working yet, I'm pretty sure it's because the primary key lives in another database
+
+    has products_year
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -80,7 +87,39 @@ class Product < ActiveRecord::Base
     set_property :field_weights => {:brand_name => 10, :name_fr => 5, :name_nl => 5, :description_fr => 4, :description_nl => 4}
   end
 
-  sphinx_scope(:sphinx_by_kind) { |kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}} }
+  # There are a lot of commented lines of code in here which are just used for development
+  # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
+  sphinx_scope(:sphinx_by_kind)     {|kind|     {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  sphinx_scope(:sphinx_by_category) {|category| {:conditions => {:category_id => category.to_param}}}
+  sphinx_scope(:sphinx_by_actor)    {|actor|    {:conditions => {:actors_id => actor.to_param}}}
+  sphinx_scope(:sphinx_by_director) {|director| {:conditions => {:director_id => director.to_param}}}
+  # sphinx_scope(:sphinx_by_top)      {|top|      {:conditions => {:products_lists_ids => top.to_param}}}
+  # named_scope :by_top,              lambda {|top| {:include => :product_lists, :conditions => {:product_lists => {:id => top.to_param}}}}
+  # sphinx_scope(:sphinx_by_theme)    {|theme|    {:conditions => {:products_lists_ids => theme.to_param}}}
+  # named_scope :by_theme,            lambda {|theme| {:include => :product_lists, :conditions => {:product_lists => {:id => theme.to_param}}}}
+  sphinx_scope(:sphinx_by_media)    {|* media|  {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
+  sphinx_scope(:sphinx_by_year)     {|year|     {:with => {:products_year => year}}}
+  sphinx_scope(:sphinx_by_period)   {|min, max| {:with => {:products_year => min..max}}}
+  # named_scope :by_ratings,          lambda {|min, max| {:conditions => ["(rating_users/rating_count)>=? AND ?>=(rating_users/rating_count)", min ,max]}}
+  # named_scope :by_country,          lambda {|country| {:include => :country, :conditions => {:products_countries => {:countries_id => country.to_param}}}}
+  # named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
+  # named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
+  # named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
+  # named_scope :dvdpost_choice,      :conditions => {:products_dvdpostchoice => 1}
+  # named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
+  # named_scope :available,           :conditions => ['products_status != ?', '-1']
+  # named_scope :by_public,           lambda {|min, max|
+  #   ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
+  #   {:conditions => {:products_public => ages}}
+  # }
+  # named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
+  # named_scope :ordered_rand,        :order => 'rand()'
+  # named_scope :ordered_availaible,  :order => 'products_date_available desc'
+  # named_scope :limit,               lambda {|limit| {:limit => limit}}
+  # named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
+  # named_scope :ordered,             :order => 'products.products_id desc'
+  # named_scope :list_ordered,        :order => 'listed_products.order asc'
+  # named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
   def self.filter(params)
     if params[:top_id] && !params[:top_id].empty?
