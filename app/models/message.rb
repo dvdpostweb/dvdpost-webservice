@@ -1,6 +1,6 @@
 class Message < ActiveRecord::Base
   before_create :set_creation_time
-  
+
   cattr_reader :per_page
   @@per_page = 20
   set_table_name :custserv
@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   set_primary_key :custserv_id
 
   validates_presence_of :custserv_cat_id, :on => :create
-  validates_presence_of :question
+  validates_presence_of :question, :unless => Proc.new {|message| message.order} # Reports require an order
 
   alias_attribute :created_at,  :customer_date
   alias_attribute :updated_at,  :admindate
@@ -18,9 +18,9 @@ class Message < ActiveRecord::Base
   alias_attribute :content,     :adminmessage
   alias_attribute :read,        :is_read
 
-  belongs_to :product, :primary_key => :products_id, :foreign_key => :products_id
-  belongs_to :order, :primary_key => :orders_id, :foreign_key => :orders_id
   belongs_to :customer, :foreign_key => :customers_id
+  belongs_to :order, :primary_key => :orders_id, :foreign_key => :orders_id
+  belongs_to :product, :primary_key => :products_id, :foreign_key => :products_id
   has_many :categories, :class_name => 'MessageCategory', :primary_key => :custserv_cat_id, :foreign_key => :custserv_cat_id
 
   named_scope :ordered, :order => 'custserv_id desc'
