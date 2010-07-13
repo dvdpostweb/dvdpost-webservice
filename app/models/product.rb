@@ -188,11 +188,11 @@ class Product < ActiveRecord::Base
     str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
   end
 
-  def notify_hoptoad(ghost)
+  def self.notify_hoptoad(ghost)
     begin
-      HoptoadNotifier.notify(:error_message => "Ghost record found with id #{ghost.product_id}")
+      HoptoadNotifier.notify(:error_message => "Ghost record found with id #{ghost.orders_id}")
     rescue => e
-      logger.error("Exception raised wihile notifying ghost record found #{ghost.product_id}")
+      logger.error("Exception raised wihile notifying ghost record found #{ghost.orders_id}")
       logger.error(e.backtrace)
     end
   end
