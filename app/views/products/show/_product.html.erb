@@ -49,7 +49,7 @@
   </li>
 </ul>
 <p class="links">
-  <%= link_to(t('.trailer'), product.trailer.url, {:class => 'trailer', :target => :_blank}) if product.trailer %>
+  <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), {:class => 'trailer', :target => :_blank}) if product.trailer %>
   <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && product.description.url_present? %>
   <%= link_to(t('.official'), product.description.full_url, {:class => 'link', :target => :_blank}) if product.description.url_present? %>
 </p>

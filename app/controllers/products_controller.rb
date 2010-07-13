@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
+
   def index
     @products = if params[:viewmode] == 'recommended'
       @recommended = true
@@ -55,7 +57,6 @@ class ProductsController < ApplicationController
   end
 
   def uninterested
-    @product = Product.normal.available.find(params[:product_id])
     unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product)
       @product.uninterested_customers << current_customer
       DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
@@ -67,7 +68,6 @@ class ProductsController < ApplicationController
   end
 
   def seen
-    @product = Product.normal.available.find(params[:product_id])
     @product.seen_customers << current_customer
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param)}
@@ -76,9 +76,20 @@ class ProductsController < ApplicationController
   end
 
   def awards
-    @product = Product.normal.available.find(params[:product_id])
     respond_to do |format|
       format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
     end
+  end
+
+  def trailer
+    respond_to do |format|
+      format.js   {render :partial => 'products/trailer', :locals => {:product => @product}}
+      format.html {redirect_to @product.trailer.url}
+    end
+  end
+
+private
+  def find_product
+    @product = Product.normal.available.find(params[:product_id])
   end
 end
