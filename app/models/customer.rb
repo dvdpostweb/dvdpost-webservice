@@ -108,7 +108,7 @@ class Customer < ActiveRecord::Base
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self)
     rescue => e
-      logger.errors("Failed to retrieve recommendations: #{e.message}")
+      logger.error("Failed to retrieve recommendations: #{e.message}")
     end
     
     results = if recommendation_ids
