@@ -9,7 +9,7 @@
       <%= product_description_text(product) %>
     </p>
     <p class="links">
-      <%= link_to(t('.trailer'), product.trailer.url, :class => 'trailer', :target => :_blank) if product.trailer %>
+      <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) if product.trailer %>
       <%= content_tag(:span, image_tag('delimiter.gif')) if product.trailer && (!product.description.url.nil? && !product.description.url.empty?) %>
       <%= link_to(t('.more'), path, :class => 'more') %>
     </p>
