@@ -20,13 +20,14 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :products, :only => [:index, :show] do |product|
-      product.resource :rating, :only => :create
-      product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
+      product.resource  :rating,         :only => :create
+      product.resources :reviews,        :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
-      product.resources :reviews, :only => [:new, :create]
+      product.rating       'rating',       :controller => :ratings,  :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
+      product.awards       'awards',       :controller => :products, :action => :awards
+      product.seen         'seen',         :controller => :products, :action => :seen
+      product.trailer      'trailer',      :controller => :products, :action => :trailer, :conditions => {:method => :get}
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
-      product.seen 'seen', :controller => :products, :action => :seen
-      product.awards 'awards', :controller => :products, :action => :awards
     end
 
     localized.resources :categories, :only => [] do |category|

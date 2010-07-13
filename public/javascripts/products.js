@@ -321,10 +321,21 @@ $(function() {
     });
     return false;
   });
+
   $('#all_categorie').live('click',function(){
     $('.cat').show();
     $('.subcat').hide();
     $(this).hide();
+    return false;
+  });
+
+  $('.trailer').live('click', function(){
+    url = $(this).attr('href');
+    jQuery.facebox(function() {
+      $.getScript(url, function(data) {
+        jQuery.facebox(data);
+      });
+    });
     return false;
   });
 });

@@ -14,4 +14,12 @@ class Trailer < ActiveRecord::Base
     broadcast_url = DVDPost.trailer_broadcasts_urls[broadcast_service]
     broadcast_url ? broadcast_url + remote_id : nil
   end
+
+  def youtube?
+    broadcast_service == 'YOUTUBE'
+  end
+
+  def dailymotion?
+    broadcast_service == 'DAYLYMOTION'
+  end
 end
