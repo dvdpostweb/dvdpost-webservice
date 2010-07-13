@@ -144,7 +144,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_new?
-    availability > 0 && created_at < Time.now && available_at > 3.months.ago && products_next == 0
+    availability > 0 && created_at < Time.now && available_at && available_at > 3.months.ago && products_next == 0
   end
 
   def dvdposts_choice?
