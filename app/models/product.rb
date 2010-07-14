@@ -72,7 +72,6 @@ class Product < ActiveRecord::Base
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
     # indexes languages.products_languages_id,    :as => :language_ids
-    # indexes product_lists.id,                   :as => :products_lists_ids # This one is not working yet, I'm pretty sure it's because the primary key lives in another database
 
     has products_countries_id
     # has products_date_available
