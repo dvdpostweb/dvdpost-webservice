@@ -65,8 +65,8 @@ class Product < ActiveRecord::Base
   named_scope :normal, :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
   define_index do
-    indexes products_type
     indexes products_media
+    indexes products_type
     indexes actors.actors_name,                 :as => :actors_name
     indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
