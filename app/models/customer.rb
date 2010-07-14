@@ -32,7 +32,7 @@ class Customer < ActiveRecord::Base
   validates_length_of :last_name, :minimum => 2
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
   validates_length_of :clear_pwd_confirmation, :minimum => 3, :unless => :clear_pwd_empty? 
-  validates_confirmation_of :clear_pwd 
+  validates_confirmation_of :clear_pwd , :unless => :clear_pwd_empty? 
 
   before_save :encrypt_password, :unless => :clear_pwd_empty? 
   
