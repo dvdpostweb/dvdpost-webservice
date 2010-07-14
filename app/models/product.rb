@@ -67,13 +67,11 @@ class Product < ActiveRecord::Base
   define_index do
     indexes products_type
     indexes products_media
-    indexes actors.actors_id,                   :as => :actors_id
     indexes actors.actors_name,                 :as => :actors_name
-    indexes categories.categories_id,           :as => :category_id
-    indexes director.directors_id,              :as => :director_id
     indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
+    # indexes languages.products_languages_id,    :as => :language_ids
     # indexes product_lists.id,                   :as => :products_lists_ids # This one is not working yet, I'm pretty sure it's because the primary key lives in another database
 
     has products_countries_id
@@ -83,6 +81,9 @@ class Product < ActiveRecord::Base
     has products_status
     has products_year
     has imdb_id
+    has actors(:actors_id),         :as => :actors_id
+    has categories(:categories_id), :as => :category_id
+    has director(:directors_id),    :as => :director_id
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -95,10 +96,10 @@ class Product < ActiveRecord::Base
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
   sphinx_scope(:sphinx_by_kind)             {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  sphinx_scope(:sphinx_by_category)         {|category|         {:conditions => {:category_id => category.to_param}}}
-  sphinx_scope(:sphinx_by_actor)            {|actor|            {:conditions => {:actors_id => actor.to_param}}}
+  sphinx_scope(:sphinx_by_category)         {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:sphinx_by_actor)            {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:sphinx_by_country)          {|country|          {:with =>       {:products_countries_id => country.to_param}}}
-  sphinx_scope(:sphinx_by_director)         {|director|         {:conditions => {:director_id => director.to_param}}}
+  sphinx_scope(:sphinx_by_director)         {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:sphinx_by_imdb_id)          {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:sphinx_by_media)            {|*media|           {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
   sphinx_scope(:sphinx_by_period)           {|min, max|         {:with =>       {:products_year => min..max}}}
@@ -113,6 +114,7 @@ class Product < ActiveRecord::Base
   # named_scope :by_theme,            lambda {|theme| {:include => :product_lists, :conditions => {:product_lists => {:id => theme.to_param}}}}
   # named_scope :by_ratings,          lambda {|min, max| {:conditions => ["(rating_users/rating_count)>=? AND ?>=(rating_users/rating_count)", min ,max]}}
   # named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
+  # sphinx_scope(:sphinx_with_languages)      {|language_ids| {:conditions => {:language_ids => language_ids}}}
   # named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
   # named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
   # named_scope :by_public,           lambda {|min, max|
