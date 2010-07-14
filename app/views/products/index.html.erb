@@ -35,6 +35,9 @@
       <strong><%= t '.subtitles' %></strong>
       <%= Subtitle.by_language(I18n.locale).find(params[:subtitles].keys).collect(&:name).join(', ') if params[:subtitles] %>
     </li>
+    <li id="reset-f">
+      <%= link_to 'reset', products_path, :class => 'like-btn'%>
+    </li>
     <li id="close-f">
       <%= link_to t('.close'), nil, :class => 'like-btn'%>
     </li>
