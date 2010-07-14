@@ -40,10 +40,10 @@ class PhoneRequest < ActiveRecord::Base
   end
 
   def requested_date
-    (call_me_day == 0 ) ? nil : Time.at(call_me_day).to_date
+    (call_me_day == 0 ) ? nil : Time.at(call_me_day).strftime("%m/%d/%Y")
   end
 
   def requested_date=(date)
-    date.nil? ? 0 : self.call_me_day = date.to_i
+    date.nil? ? 0 : self.call_me_day = Time.parse(date).to_i
   end
 end
