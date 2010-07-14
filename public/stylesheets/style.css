@@ -2481,7 +2481,7 @@ div.top10.first p a {
   height: 35px;
 }
 
-#leftcolumn form#search #s {
+#leftcolumn form#search #search-field {
   background: transparent;
   border: none;
   color: white;

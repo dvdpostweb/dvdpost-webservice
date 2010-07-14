@@ -274,17 +274,17 @@ $(function() {
     });
     return false;
   });
-  search_text=$('#s').attr('value')
-  $('#s').live('focus',function(){
-    if($('#s').attr('value') == search_text)
-    {
-      $('#s').val('');
+
+  search_text = $('#search-field').attr('value');
+  $('#search-field').live('focus', function(){
+    if($('#search-field').attr('value') == search_text){
+      $('#search-field').val('');
     }
   });
-  $('#s').live('blur',function(){
-    if($('#s').attr('value') == '')
-    {
-      $('#s').val(search_text);
+
+  $('#search-field').live('blur', function(){
+    if($('#search-field').attr('value') == ''){
+      $('#search-field').val(search_text);
     }
   });
 

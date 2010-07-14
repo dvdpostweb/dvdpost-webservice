@@ -2,8 +2,7 @@
   <h3>
     <%= t '.refine' %>
   </h3>
-  <% form_tag filter_path, :method => :get do %>
-    <% field_set_tag do %>
+  <fieldset>
     <ul>
       <li class="technology open">
         <%= link_to t('.tech') %>
@@ -99,6 +98,5 @@
       </li>
       <%= hidden_field_tag :recommended, true if params[:recommended] %>
     </ul>
-    <% end %>
-  <% end %>
+  </fieldset>
 </div>

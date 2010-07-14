@@ -2,19 +2,21 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
-    @products = if params[:viewmode] == 'recommended'
-      @recommended = true
-      current_customer.recommendations(params)
-    elsif params[:viewmode] == 'recent'
-      Product.new_products.normal.available.ordered_availaible
-    elsif params[:viewmode] == 'soon'
-      Product.soon.normal.available.ordered_availaible
-    elsif params[:search]
-      Product.search_clean(params[:search]).sphinx_by_kind(:normal)
-    else
-      Product.filter(params)
-    end
+    @products = Product.sphinx_search_and_filter(params[:search], params) #search_clean(params[:search]).sphinx_filter(params)
     @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
+    @recommended = true if params[:view_mode] == 'recommended'
+    
+    # @products = if params[:view_mode] == 'recommended'
+    #   @recommended = true
+    #   current_customer.recommendations(params)
+    # elsif params[:view_mode] == 'recent'
+    #   Product.new_products.normal.available.ordered_availaible
+    # elsif params[:view_mode] == 'soon'
+    #   Product.soon.normal.available.ordered_availaible
+    # elsif params[:search]
+    # else
+    #   Product.filter(params)
+    # end
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
 

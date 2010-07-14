@@ -1,39 +1,32 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="leftcolumn">
-  <% form_tag products_path, :method => :get, :id => 'search' do %>
-    <%= text_field_tag :search, t('.search'), :id => 's' %>
+  <% form_tag filter_path, :method => :get, :id => 'search' do %>
+    <%= text_field_tag :search, params[:search] || t('.search'), :id => 'search-field' %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
+    <ul id="left-nav">
+      <li><%= link_to t('.recommendations'), products_path(params.merge(:view_mode => :recommended)) %></li>
+      <li>
+        <%= link_to t('.tops'), products_path(params) %>
+        <ul>
+          <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
+            <li><%= link_to top.name, top_products_path(params.merge(:top_id => top)) %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <%= link_to t('.categories'), products_path(params) %>
+        <ul id="cat">
+          <%= left_column_categories(@category, params) %>
+        </ul>
+      </li>
+      <li><%= link_to t('.new'), products_path(params.merge(:view_mode => :recent)) %></li>
+      <li><%= link_to t('.soon'), products_path(params.merge(:view_mode => :soon)) %></li>
+    </ul>
+    <p id="special">
+      <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
+      <%= link_to special.name, theme_products_path(params.merge(:theme_id => special)) %>
+    </p>
+    <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
   <% end %>
-  <ul id="left-nav">
-    <li><%= link_to t('.recommendations'), products_path(:viewmode => :recommended) %></li>
-    <li>
-      <%= link_to t('.tops') %>
-      <ul>
-        <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
-          <li><%= link_to top.name, top_products_path(:top_id => top) %></li>
-        <% end %>
-      </ul>
-    </li>
-    <li>
-      <%= link_to t('.categories') %>
-      <ul id="cat">
-        <%= left_column_categories(@category) %>
-      </ul>
-    </li>
-    <li><%= link_to t('.new'), products_path(:viewmode => :recent) %></li>
-    <li><%= link_to t('.soon'), products_path(:viewmode => :soon) %></li>
-    <!--<li><%= link_to t('.themes') %>
-      <ul>
-        <% ProductList.status.theme.not_highlighted.by_language(DVDPost.product_languages[I18n.locale]).collect do |theme| %>
-          <li><%= link_to theme.name, theme_products_path(:theme_id => theme) %></li>
-        <% end %>
-      </ul>
-    </li>-->
-  </ul>
-  <p id="special">
-    <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
-    <%= link_to special.name, theme_products_path(:theme_id => special) %>
-  </p>
-  <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
 </div>
 <!--   ==============   END LEFT COLUMN   ==============   -->
