@@ -7,24 +7,9 @@ class ProductsController < ApplicationController
     else
       Product.sphinx_search_and_filter(params[:search], params)
     end
-
     @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
-    
-    # @products = search_clean(params[:search]).sphinx_filter(params)
-    # @products = if params[:view_mode] == 'recommended'
-    #   @recommended = true
-    #   current_customer.recommendations(params)
-    # elsif params[:view_mode] == 'recent'
-    #   Product.new_products.normal.available.ordered_availaible
-    # elsif params[:view_mode] == 'soon'
-    #   Product.soon.normal.available.ordered_availaible
-    # elsif params[:search]
-    # else
-    #   Product.filter(params)
-    # end
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
-
     @countries = ProductCountry.visible.order
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != -1
     @filter = params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == -1)) || params[:languages] || params[:subtitles] || params[:dvdpost_choice]
