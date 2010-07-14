@@ -560,14 +560,40 @@ fieldset {
 }
 
 #filtered li#close-f a {
-  background: url(../images/fermer-btn.png) 0 0 no-repeat;
+  background: url(../images/close-icon.gif) 87% 0 no-repeat;
   display: block;
-  height: 10px;
+  height: 12px;
   width: 55px;
+  color: #505050;
+  text-transform: uppercase;
+  padding: 0 12px 0 0;
 }
 
 #filtered li#close-f a:hover {
-  background: url(../images/fermer-btn.png) 0 100% no-repeat;
+  background: url(../images/close-icon.gif) 87% -20px no-repeat;
+  text-decoration: none;
+  
+}
+#filtered li#reset-f {
+  bottom: 2px;
+  padding: 0;
+  position: absolute;
+  right: 64px;
+  width: 60px;
+}
+
+#filtered li#reset-f a {
+  display: block;
+  height: 12px;
+  width: 55px;
+  color: #505050;
+  text-transform: uppercase;
+  padding: 0 12px 0 0;
+}
+
+#filtered li#reset-f a:hover {
+  text-decoration: none;
+  
 }
 
 #titles-wrap .dvd, #titles-wrap .bluray {
