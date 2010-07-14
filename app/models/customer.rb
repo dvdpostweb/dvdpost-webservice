@@ -110,7 +110,7 @@ class Customer < ActiveRecord::Base
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
     end
-    
+
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
@@ -123,7 +123,7 @@ class Customer < ActiveRecord::Base
   def update_dvd_at_home!(operator, product)
     attribute = if product.kind == DVDPost.product_kinds[:adult]
       :customers_abo_dvd_home_adult
-    else  
+    else
       :customers_abo_dvd_home_norm
     end
     operator == :increment ? increment!(attribute) : decrement!(attribute)
