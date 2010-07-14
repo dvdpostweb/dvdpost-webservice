@@ -3213,6 +3213,14 @@ a#all_categorie, a#all_categorie:hover {
   float:left;
   padding: 4px 2px 0 0 ;
 }
+.errorExplanation h2
+{
+  display:none;
+}
+a#change_password
+{
+  color:#454545;
+}
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }

@@ -92,6 +92,35 @@
     </td>
   </tr>                 
   <tr>
+    <td align="right" class="identification" >
+      <strong><span class="explain_text"><%= t '.password' %> :</span></strong>
+    </td>
+    <td>
+      <span align="left">
+        <span id='password'>
+         &bull; &bull; &bull; &bull; &bull; &bull; 
+        </span>
+        <%= link_to t('.change_password'), nil, :id => 'change_password' %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+    </td>
+  </tr>
+  <tr id="password_confirmation" style="display:none">
+    <td align="right" class="identification" >
+      <strong><span class="explain_text"><%= t '.password_confirmation' %> :</span></strong>
+    </td>
+    <td>
+      <span align="left">
+        <%= f.password_field :clear_pwd_confirmation %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+    </td>
+  </tr>
+  
+  <tr>
+  
     <td colspan="3">  
       <p class="bouton_probleme" align="right">
         <%= submit_tag t('.create'),:id => "submit_account", :class => "submit submit_#{I18n.locale}" %>

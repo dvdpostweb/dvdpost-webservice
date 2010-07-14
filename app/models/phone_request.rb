@@ -5,6 +5,7 @@ class PhoneRequest < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :phone
+  
   validates_presence_of :call_me_reason
 
   def self.time_slots

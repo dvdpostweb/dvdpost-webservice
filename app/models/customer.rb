@@ -2,6 +2,8 @@ class Customer < ActiveRecord::Base
   set_table_name :customers
 
   set_primary_key :customers_id
+  
+  attr_accessor :clear_pwd
 
   alias_attribute :abo_active,                   :customers_abo
   alias_attribute :last_name,                    :customers_lastname
@@ -28,9 +30,12 @@ class Customer < ActiveRecord::Base
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
-
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
+  validates_length_of :clear_pwd_confirmation, :minimum => 3, :unless => :clear_pwd_empty? 
+  validates_confirmation_of :clear_pwd 
 
+  before_save :encrypt_password, :unless => :clear_pwd_empty? 
+  
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
@@ -53,6 +58,17 @@ class Customer < ActiveRecord::Base
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 
+  
+  def clear_pwd_empty?
+    clear_pwd.nil? 
+  end
+  
+  def encrypt_password
+    logger.debug(clear_pwd)
+    logger.debug('@@@')
+     self.password= Digest::MD5.hexdigest(clear_pwd)
+  end
+  
   def self.find_by_email(args)
     self.find_by_customers_email_address(args)
   end

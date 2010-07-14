@@ -120,4 +120,12 @@ $(function() {
     	$('.content').html(responseText);
     }
   }
+  $('#change_password').live("click", function(){
+    
+    $('#password').html('<input type="password" value="" size="30" name="customer[clear_pwd]" id="customer_clear_pwd">')
+    $('#password_confirmation').show();
+    $(this).hide();
+    
+    return false; // prevent default behaviour
+  });
 });
