@@ -1,30 +1,31 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
+<% parameters = params[:action] == 'index' ? params : {} %>
 <div id="leftcolumn">
   <% form_tag filter_path, :method => :get, :id => 'search' do %>
     <%= text_field_tag :search, params[:search] || t('.search'), :id => 'search-field' %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <ul id="left-nav">
-      <li><%= link_to t('.recommendations'), products_path(params.merge(:view_mode => :recommended)) %></li>
+      <li><%= link_to t('.recommendations'), products_path(parameters.merge(:view_mode => :recommended)) %></li>
       <li>
-        <%= link_to t('.tops'), products_path(params) %>
+        <%= link_to t('.tops'), products_path(parameters) %>
         <ul>
           <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |top| %>
-            <li><%= link_to top.name, top_products_path(params.merge(:top_id => top)) %></li>
+            <li><%= link_to top.name, top_products_path(parameters.merge(:top_id => top)) %></li>
           <% end %>
         </ul>
       </li>
       <li>
-        <%= link_to t('.categories'), products_path(params) %>
+        <%= link_to t('.categories'), products_path(parameters) %>
         <ul id="cat">
-          <%= left_column_categories(@category, params) %>
+          <%= left_column_categories(@category, parameters) %>
         </ul>
       </li>
-      <li><%= link_to t('.new'), products_path(params.merge(:view_mode => :recent)) %></li>
-      <li><%= link_to t('.soon'), products_path(params.merge(:view_mode => :soon)) %></li>
+      <li><%= link_to t('.new'), products_path(parameters.merge(:view_mode => :recent)) %></li>
+      <li><%= link_to t('.soon'), products_path(parameters.merge(:view_mode => :soon)) %></li>
     </ul>
     <p id="special">
       <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
-      <%= link_to special.name, theme_products_path(params.merge(:theme_id => special)) %>
+      <%= link_to special.name, theme_products_path(parameters.merge(:theme_id => special)) %>
     </p>
     <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
   <% end %>
