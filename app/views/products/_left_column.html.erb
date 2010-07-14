@@ -4,8 +4,6 @@
     <%= text_field_tag :search, t('.search'), :id => 's' %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
   <% end %>
-  <% if @category %>
-  <% end %>
   <ul id="left-nav">
     <li><%= link_to t('.recommendations'), products_path(:viewmode => :recommended) %></li>
     <li>
