@@ -33,9 +33,11 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :categories, :only => [] do |category|
       category.resources :products, :only => :index
     end
+
     localized.resources :actors, :only => [] do |actor|
       actor.resources :products, :only => :index
     end
+
     localized.resources :directors, :only => [] do |director|
       director.resources :products, :only => :index
     end
