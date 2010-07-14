@@ -49,14 +49,6 @@
     <% if @products.size == 0 && params[:view_mode] == 'recommended' %>
       <%= t '.recommendations_unavailable' %>
     <% end %>
-    <!-- View Options -->
-    <% if false %>
-    <ul id="views">
-      <li><%= link_to "Grid View", '', {:id => 'grid-view'} %></li>
-      <li><%= link_to "List View", '', {:id => 'list-view', :class => 'active'} %></li>
-      <li><%= link_to "Details View", '', {:id => 'details-view'} %></li>
-    </ul>
-    <% end %>
     <div class="end"></div>
   </div>
   <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
