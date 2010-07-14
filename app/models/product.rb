@@ -84,6 +84,7 @@ class Product < ActiveRecord::Base
     has categories(:categories_id), :as => :category_id
     has director(:directors_id),    :as => :director_id
     has product_lists(:id),         :as => :products_list_ids
+    has languages(:languages_id),   :as => :language_ids
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -105,14 +106,13 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_period)           {|min, max|         {:with =>       {:products_year => min..max}}}
   sphinx_scope(:sphinx_by_products_list)    {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:sphinx_by_recommended_ids)  {|recommended_ids|  {:with =>       {:products_id => recommended_ids}}}
+  sphinx_scope(:sphinx_with_languages)      {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:sphinx_available)           {{:without => {:products_status => -1}}}
   sphinx_scope(:sphinx_dvdpost_choice)      {{:with =>    {:products_dvdpostchoice => 1}}}
   sphinx_scope(:sphinx_ordered_random)      {{:order => '@random'}}
   sphinx_scope(:sphinx_order)               {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   # named_scope :by_ratings,          lambda {|min, max| {:conditions => ["(rating_users/rating_count)>=? AND ?>=(rating_users/rating_count)", min ,max]}}
   # named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
-  # sphinx_scope(:sphinx_with_languages)      {|language_ids| {:conditions => {:language_ids => language_ids}}}
-  # named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
   # named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
   # named_scope :by_public,           lambda {|min, max|
   #   ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
