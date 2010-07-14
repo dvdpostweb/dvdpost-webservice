@@ -182,7 +182,7 @@ module ProductsHelper
     end
   end
 
-  def left_column_categories(selected_category)
+  def left_column_categories(selected_category, parameters={})
     html_content = []
     Category.active.roots.movies.by_kind(:normal).remove_theme.ordered.collect do |category|
       li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent
@@ -192,16 +192,16 @@ module ProductsHelper
         li_class = 'cat'
       end
       html_content << content_tag(:li, :class => li_class, :style => li_style) do
-        link_to category.name, category_products_path(:category_id => category), :class => a_class
+        link_to category.name, category_products_path(parameters.merge(:category_id => category)), :class => a_class
       end
       if selected_category && (category == selected_category || category == selected_category.parent)
         category.children.active.movies.by_kind(:normal).remove_theme.ordered.collect do |sub_category|
           html_content << content_tag(:li, :class => 'subcat') do
-            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => ('activated' if sub_category == selected_category)
+            link_to " | #{sub_category.name}", category_products_path(parameters.merge(:category_id => sub_category)), :class => ('activated' if sub_category == selected_category)
           end
         end
         html_content << content_tag(:li) do
-          link_to t('.category_back'), nil, :id => 'all_categorie'
+          link_to t('.category_back'), products_path(parameters), :id => 'all_categorie'
         end
       end
     end
