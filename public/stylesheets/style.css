@@ -566,32 +566,11 @@ fieldset {
   width: 55px;
   color: #505050;
   text-transform: uppercase;
-  padding: 0 12px 0 0;
+  padding: 0 3px 0 0;
 }
 
 #filtered li#close-f a:hover {
   background: url(../images/close-icon.gif) 87% -20px no-repeat;
-  text-decoration: none;
-  
-}
-#filtered li#reset-f {
-  bottom: 2px;
-  padding: 0;
-  position: absolute;
-  right: 64px;
-  width: 60px;
-}
-
-#filtered li#reset-f a {
-  display: block;
-  height: 12px;
-  width: 55px;
-  color: #505050;
-  text-transform: uppercase;
-  padding: 0 12px 0 0;
-}
-
-#filtered li#reset-f a:hover {
   text-decoration: none;
   
 }
