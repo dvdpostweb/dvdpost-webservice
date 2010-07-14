@@ -46,7 +46,7 @@
   <div id="titles-wrap">
     <div class="top"></div>
     <%= render :partial => 'products/index/movie_detail', :collection => @products %>
-    <% if @products.size == 0 && @recommended %>
+    <% if @products.size == 0 && params[:view_mode] == 'recommended' %>
       <%= t '.recommendations_unavailable' %>
     <% end %>
     <!-- View Options -->

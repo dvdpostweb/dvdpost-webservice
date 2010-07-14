@@ -2,10 +2,10 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
-    @products = Product.sphinx_search_and_filter(params[:search], params) #search_clean(params[:search]).sphinx_filter(params)
+    @products = Product.sphinx_search_and_filter(params[:search], params)
     @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
-    @recommended = true if params[:view_mode] == 'recommended'
     
+    # @products = search_clean(params[:search]).sphinx_filter(params)
     # @products = if params[:view_mode] == 'recommended'
     #   @recommended = true
     #   current_customer.recommendations(params)
