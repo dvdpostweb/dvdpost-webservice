@@ -125,6 +125,7 @@ class Product < ActiveRecord::Base
   # named_scope :ordered,             :order => 'products.products_id desc'
   # named_scope :list_ordered,        :order => 'listed_products.order asc'
   # named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
+  sphinx_scope(:sphinx_by_recommended_ids) {|recommended_ids| {:with => {:products_id => recommended_ids}}}
 
   def self.filter(params)
     if params[:top_id] && !params[:top_id].empty?
@@ -151,6 +152,7 @@ class Product < ActiveRecord::Base
   def self.sphinx_search_and_filter(search='', params={})
     products = search_clean(search || '').sphinx_by_kind(:normal).sphinx_available
     products = products.sphinx_order(:products_id, :desc)
+    products = products.sphinx_by_recommended_ids(params[:recommended_ids]) if params[:recommended_ids]
     # if params[:top_id] && !params[:top_id].empty?
     #   products = normal.available.list_ordered
     # else

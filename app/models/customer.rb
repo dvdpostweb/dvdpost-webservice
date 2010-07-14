@@ -114,7 +114,8 @@ class Customer < ActiveRecord::Base
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
-      Product.normal.available.filter(filter).all(:conditions => {:products_id => result_ids})
+      Product.sphinx_search_and_filter(filter[:search], filter.merge(:recommended_ids => result_ids))
+      # Product.normal.available.filter(filter).all(:conditions => {:products_id => result_ids})
     else
       []
     end

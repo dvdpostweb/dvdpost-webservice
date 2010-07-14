@@ -2,7 +2,12 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
-    @products = Product.sphinx_search_and_filter(params[:search], params)
+    @products = if params[:view_mode] == 'recommended'
+      current_customer.recommendations(params)
+    else
+      Product.sphinx_search_and_filter(params[:search], params)
+    end
+
     @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
     
     # @products = search_clean(params[:search]).sphinx_filter(params)
@@ -43,7 +48,7 @@ class ProductsController < ApplicationController
           @cinopsis_error = true
           logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
         end
-        if params[:recommendation] == "1"
+        if params[:recommendation]
           DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
         DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
