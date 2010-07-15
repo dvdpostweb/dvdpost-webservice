@@ -85,6 +85,7 @@ class Product < ActiveRecord::Base
     has director(:directors_id),    :as => :director_id
     has product_lists(:id),         :as => :products_list_ids
     has languages(:languages_id),   :as => :language_ids
+    has subtitles(:undertitles_id), :as => :subtitle_ids
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -107,6 +108,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_products_list)    {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:sphinx_by_recommended_ids)  {|recommended_ids|  {:with =>       {:products_id => recommended_ids}}}
   sphinx_scope(:sphinx_with_languages)      {|language_ids|     {:with =>       {:language_ids => language_ids}}}
+  sphinx_scope(:sphinx_with_subtitles)      {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:sphinx_available)           {{:without => {:products_status => -1}}}
   sphinx_scope(:sphinx_dvdpost_choice)      {{:with =>    {:products_dvdpostchoice => 1}}}
   sphinx_scope(:sphinx_ordered_random)      {{:order => '@random'}}
@@ -165,7 +167,7 @@ class Product < ActiveRecord::Base
     # products = products.sphinx_by_public(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
     # products = products.sphinx_by_ratings(params[:ratings_min], params[:ratings_max]) if params[:ratings_min] && params[:ratings_max]
     # products = products.sphinx_with_languages(params[:languages].keys) if params[:languages]
-    # products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
+    products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
     # products = products.sphinx_recent if params[:view_mode] == 'recent'
     # products = products.sphinx_soon if params[:view_mode] == 'soon'
     products
