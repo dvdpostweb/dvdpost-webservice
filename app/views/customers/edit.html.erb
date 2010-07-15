@@ -41,57 +41,86 @@
         <span align="left">
           <%= f.text_field :last_name %>
         </span>
-      </td>
-      <td class="explain_text" align="left">
-        <div id="check_lastname" class="step_input_ok"><div id="text"> </div> </div>
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <span class="explain_text"><strong><%= t '.email' %> :</strong></span>
-      </td>
-      <td>
-        <span align="left">
-          <%= f.text_field :email %>
+      </p>						
+    </td>
+    <td width="49"  align="left" class="explain_text_gender"></td>
+  </tr>
+  <tr>
+    <td align="right">
+      <span class="explain_text"><strong><%= t '.email' %> :</strong></span>
+    </td>
+    <td>
+      <span align="left">
+        <%= f.text_field :email %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+      <div id="check_lastname" class="step_input_ok"><div id="text"> </div> </div>
+    </td>
+  </tr>
+  <tr height="45">
+    <td align="right">
+      <strong><span class="explain_text"><%= t '.birthday' %> :</span></strong>
+    </td>
+    <td>
+      <span align="left">
+        <%= select_day @customer.birthday %>
+        <%= select_month @customer.birthday, :use_month_numbers => true %>
+        <%= select_year @customer.birthday, :start_year => 100.years.ago.year, :end_year => 18.years.ago.year %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+      <div id="check_birthday" class="step_input_ok"><div id="text"> </div> </div>
+    </td>
+  </tr>
+                
+  <tr>
+    <td align="right" class="identification" >
+      <strong><span class="explain_text"><%= t '.phone' %> :</span></strong>
+    </td>
+    <td>
+      <span align="left">
+        <%= f.text_field :phone, :value => @customer.phone %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+    </td>
+  </tr>                 
+  <tr>
+    <td align="right" class="identification" >
+      <strong><span class="explain_text"><%= t '.password' %> :</span></strong>
+    </td>
+    <td>
+      <span align="left">
+        <span id='password'>
+         &bull; &bull; &bull; &bull; &bull; &bull; 
         </span>
-      </td>
-      <td class="explain_text" align="left">
-        <div id="check_lastname" class="step_input_ok"><div id="text"> </div> </div>
-      </td>
-    </tr>
-    <tr height="45">
-      <td align="right">
-        <strong><span class="explain_text"><%= t '.birthday' %> :</span></strong>
-      </td>
-      <td>
-        <span align="left">
-          <%= select_day @customer.birthday %>
-          <%= select_month @customer.birthday, :use_month_numbers => true %>
-          <%= select_year @customer.birthday, :start_year => 100.years.ago.year, :end_year => 18.years.ago.year %>
-        </span>
-      </td>
-      <td class="explain_text" align="left">
-        <div id="check_birthday" class="step_input_ok"><div id="text"> </div> </div>
-      </td>
-    </tr>	
-    <tr>
-      <td align="right" class="identification">
-        <strong><span class="explain_text"><%= t '.phone' %> :</span></strong>
-      </td>
-      <td>
-        <span align="left">
-          <%= f.text_field :phone %>
-        </span>
-      </td>
-      <td class="explain_text" align="left">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <p class="bouton_probleme" align="right">
-          <%= submit_tag t('.create'), :id => 'submit_account', :class => 'submit' %>
-        </p>
-      </td>
-    </tr>
-  </table>
+        <%= link_to t('.change_password'), nil, :id => 'change_password' %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+    </td>
+  </tr>
+  <tr id="password_confirmation" style="display:none">
+    <td align="right" class="identification" >
+      <strong><span class="explain_text"><%= t '.password_confirmation' %> :</span></strong>
+    </td>
+    <td>
+      <span align="left">
+        <%= f.password_field :clear_pwd_confirmation %>
+      </span>
+    </td>
+    <td class="explain_text" align="left">
+    </td>
+  </tr>
+  
+  <tr>
+  
+    <td colspan="3">  
+      <p class="bouton_probleme" align="right">
+        <%= submit_tag t('.create'),:id => "submit_account", :class => "submit submit_#{I18n.locale}" %>
+      </p>
+    </td>
+  </tr>               
+</table>
 <% end %>

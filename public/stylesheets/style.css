@@ -560,14 +560,19 @@ fieldset {
 }
 
 #filtered li#close-f a {
-  background: url(../images/fermer-btn.png) 0 0 no-repeat;
+  background: url(../images/close-icon.gif) 87% 0 no-repeat;
   display: block;
-  height: 10px;
+  height: 12px;
   width: 55px;
+  color: #505050;
+  text-transform: uppercase;
+  padding: 0 3px 0 0;
 }
 
 #filtered li#close-f a:hover {
-  background: url(../images/fermer-btn.png) 0 100% no-repeat;
+  background: url(../images/close-icon.gif) 87% -20px no-repeat;
+  text-decoration: none;
+  
 }
 
 #titles-wrap .dvd, #titles-wrap .bluray {
@@ -3202,6 +3207,14 @@ a#all_categorie, a#all_categorie:hover {
 .language_title{
   float:left;
   padding: 4px 2px 0 0 ;
+}
+.errorExplanation h2
+{
+  display:none;
+}
+a#change_password
+{
+  color:#454545;
 }
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
