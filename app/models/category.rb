@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
   named_scope :roots, :conditions => {:parent_id => 0}
   named_scope :visible_on_homepage, :conditions => {:show_home => 'YES'}
   named_scope :active, :conditions => {:active => 'YES'}
-  named_scope :remove_theme, :conditions => 'categories_id != 105'
+  named_scope :remove_themes, :conditions => 'categories_id != 105'
   
   named_scope :ordered, :order => 'display_group ASC, sort_order ASC'
 
