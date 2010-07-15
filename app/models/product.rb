@@ -21,19 +21,19 @@ class Product < ActiveRecord::Base
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
-  has_many :trailers, :foreign_key => :products_id
-  has_many :wishlist_items
-  has_many :reviews, :foreign_key => :products_id
   has_many :ratings, :foreign_key => :products_id
+  has_many :reviews, :foreign_key => :products_id
+  has_many :trailers, :foreign_key => :products_id
   has_many :uninteresteds, :foreign_key => :products_id
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
+  has_many :wishlist_items
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
-  has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
-  has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
-  has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
+  has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
+  has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
+  has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
 
   named_scope :by_kind, lambda { |kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}} }
   named_scope :by_category, lambda { |category| {:include => :categories, :conditions => {:categories => {:categories_id => category.to_param}}} }
@@ -71,12 +71,12 @@ class Product < ActiveRecord::Base
     indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
-    # indexes languages.products_languages_id,    :as => :language_ids
-
+    
     has products_countries_id
     # has products_date_available
     has products_dvdpostchoice
     has products_id
+    has products_public, :as => :audience
     has products_status
     has products_year
     has imdb_id
@@ -97,12 +97,13 @@ class Product < ActiveRecord::Base
 
   # There are a lot of commented lines of code in here which are just used for development
   # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
-  sphinx_scope(:sphinx_by_kind)             {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  sphinx_scope(:sphinx_by_category)         {|category|         {:with =>       {:category_id => category.to_param}}}
   sphinx_scope(:sphinx_by_actor)            {|actor|            {:with =>       {:actors_id => actor.to_param}}}
+  sphinx_scope(:sphinx_by_audience)         {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
+  sphinx_scope(:sphinx_by_category)         {|category|         {:with =>       {:category_id => category.to_param}}}
   sphinx_scope(:sphinx_by_country)          {|country|          {:with =>       {:products_countries_id => country.to_param}}}
   sphinx_scope(:sphinx_by_director)         {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:sphinx_by_imdb_id)          {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
+  sphinx_scope(:sphinx_by_kind)             {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   sphinx_scope(:sphinx_by_media)            {|*media|           {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
   sphinx_scope(:sphinx_by_period)           {|min, max|         {:with =>       {:products_year => min..max}}}
   sphinx_scope(:sphinx_by_products_list)    {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
@@ -113,20 +114,15 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_dvdpost_choice)      {{:with =>    {:products_dvdpostchoice => 1}}}
   sphinx_scope(:sphinx_ordered_random)      {{:order => '@random'}}
   sphinx_scope(:sphinx_order)               {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
+  # sphinx_scope(:sphinx_by_ratings)          {|min, max|         {:conditions => "(rating_users/rating_count) >= #{min.to_i} AND #{max.to_i} >= (rating_users/rating_count)"}}
   # named_scope :by_ratings,          lambda {|min, max| {:conditions => ["(rating_users/rating_count)>=? AND ?>=(rating_users/rating_count)", min ,max]}}
-  # named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
-  # named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
-  # named_scope :by_public,           lambda {|min, max|
-  #   ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
-  #   {:conditions => {:products_public => ages}}
-  # }
   # named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
-  # named_scope :ordered_availaible,  :order => 'products_date_available desc'
-  # named_scope :limit,               lambda {|limit| {:limit => limit}}
   # named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   # named_scope :ordered,             :order => 'products.products_id desc'
+  # named_scope :ordered_availaible,  :order => 'products_date_available desc'
+  # named_scope :limit,               lambda {|limit| {:limit => limit}}
   # named_scope :list_ordered,        :order => 'listed_products.order asc'
-  # named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
+  # named_scope :normal,              :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
   def self.filter(params)
     if params[:top_id] && !params[:top_id].empty?
@@ -154,6 +150,7 @@ class Product < ActiveRecord::Base
     products = search_clean(search || '').sphinx_by_kind(:normal).sphinx_available
     products = products.sphinx_by_recommended_ids(params[:recommended_ids]) if params[:recommended_ids]
     products = products.sphinx_by_actor(params[:actor_id]) if params[:actor_id] && !params[:actor_id].empty?
+    products = products.sphinx_by_audience(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
     products = products.sphinx_by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     products = products.sphinx_by_country(params[:country]) if params[:country] && !(params[:country].to_i == -1)
     products = products.sphinx_by_director(params[:director_id]) if params[:director_id] && !params[:director_id].empty?
@@ -165,8 +162,7 @@ class Product < ActiveRecord::Base
     products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
     products = products.sphinx_dvdpost_choice if params[:dvdpost_choice]
     products = products.sphinx_order(:products_id, :desc)
-    # products = products.sphinx_order('list stuff') if params[:top_id] && !params[:top_id].empty?
-    # products = products.sphinx_by_public(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
+    products = products.sphinx_order(:list_order, :asc) if params[:top_id] && !params[:top_id].empty?
     # products = products.sphinx_by_ratings(params[:ratings_min], params[:ratings_max]) if params[:ratings_min] && params[:ratings_max]
     # products = products.sphinx_recent if params[:view_mode] == 'recent'
     # products = products.sphinx_soon if params[:view_mode] == 'soon'
