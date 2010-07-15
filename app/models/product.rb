@@ -71,8 +71,10 @@ class Product < ActiveRecord::Base
     indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
-    
+
+    has products_availability,      :as => :availability
     has products_countries_id,      :as => :country_id
+    has products_date_available,    :as => :available_at
     has products_dvdpostchoice,     :as => :dvdpost_choice
     has products_id
     has products_next
@@ -109,7 +111,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_media)            {|*media|           {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
   sphinx_scope(:sphinx_by_period)           {|min, max|         {:with =>       {:year => min..max}}}
   sphinx_scope(:sphinx_by_products_list)    {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
-  sphinx_scope(:sphinx_by_ratings)          {|min, max|         {:with => {:rating => min..max}}}
+  sphinx_scope(:sphinx_by_ratings)          {|min, max|         {:with =>       {:rating => min..max}}}
   sphinx_scope(:sphinx_by_recommended_ids)  {|recommended_ids|  {:with =>       {:products_id => recommended_ids}}}
   sphinx_scope(:sphinx_with_languages)      {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:sphinx_with_subtitles)      {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
@@ -119,6 +121,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_random)              {{:order => '@random'}}
   sphinx_scope(:sphinx_order)               {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:sphinx_limit)               {|limit| {:limit => limit}}
+  sphinx_scope(:sphinx_recent)              {{:without => {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :products_next => 0, :rating => 3..5}}}
   # named_scope :recent,              :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
   # named_scope :ordered,             :order => 'products.products_id desc'
   # named_scope :ordered_availaible,  :order => 'products_date_available desc'
@@ -163,10 +166,10 @@ class Product < ActiveRecord::Base
     products = products.sphinx_with_languages(params[:languages].keys) if params[:languages]
     products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
     products = products.sphinx_dvdpost_choice if params[:dvdpost_choice]
+    products = products.sphinx_recent if params[:view_mode] == 'recent'
     products = products.sphinx_soon if params[:view_mode] == 'soon'
     products = products.sphinx_order(:products_id, :desc)
     # products = products.sphinx_order(:list_order, :asc) if params[:top_id] && !params[:top_id].empty?
-    # products = products.sphinx_recent if params[:view_mode] == 'recent'
     products
   end
 
