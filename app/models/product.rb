@@ -71,21 +71,23 @@ class Product < ActiveRecord::Base
     indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
-    has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
     
     has products_countries_id,      :as => :country_id
     has products_dvdpostchoice,     :as => :dvdpost_choice
     has products_id
+    has products_next
     has products_public,            :as => :audience
     has products_status,            :as => :status
     has products_year,              :as => :year
     has imdb_id
+    has in_cinema_now
     has actors(:actors_id),         :as => :actors_id
     has categories(:categories_id), :as => :category_id
     has director(:directors_id),    :as => :director_id
     has product_lists(:id),         :as => :products_list_ids
     has languages(:languages_id),   :as => :language_ids
     has subtitles(:undertitles_id), :as => :subtitle_ids
+    has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -113,13 +115,13 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_with_subtitles)      {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:sphinx_available)           {{:without => {:status => -1}}}
   sphinx_scope(:sphinx_dvdpost_choice)      {{:with =>    {:dvdpost_choice => 1}}}
-  sphinx_scope(:sphinx_ordered_random)      {{:order => '@random'}}
+  sphinx_scope(:sphinx_soon)                {{:with => {:in_cinema_now => 0, :products_next => 1, :rating => 3..5}, :order => '@random'}}
+  sphinx_scope(:sphinx_random)              {{:order => '@random'}}
   sphinx_scope(:sphinx_order)               {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
+  sphinx_scope(:sphinx_limit)               {|limit| {:limit => limit}}
   # named_scope :recent,              :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
-  # named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
   # named_scope :ordered,             :order => 'products.products_id desc'
   # named_scope :ordered_availaible,  :order => 'products_date_available desc'
-  # named_scope :limit,               lambda {|limit| {:limit => limit}}
   # named_scope :list_ordered,        :order => 'listed_products.order asc'
   # named_scope :normal,              :conditions => {:products_type => DVDPost.product_kinds[:normal]}
 
@@ -161,10 +163,10 @@ class Product < ActiveRecord::Base
     products = products.sphinx_with_languages(params[:languages].keys) if params[:languages]
     products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
     products = products.sphinx_dvdpost_choice if params[:dvdpost_choice]
+    products = products.sphinx_soon if params[:view_mode] == 'soon'
     products = products.sphinx_order(:products_id, :desc)
     # products = products.sphinx_order(:list_order, :asc) if params[:top_id] && !params[:top_id].empty?
     # products = products.sphinx_recent if params[:view_mode] == 'recent'
-    # products = products.sphinx_soon if params[:view_mode] == 'soon'
     products
   end
 
