@@ -76,7 +76,7 @@ class Product < ActiveRecord::Base
     has products_countries_id,      :as => :country_id
     has products_date_available,    :as => :available_at
     has products_dvdpostchoice,     :as => :dvdpost_choice
-    has products_id
+    has products_id,                :as => :id
     has products_next
     has products_public,            :as => :audience
     has products_status,            :as => :status
@@ -112,7 +112,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_period)           {|min, max|         {:with =>       {:year => min..max}}}
   sphinx_scope(:sphinx_by_products_list)    {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:sphinx_by_ratings)          {|min, max|         {:with =>       {:rating => min..max}}}
-  sphinx_scope(:sphinx_by_recommended_ids)  {|recommended_ids|  {:with =>       {:products_id => recommended_ids}}}
+  sphinx_scope(:sphinx_by_recommended_ids)  {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:sphinx_with_languages)      {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:sphinx_with_subtitles)      {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:sphinx_available)           {{:without => {:status => -1}}}
@@ -122,7 +122,6 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_order)               {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:sphinx_limit)               {|limit| {:limit => limit}}
   sphinx_scope(:sphinx_recent)              {{:without => {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :products_next => 0, :rating => 3..5}}}
-  # named_scope :recent,              :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
   # named_scope :ordered,             :order => 'products.products_id desc'
   # named_scope :ordered_availaible,  :order => 'products_date_available desc'
   # named_scope :list_ordered,        :order => 'listed_products.order asc'
