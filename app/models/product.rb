@@ -159,15 +159,15 @@ class Product < ActiveRecord::Base
     products = products.sphinx_by_director(params[:director_id]) if params[:director_id] && !params[:director_id].empty?
     products = products.sphinx_by_media(params[:media].keys) if params[:media]  
     products = products.sphinx_by_period(params[:year_min], params[:year_max]) if params[:year_min] && params[:year_max]
+    products = products.sphinx_by_products_list(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
+    products = products.sphinx_by_products_list(params[:theme_id]) if params[:theme_id] && !params[:theme_id].empty?
+    products = products.sphinx_with_languages(params[:languages].keys) if params[:languages]
+    products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
     products = products.sphinx_dvdpost_choice if params[:dvdpost_choice]
     products = products.sphinx_order(:products_id, :desc)
     # products = products.sphinx_order('list stuff') if params[:top_id] && !params[:top_id].empty?
-    products = products.sphinx_by_products_list(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
-    products = products.sphinx_by_products_list(params[:theme_id]) if params[:theme_id] && !params[:theme_id].empty?
     # products = products.sphinx_by_public(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
     # products = products.sphinx_by_ratings(params[:ratings_min], params[:ratings_max]) if params[:ratings_min] && params[:ratings_max]
-    # products = products.sphinx_with_languages(params[:languages].keys) if params[:languages]
-    products = products.sphinx_with_subtitles(params[:subtitles].keys) if params[:subtitles]
     # products = products.sphinx_recent if params[:view_mode] == 'recent'
     # products = products.sphinx_soon if params[:view_mode] == 'soon'
     products
