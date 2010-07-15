@@ -4,17 +4,17 @@ class Product < ActiveRecord::Base
 
   set_primary_key :products_id
   
-  alias_attribute :availability, :products_availability
-  alias_attribute :available_at, :products_date_available
-  alias_attribute :created_at, :products_date_added
-  alias_attribute :kind, :products_type
-  alias_attribute :media, :products_media
-  alias_attribute :original_title, :products_title
-  alias_attribute :product_type, :products_product_type
-  alias_attribute :rating, :products_rating
-  alias_attribute :runtime, :products_runtime
-  alias_attribute :series_id, :products_series_id
-  alias_attribute :year, :products_year
+  alias_attribute :availability,    :products_availability
+  alias_attribute :available_at,    :products_date_available
+  alias_attribute :created_at,      :products_date_added
+  alias_attribute :kind,            :products_type
+  alias_attribute :media,           :products_media
+  alias_attribute :original_title,  :products_title
+  alias_attribute :product_type,    :products_product_type
+  alias_attribute :rating,          :products_rating
+  alias_attribute :runtime,         :products_runtime
+  alias_attribute :series_id,       :products_series_id
+  alias_attribute :year,            :products_year
 
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
@@ -73,9 +73,8 @@ class Product < ActiveRecord::Base
     indexes descriptions.products_name,         :as => :descriptions_title
     has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
     
-    has products_countries_id
-    # has products_date_available
-    has products_dvdpostchoice
+    has products_countries_id,      :as => :country_id
+    has products_dvdpostchoice,     :as => :dvdpost_choice
     has products_id
     has products_public,            :as => :audience
     has products_status,            :as => :status
@@ -101,7 +100,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_by_actor)            {|actor|            {:with =>       {:actors_id => actor.to_param}}}
   sphinx_scope(:sphinx_by_audience)         {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
   sphinx_scope(:sphinx_by_category)         {|category|         {:with =>       {:category_id => category.to_param}}}
-  sphinx_scope(:sphinx_by_country)          {|country|          {:with =>       {:products_countries_id => country.to_param}}}
+  sphinx_scope(:sphinx_by_country)          {|country|          {:with =>       {:country_id => country.to_param}}}
   sphinx_scope(:sphinx_by_director)         {|director|         {:with =>       {:director_id => director.to_param}}}
   sphinx_scope(:sphinx_by_imdb_id)          {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:sphinx_by_kind)             {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
@@ -113,7 +112,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:sphinx_with_languages)      {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:sphinx_with_subtitles)      {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:sphinx_available)           {{:without => {:status => -1}}}
-  sphinx_scope(:sphinx_dvdpost_choice)      {{:with =>    {:products_dvdpostchoice => 1}}}
+  sphinx_scope(:sphinx_dvdpost_choice)      {{:with =>    {:dvdpost_choice => 1}}}
   sphinx_scope(:sphinx_ordered_random)      {{:order => '@random'}}
   sphinx_scope(:sphinx_order)               {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   # named_scope :recent,              :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
