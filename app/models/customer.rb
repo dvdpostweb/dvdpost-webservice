@@ -55,6 +55,7 @@ class Customer < ActiveRecord::Base
   has_many :addresses, :foreign_key => :customers_id
   has_many :payment_offline_request, :foreign_key => :customers_id
   has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
+  has_many :contests, :foreign_key => :customers_id
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 

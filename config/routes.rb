@@ -54,6 +54,8 @@ ActionController::Routing::Routes.draw do |map|
       review.resource :review_rating, :only => :create
     end
 
+    localized.resources :contests, :only => [:new, :create]
+
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}
 
@@ -76,6 +78,7 @@ ActionController::Routing::Routes.draw do |map|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
       customer.resource 'addresses', :only => [:edit, :update]
+      customer.resource 'suspension', :only => [:new, :create, :destroy]
     end
   end
 end

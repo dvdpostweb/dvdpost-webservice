@@ -4,7 +4,7 @@ module HomeHelper
       when 'quizz'
         link_to image_tag(@quizz.image), quizz_path
       when 'contest'
-        link_to image_tag(@contest.image), contest_path
+        link_to image_tag(@contest.image), new_contest_path
       when 'shop'
         link_to image_tag(@shop.image), shop_path(@shop.url)
       when 'community'

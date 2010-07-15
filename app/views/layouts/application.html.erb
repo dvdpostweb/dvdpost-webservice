@@ -13,7 +13,8 @@
     <%= stylesheet_link_tag 'fonts.css' %>
     <%= stylesheet_link_tag 'smoothness/jquery-ui-1.8.custom.css' %>
     <%= stylesheet_link_tag 'jquery_custom.css' %>
-      
+   	<%= stylesheet_link_tag 'suspension.css' if (yield :body_id) == 'moncompte' %>
+
     <%= yield :style %>
 
     <%= javascript_include_tag 'jquery-1.4.2.min' %>
