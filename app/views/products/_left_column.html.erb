@@ -1,11 +1,11 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <% parameters = params[:action] == 'index' ? params : {} %>
 <div id="leftcolumn">
-  <% form_tag filter_path, :method => :get, :id => 'search' do %>
-    <%= hidden_field_tag :top_id, params[:top_id] %>
-    <%= hidden_field_tag :theme_id, params[:theme_id] %>
-    <%= hidden_field_tag :view_mode, params[:view_mode] %>
-    <%= text_field_tag :search, params[:search] || t('.search'), :id => 'search-field' %>
+  <% form_for :filter, filter, {:url => filters_path, :html => {:id => 'search'}} do |f| %>
+    <%= f.hidden_field :top_id %>
+    <%= f.hidden_field :theme_id %>
+    <%= f.hidden_field :view_mode %>
+    <%= f.text_field :search_term, :id => 'search-field', :value => (filter.search_term? ? filter.search_term : t('.search')) %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <ul id="left-nav">
       <li><%= link_to t('.recommendations'), products_path(parameters.merge(:view_mode => :recommended, :top_id => nil)) %></li>
@@ -30,7 +30,7 @@
       <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
       <%= link_to special.name, theme_products_path(parameters.merge(:theme_id => special, :top_id => nil, :view_mode => nil)) %>
     </p>
-    <%= render :partial => 'products/index/filters', :locals => {:countries => @countries} if params[:action] == 'index' %>
+    <%= render :partial => 'products/index/filters', :locals => {:countries => @countries, :filter => filter, :f => f} if params[:action] == 'index' %>
   <% end %>
 </div>
 <!--   ==============   END LEFT COLUMN   ==============   -->

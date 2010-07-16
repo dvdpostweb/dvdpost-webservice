@@ -2665,20 +2665,6 @@ div.top10.first p a {
   background: #fff;
 }
 
-/*
-#filters .submit_fr {
-  background: url("../images/fr/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-
-#filters .submit_nl {
-  background: url("../images/nl/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-
-#filters .submit_en {
-  background: url("../images/en/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-*/
-
 #filters .submit {
   cursor: pointer;
   border-style: hidden;
