@@ -139,10 +139,6 @@ $(function() {
     return false;
   });
 
-  $("#close-f a").click(function() {
-    $("#filtered").hide();
-    return false;
-  });
 
   // if($("#leftcolumn #filters").length > 0) {
   //   if($.query.get('media') == ''){
