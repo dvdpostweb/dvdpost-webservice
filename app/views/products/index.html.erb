@@ -1,7 +1,7 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
   <div id="title"><%= products_index_title %></div>
-  <% if @filter %>
+  <% if @filters %>
   <ul id="filtered" class="clearfix">
     <li>
       <strong><%= t '.technology' %></strong>
@@ -51,4 +51,4 @@
   <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
-<%= render :partial => 'products/left_column' %>
+<%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>
