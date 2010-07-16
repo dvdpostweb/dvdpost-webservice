@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
+    params.delete(:search) if params[:search] == t('products.left_column.search')
     @products = if params[:view_mode] == 'recommended'
       current_customer.recommendations(params)
     else
