@@ -1,5 +1,4 @@
 class ContestsController < ApplicationController
-
   def index
     redirect_to new_contest_path
   end
