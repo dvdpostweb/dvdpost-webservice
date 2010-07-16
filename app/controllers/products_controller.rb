@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.normal.available.find(params[:id])
+    @product = Product.normal_available.find(params[:id])
     @product.views_increment
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
@@ -82,6 +82,6 @@ class ProductsController < ApplicationController
 
 private
   def find_product
-    @product = Product.normal.available.find(params[:product_id])
+    @product = Product.normal_available.find(params[:product_id])
   end
 end

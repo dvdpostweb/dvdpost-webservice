@@ -1,4 +1,4 @@
-<div id="addwishlist_title"><%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})"%></div>
+<div id="addwishlist_title"><%= "#{@wishlist_item.product.title} (#{@wishlist_item.product.year})" %></div>
 <div id="addwishlist_explain">
   <%= t '.intro' %>
 </div>
@@ -37,7 +37,7 @@
   <%= f.submit title_add_to_wishlist(:long), :class => 'item' %>
   <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series' if @wishlist_item.product.series? %>
   </p>
-  <% if @wishlist_item.product.products_next == 1 and @wishlist_item.product.available_at%>
+  <% if @wishlist_item.product.products_next == 1 && @wishlist_item.product.available_at %>
     <p class="align">
       <strong>
         <%= t '.available' %>

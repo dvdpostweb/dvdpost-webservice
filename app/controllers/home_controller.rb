@@ -4,8 +4,8 @@ class HomeController < ApplicationController
       format.html {
         @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
         @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
-        @soon = Product.by_kind(:normal).sphinx_available.soon.random.limit(3)
-        @recent = Product.by_kind(:normal).sphinx_available.recent.random.limit(3)
+        @soon = Product.by_kind(:normal).available.soon.random.limit(3)
+        @recent = Product.by_kind(:normal).available.recent.random.limit(3)
         @quizz = QuizzName.find_last_by_focus(1)
         not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
