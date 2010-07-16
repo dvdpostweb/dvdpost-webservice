@@ -6,9 +6,8 @@ class ProductsController < ApplicationController
     @products = if params[:view_mode] == 'recommended'
       current_customer.recommendations(params)
     else
-      Product.sphinx_search_and_filter(params[:search], params)
+      Product.sphinx_search_and_filter(params[:search], params) # will_paginate is built in in ts
     end
-    @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @countries = ProductCountry.visible.order
