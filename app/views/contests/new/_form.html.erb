@@ -5,6 +5,7 @@
     <% if !already_played.nil? %>
       <%= t('.already_played', :title => title(contest)) %>
     <% else %>
+      <p><%= error_messages_for :contests %></p>
     	<p><%= t('.response_title') %></p>
       <% response = response(contest) %>
     	<strong><%= question(contest) %></strong>

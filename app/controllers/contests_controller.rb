@@ -15,6 +15,7 @@ class ContestsController < ApplicationController
 
   def create
     @already_played = current_customer.contests.find_by_contest_name_id(params[:contests][:contest_name_id])
+    @contest = ContestName.find_by_contest_name_id(params[:contests][:contest_name_id])
     if @already_played.nil?
       contest = Contest.new(params[:contests])
       contest.customers_id = current_customer.to_param
@@ -24,11 +25,9 @@ class ContestsController < ApplicationController
       contest.marketing_ok = 'YES'
       contest.unsubscribe = true
       contest.date = Time.now.to_s(:db)
-    
       if contest.save
         @contest = ContestName.find_by_contest_name_id(params[:contests][:contest_name_id])
       else
-        flash[:error] = t('contests.new.not_success')
         render :action => :new
       end
     else

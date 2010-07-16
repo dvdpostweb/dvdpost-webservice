@@ -4,5 +4,8 @@ class Contest < ActiveRecord::Base
   set_primary_key :contest_id
 
   validates_numericality_of :contest_name_id
-  validates_numericality_of :answer_id, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 4
+
+  def validate
+    errors.add({}, "Make a choice") if self.answer_id.nil? || self.answer_id > 4 || self.answer_id <= 0
+  end
 end
