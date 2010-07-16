@@ -74,7 +74,7 @@ class Customer < ActiveRecord::Base
   end
 
   def not_rated_products
-    assigned_products.normal.available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+    assigned_products.normal_available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
   end
 
   def has_rated?(product)

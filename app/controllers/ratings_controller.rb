@@ -1,6 +1,6 @@
 class RatingsController < ApplicationController
   def create
-    @product = Product.normal.available.find(params[:product_id])
+    @product = Product.normal_available.find(params[:product_id])
     @product.ratings.create(:customer => current_customer, :value => params[:value])
     current_customer.seen_products << @product
     DVDPost.send_evidence_recommendations('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
