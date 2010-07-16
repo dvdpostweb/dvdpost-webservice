@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   @@per_page = 20
 
   set_primary_key :products_id
-  
+
   alias_attribute :availability,    :products_availability
   alias_attribute :available_at,    :products_date_available
   alias_attribute :created_at,      :products_date_added
@@ -99,8 +99,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
-  def self.sphinx_search_and_filter(search='', params={})
-    products = search_clean(search || '').by_kind(:normal).available
+  def self.sphinx_search_and_filter(search_term='', params={})
+    products = search_clean(search_term || '', {:page => params[:page]}).by_kind(:normal).available
     products = products.by_recommended_ids(params[:recommended_ids]) if params[:recommended_ids]
     products = products.by_actor(params[:actor_id]) if params[:actor_id] && !params[:actor_id].empty?
     products = products.by_audience(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
@@ -196,14 +196,14 @@ class Product < ActiveRecord::Base
     self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media(:bluray).by_language(I18n.locale).limit(1).first
   end
 
-  def self.search_clean(query_string)
+  def self.search_clean(query_string, options={})
     qs = []
     query_string.split.each do |word|
       qs << "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
     end
     query_string = qs.join(' ')
 
-    self.search(query_string, :per_page => 1000)
+    self.search(query_string, :max_matches => 100_000, :page => options[:page])
   end
 
   def self.replace_specials(str)

@@ -3,27 +3,32 @@ development:
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
+  max_matches: 100000
 test:
   port: 8444
   pid_file: log/searchd.pid
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
+  max_matches: 100000
 staging:
   port: 7444
   pid_file: log/searchd.pid
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
+  max_matches: 100000
 pre_production:
   port: 6444
   pid_file: log/searchd.pid
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
+  max_matches: 100000
 production:
   port: 5444
   pid_file: log/searchd.pid
   searchd_log_file: "log/searchd.log"
   query_log_file: "log/searchd_query.log"
   pid_file: "log/searchd.pid"
+  max_matches: 100000
