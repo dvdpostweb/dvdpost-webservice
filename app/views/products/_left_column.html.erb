@@ -2,6 +2,9 @@
 <% parameters = params[:action] == 'index' ? params : {} %>
 <div id="leftcolumn">
   <% form_tag filter_path, :method => :get, :id => 'search' do %>
+    <%= hidden_field_tag :top_id, params[:top_id] %>
+    <%= hidden_field_tag :theme_id, params[:theme_id] %>
+    <%= hidden_field_tag :view_mode, params[:view_mode] %>
     <%= text_field_tag :search, params[:search] || t('.search'), :id => 'search-field' %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <ul id="left-nav">
