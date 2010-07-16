@@ -58,7 +58,7 @@ class HomeController < ApplicationController
         nil
       end
     end
-    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_item
+    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_items
   end
 
   def retrieve_recommendations
