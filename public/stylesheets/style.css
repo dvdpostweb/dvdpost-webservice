@@ -2480,10 +2480,8 @@ div.top10.first p a {
 }
 
 #leftcolumn form#search {
-  ;
   background: url(../images/search-fld-bg.png) 0 0 no-repeat;
   display: block;
-  height: 35px;
 }
 
 #leftcolumn form#search #search-field {
@@ -2510,6 +2508,7 @@ div.top10.first p a {
 
 #leftcolumn #left-nav {
   margin-top: 7px;
+  clear:left;
 }
 
 #leftcolumn #left-nav li a {
