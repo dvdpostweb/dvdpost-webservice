@@ -170,6 +170,10 @@ class Customer < ActiveRecord::Base
   def credit_empty?
     credits == 0 && suspension_status == 0 && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
   end
+  
+  def suspended?
+    suspension_status != 0
+  end
 
   private
   def convert_created_at
@@ -183,4 +187,5 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
+
 end

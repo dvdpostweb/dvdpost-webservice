@@ -1,15 +1,22 @@
 <div id="suspend-abonament">
 	<h3>Suspension de votre abonnement</h3>
-	<p><strong>Vous partez en vacances et désirez suspendre momentanément votre abonnement DVDPost ?</strong></p>
-	<p>C’est tout à fait possible ! </p>
-	<p>Juste avant votre départ, <strong>choisissez la durée de suspension des envois</strong> et cliquez sur le bouton pour confirmer. Cette suspension prendra cours immédiatement et l’envoi reprendra automatiquement au terme de la période choisie.</p>
-	<p><strong>N’oubliez pas de renvoyer les DVD</strong> encore en votre possession afin de ne pas les immobiliser durant cette période.</p>
-	<p>Vous pouvez utiliser cette fonctionnalité <strong>jusqu’à 3 fois par an </strong>(année d’abonnement) sans aucun frais.</p>
-	<form method="post" action="">
-		<label>Durée de suspension :</label>
-		<select>
-			<option selected="selected" value ="7">1 semaine</option>
-		</select>
-		<button type="submit"><span><strong>Confirmer</strong></span></button>
-	</form>
+	<% if @already_suspended %>
+    <p align='center'>vous êtes déjà suspendu jusqu'au <%= @expiration_holidays_date.strftime("%d/%m/%Y") %></p>
+	<% else %>
+	  <% if @too_many_suspensions %>
+	    <p align='center'>vous avez déjà suspendu votre abonnement trois fois</p>
+	  <% else %>
+    	<p><strong>Vous partez en vacances et désirez suspendre momentanément votre abonnement DVDPost ?</strong></p>
+    	<p>C’est tout à fait possible ! </p>
+    	<p>Juste avant votre départ, <strong>choisissez la durée de suspension des envois</strong> et cliquez sur le bouton pour confirmer. Cette suspension prendra cours immédiatement et l’envoi reprendra automatiquement au terme de la période choisie.</p>
+    	<p><strong>N’oubliez pas de renvoyer les DVD</strong> encore en votre possession afin de ne pas les immobiliser durant cette période.</p>
+    	<p>Vous pouvez utiliser cette fonctionnalité <strong>jusqu’à 3 fois par an </strong>(année d’abonnement) sans aucun frais.</p>
+    	<% form_for :suspensions, :url => customer_suspension_path do |f| %>
+    		<label>Durée de suspension :</label>
+    		<%= f.collection_select(:duration, duration_collection_for_select, :last, :first) %>
+    		<button type="submit" id="new_suspension"><span><strong>Confirmer</strong></span></button>
+    	<% end %>
+  	<% end %>
+  <% end %>
+  
 </div>
