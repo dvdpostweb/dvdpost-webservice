@@ -11,7 +11,7 @@
   color: #525253;
   margin-bottom: 10px;
 }
-#concours-wrap form {
+#concours-wrap form,#concours-wrap #result {
   display: block;
   background: white;
   border: 1px solid #939393;

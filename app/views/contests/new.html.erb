@@ -1,8 +1,8 @@
 <% content_for :style do %>
 <%= stylesheet_link_tag 'contests' %>
 <% end %>
-    
-<div id="maincontent">      
+<%= render :partial => 'contests/menu' %>
+<div id="maincontent">
   <div id="concours-wrap">
     <div class="ttl"><%= t('.title')%></div>
     <div id="titles-wrap">
@@ -10,5 +10,4 @@
   	  <%= render :partial => 'contests/new/form', :locals => {:contest => @contest, :already_played => @already_played} %>
     <div class="end"></div>
   </div> 
-</div> 
-     
+</div>

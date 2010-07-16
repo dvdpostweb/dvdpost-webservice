@@ -1,0 +1,13 @@
+<% content_for :style do %>
+<%= stylesheet_link_tag 'contests' %>
+<% end %>
+
+<div id="maincontent">      
+  <div id="concours-wrap">
+    <div class="ttl"><%= t('contests.new.title')%></div>
+    <div id="titles-wrap">
+    <div class="top"></div>
+  	  <%= render :partial => 'contests/create/result', :locals => {:contest => @contest} %>
+    <div class="end"></div>
+  </div> 
+</div> 
