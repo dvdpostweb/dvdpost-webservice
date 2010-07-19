@@ -141,18 +141,18 @@ module ProductsHelper
     count
   end
 
-  def filter_checkbox_tag(attribute, sub_attribute)
-    check_box_tag "#{attribute}[#{sub_attribute}]", 1, params[attribute] && params[attribute][sub_attribute]
+  def filter_checkbox_tag(attribute, sub_attribute, checked=false)
+    check_box_tag "filter[#{attribute}[#{sub_attribute}]]", true, checked
   end
 
   def products_index_title
-    title = t('.director') +' : '+ Director.find(params[:director_id]).name if params[:director_id] && !params[:director_id].empty?
-    title = t('.actor') +' : '+ Actor.find(params[:actor_id]).name if params[:actor_id] && !params[:actor_id].empty?
-    title = t('.recommendation') if params[:recommended]
-    title = t('.categorie') +' : '+ Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name if params[:category_id] && !params[:category_id].empty?
-    title = ProductList.find(params[:top_id]).name if params[:top_id] && !params[:top_id].empty?
-    title = t('.theme') +' : '+  ProductList.find(params[:theme_id]).name if params[:theme_id] && !params[:theme_id].empty?
-    title = t('.search') +' : '+ params[:search] if params[:search]
+    title = "#{t '.director'}: #{Director.find(params[:director_id]).name}" if params[:director_id] && !params[:director_id].blank?
+    title = "#{t '.actor'}: #{Actor.find(params[:actor_id]).name}" if params[:actor_id] && !params[:actor_id].blank?
+    title = t('.recommendation') if params[:view_mode] == 'recommended'
+    title = "#{t '.categorie'}: #{Category.find(params[:category_id]).descriptions.by_language(I18n.locale).first.name}" if params[:category_id] && !params[:category_id].blank?
+    list = ProductList.find(params[:list_id]) if params[:list_id] && !params[:list_id].blank?
+    title = (list.theme? ? "#{t('.theme')}: #{list.name}" : list.name) if list
+    title = "#{t '.search'}: #{params[:search]}" if params[:search]
     title
   end
 
@@ -182,7 +182,7 @@ module ProductsHelper
     end
   end
 
-  def left_column_categories(selected_category, parameters={})
+  def left_column_categories(selected_category)
     html_content = []
     Category.active.roots.movies.by_kind(:normal).remove_themes.ordered.collect do |category|
       li_style = 'display:none' if selected_category && category != selected_category && category != selected_category.parent
@@ -192,16 +192,16 @@ module ProductsHelper
         li_class = 'cat'
       end
       html_content << content_tag(:li, :class => li_class, :style => li_style) do
-        link_to category.name, category_products_path(parameters.merge(:category_id => category)), :class => a_class
+        link_to category.name, category_products_path(:category_id => category), :class => a_class
       end
       if selected_category && (category == selected_category || category == selected_category.parent)
         category.children.active.movies.by_kind(:normal).remove_themes.ordered.collect do |sub_category|
           html_content << content_tag(:li, :class => 'subcat') do
-            link_to " | #{sub_category.name}", category_products_path(parameters.merge(:category_id => sub_category)), :class => ('activated' if sub_category == selected_category)
+            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => ('activated' if sub_category == selected_category)
           end
         end
         html_content << content_tag(:li) do
-          link_to t('.category_back'), products_path(parameters), :id => 'all_categorie'
+          link_to t('.category_back'), products_path, :id => 'all_categorie'
         end
       end
     end

@@ -84,7 +84,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  sphinx_scope(:by_media)           {|*media|           {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
+  sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
   sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
   sphinx_scope(:by_products_list)   {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:by_ratings)         {|min, max|         {:with =>       {:rating => min..max}}}
@@ -99,27 +99,35 @@ class Product < ActiveRecord::Base
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
-  def self.sphinx_search_and_filter(search_term='', params={})
-    products = search_clean(search_term || '', {:page => params[:page]}).by_kind(:normal).available
-    products = products.by_recommended_ids(params[:recommended_ids]) if params[:recommended_ids]
-    products = products.by_actor(params[:actor_id]) if params[:actor_id] && !params[:actor_id].empty?
-    products = products.by_audience(params[:public_min], params[:year_max]) if params[:public_min] && params[:public_max]
-    products = products.by_category(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
-    products = products.by_country(params[:country]) if params[:country] && !(params[:country].to_i == -1)
-    products = products.by_director(params[:director_id]) if params[:director_id] && !params[:director_id].empty?
-    products = products.by_media(params[:media].keys) if params[:media]  
-    products = products.by_ratings(params[:ratings_min], params[:ratings_max]) if params[:ratings_min] && params[:ratings_max]
-    products = products.by_period(params[:year_min], params[:year_max]) if params[:year_min] && params[:year_max]
-    products = products.by_products_list(params[:top_id]) if params[:top_id] && !params[:top_id].empty?
-    products = products.by_products_list(params[:theme_id]) if params[:theme_id] && !params[:theme_id].empty?
-    products = products.with_languages(params[:languages].keys) if params[:languages]
-    products = products.with_subtitles(params[:subtitles].keys) if params[:subtitles]
-    products = products.dvdpost_choice if params[:dvdpost_choice]
-    products = products.recent if params[:view_mode] == 'recent'
-    products = products.soon if params[:view_mode] == 'soon'
-    products = products.order(:id, :desc)
+  def self.filter(filter, options={})
+    products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
+    # products = products.by_recommended_ids(filter.recommended_ids) if filter.recommended_ids?
+    products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
+    products = products.by_actor(options[:actor_id]) if filter[:actor_id]
+    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
+    products = products.by_category(options[:category_id]) if options[:category_id]
+    products = products.by_country(filter.country_id) if filter.country_id?
+    products = products.by_director(options[:director_id]) if options[:director_id]
+    products = products.by_media(filter.media) if filter.media?  
+    products = products.by_ratings(filter.rating_min, filter.rating_max) if filter.rating?
+    products = products.by_period(filter.year_min, filter.year_max) if filter.year?
+    products = products.with_languages(filter.audio) if filter.audio?
+    products = products.with_subtitles(filter.subtitles) if filter.subtitles?
+    products = products.dvdpost_choice if filter.dvdpost_choice?
+    if options[:view_mode]
+      products = case options[:view_mode].to_sym
+      when :recent
+        products.recent
+      when :soon
+        products.soon
+      when :recommended
+        products.by_recommended_ids(filter.recommended_ids)
+      else
+        products
+      end
+    end
+    products = products.by_kind(:normal).available.order(:id, :desc)
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
-    products
   end
 
   def recommendations
@@ -193,17 +201,21 @@ class Product < ActiveRecord::Base
   end
 
   def media_alternative(media)
-    self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media(:bluray).by_language(I18n.locale).limit(1).first
+    self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([:bluray]).by_language(I18n.locale).limit(1).first
   end
 
   def self.search_clean(query_string, options={})
     qs = []
-    query_string.split.each do |word|
-      qs << "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
+    if query_string
+      qs = query_string.split.collect do |word|
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
+      end
     end
     query_string = qs.join(' ')
 
-    self.search(query_string, :max_matches => 100_000, :page => options[:page])
+    page = options[:page] || 1
+    per_page = options[:per_page] || self.per_page
+    self.search(query_string, :max_matches => 100_000, :per_page => per_page, :page => page)
   end
 
   def self.replace_specials(str)

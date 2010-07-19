@@ -7,14 +7,12 @@
       <li class="technology<%= 'open' if filter.media? %>">
         <%= link_to t('.tech') %>
         <div>
-          <label>
-            <%= filter_checkbox_tag :media, :dvd %>
-            <%= t '.dvd' %>
-          </label>
-          <label>
-            <%= filter_checkbox_tag :media, :bluray %>
-            <%= t '.bluray' %>
-          </label>
+          <% [:dvd, :bluray].each do |media| %>
+            <label>
+              <%= filter_checkbox_tag :media, media, (filter.media? && filter.media.include?(media)) %>
+              <%= t ".#{media}" %>
+            </label>
+          <% end %>
         </div>
       </li>
       <li class="audience<%= 'open' if filter.audience? %>">
@@ -74,10 +72,10 @@
       <li class="audio<%= 'open' if filter.audio? %>">
         <%= link_to t('.audio') %>
         <div>
-          <% Language.by_language(I18n.locale).each do |lang| %>
+          <% Language.by_language(I18n.locale).each do |track| %>
             <label>
-              <%= filter_checkbox_tag :languages, lang.to_param %>
-              <%= lang.name %>
+              <%= filter_checkbox_tag :audio, track.to_param, (filter.audio? && filter.audio.include?(track.to_param.to_i)) %>
+              <%= track.name %>
             </label>
           <% end %>
         </div>
@@ -87,7 +85,7 @@
         <div>
           <% Subtitle.by_language(I18n.locale).each do |sub| %>
             <label>
-              <%= filter_checkbox_tag :subtitles, sub.to_param %>
+              <%= filter_checkbox_tag :subtitles, sub.to_param, (filter.subtitles? && filter.subtitles.include?(sub.to_param.to_i)) %>
               <%= truncate sub.name, :length => 25  %>
             </label>
           <% end %>
@@ -96,7 +94,6 @@
       <li class='li_submit'>
         <%= f.submit t('.apply'), :name => nil, :class => 'submit' %>
       </li>
-      <%= f.hidden_field :view_mode %>
     </ul>
   </fieldset>
 </div>

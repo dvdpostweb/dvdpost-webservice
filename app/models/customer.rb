@@ -120,7 +120,7 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def recommendations(filter={})
+  def recommendations(options={})
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self)
@@ -131,7 +131,8 @@ class Customer < ActiveRecord::Base
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
-      Product.sphinx_search_and_filter(filter[:search], filter.merge(:recommended_ids => result_ids))
+      filter.update_attributes(:recommended_ids => result_ids)
+      Product.filter(filter, options.merge(:view_mode => :recommended))
     else
       []
     end

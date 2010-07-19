@@ -42,12 +42,8 @@ ActionController::Routing::Routes.draw do |map|
       director.resources :products, :only => :index
     end
 
-    localized.resources :tops, :only => [] do |top|
+    localized.resources :lists, :only => [] do |top|
       top.resources :products, :only => :index
-    end
-
-    localized.resources :themes, :only => [] do |theme|
-      theme.resources :products, :only => :index
     end
 
     localized.resources :reviews, :only => [] do |review|
