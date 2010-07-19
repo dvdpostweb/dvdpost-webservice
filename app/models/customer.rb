@@ -86,7 +86,7 @@ class Customer < ActiveRecord::Base
     (abo_active? && suspension_status == 0)
   end
 
-  def suspended?
+  def payment_suspended?
     suspension_status == 2
   end
 
@@ -172,7 +172,14 @@ class Customer < ActiveRecord::Base
   def credit_empty?
     credits == 0 && suspension_status == 0 && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
   end
+  
+  def suspended?
+    suspension_status != 0
+  end
 
+  def change_language(value)
+    update_attribute(:customers_language, value)
+  end
   private
   def convert_created_at
     begin
@@ -185,4 +192,5 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
+
 end

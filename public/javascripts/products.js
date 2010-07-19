@@ -334,4 +334,13 @@ $(function() {
     });
     return false;
   });
+
+  $("#review_submit").live('click',function(){
+    value = parseInt($('#review_rating').attr('value'),10);
+    if( value == 0 || value > 5 )
+    {
+      alert($('#popup_rating_error').html())
+      return false;
+    } 
+  });
 });
