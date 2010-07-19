@@ -176,6 +176,9 @@ class Customer < ActiveRecord::Base
     suspension_status != 0
   end
 
+  def change_language(value)
+    update_attribute(:customers_language, value)
+  end
   private
   def convert_created_at
     begin
