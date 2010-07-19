@@ -1,8 +1,9 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
   <div class="top"></div>
-  <% if current_customer.suspended? %>
+  <% if current_customer.payment_suspended? %>
     <ul id='suspended'>
+      
       <li><%= current_customer.suspended_notification %></li>
     </ul>
   <% end %>

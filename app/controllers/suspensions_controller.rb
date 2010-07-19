@@ -38,7 +38,9 @@ class SuspensionsController < ApplicationController
 
   private
   def expiration_holdays_date
-    Suspension.holidays.find_all_by_customer_id(current_customer.to_param).last.date_end
+    if suspension = Suspension.holidays.find_all_by_customer_id(current_customer.to_param).last
+      suspension.date_end
+    end
   end
 
   def suspension_count_current_year

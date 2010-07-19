@@ -86,7 +86,7 @@ class Customer < ActiveRecord::Base
     (abo_active? && suspension_status == 0)
   end
 
-  def suspended?
+  def payment_suspended?
     suspension_status == 2
   end
 
