@@ -80,6 +80,6 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'suspension', :only => [:new, :create, :destroy]
     end
 
-    localized.resources :filters, :only => [:create, :update, :destroy]
+    localized.resources :filters, :only => [:create, :destroy]
   end
 end
