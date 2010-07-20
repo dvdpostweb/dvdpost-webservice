@@ -33,7 +33,6 @@
     <![endif]-->
 
     <%= yield :head %>
-
 </head>
 <body id="<%= yield :body_id %>">
   <div id="wrap">
@@ -41,11 +40,11 @@
     <%= render :partial => 'layouts/header' %>
     <!--   ==============   END HEADER   ==============   -->
     <div class="container clearfix">
-		<% if flash[:notice] %>
-		<p class="notice">
-      <%= flash[:notice] %>
-		</p>
-		<% end %>
+      <% if flash[:notice] %>
+        <p class="notice">
+          <%= flash[:notice] %>
+        </p>
+      <% end %>
       <%= yield %>
     </div>
     <!--   ==============   FOOTER   ==============   -->
