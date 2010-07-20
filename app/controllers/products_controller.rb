@@ -12,8 +12,6 @@ class ProductsController < ApplicationController
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @countries = ProductCountry.visible.order
-    @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != -1
-    @filters = params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == -1)) || params[:languages] || params[:subtitles] || params[:dvdpost_choice]
   end
 
   def show
