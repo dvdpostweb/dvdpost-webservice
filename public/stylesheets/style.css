@@ -1010,7 +1010,10 @@ a#next10 {
   float: right;
   margin-right: 12px;
 }
-
+.report_history_item
+{
+  font-weight:bold;
+}
 #on-way .dvd .status a:hover, #on-way .bluray .status a:hover {
   text-decoration: none;
 }
@@ -1670,6 +1673,9 @@ html ul.tabs li.active a:hover {
 
 .tab_content .links a {
   color: #454545;
+}
+.tab_content .links a.next_page {
+  float:right;
 }
 
 /* Carousel */
