@@ -42,12 +42,8 @@ ActionController::Routing::Routes.draw do |map|
       director.resources :products, :only => :index
     end
 
-    localized.resources :tops, :only => [] do |top|
+    localized.resources :lists, :only => [] do |top|
       top.resources :products, :only => :index
-    end
-
-    localized.resources :themes, :only => [] do |theme|
-      theme.resources :products, :only => :index
     end
 
     localized.resources :reviews, :only => [] do |review|
@@ -80,6 +76,6 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'suspension', :only => [:new, :create, :destroy]
     end
 
-    localized.resources :filters, :only => [:create, :update, :destroy]
+    localized.resources :filters, :only => [:create, :destroy]
   end
 end

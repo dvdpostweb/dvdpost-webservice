@@ -7,4 +7,12 @@ class ProductList < ActiveRecord::Base
   named_scope :not_highlighted, :conditions => {:home_page => false}
   named_scope :highlighted, :conditions => {:home_page => true}
   named_scope :by_language, lambda {|language| {:conditions => {:language => language}}}
+
+  def top?
+    kind == 'TOP'
+  end
+
+  def theme?
+    kind == 'THEME'
+  end
 end

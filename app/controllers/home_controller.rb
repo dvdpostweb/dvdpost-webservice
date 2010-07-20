@@ -62,6 +62,6 @@ class HomeController < ApplicationController
   end
 
   def retrieve_recommendations
-    current_customer.recommendations.paginate(:per_page => 8, :page => params[:recommendation_page])
+    current_customer.recommendations({:per_page => 8, :page => params[:recommendation_page]})
   end
 end
