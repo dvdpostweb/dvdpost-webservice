@@ -5,11 +5,11 @@
         height="262"
         width="302">
   <param name="allowScriptAccess" value="sameDomain" />
-  <param name="movie" value="<%= flash_url(quizz.quizz_name_id, customer) %>" />
+  <param name="movie" value="<%= flash_url(quizz, customer) %>" />
   <param name="quality" value="high" />
   <param name="menu" value="false" />
   <param name="bgcolor" value="#FFFFFF" />
-  <embed src="<%= flash_url(quizz.quizz_name_id, customer) %>"
+  <embed src="<%= flash_url(quizz, customer) %>"
          menu="false"
          quality="high"
          bgcolor="#FFFFFF"

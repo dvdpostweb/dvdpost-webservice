@@ -11,7 +11,7 @@ class ContestsController < ApplicationController
       @already_played = nil
     end
   end
-
+  
   def create
     @already_played = current_customer.contests.find_by_contest_name_id(params[:contests][:contest_name_id])
     @contest = ContestName.find_by_contest_name_id(params[:contests][:contest_name_id])

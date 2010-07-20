@@ -82,7 +82,7 @@ specs:
 - bullet: 
     version: 1.7.6
 - highline: 
-    version: 1.5.2
+    version: 1.6.1
 - net-ssh: 
     version: 2.0.23
 - net-scp: 
@@ -138,7 +138,7 @@ sources:
     uri: git://github.com/mrs/warden_oauth.git
     branch: oauth2
     git: git://github.com/mrs/warden_oauth.git
-    ref: a11715f5b93556de72b52fc74f03e78489a74184
+    ref: cacf1117c3c659925ba63b4bfa0070f1c7f401af
 - Git: 
     uri: git://github.com/jeroenj/oauth2.git
     git: git://github.com/jeroenj/oauth2.git
