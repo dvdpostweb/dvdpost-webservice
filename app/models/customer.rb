@@ -136,6 +136,7 @@ class Customer < ActiveRecord::Base
       if(I18n.locale == 'fr')
         options = options.merge(:audio => [1])
       end
+      filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
       Product.filter(filter, options.merge(:view_mode => :recommended))
     else
       []

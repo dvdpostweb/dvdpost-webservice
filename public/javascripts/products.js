@@ -140,40 +140,13 @@ $(function() {
   });
 
 
-  // if($("#leftcolumn #filters").length > 0) {
-  //   if($.query.get('media') == ''){
-  //     $("#filters li.technology").toggleClass('open');
-  //     $("#filters li.technology").find("div").toggle(1);
-  //   }
-  //   if($.query.get('public_max') == '' || ($.query.get('public_min') == 0 && $.query.get('public_max') == 18)){
-  //     $("#filters li.public").toggleClass('open');
-  //     $("#filters li.public").find("div").toggle(1);
-  //   }
-  //   if($.query.get('country') == '' || $.query.get('country') == -1){
-  //     $("#filters li.country").toggleClass('open');
-  //     $("#filters li.country").find("div").toggle(1);
-  //   }
-  //   if($.query.get('year_max') == '' || ($.query.get('year_min') == 0 && $.query.get('year_max') == 2010)){
-  //     $("#filters li.year").toggleClass('open');
-  //     $("#filters li.year").find("div").toggle(1);
-  //   }
-  //   if($.query.get('ratings_max') == '' || ($.query.get('ratings_min') == 0 && $.query.get('ratings_max') == 5)){
-  //     $("#filters li.ratings").toggleClass('open');
-  //     $("#filters li.ratings").find("div").toggle(1);
-  //   }
-  //   if($.query.get('languages') == ''){
-  //     $("#filters li.audio").toggleClass('open');
-  //     $("#filters li.audio").find("div").toggle(1);
-  //   }
-  //   if($.query.get('subtitles') == ''){
-  //     $("#filters li.subtitles").toggleClass('open');
-  //     $("#filters li.subtitles").find("div").toggle(1);
-  //   }
-  //   if($.query.get('dvdpost_choice') == ''){
-  //     $("#filters li.dvdpost_choice").toggleClass('open');
-  //     $("#filters li.dvdpost_choice").find("div").toggle(1);
-  //   }
-  // }
+  if($("#leftcolumn #filters").length > 0) {
+    $("#filters li").each(function(i){
+      if (!($(this).hasClass('open'))) {
+        $(this).find("div").toggle(1);
+      }
+    });
+  }
   $("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
     $(this).parent().find("div").toggle(1);
@@ -211,7 +184,7 @@ $(function() {
     }
   });
 
-  year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2010': 8};
+  year_slider_values = {'0': 0, '1940': 1, '1950': 2, '1960': 3, '1970': 4, '1980': 5, '1990': 6, '2000': 7, '2020': 8};
   $("#year-slider-range").slider({
     range: true,
     min: 0,
@@ -219,7 +192,7 @@ $(function() {
     values: [year_slider_values[$("#filter_year_min").val()], year_slider_values[$("#filter_year_max").val()]],
     step: 1,
     slide: function(event, ui) {
-      actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2010};
+      actual_year_values = {'0': 0, '1': 1940, '2': 1950, '3': 1960, '4': 1970, '5': 1980, '6': 1990, '7': 2000, '8': 2020};
       $("#filter_year_min").val(actual_year_values[ui.values[0]]);
       $("#filter_year_max").val(actual_year_values[ui.values[1]]);
     }
