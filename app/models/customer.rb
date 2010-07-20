@@ -131,7 +131,7 @@ class Customer < ActiveRecord::Base
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
-      filter.update_attributes(:recommended_ids => result_ids)
+      filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
       Product.filter(filter, options.merge(:view_mode => :recommended))
     else
       []
