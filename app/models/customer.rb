@@ -180,6 +180,7 @@ class Customer < ActiveRecord::Base
   def change_language(value)
     update_attribute(:customers_language, value)
   end
+
   private
   def convert_created_at
     begin
@@ -192,5 +193,4 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
-
 end
