@@ -40,7 +40,7 @@ module ProductsHelper
   def rating_review_image_link(product, value, replace)
     name = 'star-voted'
     class_name = 'star'
-    image_name = "#{name}-off.jpg"
+    image_name = "#{name}-off.png"
 
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
     link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
