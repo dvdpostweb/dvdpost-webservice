@@ -993,7 +993,7 @@ a#next10 {
   margin-top: 5px;
 }
 
-#on-way .dvd .title a, #on-way .bluray .title a {
+#on-way .dvd .title a, #on-way .bluray .title a,#on-way .dvd .title, #on-way .bluray .title{
   font-size: 1.17em;
   font-weight: bold;
 }
@@ -2830,15 +2830,24 @@ div.top10.first p a {
 }
 
 #addwishlist_title {
-  border-bottom: 1px solid #454545;
   color: #454545;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 24px;
   font-weight: bold;
   left: 0;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+}
+#addwishlist_subtitle {
+  border-bottom: 1px solid #454545;
+  color: #454545;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  left: 0;
   margin: 10px 0;
   padding-bottom: 5px;
-  padding-top: 5px;
   text-align: center;
   text-decoration: none;
   top: 0;
