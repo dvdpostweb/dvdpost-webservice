@@ -101,13 +101,12 @@ class Product < ActiveRecord::Base
 
   def self.filter(filter, options={})
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
-    # products = products.by_recommended_ids(filter.recommended_ids) if filter.recommended_ids?
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if filter[:actor_id]
-    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
     products = products.by_category(options[:category_id]) if options[:category_id]
-    products = products.by_country(filter.country_id) if filter.country_id?
     products = products.by_director(options[:director_id]) if options[:director_id]
+    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
+    products = products.by_country(filter.country_id) if filter.country_id?
     products = products.by_media(filter.media) if filter.media?  
     products = products.by_ratings(filter.rating_min, filter.rating_max) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year?
