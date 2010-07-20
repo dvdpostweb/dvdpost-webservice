@@ -6,7 +6,7 @@
 	    <%= f.label t('.review_note') %> : 
 	  </p>
 	  <%= render :partial => 'products/rating_review', :locals => {:product => @product} %>
-	  <%= f.hidden_field :rating %>
+	  <%= f.hidden_field :rating, :value => 0 %>
 	  
 		<p class="critical_explain">
 		    <%= f.label t('.review_title') %> :
@@ -21,4 +21,5 @@
   </fieldset>
   <br/>
 <% end %>
+<div style="display:none" id='popup_rating_error'><%= t('.rating_error')%></div>
 </div>

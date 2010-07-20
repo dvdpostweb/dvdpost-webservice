@@ -14,7 +14,16 @@ class ReportsController < ApplicationController
       @order = current_customer.orders.find(params[:order_id])
       if DVDPost.product_dvd_statuses.include?(params[:status].to_sym)
         status = DVDPost.product_dvd_statuses[params[:status].to_sym]
-
+        error = false
+        if status.keys.include?(:order_status)
+          if status[:order_status] == @order.orders_status
+            error = true
+          end
+        end
+        if status[:product_status] == @order.order_product.product_dvd.products_dvd_status
+          error = true
+        end
+        if error == false 
         message_content = MessageAutoReply.by_language(I18n.locale).find(status[:message]).content
         message_category = MessageCategory.by_language(I18n.locale).find(status[:message_category])
         product_status = ProductDvdStatus.find(status[:product_status])
@@ -55,7 +64,15 @@ class ReportsController < ApplicationController
                                                 :product_dvd_id => @order.product_dvd.to_param)
         end
       end
-      redirect_to wishlist_path
+      end
+      redirect_back_or wishlist_path
     end
+  end
+
+  private
+  def redirect_back_or(path)
+    redirect_to :back
+  rescue ActionController::RedirectBackError
+    redirect_to path
   end
 end

@@ -2,20 +2,22 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
+    @filter = current_customer.filter || current_customer.build_filter
     params.delete(:search) if params[:search] == t('products.left_column.search')
     @products = if params[:view_mode] == 'recommended'
-      current_customer.recommendations(params)
+      current_customer.recommendations({:page => params[:page]})
     else
-      Product.sphinx_search_and_filter(params[:search], params) # will_paginate is built in in ts
+      Product.filter(@filter, params)
     end
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @countries = ProductCountry.visible.order
     @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != -1
-    @filter = params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == -1)) || params[:languages] || params[:subtitles] || params[:dvdpost_choice]
+    @filters = params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == -1)) || params[:languages] || params[:subtitles] || params[:dvdpost_choice]
   end
 
   def show
+    @filter = current_customer.filter || current_customer.build_filter
     @product = Product.normal_available.find(params[:id])
     @product.views_increment
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])

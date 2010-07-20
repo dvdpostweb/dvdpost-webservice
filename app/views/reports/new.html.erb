@@ -2,6 +2,9 @@
 <div id="addwishlist_title">
   <%= t '.title' %>
 </div>
+<div id="addwishlist_subtitle">
+<%= @order.product.title %>
+</div>
 <div id="add_problem">
   <ul>
     <% statuses.each do |event| %>

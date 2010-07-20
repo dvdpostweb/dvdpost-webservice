@@ -42,12 +42,8 @@ ActionController::Routing::Routes.draw do |map|
       director.resources :products, :only => :index
     end
 
-    localized.resources :tops, :only => [] do |top|
+    localized.resources :lists, :only => [] do |top|
       top.resources :products, :only => :index
-    end
-
-    localized.resources :themes, :only => [] do |theme|
-      theme.resources :products, :only => :index
     end
 
     localized.resources :reviews, :only => [] do |review|
@@ -74,12 +70,13 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.info '/info/:page_name' , :controller => :info
 
-
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
       customer.resource 'addresses', :only => [:edit, :update]
       customer.resource 'suspension', :only => [:new, :create, :destroy]
     end
+
+    localized.resources :filters, :only => [:create, :destroy]
   end
 end

@@ -137,4 +137,12 @@ $(function() {
     });
     return false;
   });
+  
+  
+  $('#new_suspension').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('#new_suspension').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('#suspend-abonament form').ajaxSubmit(options);
+    return false; // prevent default behaviour
+  });
 });

@@ -40,6 +40,7 @@ class Customer < ActiveRecord::Base
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
+  has_one :filter
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -85,7 +86,7 @@ class Customer < ActiveRecord::Base
     (abo_active? && suspension_status == 0)
   end
 
-  def suspended?
+  def payment_suspended?
     suspension_status == 2
   end
 
@@ -119,7 +120,7 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def recommendations(filter={})
+  def recommendations(options={})
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self)
@@ -130,7 +131,8 @@ class Customer < ActiveRecord::Base
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
-      Product.sphinx_search_and_filter(filter[:search], filter.merge(:recommended_ids => result_ids))
+      filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
+      Product.filter(filter, options.merge(:view_mode => :recommended))
     else
       []
     end
@@ -170,7 +172,14 @@ class Customer < ActiveRecord::Base
   def credit_empty?
     credits == 0 && suspension_status == 0 && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
   end
+  
+  def suspended?
+    suspension_status != 0
+  end
 
+  def change_language(value)
+    update_attribute(:customers_language, value)
+  end
   private
   def convert_created_at
     begin
@@ -183,4 +192,5 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
+
 end

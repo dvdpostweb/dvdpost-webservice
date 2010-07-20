@@ -993,7 +993,7 @@ a#next10 {
   margin-top: 5px;
 }
 
-#on-way .dvd .title a, #on-way .bluray .title a {
+#on-way .dvd .title a, #on-way .bluray .title a,#on-way .dvd .title, #on-way .bluray .title{
   font-size: 1.17em;
   font-weight: bold;
 }
@@ -1010,7 +1010,10 @@ a#next10 {
   float: right;
   margin-right: 12px;
 }
-
+.report_history_item
+{
+  font-weight:bold;
+}
 #on-way .dvd .status a:hover, #on-way .bluray .status a:hover {
   text-decoration: none;
 }
@@ -1670,6 +1673,9 @@ html ul.tabs li.active a:hover {
 
 .tab_content .links a {
   color: #454545;
+}
+.tab_content .links a.next_page {
+  float:right;
 }
 
 /* Carousel */
@@ -2665,20 +2671,6 @@ div.top10.first p a {
   background: #fff;
 }
 
-/*
-#filters .submit_fr {
-  background: url("../images/fr/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-
-#filters .submit_nl {
-  background: url("../images/nl/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-
-#filters .submit_en {
-  background: url("../images/en/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-*/
-
 #filters .submit {
   cursor: pointer;
   border-style: hidden;
@@ -2844,15 +2836,24 @@ div.top10.first p a {
 }
 
 #addwishlist_title {
-  border-bottom: 1px solid #454545;
   color: #454545;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 24px;
   font-weight: bold;
   left: 0;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+}
+#addwishlist_subtitle {
+  border-bottom: 1px solid #454545;
+  color: #454545;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  left: 0;
   margin: 10px 0;
   padding-bottom: 5px;
-  padding-top: 5px;
   text-align: center;
   text-decoration: none;
   top: 0;

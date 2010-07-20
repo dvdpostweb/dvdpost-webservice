@@ -62,12 +62,33 @@ $(function() {
     return false;
   });
 
-  $('.report_transit_item').live('click', function(){
+  $('.report_transit_item, .report_history_item').live('click', function(){
     url = $(this).attr('href');
     jQuery.facebox(function() {
       $.getScript(url, function(data) {
         jQuery.facebox(data);
       });
+    });
+    return false;
+  });
+  
+  $('.add_problem_space a').live("click", function() {
+    $('#add_problem').html("<p align='center'><img src='/images/loading.gif' /></p>");
+  });
+  $(".products-pagination a").live("click", function() {
+    html_item = $(this);
+    root_item = $(this).parent().parent().parent();
+    content = html_item.parent().html();
+    html_item.parent().html("Loading...");
+    $.ajax({
+      url: html_item.attr('href'),
+      type: 'GET',
+      success: function(data) {
+        root_item.html(data);
+      },
+      error: function() {
+        html_item.parent().html(content);
+      }
     });
     return false;
   });

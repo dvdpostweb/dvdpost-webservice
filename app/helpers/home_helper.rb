@@ -32,9 +32,9 @@ module HomeHelper
       when 'OLD_SITE'
         remote_carousel_path(t(".url_#{carousel.id}"))
       when 'TOP'
-        top_products_path(:top_id => carousel.reference_id)
+        list_products_path(:list_id => carousel.reference_id)
       when 'THEME'
-        theme_products_path(:theme_id => carousel.reference_id)
+        list_products_path(:list_id => carousel.reference_id)
       when 'DIRECTOR'
         director_products_path(:director_id => carousel.reference_id)
       when 'ACTOR'

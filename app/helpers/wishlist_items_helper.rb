@@ -6,4 +6,11 @@ module WishlistItemsHelper
       else 'not_ok'
     end
   end
+  def class_history(history_item)
+    case history_item.orders_status
+      when 3 then 'ok'
+      else 'not_ok'
+    end
+  end
+
 end
