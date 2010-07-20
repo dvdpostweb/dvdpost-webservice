@@ -55,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :contests, :only => [:new, :create, :index]
+    localized.resources :quizzes,  :only => [:show, :create]
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}

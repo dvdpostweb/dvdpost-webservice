@@ -1,0 +1,88 @@
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent">
+  <div id="concours-wrap">
+    <div class="ttl">
+      Quizz Cinéma
+    </div>
+    <div id="titles-wrap">
+      <div class="top"></div>
+      <h3>
+        Quizz du mois
+      </h3>
+      <div id="quizz-mois" class="clearfix">
+        <div id="video-wrap">
+          <%= render :partial => 'quizzes/show/flash', :locals => {:quizz => @quizz_name, :customer => current_customer} %>
+        </div>
+        <h3 align="center">
+          60 secondes pour tester vos connaissances cinéma
+        </h3>
+        <p>
+          Répondez à autant de questions que vous le pouvez en 60 secondes. Plus vous répondez vite, plus vous gagnez de points.
+        </p>
+        <p>
+          Cliquez sur le bouton "JOUER" pour commencer.
+        </p>
+        <p>
+          Vous pouvez jouer autant de fois que vous voulez. Seul le meilleur score sera retenu.
+        </p>
+      </div>
+      <h3>Quizz précédents</h3>
+      <div id="carousel-wrap">
+        <div id="carousel">
+          <ul>
+            <li>
+              <img src="images/quizz1.jpg" alt="" />
+              <span>Le sport au cinéma</span>
+            </li>
+            <li>
+              <img src="images/quizz2.jpg" alt="" />
+              <span>And the oscar goes to...</span>
+            </li>
+            <li>
+              <img src="images/quizz3.jpg" alt="" />
+              <span>SERIES TV</span>
+            </li>
+            <li>
+              <img src="images/quizz4.jpg" alt="" />
+              <span>JAMES BOND</span>
+            </li>
+          </ul>
+        </div>
+        <a href="#" id="prev" class="like-btn">Previous</a>
+        <a href="#" id="next" class="like-btn">Next</a>
+      </div>
+
+      <div class="end"></div>
+    </div>
+  </div>
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->
+<!--   ==============   LEFT COLUMN   ==============   -->
+<%= render :partial => 'contests/menu' %>
+<!--   ==============   END LEFT COLUMN   ==============   -->
+
+
+<!--
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+        codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0"
+        id="progressbar"
+        align="middle"
+        height="262"
+        width="302">
+  <param name="allowScriptAccess" value="sameDomain" />
+  <param name="movie" value="http://www.dvdpost.be/quizz/quizz_viewer11.swf?quizz_id=39&lang=1&customerzz=206183&email=tiguss@gmail.com&pseudo=Guillaume" />
+  <param name="quality" value="high" />
+  <param name="menu" value="false" />
+  <param name="bgcolor" value="#FFFFFF" />
+  <embed src="http://www.dvdpost.be/quizz/quizz_viewer11.swf?quizz_id=39&lang=1&customerzz=206183&email=tiguss@gmail.com&pseudo=Guillaume"
+         menu="false"
+         quality="high"
+         bgcolor="#FFFFFF"
+         allowscriptaccess="sameDomain"
+         type="application/x-shockwave-flash"
+         pluginspage="http://www.macromedia.com/go/getflashplayer"
+         align="center"
+         height="262"
+         width="302"> 
+</object>
+-->
