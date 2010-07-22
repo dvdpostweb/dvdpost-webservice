@@ -100,6 +100,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
   def self.filter(filter, options={})
+    
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if filter[:actor_id]
@@ -110,8 +111,16 @@ class Product < ActiveRecord::Base
     products = products.by_media(filter.media) if filter.media?  
     products = products.by_ratings(filter.rating_min, filter.rating_max) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year?
-    products = products.with_languages(filter.audio) if filter.audio?
-    products = products.with_subtitles(filter.subtitles) if filter.subtitles?
+    if filter.audio?
+      products = products.with_languages(filter.audio)
+    else
+      products = products.with_languages(options[:audio]) if options[:audio] 
+    end
+    if filter.subtitles?
+      products = products.with_subtitles(filter.subtitles) 
+    else
+      products = products.with_subtitles(options[:subtitles]) if options[:subtitles] 
+    end
     products = products.dvdpost_choice if filter.dvdpost_choice?
     if options[:view_mode]
       products = case options[:view_mode].to_sym

@@ -172,16 +172,6 @@ module ProductsHelper
     end
   end
 
-  def filter_path
-    if params[:category_id] && !params[:category_id].empty?
-      category_products_path(:category_id => params[:category_id])
-    elsif params[:actor_id] && !params[:actor_id].empty?
-      actor_products_path(:actor_id => params[:actor_id])
-    else
-      products_path
-    end
-  end
-
   def left_column_categories(selected_category)
     html_content = []
     Category.active.roots.movies.by_kind(:normal).remove_themes.ordered.collect do |category|

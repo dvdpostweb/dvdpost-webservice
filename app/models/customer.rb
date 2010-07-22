@@ -65,8 +65,6 @@ class Customer < ActiveRecord::Base
   end
 
   def encrypt_password
-    logger.debug(clear_pwd)
-    logger.debug('@@@')
      self.password= Digest::MD5.hexdigest(clear_pwd)
   end
   
@@ -131,6 +129,13 @@ class Customer < ActiveRecord::Base
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
+      filter.update_attributes(:recommended_ids => result_ids)
+      if(I18n.locale == 'nl')
+        options = options.merge(:subtitles => [2])
+      end
+      if(I18n.locale == 'fr')
+        options = options.merge(:audio => [1])
+      end
       filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
       Product.filter(filter, options.merge(:view_mode => :recommended))
     else
@@ -180,6 +185,7 @@ class Customer < ActiveRecord::Base
   def change_language(value)
     update_attribute(:customers_language, value)
   end
+
   private
   def convert_created_at
     begin
@@ -192,5 +198,4 @@ class Customer < ActiveRecord::Base
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
   end
-
 end

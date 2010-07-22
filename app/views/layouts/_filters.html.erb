@@ -1,0 +1,55 @@
+<% filter = current_customer.filter %>
+<% if filter && filter.used? %>
+  <ul id="filtered" class="clearfix">
+    <% if filter.media? %>
+      <li>
+        <strong><%= t 'products.index.technology' %></strong>
+        <%= filter.media.collect{|media| media.to_s.humanize}.join(', ') %>
+      </li>
+    <% end %>
+    <% if filter.audience? %>
+      <li>
+        <strong><%= t 'products.index.public' %></strong>
+        <%= "de #{filter.audience_min} à #{filter.audience_max}" %>
+      </li>
+    <% end %>
+    <% if filter.country_id? %>
+      <li>
+        <strong><%= t 'products.index.country' %></strong>
+        <%= filter.country_name %>
+      </li>
+    <% end %>
+    <% if filter.year? %>
+      <li>
+        <strong><%= t 'products.index.year' %></strong>
+        <%= "de #{filter.year_min} à #{filter.year_max}" %>
+      </li>
+    <% end %>
+    <% if filter.rating? %>
+      <li>
+        <strong><%= t 'products.index.ratings' %></strong>
+        <%= "de #{filter.rating_min} à #{filter.rating_max}" %>
+      </li>
+    <% end %>
+    <% if filter.dvdpost_choice? %>
+      <li>
+        <strong><%= t 'products.index.dvdpost_choice' %></strong>
+      </li>
+    <% end %>
+    <% if filter.audio? %>
+      <li>
+        <strong><%= t 'products.index.audio' %></strong>
+        <%= filter.audio_names %>
+      </li>
+    <% end %>
+    <% if filter.subtitles? %>
+      <li>
+        <strong><%= t 'products.index.subtitles' %></strong>
+        <%= filter.subtitle_names %>
+      </li>
+    <% end %>
+    <li id="close-f">
+      <%= link_to 'reset', filter_path(:id => 'destroy'), :method => :delete, :class => 'btn'  %>
+    </li>
+  </ul>
+<% end %>

@@ -1,4 +1,6 @@
 class Filter < ActiveRecord::Base
+  belongs_to :customer
+
   serialize :audio
   serialize :subtitles
   serialize :media
@@ -22,5 +24,21 @@ class Filter < ActiveRecord::Base
     self.audio = audio.keys.collect{|key| key.to_i} if audio? && audio.respond_to?(:keys)
     self.subtitles = subtitles.keys.collect{|key| key.to_i} if subtitles? && subtitles.respond_to?(:keys)
     self.media = media.symbolize_keys.keys if media? && media.respond_to?(:symbolize_keys)
+  end
+
+  def country_name
+    ProductCountry.find(country_id).name if country_id?
+  end
+
+  def audio_names
+    Language.find(audio).collect(&:name).join(', ') if audio?
+  end
+
+  def subtitle_names
+    Subtitle.by_language(I18n.locale).find(subtitles).collect(&:name).join(', ') if subtitles?
+  end
+
+  def used?
+    audience? || rating? || year? || media? || country_id? || dvdpost_choice? || audio? || subtitles?
   end
 end

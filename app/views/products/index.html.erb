@@ -1,45 +1,7 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
   <div id="title"><%= products_index_title %></div>
-  <% if @filters %>
-  <ul id="filtered" class="clearfix">
-    <li>
-      <strong><%= t '.technology' %></strong>
-      <%= params[:media].keys.join(', ') if params[:media] %>
-    </li>
-    <li>
-      <strong><%= t '.public' %></strong>
-      <%= "de #{params[:public_min]} à #{params[:public_max]}" if params[:public_min] && params[:public_max] %>
-    </li>
-    <li>
-      <strong><%= t '.country' %></strong>
-      <%= @selected_country.name if @selected_country %>
-    </li>
-    <li>
-      <strong><%= t '.year' %></strong>
-      <%= "de #{params[:year_min]} à #{params[:year_max]}" if params[:year_min] && params[:year_max] %>
-    </li>
-    <li>
-      <strong><%= t '.ratings' %></strong>
-      <%= "de #{params[:ratings_min]} à #{params[:ratings_max]}" if params[:ratings_min] && params[:ratings_max] %>
-    </li>
-    <li>
-      <strong><%= t '.dvdpost_choice' %></strong>
-      <%= params[:dvdpost_choice] ? 'yes' : 'no' %>
-    </li>
-    <li>
-      <strong><%= t '.audio' %></strong>
-      <%= Language.find(params[:languages].keys).collect(&:name).join(', ') if params[:languages] %>
-    </li>
-    <li>
-      <strong><%= t '.subtitles' %></strong>
-      <%= Subtitle.by_language(I18n.locale).find(params[:subtitles].keys).collect(&:name).join(', ') if params[:subtitles] %>
-    </li>
-    <li id="close-f">
-      <%= link_to 'reset', nil, :class => 'btn'%>
-    </li>
-  </ul>
-  <% end %>
+  <%= render :partial => 'layouts/filters' %>
   <div id="titles-wrap">
     <div class="top"></div>
     <%= render :partial => 'products/index/movie_detail', :collection => @products %>
