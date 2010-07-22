@@ -1,12 +1,14 @@
 <div id="carousel">
   <ul>
     <% previous_list.each do |old_quizz| %>
-      <li>
-        <%= image_tag carousel_image_url(old_quizz) %>
-        <span>
-          <%= old_quizz.quizz_name %>
-        </span>
-      </li>
+      <% link_to quiz_path(:id => old_quizz.to_param) do %>
+        <li>
+          <%= image_tag carousel_image_url(old_quizz) %>
+          <span>
+            <%= old_quizz.quizz_name %>
+          </span>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
