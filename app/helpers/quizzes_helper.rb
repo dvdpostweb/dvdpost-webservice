@@ -6,7 +6,7 @@ module QuizzesHelper
     "#{url}?#{params}"
   end
 
-  def carousel_url(quizz)
+  def carousel_image_url(quizz)
     "http://www.dvdpost.be/images/www3/languages/english/images/old_quizz/q#{quizz.quizz_name_id}.gif"
   end
 end

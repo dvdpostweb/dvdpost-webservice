@@ -14,7 +14,7 @@
           <%= render :partial => 'quizzes/show/flash', :locals => {:quizz => @quizz_name, :customer => current_customer} %>
         </div>
         <h3 align="center">
-          60 secondes pour tester vos connaissances cinéma
+          <%= @quizz_name.quizz_name %>
         </h3>
         <p>
           Répondez à autant de questions que vous le pouvez en 60 secondes. Plus vous répondez vite, plus vous gagnez de points.
@@ -26,11 +26,11 @@
           Vous pouvez jouer autant de fois que vous voulez. Seul le meilleur score sera retenu.
         </p>
       </div>
+      
       <h3>Quizz précédents</h3>
       <div id="carousel-wrap">
         <%= render :partial => 'quizzes/show/carousel', :locals => { :previous_list => @previous_list } %>
       </div>
-
       <div class="end"></div>
     </div>
   </div>
