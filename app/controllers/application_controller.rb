@@ -39,12 +39,8 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_params
-    if current_customer
-      default = DVDPost.customer_languages.invert[current_customer.language]
-    else
-      default = 'fr'
-    end
-    params[:locale]||= default
+    default = current_customer ? DVDPost.customer_languages.invert[current_customer.language] : :fr
+    params[:locale] ||= default
     available_locales.include?(params[:locale].to_sym) ? params[:locale] : nil
   end
 
