@@ -131,8 +131,8 @@ class Customer < ActiveRecord::Base
       result_ids = recommendation_ids - hidden_ids
       build_filter unless filter
       filter.update_attributes(:recommended_ids => result_ids)
-      options = options.merge(:subtitles => [2]) if I18n.locale == :nl
-      options = options.merge(:audio => [1]) if I18n.locale == :fr
+      options.merge!(:subtitles => [2]) if I18n.locale == :nl
+      options.merge!(:audio => [1]) if I18n.locale == :fr
       filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
       Product.filter(filter, options.merge(:view_mode => :recommended))
     else
