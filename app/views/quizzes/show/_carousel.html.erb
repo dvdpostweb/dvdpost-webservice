@@ -1,0 +1,14 @@
+<div id="carousel">
+  <ul>
+    <% previous_list.each do |old_quizz| %>
+      <li>
+        <%= image_tag carousel_image(old_quizz) %>
+        <span>
+          <%= old_quizz.quizz_name %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<a href="#" id="prev" class="like-btn">Previous</a>
+<a href="#" id="next" class="like-btn">Next</a>

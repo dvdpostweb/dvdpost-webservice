@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
   def show
     @quizz_name = QuizzName.on_focus
+    @previous_list = QuizzName.previous_list
   end
   
   def create
