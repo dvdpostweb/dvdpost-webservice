@@ -11,6 +11,6 @@
       <% end %>
     <% end %>
   </ul>
+  <%= will_paginate previous_list, :previous_label => 'Prev', :next_label => '', :page_links => false, :id => 'prev', :class => 'like-btn', :container => false %>
+  <%= will_paginate previous_list, :previous_label => '', :next_label => 'Next', :page_links => false, :id => 'next', :class => 'like-btn', :container => false %>
 </div>
-<a href="#" id="prev" class="like-btn">Previous</a>
-<a href="#" id="next" class="like-btn">Next</a>
