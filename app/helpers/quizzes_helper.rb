@@ -7,6 +7,6 @@ module QuizzesHelper
   end
 
   def carousel_image_url(quizz)
-    "http://www.dvdpost.be/images/www3/languages/english/images/old_quizz/q#{quizz.quizz_name_id}.gif"
+    "#{DVDPost.images_language_path[I18n.locale]}/old_quizz/q#{quizz.quizz_name_id}.gif"
   end
 end
