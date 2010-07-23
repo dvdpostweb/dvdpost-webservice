@@ -1,0 +1,11 @@
+<li>
+	<span class="pic-wrap"><%= image_tag "#{I18n.locale}/#{item.points}pts.jpg" %></span>
+	<h3><%= item.gift_name_fr %></h3>
+  <% if current_customer.inviation_points >= item.points %>
+    <form method='post' action='member_get_member_points_process.php'>
+			<input type='image' src='/images/<%= I18n.locale %>/echanger-btn.png' class='parrainner'>
+		</form>
+  <% else %>
+    <%= link_to 'Parrainner plus d\'amis', sponsorships_path, :class => "btn parrainner parrainner_#{I18n.locale}" %>
+  <% end %>
+  </li>
