@@ -1,0 +1,8 @@
+fr:
+  quizzes:
+    show:
+      title: Quizz Cinéma
+      explanation_1: Répondez à autant de questions que vous le pouvez en 60 secondes. Plus vous répondez vite, plus vous gagnez de points.
+      explanation_2: Cliquez sur le bouton "JOUER" pour commencer.
+      explanation_3: Vous pouvez jouer autant de fois que vous voulez. Seul le meilleur score sera retenu.
+      former: Quizz précédents

@@ -7,7 +7,7 @@ class QuizzName < ActiveRecord::Base
   alias_attribute :type, :quizz_type
 
   named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
-  named_scope :previous_list, :conditions => ['focus = 2']
+  named_scope :previous_list, lambda{|limit| {:conditions => ['focus = 2'], :limit => limit}}
 
   def self.on_focus
     find_by_focus(1)

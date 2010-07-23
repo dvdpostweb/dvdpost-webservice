@@ -124,10 +124,6 @@ module ApplicationHelper
     php_path 'member_get_member.php'
   end
 
-  def quizz_path
-    php_path 'quizz.php'
-  end
-
   def who_we_are_path
     php_path 'whoweare.php'
   end

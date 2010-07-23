@@ -7,6 +7,17 @@ module QuizzesHelper
   end
 
   def carousel_image_url(quizz)
-    "http://www.dvdpost.be/images/www3/languages/english/images/old_quizz/q#{quizz.quizz_name_id}.gif"
+    "#{DVDPost.images_language_path[I18n.locale]}/old_quizz/q#{quizz.quizz_name_id}.gif"
+  end
+
+  def quiz_dimensions(quizz)
+    case quizz.quizz_type
+      when 1
+        'height="262" width="302"'
+      when 2
+        'height="370" width="335"'
+      when 4
+        'height="430" width="335"'
+    end
   end
 end
