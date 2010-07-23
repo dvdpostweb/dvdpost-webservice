@@ -830,7 +830,7 @@ a#next10 {
 
 /* My WishList Page */
 
-#mywhishlist #maincontent, #one-col #maincontent, #info #maincontent {
+#mywhishlist #maincontent, #one-col #maincontent, #info #maincontent, #sponsorships #maincontent {
   background: url(../images/content-bg-wishlist.gif) 0 0 repeat-y;
   float: none;
   margin: 24px 0 24px 24px !important;
@@ -857,7 +857,7 @@ a#next10 {
   width: 18px;
 }
 
-#mywhishlist #maincontent .top, #mywhishlist #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end, #info #maincontent .top, #info #maincontent .end {
+#mywhishlist #maincontent .top, #mywhishlist #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end, #info #maincontent .top, #info #maincontent .end, #sponsorships #maincontent .end {
   background-image: url(../images/content-end-bg-wishlist.gif);
   background-position: 0 0;
   background-repeat: no-repeat;

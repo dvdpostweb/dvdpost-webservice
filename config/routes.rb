@@ -78,5 +78,12 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :filters, :only => [:create, :destroy]
+
+    localized.resource :sponsorships do |sponsorship|
+      sponsorship.gift 'gift' , :controller => :sponsorships, :action => :gift
+      sponsorship.faq 'faq' , :controller => :sponsorships, :action => :faq
+      sponsorship.more 'more' , :controller => :sponsorships, :action => :more
+    end
+
   end
 end
