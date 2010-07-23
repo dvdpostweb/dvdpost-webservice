@@ -41,4 +41,19 @@ class Filter < ActiveRecord::Base
   def used?
     audience? || rating? || year? || media? || country_id? || dvdpost_choice? || audio? || subtitles?
   end
+
+  def update_with_defaults(options)
+    defaults = {:country_id       => nil,
+                :audience_min     => 0,
+                :audience_max     => 18,
+                :rating_min       => 0,
+                :rating_max       => 5,
+                :year_min         => 0,
+                :year_max         => 2020,
+                :audio            => nil,
+                :subtitles        => nil,
+                :recommended_ids  => nil,
+                :dvdpost_choice   => false}
+    update_attributes(defaults.merge(options))
+  end
 end
