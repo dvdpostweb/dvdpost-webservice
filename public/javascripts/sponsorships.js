@@ -52,7 +52,7 @@ $(function() {
     });
     return false;
   });
-  $("#special-offer .btn").live("click", function() {
+  $(".content #summer .btn").live("click", function() {
     wishlist_item = $(this);
     jQuery.facebox(function() {
       $.getScript(wishlist_item.attr('href'), function(data) {
@@ -86,6 +86,17 @@ $(function() {
     $('#inv-form').html(content)
     return false;
   })
-  
+  var options = {
+    	success: showResponse  // post-submit callback
+	};
+	function showResponse(responseText, statusText)  {
+    	$('#additional_div').html(responseText);
+  }
+  $('#submit_additional').live("click", function(){
+    loader = 'loading.gif';
+    $('.content form.new_additional_card').ajaxSubmit(options);
+    $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    return false; // prevent default behaviour
+  });
 
 });

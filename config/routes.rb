@@ -80,9 +80,12 @@ ActionController::Routing::Routes.draw do |map|
     localized.resources :filters, :only => [:create, :destroy]
 
     localized.resource :sponsorships do |sponsorship|
-      sponsorship.gift 'gift' , :controller => :sponsorships, :action => :gift
-      sponsorship.faq 'faq' , :controller => :sponsorships, :action => :faq
-      sponsorship.more 'more' , :controller => :sponsorships, :action => :more
+      sponsorship.gifts 'gifts', :controller => :sponsorships, :action => :gifts, :conditions => {:method => :get}
+      sponsorship.promotion 'promotion', :controller => :sponsorships, :action => :promotion, :conditions => {:method => :get}
+      sponsorship.resource :email, :controller => :sponsorships_emails, :only => [:create]
+      sponsorship.resource :gifts_history, :only => [:create]
+      sponsorship.faq 'faq', :controller => :sponsorships, :action => :faq, :conditions => {:method => :get}
+      sponsorship.resource :additional_card, :only => [:new, :create]
     end
 
   end

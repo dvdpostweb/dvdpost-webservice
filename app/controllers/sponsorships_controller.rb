@@ -5,11 +5,13 @@ class SponsorshipsController < ApplicationController
     @ok = current_customer.sponsorships.ok.ordered.group_by_son
 
     @gifts_history= current_customer.gifts_history.ordered
-    
+
     @current = "sponsor"
+
+    @sponsorships_email = SponsorshipEmail.new
   end
 
-  def gift
+  def gifts
     @gifts = Gift.status.ordered
     @current = "gift"
   end
@@ -18,7 +20,8 @@ class SponsorshipsController < ApplicationController
     @current = "faq"
   end
 
-  def more
+  def promotion
+    @email = Email.by_language(I18n.locale).find(DVDPost.email[:sponsorships_invitation])
     respond_to do |format|
       format.html
       format.js {render :layout => false}

@@ -124,6 +124,10 @@ module ApplicationHelper
     php_path 'member_get_member.php'
   end
 
+  def quizz_path
+    php_path 'quizz.php'
+  end
+
   def who_we_are_path
     php_path 'whoweare.php'
   end
@@ -207,5 +211,13 @@ module ApplicationHelper
     else
       product.title
     end
+  end
+
+  def email_data_replace(text,options)
+    options.each {|key, value| 
+      r = Regexp.new(key, true)
+      text = text.gsub(r, value)
+    }
+    text
   end
 end

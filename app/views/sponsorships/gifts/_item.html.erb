@@ -2,10 +2,12 @@
 	<span class="pic-wrap"><%= image_tag "#{I18n.locale}/#{item.points}pts.jpg" %></span>
 	<h3><%= item.gift_name_fr %></h3>
   <% if current_customer.inviation_points >= item.points %>
-    <form method='post' action='member_get_member_points_process.php'>
-			<input type='image' src='/images/<%= I18n.locale %>/echanger-btn.png' class='parrainner'>
-		</form>
+    <% form_for :gifts_history, :url => sponsorships_gifts_history_path do |f| %>
+      <%= f.hidden_field :gift_id, :value => item.to_param %>
+      <%= f.hidden_field :points, :value => item.points %>
+			<%= submit_tag t(".exchange"), :id => "gift" %>
+		<% end %>
   <% else %>
-    <%= link_to 'Parrainner plus d\'amis', sponsorships_path, :class => "btn parrainner parrainner_#{I18n.locale}" %>
+    <%= link_to t('.more'), sponsorships_path, :class => "btn parrainner" %>
   <% end %>
   </li>

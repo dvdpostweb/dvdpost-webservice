@@ -1,17 +1,17 @@
 <div id="points">
   <h3><%= t('.your_point') %> <span><strong><%= current_customer.inviation_points %></strong> <%= t('.points') %></span></h3>
-  	<%= link_to t('.change'), sponsorships_gift_path, :class => "btn btn_#{I18n.locale}" %>
+  	<%= link_to t('.change'), sponsorships_gifts_path, :class => "btn" %>
 </div>
 <div class="content">
 	<p><strong><%= t('.slogan1') %></strong></p>
 	<p><%= t('.slogan2') %></p>
 	<p><%= t('.slogan3') %></p>
 	<p class="note"><%= t('.slogan4') %></p>
+	<p id ='summer'><%= link_to t('.command'), new_sponsorships_additional_card_path, :class => "btn" %></p>
 </div>
 <div id="special-offer">
 	<h3><%= t('.summer_offer') %></h3>
 	<p><%= t('.slogan_summer') %>
-	  <%= link_to 'command', sponsorships_more_path, :class => "btn btn_#{I18n.locale}" %>
 	</p>
 </div>
 <div class="clear"></div>		
@@ -19,7 +19,7 @@
 <!--Tabs -->
 <ul id="tabs">
 	<li><%= link_to t('.home'), sponsorships_path, :class => (( current_link == 'sponsor') ? 'current': '') %></li>
-	<li><%= link_to t('.gift'), sponsorships_gift_path, :class => (( current_link == 'gift') ? 'current': '') %></li>
+	<li><%= link_to t('.gift'), sponsorships_gifts_path, :class => (( current_link == 'gift') ? 'current': '') %></li>
 	<li><%= link_to 'Faqs', sponsorships_faq_path, :class => (( current_link == 'faq') ? 'current': '') %></li>
 </ul>
 <!--Tabs content -->

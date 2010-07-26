@@ -6,8 +6,7 @@
 	<p>
   	<table align='center'>
   	  <tr>
-        <% total = 5 %>
-        <% #total=(5-$value['nb']) %>
+        <% total=(5 - @number) %>
         <% for n in 1..total %>
         	<td align="center"><input type="radio" name="card" value="<%= n %>" /></td>
         <% end %>
