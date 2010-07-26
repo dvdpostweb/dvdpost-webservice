@@ -36,3 +36,10 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 end
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+   :address => "192.168.100.11",
+   :port => "25",
+   :authentication => :none,
+}
+ActionMailer::Base.default_content_type = "text/html"

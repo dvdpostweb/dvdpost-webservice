@@ -88,7 +88,6 @@
   background: white;
   margin-bottom: 0;
  height: 131px;
- overflow: hidden;
 }
 #concours-wrap #carousel ul {
   top: 12px;
@@ -126,7 +125,7 @@
   width: 16px;
   height: 160px;
   display: block;
-  top: 0;
+  top: 72px !important;
 
 }
 #concours-wrap #carousel-wrap #next {

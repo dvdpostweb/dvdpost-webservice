@@ -17,7 +17,6 @@ vertical-align:middle;
 .btn {
   display: -moz-inline-box;
   display: inline-block;
-  text-indent: -999em;
   outline: none;
 }
 
@@ -62,19 +61,14 @@ vertical-align:middle;
   font-size: 36px;
 }
 #tool-wrap #points a.btn {
-  width: 211px;
-  height: 37px;
-  display: block;
-  margin-left: 3px;
-}
-#tool-wrap #points a.btn_fr {
-  background: url(../images/fr/echangez-vos-points-btn.png) 0 0 no-repeat;
-}
-#tool-wrap #points a.btn_nl {
-  background: url(../images/nl/echangez-vos-points-btn.png) 0 0 no-repeat;
-}
-#tool-wrap #points a.btn_en {
-  background: url(../images/en/echangez-vos-points-btn.png) 0 0 no-repeat;
+  background:url("../images/echangez-vos-points-btn.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  display:block;
+  font-size:18px;
+  height:28px;
+  margin-left:3px;
+  padding:10px 0 0;
+  width:214px;
 }
 #tool-wrap #points a#parrainez {
   background-image: url(../images/parrainez-un-ami-btn.png);
@@ -131,20 +125,19 @@ vertical-align:middle;
   display: block;
   font-size: 15px;
 }
-#tool-wrap #special-offer a.btn {
-  width: 146px;
-  height: 23px;
-  display: block;
-  margin: 3px 0 0 9px;
+.content #summer a.btn {
+  background:url("../images/commander-plus-btn.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  display:block;
+  height:24px;
+  margin:3px 0 0 9px;
+  padding:14px 0 0;
+  text-align:center;
+  width:253px;
 }
-#tool-wrap #special-offer a.btn_fr {
-   background: url(../images/fr/commander-plus-btn.png) 0 0 no-repeat;
-}  
-#tool-wrap #special-offer a.btn_nl {
-   background: url(../images/nl/commander-plus-btn.png) 0 0 no-repeat;
-}
-#tool-wrap #special-offer a.btn_en {
-   background: url(../images/en/commander-plus-btn.png) 0 0 no-repeat;
+.content p#summer 
+{
+  padding: 0 0 0 50px !important;
 }
 
 #tool-wrap #tabs {
@@ -352,20 +345,15 @@ font-weight: bold;
  float: left;
 }
 #tool-wrap .tab-content #gifts li a.parrainner {
-  display: block;
-  width: 166px;
-  height: 29px;
-  margin: 6px 0 0 32px;
-  float: left;
-}
-#tool-wrap .tab-content #gifts li a.parrainner_fr {
-  background: url(../images/fr/parrainner-plus-damis-btn.png) 0 0 no-repeat;
-}  
-#tool-wrap .tab-content #gifts li a.parrainner_nl {
-  background: url(../images/nl/parrainner-plus-damis-btn.png) 0 0 no-repeat;
-}
-#tool-wrap .tab-content #gifts li a.parrainner_en {
-  background: url(../images/en/parrainner-plus-damis-btn.png) 0 0 no-repeat;
+  background:url("../images/parrainner-plus-damis-btn.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  display:block;
+  float:left;
+  font-size:14px;
+  height:26px;
+  margin:6px 0 0 32px;
+  padding:8px 0 0;
+  width:170px;
 }
 
 
@@ -463,21 +451,40 @@ font-weight: bold;
   font-weight: 1.17em;
   line-height: 1.33em;
 }
+#submit_additional
+{
+  background:url("../images/echanger-btn.png") no-repeat scroll 0 0 transparent;
+  border-style:none;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+  height:29px;
+  width:112px;
+}
 
+#gift
+{
+  background:url("../images/echanger-btn.png") no-repeat scroll 0 0 transparent;
+  border-style:none;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+  height:29px;
+  width:112px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#mail_send
+{
+  background:url("../images/mail_send.png") no-repeat scroll 0 0 transparent !important;
+  border-style:none !important;
+  color:white !important;
+  cursor:pointer;
+  font-weight:bold;
+  height:27px;
+  text-align:center;
+  width:154px !important;
+}
+#mail_send:hover
+{
+  background:url("../images/mail_send.png") no-repeat scroll 0 -37px transparent !important;
+}
