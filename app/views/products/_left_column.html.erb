@@ -1,6 +1,6 @@
 <!--   ==============   LEFT COLUMN   ==============   -->
 <div id="leftcolumn">
-  <% form_for :filter, filter, {:url => filters_path(:view_mode => params[:view_mode]), :html => {:id => 'search'}} do |f| %>
+  <% form_for :filter, filter, {:url => filters_path(:view_mode => params[:view_mode], :list_id => params[:list_id], :category_id => params[:category_id]), :html => {:id => 'search'}} do |f| %>
     <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <ul id="left-nav">
