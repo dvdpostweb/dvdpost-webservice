@@ -1,22 +1,21 @@
 <div id="suspend-abonament">
-	<h3><%= t('.title') %></h3>
-	<% if @already_suspended %>
-	  <% if @expiration_holidays_date %>
+  <h3><%= t('.title') %></h3>
+  <% if @already_suspended %>
+    <% if @expiration_holidays_date %>
       <p align='center'><%= t('.already_date', :date => @expiration_holidays_date.strftime("%d/%m/%Y")) %></p>
     <% else %>
       <p align='center'><%= t('.already') %></p>
     <% end %>
-	<% else %>
-	  <% if @too_many_suspensions %>
-	    <p align='center'><%= t('.tree_times') %></p>
-	  <% else %>
-    	<%= t('.explanation') %>
-    	<% form_for :suspensions, :url => customer_suspension_path do |f| %>
-    		<label><%= t('.duration') %> :</label>
-    		<%= f.collection_select(:duration, duration_collection_for_select, :last, :first) %>
-    		<button type="submit" id="new_suspension"><span><strong><%= t('.confirm')%></strong></span></button>
-    	<% end %>
-  	<% end %>
+  <% else %>
+    <% if @too_many_suspensions %>
+      <p align='center'><%= t('.tree_times') %></p>
+    <% else %>
+      <%= t('.explanation') %>
+      <% form_for :suspensions, :url => customer_suspension_path do |f| %>
+        <label><%= t('.duration') %> :</label>
+        <%= f.collection_select(:duration, duration_collection_for_select, :last, :first) %>
+        <button type="submit" id="new_suspension"><span><strong><%= t('.confirm')%></strong></span></button>
+      <% end %>
+    <% end %>
   <% end %>
-  
 </div>

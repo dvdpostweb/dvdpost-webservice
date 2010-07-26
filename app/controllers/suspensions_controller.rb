@@ -46,5 +46,4 @@ class SuspensionsController < ApplicationController
   def suspension_count_current_year
     Suspension.holidays.last_year.find_all_by_customer_id(current_customer.to_param).count
   end
-
 end
