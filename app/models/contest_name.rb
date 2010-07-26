@@ -7,10 +7,10 @@ class ContestName < ActiveRecord::Base
   named_scope :ordered, :order => "validity ASC"
 
   def image
-    File.join(DVDPost.images_language_path[I18n.locale], banner) unless banner.empty?
+    File.join(DVDPost.images_language_path[I18n.locale], banner) unless banner.blank?
   end
 
   def image_big
-    File.join(DVDPost.images_language_path[I18n.locale], jaquette) unless jaquette.empty?
+    File.join(DVDPost.images_language_path[I18n.locale], jaquette) unless jaquette.blank?
   end
 end
