@@ -2,7 +2,7 @@ module HomeHelper
   def link_to_banner_image(type)
     case type
       when 'quizz'
-        link_to image_tag(@quizz.image), quizzes_path
+        link_to image_tag(@quizz.image), quizz_path
       when 'contest'
         link_to image_tag(@contest.image), new_contest_path
       when 'shop'
