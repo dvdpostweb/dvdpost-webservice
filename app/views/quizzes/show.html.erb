@@ -35,8 +35,10 @@
       <h3>
         <%= t '.former' %>
       </h3>
-      <div id="carousel-wrap">
-        <%= render :partial => 'quizzes/show/carousel', :locals => { :previous_list => @previous_list } %>
+      <div id="concours-wrap">
+        <div id="carousel-wrap">
+          <%= render :partial => 'quizzes/show/carousel', :locals => { :previous_list => @previous_list } %>
+        </div>
       </div>
       <div class="end"></div>
     </div>

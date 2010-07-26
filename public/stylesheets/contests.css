@@ -120,7 +120,7 @@
   text-transform: uppercase;
   overflow: hidden;
 }
-#concours-wrap #carousel-wrap #next, #concours-wrap #carousel-wrap #prev {
+#concours-wrap #carousel-wrap .next_page, #concours-wrap #carousel-wrap .prev_page {
   position: absolute;
   width: 16px;
   height: 160px;
@@ -128,16 +128,16 @@
   top: 72px !important;
 
 }
-#concours-wrap #carousel-wrap #next {
-  right: -14px !important;
-  background: url(../images/quizz-right-arrow.png) 0 0 no-repeat;
+#concours-wrap #carousel-wrap .next_page {
+  right: -17px !important;
+  background: url(../images/carousel-arrows.png) 100% 0 no-repeat;
 }
-* html #concours-wrap #carousel-wrap #next {
-  right: -12px !important;
+* html #concours-wrap #carousel-wrap .next_page {
+  right: -17px !important;
 }
-#concours-wrap #carousel-wrap #prev {
-  left: -13px;
-  background: url(../images/quizz-left-arrow.png) 0 0 no-repeat;
+#concours-wrap #carousel-wrap .prev_page {
+  left: -17px;
+  background: url(../images/carousel-arrows.png) 0 0 no-repeat;
 }
 
 
