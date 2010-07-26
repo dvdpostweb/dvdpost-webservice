@@ -1,6 +1,5 @@
 $(function() {
   // Ajax history, only works on the product.reviews for now
-  
 
   $(".suppendre_newsletter").live("click", function() {
     url = $(this).attr('href');
@@ -39,7 +38,7 @@ $(function() {
     });
     return false;
   });
-  
+
   $(".add_normal").live("click", function() {
     url = $(this).attr('href');
     html_item = $(this).parent().parent().parent().parent();
@@ -96,8 +95,8 @@ $(function() {
     return false;
   });
   var options = {
-    	success: showResponse  // post-submit callback
-	};
+    success: showResponse  // post-submit callback
+  };
   $('#submit_account').live("click", function(){
     loader = 'ajax-loader.gif';
     $('.bouton_probleme').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
@@ -110,24 +109,24 @@ $(function() {
     $('.content form').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
-    	 
+
   // post-submit callback
   function showResponse(responseText, statusText)  {
-  	if(jQuery.trim(responseText) == "Success"){
-  	  $.facebox.close;
-  	  window.location.href = window.location.pathname;
+    if(jQuery.trim(responseText) == "Success"){
+      $.facebox.close;
+      window.location.href = window.location.pathname;
     } else {
-    	$('.content').html(responseText);
+      $('.content').html(responseText);
     }
   }
   $('#change_password').live("click", function(){
-    
+
     $('#password').html('<input type="password" value="" size="30" name="customer[clear_pwd]" id="customer_clear_pwd">')
     $('#password_confirmation').show();
     $(this).hide();
     return false; // prevent default behaviour
   });
-  
+
   $(".suppendre").live("click", function() {
     url = $(this);
     jQuery.facebox(function() {
@@ -137,8 +136,7 @@ $(function() {
     });
     return false;
   });
-  
-  
+
   $('#new_suspension').live("click", function(){
     loader = 'ajax-loader.gif';
     $('#new_suspension').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")

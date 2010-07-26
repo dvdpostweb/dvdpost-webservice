@@ -1,7 +1,4 @@
-<% content_for :style do %>
-<%= stylesheet_link_tag 'customers' %>
-<% end %>
-
+<%= stylesheet 'customers' %>
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div class="account">
   <%= render :partial => 'customers/show/account', :locals => {:customer => @customer} %>
