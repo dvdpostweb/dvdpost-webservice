@@ -31,7 +31,7 @@ class Filter < ActiveRecord::Base
   end
 
   def audio_names
-    Language.find(audio).collect(&:name).join(', ') if audio?
+    Language.by_language(I18n.locale).find(audio).collect(&:name).join(', ') if audio?
   end
 
   def subtitle_names
@@ -43,17 +43,18 @@ class Filter < ActiveRecord::Base
   end
 
   def update_with_defaults(options)
-    defaults = {:country_id       => nil,
-                :audience_min     => 0,
-                :audience_max     => 18,
-                :rating_min       => 0,
-                :rating_max       => 5,
-                :year_min         => 0,
-                :year_max         => 2020,
-                :audio            => nil,
-                :subtitles        => nil,
-                :recommended_ids  => nil,
-                :dvdpost_choice   => false}
-    update_attributes(defaults.merge(options))
+    self.media            = nil || options[:media]
+    self.country_id       = nil || options[:country_id]
+    self.audience_min     = nil || options[:audience_min]
+    self.audience_max     = nil || options[:audience_max]
+    self.rating_min       = nil || options[:rating_min]
+    self.rating_max       = nil || options[:rating_max]
+    self.year_min         = nil || options[:year_min]
+    self.year_max         = nil || options[:year_max]
+    self.audio            = nil || options[:audio]
+    self.subtitles        = nil || options[:subtitles]
+    self.recommended_ids  = nil || options[:recommended_ids]
+    self.dvdpost_choice   = nil || options[:dvdpost_choice]
+    save
   end
 end
