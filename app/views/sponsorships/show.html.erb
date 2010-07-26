@@ -1,71 +1,69 @@
-<% content_for :style do %>
-  <%= stylesheet_link_tag 'sponsorships' %>
-  <% end %>
-  <!--   ==============   MAIN CONTENT   ==============   -->
-  <div id="maincontent" >
-    <div class="top"></div>
-    <h2><%= t('.share') %></h2>
-    <div id="tool-wrap">
-      <div id="points-wrap">
-        <%= render :partial => 'sponsorships/header', :locals => { :current_link => @current } %>
-        <div class="content">
-          <h2><%= t('.reason') %></h2>
-          <h3>1. <%= t('.simple') %></h3>
-          <p><%= t('.simple2') %> &laquo;<%= t('.send') %>&raquo;. </p>
-          <p><%= t('.free') %></p>
-          <p><%= t('.plus') %></p>
-          <h3>2. <%= t('.win') %>
-            <%= link_to t('.gift'), sponsorships_gifts_path %> !
-          </h3>
-          <p><%= t('.slogan_final') %></p>				
-        </div>
-        <div id="invitation">
-          <%= link_to t('.invitation'), sponsorships_promotion_path, :id => "modal_invatation" %>
-          <%= link_to image_tag('invitation-thumb.jpg'), sponsorships_promotion_path, :id => "modal_invatation2" %>
-        </div>
-        <div class="clear"></div>
-        <%= render :partial => 'sponsorships/show/email_form' %>
-        <div class="history">
-          <h3> <%= t('.history')  %></h3>
-          <table border="0" cellspacing="0" cellpadding="4">
-            <colgroup>
-            <col class="col1" />
-            <col class="col2" />
-            <col class="col3" />
-            <col class="col4" />
-            <col class="col5" />
-          </colgroup>
-          <tr>
-            <th><%= t('.lastname') %></th>
-            <th><%= t('.firstname') %></th>
-            <th class="brdr"><%= t('.date')  %></th>
-            <th class="brdr"><%= t('.status')  %></th>
-            <th class="brdr"><%= t('.points')  %></th>
-          </tr>
-          <%= render :partial => 'sponsorships/show/son', :collection => @ok, :locals => { :type => 'ok'}  %>
-          <%= render :partial => 'sponsorships/show/son', :collection => @free, :locals => { :type => 'free'} %>
-          <%= render :partial => 'sponsorships/show/son', :collection => @stop, :locals => { :type => 'stop'} %>
-        </table>
+<%= stylesheet 'sponsorships' %>
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div class="top"></div>
+  <h2><%= t('.share') %></h2>
+  <div id="tool-wrap">
+    <div id="points-wrap">
+      <%= render :partial => 'sponsorships/header', :locals => { :current_link => @current } %>
+      <div class="content">
+        <h2><%= t('.reason') %></h2>
+        <h3>1. <%= t('.simple') %></h3>
+        <p><%= t('.simple2') %> &laquo;<%= t('.send') %>&raquo;. </p>
+        <p><%= t('.free') %></p>
+        <p><%= t('.plus') %></p>
+        <h3>2. <%= t('.win') %>
+          <%= link_to t('.gift'), sponsorships_gifts_path %> !
+        </h3>
+        <p><%= t('.slogan_final') %></p>
       </div>
+      <div id="invitation">
+        <%= link_to t('.invitation'), sponsorships_promotion_path, :id => "modal_invatation" %>
+        <%= link_to image_tag('invitation-thumb.jpg'), sponsorships_promotion_path, :id => "modal_invatation2" %>
+      </div>
+      <div class="clear"></div>
+      <%= render :partial => 'sponsorships/show/email_form' %>
       <div class="history">
-        <h3> <%= t('.history_gift')  %></h3>
+        <h3> <%= t('.history')  %></h3>
         <table border="0" cellspacing="0" cellpadding="4">
           <colgroup>
-          <col class="col6" />
+          <col class="col1" />
+          <col class="col2" />
           <col class="col3" />
           <col class="col4" />
           <col class="col5" />
         </colgroup>
         <tr>
-          <th><%= t('.gift_type')  %></th>
-          <th class="brdr"><%= t('.date_echange') %></th>
-          <th class="brdr"><%= t('.history_status')  %></th>
+          <th><%= t('.lastname') %></th>
+          <th><%= t('.firstname') %></th>
+          <th class="brdr"><%= t('.date')  %></th>
+          <th class="brdr"><%= t('.status')  %></th>
           <th class="brdr"><%= t('.points')  %></th>
         </tr>
-        <%= render :partial => 'sponsorships/show/gifts_history', :collection => @gifts_history %>
+        <%= render :partial => 'sponsorships/show/son', :collection => @ok, :locals => { :type => 'ok'}  %>
+        <%= render :partial => 'sponsorships/show/son', :collection => @free, :locals => { :type => 'free'} %>
+        <%= render :partial => 'sponsorships/show/son', :collection => @stop, :locals => { :type => 'stop'} %>
       </table>
     </div>
+    <div class="history">
+      <h3> <%= t('.history_gift')  %></h3>
+      <table border="0" cellspacing="0" cellpadding="4">
+        <colgroup>
+        <col class="col6" />
+        <col class="col3" />
+        <col class="col4" />
+        <col class="col5" />
+      </colgroup>
+      <tr>
+        <th><%= t('.gift_type')  %></th>
+        <th class="brdr"><%= t('.date_echange') %></th>
+        <th class="brdr"><%= t('.history_status')  %></th>
+        <th class="brdr"><%= t('.points')  %></th>
+      </tr>
+      <%= render :partial => 'sponsorships/show/gifts_history', :collection => @gifts_history %>
+    </table>
   </div>
 </div>
 </div>
-<!--   ==============   END MAIN CONTENT   ==============   -->    
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->
