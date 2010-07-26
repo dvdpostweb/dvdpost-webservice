@@ -14,4 +14,16 @@ class Public < ActiveRecord::Base
   def image
     "public_#{name}.gif"
   end
+
+  def self.legacy_age_ids(min, max)
+    ages = []
+    if max.to_i == 0
+      ages << DVDPost.product_publics[:all]
+    else
+      ages << DVDPost.product_publics.keys.collect do |age|
+        DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i, max.to_i)
+      end
+    end  
+    ages.flatten.uniq.compact
+  end
 end

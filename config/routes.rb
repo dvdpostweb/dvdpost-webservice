@@ -20,36 +20,38 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :products, :only => [:index, :show] do |product|
-      product.resource :rating, :only => :create
-      product.rating 'rating', :controller => :ratings, :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
+      product.resource  :rating,         :only => :create
+      product.resources :reviews,        :only => [:new, :create]
       product.resources :wishlist_items, :only => [:new, :create]
-      product.resources :reviews, :only => [:new, :create]
+      product.rating       'rating',       :controller => :ratings,  :action => :create, :conditions => {:method => :get} # This one is the same as above. Used for the views (GET)
+      product.awards       'awards',       :controller => :products, :action => :awards
+      product.seen         'seen',         :controller => :products, :action => :seen
+      product.trailer      'trailer',      :controller => :products, :action => :trailer, :conditions => {:method => :get}
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
-      product.seen 'seen', :controller => :products, :action => :seen
-      product.awards 'awards', :controller => :products, :action => :awards
     end
 
     localized.resources :categories, :only => [] do |category|
       category.resources :products, :only => :index
     end
+
     localized.resources :actors, :only => [] do |actor|
       actor.resources :products, :only => :index
     end
+
     localized.resources :directors, :only => [] do |director|
       director.resources :products, :only => :index
     end
 
-    localized.resources :tops, :only => [] do |top|
+    localized.resources :lists, :only => [] do |top|
       top.resources :products, :only => :index
-    end
-
-    localized.resources :themes, :only => [] do |theme|
-      theme.resources :products, :only => :index
     end
 
     localized.resources :reviews, :only => [] do |review|
       review.resource :review_rating, :only => :create
     end
+
+    localized.resources :contests, :only => [:new, :create, :index]
+    localized.resources :quizzes,  :only => [:show, :index]
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}
@@ -68,11 +70,23 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.info '/info/:page_name' , :controller => :info
 
-
     localized.resources :customers, :only => [:show, :edit, :update] do |customer|
       customer.newsletter 'newsletter', :controller => :customers, :action => :newsletter, :only => [:update]
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
       customer.resource 'addresses', :only => [:edit, :update]
+      customer.resource 'suspension', :only => [:new, :create, :destroy]
     end
+
+    localized.resources :filters, :only => [:create, :destroy]
+
+    localized.resource :sponsorships do |sponsorship|
+      sponsorship.gifts 'gifts', :controller => :sponsorships, :action => :gifts, :conditions => {:method => :get}
+      sponsorship.promotion 'promotion', :controller => :sponsorships, :action => :promotion, :conditions => {:method => :get}
+      sponsorship.resource :email, :controller => :sponsorships_emails, :only => [:create]
+      sponsorship.resource :gifts_history, :only => [:create]
+      sponsorship.faq 'faq', :controller => :sponsorships, :action => :faq, :conditions => {:method => :get}
+      sponsorship.resource :additional_card, :only => [:new, :create]
+    end
+
   end
 end

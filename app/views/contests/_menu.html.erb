@@ -1,0 +1,17 @@
+<div id="leftcolumn">
+  <ul id="left-nav">
+    <li>
+      <%= link_to t('.title')%>
+    </li>
+    <li>
+      <ul id='cat'>
+        <li class='cat'>
+          <%= link_to t('.contest'), new_contest_path %>
+        </li>
+        <li class='cat'>
+          <%= link_to t('.quizz'), quizz_path %>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,39 @@
+<% content_for :style do %>
+<%= stylesheet_link_tag 'sponsorships' %>
+<% end %>
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent" >
+  <div class="top"></div>
+  <h2><%= t('.share') %></h2>
+  <div id="tool-wrap">
+    <div id="points-wrap">
+      <%= render :partial => 'sponsorships/header', :locals => { :current_link => @current } %>
+      <div id="contact-wrap">
+	      <div id='faq'>
+        	<ul id='faq-nav'>
+        		<li>
+        			<ul>
+        			  <% for n in 1..8 %>
+        				  <li>
+        				    <%= link_to t(".q#{n}"), nil, :id => "q#{n}", :class => "q" %>
+        				  </li>
+        				<% end %>
+        			</ul>
+        		</li>
+        	</ul>
+        	<% for n in 1..8 %>
+        	  <div style="<%= n == 1 ? '' : 'display:none' %>" id="r<%= n %>" class="faq-answer">
+          	  <h3><%= t(".q#{n}") %></h3>
+          	  <div class="box">
+          	   	<p> 
+          				<%= t(".r#{n}") %>
+          	    </p>
+          		</div>
+          	</div>
+        	<% end %>
+        	<div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

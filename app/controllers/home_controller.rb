@@ -4,8 +4,8 @@ class HomeController < ApplicationController
       format.html {
         @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
         @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
-        @soon = Product.normal.available.soon.ordered_rand.limit(3)
-        @new = Product.normal.available.new_products.ordered_rand.limit(3)
+        @soon = Product.by_kind(:normal).available.soon.random.limit(3)
+        @recent = Product.by_kind(:normal).available.recent.random.limit(3)
         @quizz = QuizzName.find_last_by_focus(1)
         not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
@@ -26,8 +26,7 @@ class HomeController < ApplicationController
         rescue => e
           logger.error("Failed to retrieve news: #{e.message}")
         end
-        
-        
+
         @recommendations = retrieve_recommendations
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
         @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
@@ -49,13 +48,20 @@ class HomeController < ApplicationController
 
   private
   def retrieve_news
-    news_items = when_fragment_expired "#{I18n.locale.to_s}/home/news", 1.hour.from_now do
-      DVDPost.home_page_news
+    fragment_name = "#{I18n.locale.to_s}/home/news"
+    news_items = when_fragment_expired fragment_name, 1.hour.from_now do
+      begin
+        DVDPost.home_page_news
+      rescue => e
+        logger.error "Homepage news unavailable: #{e.message}"
+        expire_fragment_with_meta(fragment_name)
+        nil
+      end
     end
-    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1)
+    news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_items
   end
 
   def retrieve_recommendations
-    current_customer.recommendations.paginate(:per_page => 8, :page => params[:recommendation_page])
+    current_customer.recommendations({:per_page => 8, :page => params[:recommendation_page]})
   end
 end

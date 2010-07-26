@@ -1,5 +1,6 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
-<div id="maincontent" >
+<div id="maincontent">
+  <%= render :partial => 'layouts/filters' %>
   <div id="detail-wrap">
     <div class="top"></div>
     <!-- Detail -->
@@ -11,7 +12,7 @@
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
         <div id="details">
           <div id="movie-info">
-            <%= render :partial => 'products/show/product', :object => @products %>
+            <%= render :partial => 'products/show/product', :object => @product %>
           </div>
           <div class="action">
             <% if @product.dvdposts_choice? %>
@@ -97,4 +98,4 @@
   </div>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
-<%= render :partial => 'products/left_column' %>
+<%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>

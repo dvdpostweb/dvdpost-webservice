@@ -28,9 +28,10 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   protected
   def set_locale_from_params
-    logger.debug "* Available locales are: #{available_locales.inspect}"
     set_locale(extract_locale_from_params || I18n.default_locale)
-    logger.debug "* Locale set to '#{I18n.locale}'"
+    if(current_customer && params[:locale] != DVDPost.customer_languages.invert[current_customer.language])
+        current_customer.change_language(DVDPost.customer_languages[params[:locale]])
+    end
   end
 
   def available_locales
@@ -38,7 +39,8 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_locale_from_params
-    params[:locale]||='fr'
+    default = current_customer ? DVDPost.customer_languages.invert[current_customer.language] : :fr
+    params[:locale] ||= default
     available_locales.include?(params[:locale].to_sym) ? params[:locale] : nil
   end
 

@@ -125,7 +125,24 @@ $(function() {
     $('#password').html('<input type="password" value="" size="30" name="customer[clear_pwd]" id="customer_clear_pwd">')
     $('#password_confirmation').show();
     $(this).hide();
-    
+    return false; // prevent default behaviour
+  });
+  
+  $(".suppendre").live("click", function() {
+    url = $(this);
+    jQuery.facebox(function() {
+      $.getScript(url.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
+  
+  
+  $('#new_suspension').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('#new_suspension').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('#suspend-abonament form').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
 });

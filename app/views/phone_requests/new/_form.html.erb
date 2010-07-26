@@ -22,7 +22,12 @@
     <%= t '.time_slots' %>
   </div>
   <%= f.collection_select(:call_me_hour, PhoneRequest.time_slots, :last, :first, {:include_blank => true}) %>
-
+  <div>
+    <%= t '.languages' %>
+  </div>
+  <div>
+  <%= f.collection_select :language_id, languages_collection_for_select, :last, :first, :selected => current_customer.language %>
+  </div>
   <button type="submit">
     <%= t '.contact' %>
   </button>

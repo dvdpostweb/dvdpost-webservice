@@ -17,6 +17,13 @@ class ProductDvd < ActiveRecord::Base
                                    :comment => "site (#{new_status.name})",
                                    :product => product,
                                    :product_dvd_id => to_param)
+     ProductsDvdStateHistory.create(:status => new_status.to_param,
+                                    :user_modified => 0,
+                                    :product => product,
+                                    :type_process => 8,
+                                    :box_id => box_id,
+                                    :pibox_id => pibox_id,
+                                    :products_dvd_id => to_param)
     true
   end
 end

@@ -560,14 +560,19 @@ fieldset {
 }
 
 #filtered li#close-f a {
-  background: url(../images/fermer-btn.png) 0 0 no-repeat;
+  background: url(../images/close-icon.gif) 87% 0 no-repeat;
   display: block;
-  height: 10px;
+  height: 12px;
   width: 55px;
+  color: #505050;
+  text-transform: uppercase;
+  padding: 0 3px 0 0;
 }
 
 #filtered li#close-f a:hover {
-  background: url(../images/fermer-btn.png) 0 100% no-repeat;
+  background: url(../images/close-icon.gif) 87% -20px no-repeat;
+  text-decoration: none;
+  
 }
 
 #titles-wrap .dvd, #titles-wrap .bluray {
@@ -825,7 +830,7 @@ a#next10 {
 
 /* My WishList Page */
 
-#mywhishlist #maincontent, #one-col #maincontent, #info #maincontent {
+#mywhishlist #maincontent, #one-col #maincontent, #info #maincontent, #sponsorships #maincontent {
   background: url(../images/content-bg-wishlist.gif) 0 0 repeat-y;
   float: none;
   margin: 24px 0 24px 24px !important;
@@ -852,7 +857,7 @@ a#next10 {
   width: 18px;
 }
 
-#mywhishlist #maincontent .top, #mywhishlist #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end, #info #maincontent .top, #info #maincontent .end {
+#mywhishlist #maincontent .top, #mywhishlist #maincontent .end, #one-col #maincontent .top, #one-col #maincontent .end, #info #maincontent .top, #info #maincontent .end, #sponsorships #maincontent .end {
   background-image: url(../images/content-end-bg-wishlist.gif);
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -988,7 +993,7 @@ a#next10 {
   margin-top: 5px;
 }
 
-#on-way .dvd .title a, #on-way .bluray .title a {
+#on-way .dvd .title a, #on-way .bluray .title a,#on-way .dvd .title, #on-way .bluray .title{
   font-size: 1.17em;
   font-weight: bold;
 }
@@ -1005,7 +1010,10 @@ a#next10 {
   float: right;
   margin-right: 12px;
 }
-
+.report_history_item
+{
+  font-weight:bold;
+}
 #on-way .dvd .status a:hover, #on-way .bluray .status a:hover {
   text-decoration: none;
 }
@@ -1665,6 +1673,9 @@ html ul.tabs li.active a:hover {
 
 .tab_content .links a {
   color: #454545;
+}
+.tab_content .links a.next_page {
+  float:right;
 }
 
 /* Carousel */
@@ -2475,13 +2486,11 @@ div.top10.first p a {
 }
 
 #leftcolumn form#search {
-  ;
   background: url(../images/search-fld-bg.png) 0 0 no-repeat;
   display: block;
-  height: 35px;
 }
 
-#leftcolumn form#search #s {
+#leftcolumn form#search #search-field {
   background: transparent;
   border: none;
   color: white;
@@ -2505,6 +2514,7 @@ div.top10.first p a {
 
 #leftcolumn #left-nav {
   margin-top: 7px;
+  clear:left;
 }
 
 #leftcolumn #left-nav li a {
@@ -2660,20 +2670,6 @@ div.top10.first p a {
 #filters li.li_submit {
   background: #fff;
 }
-
-/*
-#filters .submit_fr {
-  background: url("../images/fr/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-
-#filters .submit_nl {
-  background: url("../images/nl/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-
-#filters .submit_en {
-  background: url("../images/en/search_filtres.png") no-repeat scroll 0 0 transparent;
-}
-*/
 
 #filters .submit {
   cursor: pointer;
@@ -2840,15 +2836,24 @@ div.top10.first p a {
 }
 
 #addwishlist_title {
-  border-bottom: 1px solid #454545;
   color: #454545;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 24px;
   font-weight: bold;
   left: 0;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+}
+#addwishlist_subtitle {
+  border-bottom: 1px solid #454545;
+  color: #454545;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  left: 0;
   margin: 10px 0;
   padding-bottom: 5px;
-  padding-top: 5px;
   text-align: center;
   text-decoration: none;
   top: 0;
@@ -3005,17 +3010,6 @@ fieldset {
   top: 0;
 }
 
-/*.bouton_probleme .submit_fr {
-  background: url("../images/fr/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-.bouton_probleme .submit_nl {
-  background: url("../images/nl/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-.bouton_probleme .submit_en {
-  background: url("../images/en/account_modify.png") no-repeat scroll 0 0 transparent;
-}
-*/
-
 .bouton_probleme .submit {
   border-style: hidden;
   display: block;
@@ -3025,7 +3019,8 @@ fieldset {
   margin: 0 0 0 40px;
   width: 170px;
   padding: 0 0 3px 0;
-  background: url("../images/account_modify.png") no-repeat scroll 0 -5px transparent;
+  background: url(/images/account_modify.png) no-repeat scroll 0 -5px transparent;
+  cursor: pointer;
 }
 
 .bouton_probleme .submit:hover {

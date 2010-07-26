@@ -1,28 +1,22 @@
 class ProductsController < ApplicationController
+  before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
+
   def index
-    @products = if params[:viewmode] == 'recommended'
-      @recommended = true
-      current_customer.recommendations(params)
-    elsif params[:viewmode] == 'recent'
-      Product.new_products.normal.available.ordered_availaible
-    elsif params[:viewmode] == 'soon'
-      Product.soon.normal.available.ordered_availaible
-    elsif params[:search]
-      Product.search_clean(params[:search]).sphinx_by_kind(:normal)
+    @filter = current_customer.filter || current_customer.build_filter
+    params.delete(:search) if params[:search] == t('products.left_column.search')
+    @products = if params[:view_mode] == 'recommended'
+      current_customer.recommendations({:page => params[:page]})
     else
-      Product.filter(params)
+      Product.filter(@filter, params)
     end
-    @products = @products.paginate(:page => params[:page], :per_page => Product.per_page)
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
-
     @countries = ProductCountry.visible.order
-    @selected_country = ProductCountry.find(params[:country]) if params[:country] && params[:country].to_i != -1
-    @filter = params[:media] || (params[:public_min] && params[:public_max]) || (params[:year_min] && params[:year_max]) || (params[:ratings_min] && params[:ratings_max]) || (params[:country] && !(params[:country].to_i == -1)) || params[:languages] || params[:subtitles] || params[:dvdpost_choice]
   end
 
   def show
-    @product = Product.normal.available.find(params[:id])
+    @filter = current_customer.filter || current_customer.build_filter
+    @product = Product.normal_available.find(params[:id])
     @product.views_increment
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
@@ -39,7 +33,7 @@ class ProductsController < ApplicationController
           @cinopsis_error = true
           logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
         end
-        if params[:recommendation] == "1"
+        if params[:recommendation]
           DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
         DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
@@ -55,7 +49,6 @@ class ProductsController < ApplicationController
   end
 
   def uninterested
-    @product = Product.normal.available.find(params[:product_id])
     unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product)
       @product.uninterested_customers << current_customer
       DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
@@ -67,7 +60,6 @@ class ProductsController < ApplicationController
   end
 
   def seen
-    @product = Product.normal.available.find(params[:product_id])
     @product.seen_customers << current_customer
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param)}
@@ -76,9 +68,20 @@ class ProductsController < ApplicationController
   end
 
   def awards
-    @product = Product.normal.available.find(params[:product_id])
     respond_to do |format|
       format.js {render :partial => 'products/show/awards', :locals => {:product => @product, :size => 'full'}}
     end
+  end
+
+  def trailer
+    respond_to do |format|
+      format.js   {render :partial => 'products/trailer', :locals => {:product => @product}}
+      format.html {redirect_to @product.trailer.url}
+    end
+  end
+
+private
+  def find_product
+    @product = Product.normal_available.find(params[:product_id])
   end
 end

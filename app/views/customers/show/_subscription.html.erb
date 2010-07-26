@@ -21,12 +21,12 @@
         <td align="left"><%= "#{@wishlist_size} DVD" %></td>
       </tr>
       <tr>
-        <td colspan="2">
+        <td colspan="2" align="center">
           <ul>
             <li class="links">
               <%= link_to t('.modify_abo'), limited_subscription_change_path, :class => 'modif' %>
               <span><%= image_tag 'delimiter.gif' %></span>
-              <%= link_to t('.suspend_abo'), suspension_path, :class => 'suppendre' %>
+              <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' %>
             </li>
           </ul>
         </td>

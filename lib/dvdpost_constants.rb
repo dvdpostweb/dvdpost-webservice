@@ -46,6 +46,14 @@ module DVDPost
       })
     end
 
+    def customer_languages
+      HashWithIndifferentAccess.new.merge({
+        :fr => 1,
+        :nl => 2,
+        :en => 3
+      })
+    end
+
     def product_publics
       HashWithIndifferentAccess.new.merge({
         'all' => 1,
@@ -147,6 +155,12 @@ module DVDPost
       statuses.push(:envelope,       {})
       statuses.push(:arrived,        {:message => 20, :message_category => 19, :product_status => 1, :compensation => false, :order_status => 2,  :at_home => true})
       statuses
+    end
+
+    def email
+      HashWithIndifferentAccess.new.merge({
+        :sponsorships_invitation    => 446,
+      })
     end
   end
 end

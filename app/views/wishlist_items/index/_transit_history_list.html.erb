@@ -5,7 +5,7 @@
         <% if transit_items %>
           <h2><%= t '.out' %> <span><%= "#{transit_items.count} DVD" %></span></h2>
         <% elsif history_items %>
-          <h2><%= t '.history' %><span><%= "#{history_items.count} DVD" %></span></h2>
+          <h2><%= t '.history' %><span><%= "#{history_count} DVD" %></span></h2>
         <% end %>
       </li>
       <li>
@@ -22,6 +22,7 @@
       <%= render :partial => 'wishlist_items/index/transit_item', :collection => transit_items %>
     <% elsif history_items %>
       <%= render :partial => 'wishlist_items/index/history_item', :collection => history_items %>
+      <%= will_paginate history_items, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => :history_page %>
     <% end %>
   </div>
   <ul id="on-way-nav">
@@ -32,6 +33,6 @@
         <%= link_to t('.see_history'), wishlist_path(:transit_or_history => 'history'), :class => 'transit_or_history' %>
       <% end %>
     </li>
-    <li><%= link_to t('.add'), products_path %></a></li>
+    <li><%= link_to t('.add'), products_path %></li>
   </ul>
 </div>

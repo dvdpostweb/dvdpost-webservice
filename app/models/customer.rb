@@ -40,6 +40,7 @@ class Customer < ActiveRecord::Base
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
+  has_one :filter
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -55,6 +56,10 @@ class Customer < ActiveRecord::Base
   has_many :addresses, :foreign_key => :customers_id
   has_many :payment_offline_request, :foreign_key => :customers_id
   has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
+  has_many :contests, :foreign_key => :customers_id
+  has_many :sponsorships, :foreign_key => :father_id
+  has_many :gifts_history, :foreign_key => :customers_id
+  has_many :additional_card, :foreign_key => :customers_id
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 
@@ -63,8 +68,6 @@ class Customer < ActiveRecord::Base
   end
 
   def encrypt_password
-    logger.debug(clear_pwd)
-    logger.debug('@@@')
      self.password= Digest::MD5.hexdigest(clear_pwd)
   end
   
@@ -73,7 +76,7 @@ class Customer < ActiveRecord::Base
   end
 
   def not_rated_products
-    assigned_products.normal.available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+    assigned_products.normal_available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
   end
 
   def has_rated?(product)
@@ -84,7 +87,7 @@ class Customer < ActiveRecord::Base
     (abo_active? && suspension_status == 0)
   end
 
-  def suspended?
+  def payment_suspended?
     suspension_status == 2
   end
 
@@ -118,18 +121,23 @@ class Customer < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def recommendations(filter={})
+  def recommendations(options={})
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self)
     rescue => e
-      logger.errors("Failed to retrieve recommendations: #{e.message}")
+      logger.error("Failed to retrieve recommendations: #{e.message}")
     end
-    
+
     results = if recommendation_ids
       hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
       result_ids = recommendation_ids - hidden_ids
-      Product.normal.available.filter(filter).all(:conditions => {:products_id => result_ids})
+      build_filter unless filter
+      filter.update_attributes(:recommended_ids => result_ids)
+      options.merge!(:subtitles => [2]) if I18n.locale == :nl
+      options.merge!(:audio => [1]) if I18n.locale == :fr
+      filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
+      Product.filter(filter, options.merge(:view_mode => :recommended))
     else
       []
     end
@@ -138,7 +146,7 @@ class Customer < ActiveRecord::Base
   def update_dvd_at_home!(operator, product)
     attribute = if product.kind == DVDPost.product_kinds[:adult]
       :customers_abo_dvd_home_adult
-    else  
+    else
       :customers_abo_dvd_home_norm
     end
     operator == :increment ? increment!(attribute) : decrement!(attribute)
@@ -167,11 +175,15 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    if self.credits == 0 && self.suspension_status == 0 && self.subscription_type.credits > 0 && self.subscription_expiration_date && self.subscription_expiration_date.to_date != Time.now.to_date
-      true
-    else
-      false
-    end
+    credits == 0 && suspension_status == 0 && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
+  end
+  
+  def suspended?
+    suspension_status != 0
+  end
+
+  def change_language(value)
+    update_attribute(:customers_language, value)
   end
 
   private

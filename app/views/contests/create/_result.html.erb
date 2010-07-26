@@ -1,0 +1,9 @@
+<% if contest %>
+  <h3><%= t('contests.new.form.subtitle', :title => title(contest)) %></h3>
+  <div id='result'>
+    <%= t('contests.new.success') %>
+  </div>
+  <p class="last"><%= t('contests.new.form.last_date', :last_date => @contest.validity.strftime("%d/%m/%Y")) %></p>
+<% else %>
+  <%= t('contests.new.form.no_contest') %>
+<% end %>

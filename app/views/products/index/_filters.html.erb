@@ -2,46 +2,43 @@
   <h3>
     <%= t '.refine' %>
   </h3>
-  <% form_tag filter_path, :method => :get do %>
-    <% field_set_tag do %>
+  <fieldset>
     <ul>
-      <li class="technology open">
+      <li class="technology<%= ' open' if filter.media? %>">
         <%= link_to t('.tech') %>
         <div>
-          <label>
-            <%= filter_checkbox_tag :media, :dvd %>
-            <%= t '.dvd' %>
-          </label>
-          <label>
-            <%= filter_checkbox_tag :media, :bluray %>
-            <%= t '.bluray' %>
-          </label>
+          <% [:dvd, :bluray].each do |media| %>
+            <label>
+              <%= filter_checkbox_tag :media, media, (filter.media? && filter.media.include?(media)) %>
+              <%= t ".#{media}" %>
+            </label>
+          <% end %>
         </div>
       </li>
-      <li class="public open">
+      <li class="audience<%= ' open' if filter.audience? %>">
         <%= link_to t('.public') %>
-        <div id="public-slider">
-          <%= hidden_field_tag :public_min, (params[:public_min] || 0) %>
-          <%= hidden_field_tag :public_max, (params[:public_max] || 18) %>
-          <ul id="public_labels">
+        <div id="audience-slider">
+          <%= f.hidden_field :audience_min, :value => filter.audience_min || 0 %>
+          <%= f.hidden_field :audience_max, :value => filter.audience_max || 18 %>
+          <ul id="audience_labels">
             <% ['ALL', '-10', '-12', '-16', '-18'].collect do |p| %>
               <li><%= p %></li>
             <% end %>
           </ul>
-          <div id="public-slider-range"></div>
+          <div id="audience-slider-range"></div>
         </div>
       </li>
-      <li class="country open">
+      <li class="country<%= ' open' if filter.country_id? %>">
         <%= link_to t('.countries') %>
         <div>
-          <%= select_tag :country, options_for_select(countries.collect{|country| [country.name, country.to_param]}.insert(0, ['Any', -1]), :selected => params[:country]) %>
+          <%= f.select :country_id, countries.collect{|country| [country.name, country.id]}, {:include_blank => true} %>
         </div>
       </li>
-      <li class="year open">
+      <li class="year<%= ' open' if filter.year? %>">
         <%= link_to t('.year') %>
         <div id="year-slider">
-          <%= hidden_field_tag :year_min, (params[:year_min] || 0) %>
-          <%= hidden_field_tag :year_max, (params[:year_max] || 2010) %>
+          <%= f.hidden_field :year_min, :value => filter.year_min || 0 %>
+          <%= f.hidden_field :year_max, :value => filter.year_max || 2020 %>
           <ul id="year_labels">
             <% ['-', '40', '50', '60', '70', '80', '90', '00', '+'].collect do |year| %>
               <li><%= year %></li>
@@ -50,11 +47,11 @@
           <div id="year-slider-range"></div>
         </div>
       </li>
-      <li class="ratings open">
+      <li class="ratings<%= ' open' if filter.rating? %>">
         <%= link_to t('.ratings') %>
         <div id="ratings-slider">
-          <%= hidden_field_tag :ratings_min, (params[:ratings_min] || 0) %>
-          <%= hidden_field_tag :ratings_max, (params[:ratings_max] || 5) %>
+          <%= f.hidden_field :rating_min, :value => filter.rating_min || 0 %>
+          <%= f.hidden_field :rating_max, :value => filter.rating_max || 5 %>
           <ul id="ratings_labels">
             <% ['0', '1', '2', '3', '4', '5'].collect do |rating| %>
               <li><%= rating %></li>
@@ -63,42 +60,40 @@
         </div>
         <div id="ratings-slider-range"></div>
       </li>
-      <li class="dvdpost_choice open">
+      <li class="dvdpost_choice<%= ' open' if filter.dvdpost_choice? %>">
         <%= link_to t('.dvdpost_choice') %>
         <div>
           <label>
-            <%= check_box_tag :dvdpost_choice, true, params[:dvdpost_choice] %>
+            <%= f.check_box :dvdpost_choice %>
             <%= t '.dvdpost_choice' %>
           </label>
         </div>
       </li>
-      <li class="audio open">
+      <li class="audio<%= ' open' if filter.audio? %>">
         <%= link_to t('.audio') %>
         <div>
-          <% Language.by_language(I18n.locale).each do |lang| %>
+          <% Language.by_language(I18n.locale).each do |track| %>
             <label>
-              <%= filter_checkbox_tag :languages, lang.to_param %>
-              <%= lang.name %>
+              <%= filter_checkbox_tag :audio, track.to_param, (filter.audio? && filter.audio.include?(track.to_param.to_i)) %>
+              <%= track.name %>
             </label>
           <% end %>
         </div>
       </li>
-      <li class="subtitles open">
+      <li class="subtitles<%= ' open' if filter.subtitles? %>">
         <%= link_to t('.subtitles') %>
         <div>
           <% Subtitle.by_language(I18n.locale).each do |sub| %>
             <label>
-              <%= filter_checkbox_tag :subtitles, sub.to_param %>
+              <%= filter_checkbox_tag :subtitles, sub.to_param, (filter.subtitles? && filter.subtitles.include?(sub.to_param.to_i)) %>
               <%= truncate sub.name, :length => 25  %>
             </label>
           <% end %>
         </div>
       </li>
       <li class='li_submit'>
-        <%= submit_tag t('.apply'), :name => nil, :class => "submit submit_#{I18n.locale}" %>
+        <%= f.submit t('.apply'), :name => nil, :class => 'submit' %>
       </li>
-      <%= hidden_field_tag :recommended, true if params[:recommended] %>
     </ul>
-    <% end %>
-  <% end %>
+  </fieldset>
 </div>

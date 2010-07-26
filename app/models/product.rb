@@ -4,73 +4,67 @@ class Product < ActiveRecord::Base
 
   set_primary_key :products_id
 
-  alias_attribute :created_at,     :products_date_added
-  alias_attribute :kind,           :products_type
-  alias_attribute :year,           :products_year
-  alias_attribute :runtime,        :products_runtime
-  alias_attribute :rating,         :products_rating
-  alias_attribute :media,          :products_media
-  alias_attribute :product_type,   :products_product_type
-  alias_attribute :availability,   :products_availability
-  alias_attribute :original_title, :products_title
-  alias_attribute :series_id,      :products_series_id
-  alias_attribute :available_at,   :products_date_available
+  alias_attribute :availability,    :products_availability
+  alias_attribute :available_at,    :products_date_available
+  alias_attribute :created_at,      :products_date_added
+  alias_attribute :kind,            :products_type
+  alias_attribute :media,           :products_media
+  alias_attribute :original_title,  :products_title
+  alias_attribute :product_type,    :products_product_type
+  alias_attribute :rating,          :products_rating
+  alias_attribute :runtime,         :products_runtime
+  alias_attribute :series_id,       :products_series_id
+  alias_attribute :year,            :products_year
 
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_one :public, :primary_key => :products_public, :foreign_key => :public_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_many :descriptions, :class_name => 'ProductDescription', :foreign_key => :products_id
-  has_many :trailers, :foreign_key => :products_id
-  has_many :wishlist_items
-  has_many :reviews, :foreign_key => :products_id
   has_many :ratings, :foreign_key => :products_id
+  has_many :reviews, :foreign_key => :products_id
+  has_many :trailers, :foreign_key => :products_id
   has_many :uninteresteds, :foreign_key => :products_id
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
+  has_many :wishlist_items
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
-  has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
-  has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
   has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
-  has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :product_lists, :join_table => :listed_products, :order => 'listed_products.order asc'
+  has_and_belongs_to_many :soundtracks, :join_table => :products_to_soundtracks, :foreign_key => :products_id, :association_foreign_key => :products_soundtracks_id
+  has_and_belongs_to_many :seen_customers, :class_name => 'Customer', :join_table => :products_seen, :uniq => true
+  has_and_belongs_to_many :subtitles, :join_table => 'products_to_undertitles', :foreign_key => :products_id, :association_foreign_key => :products_undertitles_id, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}
 
-  named_scope :by_kind,             lambda {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  named_scope :by_category,         lambda {|category| {:include => :categories, :conditions => {:categories => {:categories_id => category.to_param}}}}
-  named_scope :by_actor,            lambda {|actor| {:include => :actors, :conditions => {:actors => {:actors_id => actor.to_param}}}}
-  named_scope :by_director,         lambda {|director| {:include => :director, :conditions => {:directors => {:directors_id => director.to_param}}}}
-  named_scope :by_top,              lambda {|top| {:include => :product_lists, :conditions => {:product_lists => {:id => top.to_param}}}}
-  named_scope :by_theme,            lambda {|theme| {:include => :product_lists, :conditions => {:product_lists => {:id => theme.to_param}}}}
-  named_scope :by_media,            lambda {|*media| {:conditions => {:products_media => media.flatten.collect{|m| DVDPost.product_types[m]}}}}
-  named_scope :by_year,             lambda {|year| {:conditions => {:products_year => year}}}
-  named_scope :by_period,           lambda {|min, max| {:conditions => {:products_year => min..max}}}
-  named_scope :by_ratings,          lambda {|min, max| {:conditions => ["(rating_users/rating_count)>=? AND ?>=(rating_users/rating_count)", min ,max]}}
-  named_scope :by_country,          lambda {|country| {:include => :country, :conditions => {:products_countries => {:countries_id => country.to_param}}}}
-  named_scope :by_language,         lambda {|language| {:order => language.to_s == 'fr' ? 'products_language_fr DESC' : 'products_undertitle_nl DESC'}}
-  named_scope :with_languages,      lambda {|language_ids| {:include => :languages, :conditions => {:products_languages => {:languages_id => language_ids}}}}
-  named_scope :with_subtitles,      lambda {|subs_ids| {:include => :subtitles, :conditions => {:products_undertitles => {:undertitles_id => subs_ids}}}}
-  named_scope :dvdpost_choice,      :conditions => {:products_dvdpostchoice => 1}
-  named_scope :by_imdb_id,          lambda {|imdb_id| {:conditions => {:imdb_id => imdb_id}}}
-  named_scope :available,           :conditions => ['products_status != ?', '-1']
-  named_scope :by_public,           lambda {|min, max|
-    ages = max.to_i == 0 ? (DVDPost.product_publics[:all] if min.to_i == 0) : DVDPost.product_publics.keys.collect {|age| DVDPost.product_publics[age] if age != :all && age.to_i.between?(min.to_i,max.to_i)}.compact
-    {:conditions => {:products_public => ages}}
-  }
-  named_scope :new_products,        :conditions => ['products_availability > 0 and products_next = 0 and products_date_added < now() and products_date_available > DATE_SUB(now(), INTERVAL 2 MONTH) and (rating_users/rating_count)>=3']
-  named_scope :ordered_rand,        :order => 'rand()'
-  named_scope :ordered_availaible,  :order => 'products_date_available desc'
-  named_scope :limit,               lambda {|limit| {:limit => limit}}
-  named_scope :soon,                :conditions => ['in_cinema_now = 0 and products_next = 1 and (rating_users/rating_count)>=3'], :limit => 3, :order => 'rand()'
-  named_scope :ordered,             :order => 'products.products_id desc'
-  named_scope :list_ordered,        :order => 'listed_products.order asc'
-  named_scope :normal,               :conditions => {:products_type => DVDPost.product_kinds[:normal]}
+  named_scope :normal_available, :conditions => ['products_status != :status AND products_type = :kind', {:status => '-1', :kind => DVDPost.product_kinds[:normal]}]
 
   define_index do
+    indexes products_media
     indexes products_type
-    indexes actors.actors_name,                 :as => :actors_names
+    indexes actors.actors_name,                 :as => :actors_name
     indexes director.directors_name,            :as => :director_name
     indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
+
+    has products_availability,      :as => :availability
+    has products_countries_id,      :as => :country_id
+    has products_date_available,    :as => :available_at
+    has products_dvdpostchoice,     :as => :dvdpost_choice
+    has products_id,                :as => :id
+    has products_next,              :as => :next
+    has products_public,            :as => :audience
+    has products_status,            :as => :status
+    has products_year,              :as => :year
+    has products_language_fr,       :as => :french
+    has products_undertitle_nl,     :as => :dutch
+    has imdb_id
+    has in_cinema_now
+    has actors(:actors_id),         :as => :actors_id
+    has categories(:categories_id), :as => :category_id
+    has director(:directors_id),    :as => :director_id
+    has languages(:languages_id),   :as => :language_ids
+    has product_lists(:id),         :as => :products_list_ids
+    has subtitles(:undertitles_id), :as => :subtitle_ids
+    has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
 
     set_property :enable_star => true
     set_property :min_prefix_len => 3
@@ -80,28 +74,68 @@ class Product < ActiveRecord::Base
     set_property :field_weights => {:brand_name => 10, :name_fr => 5, :name_nl => 5, :description_fr => 4, :description_nl => 4}
   end
 
-  sphinx_scope(:sphinx_by_kind) {|kind| {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  # There are a lot of commented lines of code in here which are just used for development
+  # Once all scopes are transformed to Thinking Sphinx scopes, it will be cleaned up.
+  sphinx_scope(:by_actor)           {|actor|            {:with =>       {:actors_id => actor.to_param}}}
+  sphinx_scope(:by_audience)        {|min, max|         {:with =>       {:audience => Public.legacy_age_ids(min, max)}}}
+  sphinx_scope(:by_category)        {|category|         {:with =>       {:category_id => category.to_param}}}
+  sphinx_scope(:by_country)         {|country|          {:with =>       {:country_id => country.to_param}}}
+  sphinx_scope(:by_director)        {|director|         {:with =>       {:director_id => director.to_param}}}
+  sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
+  sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
+  sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
+  sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
+  sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
+  sphinx_scope(:by_products_list)   {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
+  sphinx_scope(:by_ratings)         {|min, max|         {:with =>       {:rating => min..max}}}
+  sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
+  sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
+  sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
+  sphinx_scope(:available)          {{:without =>       {:status => -1}}}
+  sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
+  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :rating => 3..5}}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :rating => 3..5}, :order => '@random'}}
+  sphinx_scope(:random)             {{:order =>         '@random'}}
+  sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
+  sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
-  def self.filter(params)
-    if params[:top_id] && !params[:top_id].empty?
-      products = normal.available.list_ordered
+  def self.filter(filter, options={})
+    
+    products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
+    products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
+    products = products.by_actor(options[:actor_id]) if filter[:actor_id]
+    products = products.by_category(options[:category_id]) if options[:category_id]
+    products = products.by_director(options[:director_id]) if options[:director_id]
+    products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
+    products = products.by_country(filter.country_id) if filter.country_id?
+    products = products.by_media(filter.media) if filter.media?  
+    products = products.by_ratings(filter.rating_min, filter.rating_max) if filter.rating?
+    products = products.by_period(filter.year_min, filter.year_max) if filter.year?
+    if filter.audio?
+      products = products.with_languages(filter.audio)
     else
-      products = normal.available.ordered
+      products = products.with_languages(options[:audio]) if options[:audio] 
     end
-    products = products.by_category(params[:category_id])                      if params[:category_id] && !params[:category_id].empty?
-    products = products.by_actor(params[:actor_id])                            if params[:actor_id] && !params[:actor_id].empty?
-    products = products.by_director(params[:director_id])                      if params[:director_id] && !params[:director_id].empty?
-    products = products.by_top(params[:top_id])                                if params[:top_id] && !params[:top_id].empty?
-    products = products.by_theme(params[:theme_id])                            if params[:theme_id] && !params[:theme_id].empty?
-    products = products.by_media(params[:media].keys)                          if params[:media]
-    products = products.by_public(params[:public_min], params[:year_max])      if params[:public_min] && params[:public_max]
-    products = products.by_period(params[:year_min], params[:year_max])        if params[:year_min] && params[:year_max]
-    products = products.by_ratings(params[:ratings_min], params[:ratings_max]) if params[:ratings_min] && params[:ratings_max]
-    products = products.by_country(params[:country])                           if params[:country] && !(params[:country].to_i == -1)
-    products = products.with_languages(params[:languages].keys)                if params[:languages]
-    products = products.with_subtitles(params[:subtitles].keys)                if params[:subtitles]
-    products = products.dvdpost_choice                                         if params[:dvdpost_choice]
-    products
+    if filter.subtitles?
+      products = products.with_subtitles(filter.subtitles) 
+    else
+      products = products.with_subtitles(options[:subtitles]) if options[:subtitles] 
+    end
+    products = products.dvdpost_choice if filter.dvdpost_choice?
+    if options[:view_mode]
+      products = case options[:view_mode].to_sym
+      when :recent
+        products.recent
+      when :soon
+        products.soon
+      when :recommended
+        products.by_recommended_ids(filter.recommended_ids)
+      else
+        products
+      end
+    end
+    products = products.by_kind(:normal).available.order(:id, :desc)
+    # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
   def recommendations
@@ -109,7 +143,7 @@ class Product < ActiveRecord::Base
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.product_linked_recommendations(self)
     rescue => e
-      logger.errors("Failed to retrieve recommendations: #{e.message}")
+      logger.error("Failed to retrieve recommendations: #{e.message}")
     end
     self.class.find_all_by_products_id(recommendation_ids) if recommendation_ids
   end
@@ -174,17 +208,34 @@ class Product < ActiveRecord::Base
     description.viewed
   end
 
-  def self.search_clean(query_string)
+  def media_alternative(media)
+    self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([:bluray]).by_language(I18n.locale).limit(1).first
+  end
+
+  def self.search_clean(query_string, options={})
     qs = []
-    query_string.split.each do |word|
-      qs << "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
+    if query_string
+      qs = query_string.split.collect do |word|
+        "*#{replace_specials(word)}*".gsub(/[-_]/, ' ')
+      end
     end
     query_string = qs.join(' ')
 
-    self.search(query_string, :per_page => 1000)
+    page = options[:page] || 1
+    per_page = options[:per_page] || self.per_page
+    self.search(query_string, :max_matches => 100_000, :per_page => per_page, :page => page)
   end
 
   def self.replace_specials(str)
-    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
+    str.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n, '').to_s
+  end
+
+  def self.notify_hoptoad(ghost)
+    begin
+      HoptoadNotifier.notify(:error_message => "Ghost record found: #{ghost.inspect}")
+    rescue => e
+      logger.error("Exception raised wihile notifying ghost record found: #{ghost.inspect}")
+      logger.error(e.backtrace)
+    end
   end
 end

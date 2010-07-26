@@ -1,0 +1,37 @@
+<% if contest %>
+  <h3><%= t('.subtitle', :title => title(contest)) %></h3>
+  <% form_for :contests, :url => contests_path  do |f| %>
+    <fieldset>
+    <% if !already_played.nil? %>
+      <%= t('.already_played', :title => title(contest)) %>
+    <% else %>
+      <p><%= error_messages_for :contests %></p>
+    	<p><%= t('.response_title') %></p>
+      <% response = response(contest) %>
+    	<strong><%= question(contest) %></strong>
+    	<p>
+    	  <%= f.radio_button :answer_id, 1 %>
+    	  <%= f.label :answer_id_1, response[0] %>
+    	</p>
+    	<p>
+    	  <%= f.radio_button :answer_id, 2 %>
+    	  <%= f.label :answer_id_2, response[1] %>
+    	</p>
+    	<p>
+    	  <%= f.radio_button :answer_id, 3 %>
+    	  <%= f.label :answer_id_3, response[2] %>
+    	</p>
+    	<p>
+    	  <%= f.radio_button :answer_id, 4 %>
+    	  <%= f.label :answer_id_4, response[3] %>
+    	</p>
+      <button type="submit"><span><strong><%= t('.submit') %></strong></span></button>
+    <% end %> 
+    </fieldset>
+    <%= image_tag contest.image_big %>
+    <%= f.hidden_field :contest_name_id, :value => contest.to_param %>
+  <% end %>
+  <p class="last"><%= t('.last_date', :last_date => @contest.validity.strftime("%d/%m/%Y")) %></p>
+<% else %>
+  <%= t('.no_contest') %>
+<% end %>

@@ -6,6 +6,7 @@ log/*
 tmp/*
 tmp/**/*
 config/database.yml
+config/development.sphinx.conf
 db/schema.rb
 rerun.txt
 public/images/logo

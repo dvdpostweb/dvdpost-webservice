@@ -1,22 +1,45 @@
 <div id="addwishlist_title"><%= t '.title' %></div>
-<% form_for(:customer, :url => customer_path,:id => :form_account, :html => { :method => :put }) do |f| %>
-
-<table class="champ_compte" align="center" cellpadding="0" cellspacing="8" width="450">
-  <tr>
-    <td colspan="3">
-      <%= error_messages_for :customer %>
-    </td>
-  </tr>
-  <tr>
-    <td width="171"></td>
-    <td width="228" align="right" class="explain_text_gender">
-      <p class="explain_text_gender">
-        <span>
-          <%= f.radio_button :gender, "f" %><%= t '.miss' %>
+<% form_for(:customer, :url => customer_path, :id => :form_account, :html => {:method => :put}) do |f| %>
+  <table class="champ_compte" align="center" cellpadding="0" cellspacing="8" width="450">
+    <tr>
+      <td colspan="3">
+        <%= error_messages_for :customer %>
+      </td>
+    </tr>
+    <tr>
+      <td width="171"></td>
+      <td width="228" align="right" class="explain_text_gender">
+        <p class="explain_text_gender">
+          <span>
+            <%= f.radio_button :gender, 'f' %><%= t '.miss' %>
+          </span>
+          <span>
+            <%= f.radio_button :gender, 'm' %><%= t '.mister' %>
+          </span>
+        </p>
+      </td>
+      <td width="49"  align="left" class="explain_text_gender"></td>
+    </tr>
+    <tr>
+      <td align="right">
+        <span class="explain_text"><strong><%= t '.firstname' %> :</strong></span>
+      </td>
+      <td align="left">
+        <span align="right">
+          <%= f.text_field :first_name %>
         </span>
-        <span>
-          <%= f.radio_button :gender, "m" %><%= t '.mister' %>
-          
+      </td>
+      <td class="explain_text" align="left">
+        <div id="check_firsname" class="step_input_ok"><div id="text"> </div> </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <span class="explain_text"><strong><%= t '.lastname' %> :</strong></span>
+      </td>
+      <td>
+        <span align="left">
+          <%= f.text_field :last_name %>
         </span>
       </p>						
     </td>
@@ -24,26 +47,12 @@
   </tr>
   <tr>
     <td align="right">
-      <span class="explain_text"><strong><%= t '.firstname' %> :</strong></span>							
-    </td>
-    <td align="left">
-      <span align="right">
-        <%= f.text_field :first_name, :value => @customer.first_name %>
-      </span>
-    </td>
-    <td class="explain_text" align="left">
-      <div id="check_firsname" class="step_input_ok"><div id="text"> </div> </div>
-    </td>
-  </tr>
-  <tr>
-    <td align="right">
-      <span class="explain_text"><strong><%= t '.lastname' %> :</strong></span>
+      <span class="explain_text"><strong><%= t '.email' %> :</strong></span>
     </td>
     <td>
       <span align="left">
-        <%= f.text_field :last_name, :value => @customer.last_name %>
+        <%= f.text_field :email %>
       </span>
-      
     </td>
     <td class="explain_text" align="left">
       <div id="check_lastname" class="step_input_ok"><div id="text"> </div> </div>
@@ -55,29 +64,15 @@
     </td>
     <td>
       <span align="left">
-        <select class="new_step_date" id="day" name="day">
-          <% for i in 1..31 %>
-            <option value="<%= i %>" <%= 'selected="selected"' if i == @customer.birthday.day %>><%= i %></option>
-          <% end %>
-        </select>
-
-        <select class="new_step_date" name="month" id="month">                
-          <% for i in 1..12 %>
-            <option value="<%= i %>" <%= 'selected="selected"' if i == @customer.birthday.month %>><%= i %></option>
-          <% end %>
-        </select>
-
-        <select class="new_step_date" name="year" id="year">
-          <% for i in 1921..1993 %>
-            <option value="<%= i %>" <%= 'selected="selected"' if i == @customer.birthday.year %>><%= i %></option>
-          <% end %>           
-        </select>
-      </span>			
+        <%= select_day @customer.birthday %>
+        <%= select_month @customer.birthday, :use_month_numbers => true %>
+        <%= select_year @customer.birthday, :start_year => 100.years.ago.year, :end_year => 18.years.ago.year %>
+      </span>
     </td>
     <td class="explain_text" align="left">
       <div id="check_birthday" class="step_input_ok"><div id="text"> </div> </div>
     </td>
-  </tr>	
+  </tr>
                 
   <tr>
     <td align="right" class="identification" >

@@ -1,0 +1,10 @@
+<% class_name = (gifts_history.gift_sent == 1 ? 'ok' : 'free') %>
+<% status = (gifts_history.gift_sent == 1 ? t(".status_sent") : t(".status_to_send")) %>
+<% title = (gifts_history.gift.products_id == 0 ? eval("gifts_history.gift.gift_name_#{I18n.locale}") : gifts_history.gift.product.title) %>
+
+<tr>
+		<td class="<%= class_name %>"><%= title %></td>
+	  <td class="<%= class_name %> brdr"><%= gifts_history.date.strftime('%d/%m/%Y') if gifts_history.date %></td>
+		<td class="<%= class_name %> brdr"><%= status %></td>
+		<td class="<%= class_name %> brdr"><strong><%= gifts_history.points %>Pts</strong></td>
+</tr>

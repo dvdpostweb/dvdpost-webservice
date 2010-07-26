@@ -1,8 +1,9 @@
 <!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
   <div class="top"></div>
-  <% if current_customer.suspended? %>
+  <% if current_customer.payment_suspended? %>
     <ul id='suspended'>
+      
       <li><%= current_customer.suspended_notification %></li>
     </ul>
   <% end %>
@@ -10,15 +11,12 @@
   <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
   <!-- BIENVENUE  -->
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_count, :transit_items => @transit_items} %>
-
   <!-- Recommandations  -->
   <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
   <!-- Flash News  -->
   <%= render :partial => '/home/index/news', :locals => {:news_items => @news_items} %>
-
   <!-- Top 10  -->
   <%= render :partial => 'home/index/top10', :locals => {:products => @top10} %>
-
   <!-- Banners  -->
   <div id="banners">
     <%= render :partial => 'home/index/banner', :locals => {:type => 'quizz'} if @quizz %>
@@ -26,13 +24,11 @@
     <%= render :partial => 'home/index/banner', :locals => {:type => 'shop'} if @shop%>
     <%= render :partial => 'home/index/banner', :locals => {:type => 'community'} %>
   </div>
-
   <!-- Prochainement/Nouveautés   -->
   <div id="new-m">
-    <%= render :partial => 'home/index/theme', :locals => {:products => @new,  :id => 'new'} %>
+    <%= render :partial => 'home/index/theme', :locals => {:products => @recent,  :id => 'new'} %>
     <%= render :partial => 'home/index/theme', :locals => {:products => @soon, :id => 'soon'} %>
   </div>
-
   <div class="clear"></div>
   <div class="end"></div>
 </div>

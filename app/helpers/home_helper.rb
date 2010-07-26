@@ -2,9 +2,9 @@ module HomeHelper
   def link_to_banner_image(type)
     case type
       when 'quizz'
-        link_to image_tag(@quizz.image), quizz_path
+        link_to image_tag(@quizz.image), quizzes_path
       when 'contest'
-        link_to image_tag(@contest.image), contest_path
+        link_to image_tag(@contest.image), new_contest_path
       when 'shop'
         link_to image_tag(@shop.image), shop_path(@shop.url)
       when 'community'
@@ -32,9 +32,9 @@ module HomeHelper
       when 'OLD_SITE'
         remote_carousel_path(t(".url_#{carousel.id}"))
       when 'TOP'
-        top_products_path(:top_id => carousel.reference_id)
+        list_products_path(:list_id => carousel.reference_id)
       when 'THEME'
-        theme_products_path(:theme_id => carousel.reference_id)
+        list_products_path(:list_id => carousel.reference_id)
       when 'DIRECTOR'
         director_products_path(:director_id => carousel.reference_id)
       when 'ACTOR'

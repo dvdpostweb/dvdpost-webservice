@@ -40,6 +40,14 @@ class PhoneRequest < ActiveRecord::Base
     codes
   end
 
+  def self.languages
+    lang = OrderedHash.new
+    lang.push(1, :fr)
+    lang.push(2, :nl)
+    lang.push(3, :en)
+    lang
+  end
+
   def requested_date
     (call_me_day == 0 ) ? nil : Time.at(call_me_day).strftime("%m/%d/%Y")
   end

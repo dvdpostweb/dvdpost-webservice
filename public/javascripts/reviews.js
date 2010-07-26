@@ -24,7 +24,7 @@ $(function() {
       }else{
         full_image = image+'off';
       }
-      $('#new_review #star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.jpg');
+      $('#new_review #star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.png');
     }
   });
   $("#new_review .star").live("mouseout", function() {
@@ -47,7 +47,7 @@ $(function() {
       }else{
         full_image = image+'off';
       }
-      $('#new_review #star_'+product_id+"_"+i).attr('name', full_image+'.jpg');
+      $('#new_review #star_'+product_id+"_"+i).attr('name', full_image+'.png');
       
     }
     return false;

@@ -3,11 +3,12 @@ class WishlistItemsController < ApplicationController
     @wishlist_items = current_customer.wishlist_items.available.by_kind(:normal).ordered.include_products
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
-      @history_items = current_customer.assigned_items
-      locals = {:transit_items => nil, :history_items => @history_items}
+      @history_items = current_customer.orders(:include => [:status, :product]).in_history.ordered.paginate(:page => params['history_page'], :per_page => 20)
+      @count = current_customer.orders.in_history.count
+      locals = {:transit_items => nil, :history_items => @history_items, :history_count => @count}
     else
-      @transit_items = current_customer.orders.in_transit_plus.ordered.all(:include => [:product, :status])
-      locals = {:transit_items => @transit_items, :history_items => nil}
+      @transit_items = current_customer.orders.in_transit.ordered.all(:include => [:product, :status])
+      locals = {:transit_items => @transit_items, :history_items => nil, :history_count => nil}
     end
     respond_to do |format|
       format.html
@@ -17,7 +18,7 @@ class WishlistItemsController < ApplicationController
 
   def new
     session[:return_to] = request.env["HTTP_REFERER"]
-    product = Product.normal.available.find(params[:product_id])
+    product = Product.normal_available.find(params[:product_id])
     @wishlist_item = product.wishlist_items.build
     render :layout => false
   end
@@ -25,8 +26,8 @@ class WishlistItemsController < ApplicationController
   def create
     begin
       if params[:add_all_from_series]
-        product = Product.normal.available.find(params[:wishlist_item][:product_id])
-        Product.normal.available.find_all_by_products_series_id(product.series_id).collect do |product|
+        product = Product.normal_available.find(params[:wishlist_item][:product_id])
+        Product.normal_available.find_all_by_products_series_id(product.series_id).collect do |product|
           create_wishlist_item(params[:wishlist_item].merge({:product_id => product.to_param}))
         end
         @wishlist_item = current_customer.wishlist_items.by_product(product)

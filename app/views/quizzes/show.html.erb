@@ -1,0 +1,48 @@
+<% content_for :style do %>
+  <%= stylesheet_link_tag 'contests' %>
+<% end %>
+<!--   ==============   MAIN CONTENT   ==============   -->
+<div id="maincontent">
+  <div id="concours-wrap">
+    <div class="ttl">
+      <%= t '.title' %>
+    </div>
+    <div id="titles-wrap">
+      <div class="top"></div>
+      <!--
+      <h3>
+        Quizz du mois
+      </h3>
+      -->
+      <div id="quizz-mois" class="clearfix">
+        <div id="video-wrap">
+          <%= render :partial => 'quizzes/show/flash', :locals => {:quizz => @quizz_name, :customer => current_customer} %>
+        </div>
+        <h3 align="center">
+          <%= @quizz_name.quizz_name %>
+        </h3>
+        <p>
+          <%= t '.explanation_1' %>
+        </p>
+        <p>
+          <%= t '.explanation_2' %>
+        </p>
+        <p>
+          <%= t '.explanation_3' %>
+        </p>
+      </div>
+      
+      <h3>
+        <%= t '.former' %>
+      </h3>
+      <div id="carousel-wrap">
+        <%= render :partial => 'quizzes/show/carousel', :locals => { :previous_list => @previous_list } %>
+      </div>
+      <div class="end"></div>
+    </div>
+  </div>
+</div>
+<!--   ==============   END MAIN CONTENT   ==============   -->
+<!--   ==============   LEFT COLUMN   ==============   -->
+<%= render :partial => 'contests/menu' %>
+<!--   ==============   END LEFT COLUMN   ==============   -->
