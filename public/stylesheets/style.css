@@ -2047,12 +2047,22 @@ html ul.tabs li.active a:hover {
   margin-right: 6px;
 }
 
-.ttls-nav li a {
+.ttls-nav li a, #new-m a.small {
   font-weight: bold;
   color: #5c6377;
   padding-right: 18px;
   display: block;
   background: url(../images/hp-ttls-nav-arrow.gif) 100% 1px no-repeat;
+}
+
+#new-m a.small {
+  font: bold 0.5em Arial,Helvetica,sans-serif;
+  display: inline;
+}
+
+.theme_link {
+  background: url(../images/delimiter.gif) 5px 6px no-repeat;
+  padding-left: 15px;
 }
 
 h3.hp-ttls {
@@ -2064,7 +2074,7 @@ h3.hp-ttls {
 }
 
 #fl-news {
-  height: 26px;
+  height: 30px;
 }
 
 #recom {
@@ -2072,12 +2082,13 @@ h3.hp-ttls {
 }
 
 #fl-news h3 {
-  width: 128px;
+  width: 90px;
   height: 26px;
   padding-left: 40px;
+  padding-top: 8px;
   font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
   color: #ff4b00;
-  background: url(../images/flash-news-ttl.png) 0 0 no-repeat;
+  background: url(../images/flash-news-ttl.png) 0 4px no-repeat;
 }
 
 #recom h3 {
@@ -2085,22 +2096,27 @@ h3.hp-ttls {
   font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
   color: #ff4b00;
   padding-left: 40px;
+  padding-top:5px;
   background: url(../images/recommandations-icon.png) 0 0 no-repeat;
 }
 
 #fl-news li {
-  height: 26px;
+  height: 28px;
 }
 
 #fl-news li a {
-  margin-top: 8px;
+  margin-top: 13px;
+}
+
+#fl-news li+li {
+  background: url(../images/delimiter.gif) 0 100% no-repeat;
+  padding-left: 10px;
 }
 
 #recom li+li {
   background: url(../images/delimiter.gif) 0 100% no-repeat;
   padding-left: 10px;
 }
-
 #recom li a {
   margin-top: 10px;
 }
@@ -2220,9 +2236,10 @@ h3.hp-ttls {
 
 #top10-wrap h3.hp-ttls {
   background: url(../images/top10-ttl.png) 0 0 no-repeat;
-  height: 34px;
+  height: 24px;
   font-weight: normal;
   margin-bottom: 10px;
+  padding-top:10px;
 }
 
 #top10-wrap h3.hp-ttls span {
@@ -2396,11 +2413,6 @@ div.top10.first p a {
   color: #ff4b00;
   padding: 10px 0 0 44px;
   background: url(../images/Prochainement-icon.png) 0 0 no-repeat;
-}
-
-#new-m h3 a.small{
-  font-size: 0.8em;
-  color: #ff4b00;
 }
 
 #new-m ul {
