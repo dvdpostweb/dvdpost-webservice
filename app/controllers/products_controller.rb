@@ -10,6 +10,12 @@ class ProductsController < ApplicationController
       Product.filter(@filter, params)
     end
 
+    if params[:view_mode] == 'recommended'
+      @source = DVDPost.source_wishlist[:recommandation]
+    else
+      @source = DVDPost.source_wishlist[:else]
+    end
+
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @countries = ProductCountry.visible.order
   end
@@ -21,7 +27,11 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-
+    if params[:recommendation]
+      @source = DVDPost.source_wishlist[:recommandation]
+    else
+      @source = DVDPost.source_wishlist[:else]
+    end
     respond_to do |format|
       format.html do
         @categories = @product.categories

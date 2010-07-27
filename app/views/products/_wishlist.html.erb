@@ -4,5 +4,5 @@
   <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param), :method => :delete, :class => 'btn_remove wishlist_button' %>
 <% else %>
   <% title = title_add_to_wishlist(text) %>
-  <%= link_to title, new_product_wishlist_item_path(:product_id => product.to_param), :class => 'btn add_to_wishlist_button' %>
+  <%= link_to title, new_product_wishlist_item_path(:product_id => product.to_param, :source => source), :class => 'btn add_to_wishlist_button' %>
 <% end %>

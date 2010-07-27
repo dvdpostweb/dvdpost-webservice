@@ -5,6 +5,7 @@
 <% form_for @wishlist_item do |f| %>
   <fieldset>
     <%= f.hidden_field :product_id %>
+    <%= f.hidden_field :source_added, :value => params[:source] %>
     <% if @serie_id.to_i > 0 %>
       <%= hidden_field_tag :serie_id, @serie_id %>
     <% end %>

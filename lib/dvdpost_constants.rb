@@ -162,5 +162,13 @@ module DVDPost
         :sponsorships_invitation    => 446,
       })
     end
+
+    def source_wishlist
+      HashWithIndifferentAccess.new.merge({
+        :recommandation    => 'RECOMMANDATION',
+        :recommandation_product    => 'RECOMMANDATION_PRODUCT',
+        :else    => 'ELSEWHERE',
+      })
+    end
   end
 end
