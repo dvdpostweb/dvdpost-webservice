@@ -13,12 +13,19 @@ after 'deploy:symlink' do
 end
 
 namespace :bundler do
-  task :install, :roles => :app do
-    run "cd #{release_path}; export PATH=/opt/ruby/bin:$PATH; bundle install vendor --disable-shared-gems --without test"
+  task :create_symlink, :roles => :app do
+    shared_dir = File.join(shared_path, 'bundle')
+    release_dir = File.join(current_release, 'vendor', 'bundle')
+    run "mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}"
+  end
+
+  task :bundle_new_release, :roles => :app do
+    bundler.create_symlink
+    run "cd #{release_path}; export PATH=/opt/ruby/bin:$PATH; bundle install vendor/bundle --disable-shared-gems --without development"
   end
 end
 
-after 'deploy:symlink', 'bundler:install'
+after "deploy:symlink", "bundler:bundle_new_release"
 
 # Thinking Sphinx
 namespace :thinking_sphinx do
@@ -71,12 +78,10 @@ namespace :ts do
 end
 
 namespace :deploy do
-
   task :stop_ts do
     # Stop Thinking Sphinx before the update so it finds its configuration file.
     thinking_sphinx.stop rescue nil # Don't fail if it's not running, though.
   end
-
 
   desc "Link up Sphinx's indexes."
   task :symlink_sphinx_indexes, :roles => [:app] do
