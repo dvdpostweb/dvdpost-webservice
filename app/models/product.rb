@@ -94,6 +94,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:available)          {{:without =>       {:status => -1}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :rating => 3..5}}}
+  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :rating => 3..5}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :rating => 3..5}, :order => '@random'}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
@@ -128,6 +129,8 @@ class Product < ActiveRecord::Base
         products.recent
       when :soon
         products.soon
+      when :cinema
+        products.cinema
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       else
