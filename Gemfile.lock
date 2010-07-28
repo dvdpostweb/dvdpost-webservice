@@ -1,99 +1,147 @@
-GIT
-  remote: git://github.com/jeroenj/oauth2.git
-  revision: bdd30ea
-  specs:
-    oauth2 (0.0.10)
-      faraday (~> 0.4.1)
-      multi_json (>= 0.0.4)
-
-GIT
-  remote: git://github.com/mrs/rails_warden.git
-  revision: d224a5f
-  specs:
-    rails_warden (0.5.2)
-      warden
-
-GIT
-  remote: git://github.com/mrs/warden_oauth.git
-  revision: cacf111
-  branch: oauth2
-  specs:
-    warden_oauth (0.2.0)
-      oauth2
-      warden (>= 0.8.1)
-
-GEM
-  remote: http://rubygems.org/
-  specs:
-    actionmailer (2.3.5)
-      actionpack (= 2.3.5)
-    actionpack (2.3.5)
-      activesupport (= 2.3.5)
-      rack (~> 1.0.0)
-    activerecord (2.3.5)
-      activesupport (= 2.3.5)
-    activeresource (2.3.5)
-      activesupport (= 2.3.5)
-    activesupport (2.3.5)
-    addressable (2.1.2)
-    bullet (1.7.6)
-    capistrano (2.5.19)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.0.0)
-    capistrano-ext (1.2.1)
-      capistrano (>= 1.0.0)
-    faraday (0.4.6)
-      addressable (>= 2.1.1)
-      rack (>= 1.0.1)
-    highline (1.6.1)
-    hoptoad_notifier (2.3.2)
-      activesupport
-    hpricot (0.8.2)
-    json (1.4.3)
-    multi_json (0.0.4)
-    mysql (2.8.1)
-    net-scp (1.0.2)
-      net-ssh (>= 1.99.1)
-    net-sftp (2.0.4)
-      net-ssh (>= 2.0.9)
-    net-ssh (2.0.23)
-    net-ssh-gateway (1.0.1)
-      net-ssh (>= 1.99.1)
-    orderedhash (0.0.6)
-    rack (1.0.1)
-    rails (2.3.5)
-      actionmailer (= 2.3.5)
-      actionpack (= 2.3.5)
-      activerecord (= 2.3.5)
-      activeresource (= 2.3.5)
-      activesupport (= 2.3.5)
-      rake (>= 0.8.3)
-    rake (0.8.7)
-    rmagick (2.13.1)
-    timed_fragment_cache (0.0.1)
-    warden (0.10.7)
-      rack (>= 1.0.0)
-    will_paginate (2.3.14)
-
-PLATFORMS
-  ruby
-
-DEPENDENCIES
-  bullet
-  capistrano-ext
-  hoptoad_notifier (~> 2.3.0)
-  hpricot (~> 0.8.2)
-  json
-  mysql
-  oauth2!
-  orderedhash
-  rails (= 2.3.5)
-  rails_warden!
-  rmagick
-  timed_fragment_cache
-  warden
-  warden_oauth!
-  will_paginate (~> 2.3.12)
+--- 
+dependencies: 
+  rails: 
+    group: 
+    - :default
+    version: = 2.3.5
+  mysql: 
+    group: 
+    - :bundle
+    version: ">= 0"
+  rails_warden: 
+    group: 
+    - :default
+    version: ">= 0"
+  bullet: 
+    group: 
+    - :development
+    version: ">= 0"
+  timed_fragment_cache: 
+    group: 
+    - :default
+    version: ">= 0"
+  will_paginate: 
+    group: 
+    - :default
+    version: ~> 2.3.12
+  capistrano-ext: 
+    group: 
+    - :default
+    version: ">= 0"
+    require: 
+    - capistrano
+  json: 
+    group: 
+    - :default
+    version: ">= 0"
+  rmagick: 
+    group: 
+    - :default
+    version: ">= 0"
+  hoptoad_notifier: 
+    group: 
+    - :default
+    version: ~> 2.3.0
+  warden: 
+    group: 
+    - :default
+    version: ">= 0"
+  hpricot: 
+    group: 
+    - :default
+    version: ~> 0.8.2
+  oauth2: 
+    group: 
+    - :default
+    version: ">= 0"
+  warden_oauth: 
+    group: 
+    - :default
+    version: ">= 0"
+  orderedhash: 
+    group: 
+    - :default
+    version: ">= 0"
+specs: 
+- rake: 
+    version: 0.8.7
+- activesupport: 
+    version: 2.3.5
+- rack: 
+    version: 1.0.1
+- actionpack: 
+    version: 2.3.5
+- actionmailer: 
+    version: 2.3.5
+- activerecord: 
+    version: 2.3.5
+- activeresource: 
+    version: 2.3.5
+- addressable: 
+    version: 2.1.2
+- bullet: 
+    version: 1.7.6
+- highline: 
+    version: 1.6.1
+- net-ssh: 
+    version: 2.0.23
+- net-scp: 
+    version: 1.0.2
+- net-sftp: 
+    version: 2.0.4
+- net-ssh-gateway: 
+    version: 1.0.1
+- capistrano: 
+    version: 2.5.19
+- capistrano-ext: 
+    version: 1.2.1
+- faraday: 
+    version: 0.4.6
+- hoptoad_notifier: 
+    version: 2.3.2
+- hpricot: 
+    version: 0.8.2
+- json: 
+    version: 1.4.3
+- multi_json: 
+    version: 0.0.4
+- mysql: 
+    version: 2.8.1
+- oauth2: 
+    version: 0.0.10
+    source: 2
+- orderedhash: 
+    version: 0.0.6
+- rails: 
+    version: 2.3.5
+- warden: 
+    version: 0.10.7
+- rails_warden: 
+    version: 0.5.2
+    source: 0
+- rmagick: 
+    version: 2.13.1
+- timed_fragment_cache: 
+    version: 0.0.1
+- warden_oauth: 
+    version: 0.2.0
+    source: 1
+- will_paginate: 
+    version: 2.3.14
+hash: 867ae827eee932ff6d1f7baa32b0df3d675756f8
+sources: 
+- Git: 
+    uri: git://github.com/mrs/rails_warden.git
+    git: git://github.com/mrs/rails_warden.git
+    ref: d224a5f39ad1ffe9a29e4bfae62c269bada2e728
+- Git: 
+    uri: git://github.com/mrs/warden_oauth.git
+    branch: oauth2
+    git: git://github.com/mrs/warden_oauth.git
+    ref: cacf1117c3c659925ba63b4bfa0070f1c7f401af
+- Git: 
+    uri: git://github.com/jeroenj/oauth2.git
+    git: git://github.com/jeroenj/oauth2.git
+    ref: bdd30ea98405405924a674a66a58426747105700
+- Rubygems: 
+    uri: http://rubygems.org

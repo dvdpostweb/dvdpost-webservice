@@ -5,7 +5,7 @@
         <li>
           <%= image_tag carousel_image_url(old_quizz) %>
           <span>
-            <%= old_quizz.quizz_name %>
+            <%= t "quizzes.show.quizz#{old_quizz.to_param}" %>
           </span>
         </li>
       <% end %>

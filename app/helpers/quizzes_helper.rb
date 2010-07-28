@@ -7,7 +7,7 @@ module QuizzesHelper
   end
 
   def carousel_image_url(quizz)
-    "#{DVDPost.images_language_path[I18n.locale]}/old_quizz/q#{quizz.quizz_name_id}.gif"
+    "#{DVDPost.images_path}/old_quizz/q#{quizz.quizz_name_id}.gif"
   end
 
   def quiz_dimensions(quizz)
