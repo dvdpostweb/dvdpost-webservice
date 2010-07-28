@@ -15,6 +15,6 @@ class QuizzName < ActiveRecord::Base
   end
 
   def image
-    File.join(DVDPost.images_path, banner) unless banner.empty?
+    File.join(DVDPost.images_language_path[I18n.locale], banner) unless banner.empty?
   end
 end
