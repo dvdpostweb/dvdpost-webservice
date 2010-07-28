@@ -25,7 +25,7 @@ namespace :bundler do
   end
 end
 
-after "deploy:symlink", "bundler:bundle_new_release"
+before "deploy:symlink", "bundler:bundle_new_release"
 
 # Thinking Sphinx
 namespace :thinking_sphinx do
@@ -95,5 +95,5 @@ namespace :deploy do
   end
 end
 
-before 'deploy:update_code', 'deploy:stop_ts'
+before 'deploy:symlink', 'deploy:stop_ts'
 after 'deploy:symlink', 'deploy:update_ts'
