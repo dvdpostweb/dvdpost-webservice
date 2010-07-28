@@ -12,7 +12,7 @@
           <%= render :partial => 'quizzes/show/flash', :locals => {:quizz => @quizz_name, :customer => current_customer} %>
         </div>
         <h3 align="center">
-          <%= @quizz_name.quizz_name %>
+          <%= t ".quizz#{@quizz_name.to_param}" %>
         </h3>
         <p>
           <%= t '.explanation_1' %>
