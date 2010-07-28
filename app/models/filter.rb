@@ -42,7 +42,7 @@ class Filter < ActiveRecord::Base
     audience? || rating? || year? || media? || country_id? || dvdpost_choice? || audio? || subtitles?
   end
 
-  def update_with_defaults(options={})
+  def update_with_defaults(options)
     self.media            = nil || options[:media]
     self.country_id       = nil || options[:country_id]
     self.audience_min     = nil || options[:audience_min]
