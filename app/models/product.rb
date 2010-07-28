@@ -212,7 +212,7 @@ class Product < ActiveRecord::Base
   end
 
   def media_alternative(media)
-    self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([:bluray]).by_language(I18n.locale).limit(1).first
+    self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).by_language(I18n.locale).limit(1).first
   end
 
   def self.search_clean(query_string, options={})

@@ -83,9 +83,12 @@ module ProductsHelper
   def available_on_other_media(product)
     unless product.series?
       if product.dvd?
+        logger.debug('@@@ici')
         bluray = product.media_alternative(:bluray)
         link_to(t('.dispo_bluray'), product_path(:id => bluray), :id => 'bluray-btn') if bluray
       elsif product.bluray?
+        logger.debug('@@@la')
+        
         dvd = product.media_alternative(:dvd)
         link_to(t('.dispo_dvd'), product_path(:id => dvd), :id => 'dvd-btn') if dvd
       else
