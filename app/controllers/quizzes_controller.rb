@@ -7,6 +7,7 @@ class QuizzesController < ApplicationController
   def show
     @quizz_name = QuizzName.find(params[:id])
     @previous_list = QuizzName.previous_list.ordered.paginate(:per_page => 4, :page => params[:page])
+    @menu = 'quizz'
   end
   
 end
