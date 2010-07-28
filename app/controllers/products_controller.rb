@@ -27,8 +27,10 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
     @reviews_count = @product.reviews.approved.by_language.count
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-    if params[:recommendation]
+    if params[:recommendation].to_i == 1
       @source = DVDPost.source_wishlist[:recommandation]
+    elsif params[:recommendation].to_i == 2
+      @source = DVDPost.source_wishlist[:recommandation_product]
     else
       @source = DVDPost.source_wishlist[:else]
     end
