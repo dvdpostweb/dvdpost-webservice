@@ -10,7 +10,7 @@ class FiltersController < ApplicationController
   end
 
   def destroy
-    current_customer.filter.destroy
+    current_customer.filter.destroy if current_customer.filter
     redirect_to :back
   end
 end
