@@ -10,6 +10,7 @@ class ContestsController < ApplicationController
     else
       @already_played = nil
     end
+    @menu = 'contest'
   end
 
   def create

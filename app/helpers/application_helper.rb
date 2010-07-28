@@ -124,10 +124,6 @@ module ApplicationHelper
     php_path 'member_get_member.php'
   end
 
-  def quizz_path
-    php_path 'quizz.php'
-  end
-
   def who_we_are_path
     php_path 'whoweare.php'
   end
@@ -146,10 +142,6 @@ module ApplicationHelper
 
   def limited_subscription_change_path
     php_path 'subscription_change_limited.php'
-  end
-
-  def suspension_path
-    php_path 'holiday_form.php'
   end
 
   def product_shop_path(product)
