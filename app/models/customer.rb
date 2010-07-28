@@ -2,7 +2,7 @@ class Customer < ActiveRecord::Base
   set_table_name :customers
 
   set_primary_key :customers_id
-  
+
   attr_accessor :clear_pwd
 
   alias_attribute :abo_active,                   :customers_abo
@@ -68,9 +68,9 @@ class Customer < ActiveRecord::Base
   end
 
   def encrypt_password
-     self.password= Digest::MD5.hexdigest(clear_pwd)
+    self.password= Digest::MD5.hexdigest(clear_pwd)
   end
-  
+
   def self.find_by_email(args)
     self.find_by_customers_email_address(args)
   end
@@ -177,13 +177,25 @@ class Customer < ActiveRecord::Base
   def credit_empty?
     credits == 0 && suspension_status == 0 && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
   end
-  
+
   def suspended?
     suspension_status != 0
   end
 
-  def change_language(value)
-    update_attribute(:customers_language, value)
+  def locale
+    loc = DVDPost.customer_languages.invert[language]
+    loc.to_sym if loc
+  end
+
+  def locale=(new_locale)
+    language_id = DVDPost.customer_languages[new_locale] || DVDPost.customer_languages[:fr]
+    update_attribute(:customers_language, language_id)
+  end
+
+  def update_locale(new_locale)
+    new_locale ||= locale
+    update_attribute(:customers_language, (DVDPost.customer_languages[new_locale] || :fr))
+    locale = new_locale.blank? ? :fr : new_locale
   end
 
   private
