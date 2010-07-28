@@ -3,6 +3,7 @@ require 'after_commit'
 require 'yaml'
 require 'cgi'
 require 'riddle'
+require 'riddle/0.9.9'
 
 require 'thinking_sphinx/auto_version'
 require 'thinking_sphinx/core/array'
