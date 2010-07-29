@@ -8,5 +8,7 @@ class AdditionalCard < ActiveRecord::Base
   
   def init_status
     self.status = 'create'
+    self.create_at = Time.now.to_s(:db)
+    self.modify_at = Time.now.to_s(:db)
   end
 end

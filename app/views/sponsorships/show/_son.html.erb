@@ -3,5 +3,5 @@
   <td class="<%= type %>"><%= son.customer.first_name if son.customer %></td>
 	<td class="<%= type %> brdr"><%= son.date.strftime('%d/%m/%Y') if son.date %></td>
 	<td class="<%= type %> brdr"><%= image_tag 'check.gif' if type == 'ok' %><%= t(".status_#{type}") %></td>
-	<td class="<%= type %> brdr"><strong><%= type == 'free' ? son.expected_points : son.points %>Pts</strong></td>
+	<td class="<%= type %> brdr size"><strong><%= type == 'free' ? son.expected_points : son.points %>Pts</strong></td>
 </tr>

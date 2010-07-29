@@ -98,5 +98,18 @@ $(function() {
     $(this).parent().html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
     return false; // prevent default behaviour
   });
+  var options_email = {
+    	success: showResponseEmail  // post-submit callback
+	};
+	function showResponseEmail(responseText, statusText)  {
+    	$('#emailer').html(responseText);
+  }
+  $('#mail_send').live("click", function(){
+    loader = 'loading.gif';
+    $('#tool-wrap #tab1 #inv-form').ajaxSubmit(options_email);
+    $(this).parent().html("<p class='loader'><img src='/images/"+loader+"'/></p>")
+    return false; // prevent default behaviour
+  });
+
 
 });

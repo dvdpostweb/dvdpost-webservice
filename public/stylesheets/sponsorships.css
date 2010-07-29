@@ -201,7 +201,7 @@ font-weight: bold;
 }
 #tool-wrap #tab1 .content {
   float: left;
-  width: 540px;
+  width: 640px;
 }
 #tool-wrap #tab1 #invitation {
   float: right;
@@ -221,8 +221,12 @@ font-weight: bold;
 #tool-wrap #tab1 #inv-form a, #tool-wrap #tab1 #inv-form input, #tool-wrap #tab1 #inv-form img {
   vertical-align: middle;
 }
+#tool-wrap #tab1 #inv-form .fieldWithErrors
+{
+  display: inline;
+}
 #tool-wrap #tab1 #inv-form input {
-  width: 185px;
+  width: 200px;
   padding: 2px;
   margin-left: 3px;
   border: 1px solid #a8acad;
@@ -246,7 +250,7 @@ font-weight: bold;
   margin: 0 0 10px;
 }
 #tool-wrap .history table {
-  width: 710px;
+  width: 810px;
   margin-left: 18px;
   font-size:13px;
 }
@@ -302,6 +306,10 @@ font-weight: bold;
   text-shadow: none !important;
 }
 
+#tool-wrap .history td.size, #tool-wrap .history th.size {
+  width: 50px;
+}
+
 #tool-wrap .tab-content #gifts {
   display: block;
   list-style: none;
@@ -311,11 +319,11 @@ font-weight: bold;
 }
 
 #tool-wrap .tab-content #gifts li {
-  width: 230px;
+  width: 270px;
   height: 290px;
   float: left;
   text-align: center;
-  margin: 10px 4px 0 5px;
+  margin: 10px 0;
 }
 * html #tool-wrap .tab-content #gifts li {
   display: inline;
@@ -329,12 +337,14 @@ font-weight: bold;
   min-height: 40px;
   height: auto !important;
   height: 40px;
+  width:270px;
 }
 
 #tool-wrap .tab-content #gifts li h3 span {
   font-size: 14px;
   color: #353535;
   font-weight: normal;
+  display: block;
 }
 #tool-wrap .tab-content #gifts li a.echanger {
   display: block;
@@ -351,7 +361,7 @@ font-weight: bold;
   float:left;
   font-size:14px;
   height:26px;
-  margin:6px 0 0 32px;
+  margin:6px 0 0 37px;
   padding:8px 0 0;
   width:170px;
 }
@@ -384,9 +394,12 @@ font-weight: bold;
 
 
 /* faq */
-
+#contact-wrap
+{
+  padding: 0px !important;
+}
 #contact-wrap #faq-nav {
-  width: 273px;
+  width: 300px;
   display: block;
   float: left;
   padding-left:5px;
@@ -434,7 +447,7 @@ font-weight: bold;
 }
 #contact-wrap .faq-answer {
   float: right;
-  width:420px;
+  width:490px;
   font-size:14px;
   padding-bottom:  14px;
   background: url(../images/faq-answers-shadow.gif) 0 100% no-repeat;
@@ -487,4 +500,20 @@ font-weight: bold;
 #mail_send:hover
 {
   background:url("../images/mail_send.png") no-repeat scroll 0 -37px transparent !important;
+}
+.loader
+{
+  background:none repeat scroll 0 0 #EEEEEE;
+  height:35px;
+  margin:2px auto;
+  text-align:center;
+  width:100px;
+}
+#additional #errorExplanation
+{
+  margin: 0 auto;
+}
+#emailer #errorExplanation li
+{
+  color: #333 !important;
 }

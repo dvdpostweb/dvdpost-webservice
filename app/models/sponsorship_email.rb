@@ -6,6 +6,12 @@ class SponsorshipEmail < ActiveRecord::Base
 
   before_save :init_status
   
+  validates_presence_of :lastname, :firstname, :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_uniqueness_of :email
+  validates_exclusion_of :lastname, :in => %w(Nom Name)
+  validates_exclusion_of :firstname, :in => %w(Prénom Firstname)
+
   def init_status
     self.date = Time.now.to_s(:db)
   end

@@ -1,9 +1,12 @@
-<h2 id ='form_tool'><%= t('sponsorships.header.home') %></h2>
-<% form_for @sponsorships_email, :url => sponsorships_email_path, :html => { :id => "inv-form"} do |f| %>
-<%= link_to image_tag('toggle+btn.png'), nil , :class => "toggle add_email" %>
-<%= f.text_field :lastname, :value => t('sponsorships.show.lastname'), :id => "name" %>
-<%= f.text_field :firstname, :value => t('sponsorships.show.firstname'), :id => "surname" %>
-<%= f.text_field :email, :value => t('sponsorships.show.email'), :id => "email" %>
-  <%= f.hidden_field :language, :value => DVDPost.customer_languages[I18n.locale], :id => "email" %>
-  <%= submit_tag t('.send'), :id => 'mail_send' %>
-<% end %>
+<div id='emailer'>
+  <h2 id ='form_tool'><%= t('sponsorships.header.home') %></h2>
+  <% form_for @sponsorships_email, :url => sponsorships_email_path, :html => { :id => "inv-form"} do |f| %>
+  <%= error_messages_for :sponsorships_email, :object_name => 'truc', :object => @sponsorships_email,:header_message => 'test' %>
+  <% link_to image_tag('toggle+btn.png'), nil , :class => "toggle add_email" %>
+  <%= f.text_field :lastname, :value => t('sponsorships.show.lastname'), :id => "name" %>
+  <%= f.text_field :firstname, :value => t('sponsorships.show.firstname'), :id => "surname" %>
+  <%= f.text_field :email, :value => t('sponsorships.show.email'), :id => "email" %>
+    <%= f.hidden_field :language, :value => DVDPost.customer_languages[I18n.locale], :id => "email" %>
+    <%= submit_tag t('.send'), :id => 'mail_send' %>
+  <% end %>
+</div>
