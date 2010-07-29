@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mrs/warden_oauth.git
-  revision: cacf111
+  revision: b532628
   branch: oauth2
   specs:
     warden_oauth (0.2.0)

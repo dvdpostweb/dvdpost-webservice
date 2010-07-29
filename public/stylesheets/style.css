@@ -3238,7 +3238,7 @@ a#all_categorie, a#all_categorie:hover {
   float:left;
   padding: 4px 2px 0 0 ;
 }
-.errorExplanation h2
+.errorExplanation h2, .errorExplanation p
 {
   display:none;
 }
