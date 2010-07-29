@@ -27,8 +27,6 @@ Warden::OAuth2.user_finder(:dvdpost) do |user_id|
 end
 
 Warden::Manager.after_set_user do |user, auth, opts|
-  acess_token = auth.raw_session[:oauth_token] || auth.cookies[:oauth_token]
-  refresh_token = auth.raw_session[:refresh_token] || auth.cookies[:refresh_token]
   strategy = Warden::Strategies[:dvdpost_oauth]
-  strategy.validate_token!(acess_token, refresh_token, auth.request.parameters)
+  strategy.validate_token!(auth.raw_session, auth.request.parameters)
 end
