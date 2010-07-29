@@ -512,6 +512,7 @@ font-weight: bold;
 #additional #errorExplanation
 {
   margin: 0 auto;
+  width: 150px;
 }
 #emailer #errorExplanation li
 {
