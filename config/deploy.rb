@@ -21,7 +21,7 @@ namespace :bundler do
 
   task :bundle_new_release, :roles => :app do
     bundler.create_symlink
-    run "cd #{release_path}; export PATH=/opt/ruby/bin:$PATH; bundle install vendor/bundle --disable-shared-gems --without development"
+    run "cd #{release_path}; export PATH=/opt/ruby/bin:$PATH; bundle install --production --without development"
   end
 end
 
