@@ -11,14 +11,14 @@ class SponsorshipsEmailsController < ApplicationController
       subject = email_data_replace(mail.subject, options)
       message = email_data_replace(mail.body, options)
       Emailer.deliver_send(recipient, subject, message)
+      @email_count = current_customer.sponsorship_emails.count
+      @sponsorships_email = SponsorshipEmail.new
       respond_to do |format|
-        format.html {render :action => :new }
-        format.js {render :partial => 'sponsorships/show/email_form'}
+        format.js {render :partial => 'sponsorships/show/email_form', :locals => { :ok => true }}
       end
     else
       respond_to do |format|
-        format.html {render :action => :new }
-        format.js {render :partial => 'sponsorships/show/email_form'}
+        format.js {render :partial => 'sponsorships/show/email_form', :locals => { :ok => false }}
       end
     end
   end

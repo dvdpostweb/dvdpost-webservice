@@ -22,7 +22,7 @@
         <%= link_to image_tag('invitation-thumb.jpg'), sponsorships_promotion_path, :id => "modal_invatation2" %>
       </div>
       <div class="clear"></div>
-      <%= render :partial => 'sponsorships/show/email_form' %>
+      <%= render :partial => 'sponsorships/show/email_form', :locals => { :ok => false } %>
       <div class="history">
         <h3> <%= t('.history')  %></h3>
         <table border="0" cellspacing="0" cellpadding="4">

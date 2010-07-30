@@ -518,3 +518,7 @@ font-weight: bold;
 {
   color: #333 !important;
 }
+#mail_sent {
+  color: #228A1E;
+  text-align: center;
+}
