@@ -120,10 +120,6 @@ module ApplicationHelper
     "#{result}#{result.include?('?') ? '&' : '?'}language=#{I18n.locale}"
   end
 
-  def sponsor_path
-    php_path 'member_get_member.php'
-  end
-
   def who_we_are_path
     php_path 'whoweare.php'
   end
