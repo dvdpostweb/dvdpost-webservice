@@ -14,7 +14,7 @@ module HomeHelper
         when 1
           link_to image_tag('banner_facebook.gif', :alt => 'facebook dvdpost'), fb_url
         when 2
-          link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsor_path
+          link_to image_tag('banner_parrainage.gif', :alt => 'parrainage dvdpost'), sponsorships_path
         when 3
           link_to image_tag('banner_twitter.gif', :alt => 'twitter dvdpost'), twitter_url
         end
