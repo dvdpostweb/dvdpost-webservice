@@ -8,7 +8,7 @@
       <li>
         <%= link_to t('.tops'), products_path %>
         <ul>
-          <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).collect do |list| %>
+          <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).ordered.collect do |list| %>
             <li><%= link_to list.name, list_products_path(:list_id => list) %></li>
           <% end %>
         </ul>

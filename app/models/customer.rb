@@ -33,6 +33,8 @@ class Customer < ActiveRecord::Base
   validates_format_of :phone, :with => /^(\+)?[0-9 \/.]+$/, :on => :update
   validates_length_of :clear_pwd_confirmation, :minimum => 5, :unless => :clear_pwd_empty?
   validates_confirmation_of :clear_pwd, :unless => :clear_pwd_empty?
+  validates_format_of :customers_email_address, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_uniqueness_of :customers_email_address
 
   before_save :encrypt_password, :unless => :clear_pwd_empty?
 
