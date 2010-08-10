@@ -8,7 +8,6 @@ class WishlistItem < ActiveRecord::Base
 
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :product, :foreign_key => :product_id
-  
 
   before_create :set_created_at
   before_validation :set_defaults

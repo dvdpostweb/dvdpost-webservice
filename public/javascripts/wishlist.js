@@ -22,14 +22,14 @@ $(function() {
   $(".trash a").live("click", function() {
     if (confirm($("#confirm").html())) {
       content = $(this).html();
-      parent = $(this).parent()
-      parent.html("<img src='/images/ajax-loader.gif' />");
+      parent_div = $(this).parent();
+      parent_div.html("<img src='/images/ajax-loader.gif' />");
       $.ajax({
         url: $(this).attr('href'),
         type: 'DELETE',
         data: {},
         success: function() {
-          parent.parent().remove();
+          parent_div.parent().remove();
         },
         error: function() {
           $(this).html(content);
