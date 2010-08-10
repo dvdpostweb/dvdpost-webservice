@@ -56,6 +56,7 @@ class Product < ActiveRecord::Base
     has products_year,              :as => :year
     has products_language_fr,       :as => :french
     has products_undertitle_nl,     :as => :dutch
+    has products_rating,            :as => :dvdpost_rating
     has imdb_id
     has in_cinema_now
     has actors(:actors_id),         :as => :actors_id
@@ -93,9 +94,9 @@ class Product < ActiveRecord::Base
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
   sphinx_scope(:available)          {{:with =>       {:status => [0,1]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
-  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :rating => 3..5}}}
-  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :rating => 3..5}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :rating => 3..5}, :order => '@random'}}
+  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
