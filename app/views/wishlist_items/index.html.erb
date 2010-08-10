@@ -3,14 +3,15 @@
   <div class="top"></div>
   <!-- DVD chez vous ou en transit -->
   <% locals = @transit_or_history == 'history' ? {:transit_items => nil, :history_items => @history_items, :history_count => nil} : {:transit_items => @transit_items, :history_items => nil, :history_count => @count} %>
-  <%= render :partial => 'wishlist_items/index/transit_history_list', :locals => locals.merge(:wishlist_items_count => @wishlist_items.count) %>
+  <%= render :partial => 'wishlist_items/index/transit_history_list', :locals => locals.merge(:wishlist_items_count => @wishlist_items_current.count) %>
   <!-- End DVD chez vous ou en transit -->
   <!-- Ma liste de films -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items.movies.current} %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items_current} %>
   <!-- End Ma liste de films -->
   <!-- Ma liste de films à venir -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items.movies.future} %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items_future} %>
   <!-- End Ma liste de films à venir -->
+  <span id ='confirm' style="display:none"><%= t '.confirm' %></span>
   <div class="end"></div>
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->

@@ -20,13 +20,14 @@ $(function() {
   });
 
   $(".trash a").live("click", function() {
-    if (confirm('Are you sure?')) {
+    if (confirm($("#confirm").html())) {
       content = $(this).html();
       parent = $(this).parent()
       parent.html("<img src='/images/ajax-loader.gif' />");
       $.ajax({
         url: $(this).attr('href'),
         type: 'DELETE',
+        data: {},
         success: function() {
           parent.parent().remove();
         },

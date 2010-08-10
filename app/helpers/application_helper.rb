@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def wishlist_size
-    @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
+    @wishlist_size = (current_customer.wishlist_items.available.by_kind(:normal).current.include_products.count || 0) if current_customer
   end
 
   def delegate_locale

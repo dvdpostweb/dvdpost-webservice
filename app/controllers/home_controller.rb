@@ -19,7 +19,6 @@ class HomeController < ApplicationController
         @contest = ContestName.by_language(I18n.locale).by_date.ordered.first
         shops = Banner.by_language(I18n.locale).by_size(:small).expiration
         @shop = shops[rand(shops.count)]
-        @wishlist_count = current_customer.wishlist_items.available.by_kind(:normal).include_products.count
         @transit_items = current_customer.orders.in_transit.all(:include => :product, :order => 'orders.date_purchased ASC')
         begin
           @news_items = retrieve_news
