@@ -4,6 +4,7 @@ class Customer < ActiveRecord::Base
   set_primary_key :customers_id
 
   attr_accessor :clear_pwd
+  attr_accessor :new_email
 
   alias_attribute :abo_active,                   :customers_abo
   alias_attribute :last_name,                    :customers_lastname
@@ -37,7 +38,8 @@ class Customer < ActiveRecord::Base
   validates_uniqueness_of :customers_email_address, :case_sensitive => false
 
   before_save :encrypt_password, :unless => :clear_pwd_empty?
-
+  before_validation_on_update :email_change
+  
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
@@ -65,6 +67,12 @@ class Customer < ActiveRecord::Base
   has_many :additional_card, :foreign_key => :customers_id
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
+
+  def email_change
+    if self.email != self.new_email
+      self.is_email_valid = 1
+    end
+  end
 
   def clear_pwd_empty?
     clear_pwd.nil? || clear_pwd.blank?
