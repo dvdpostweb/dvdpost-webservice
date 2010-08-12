@@ -110,7 +110,7 @@ $(function() {
     $.ajax({
       url: this.href,
       type: 'POST',
-      data: {}
+      data: {},
       success: function(data) {
         html_item.html(data);
       },
