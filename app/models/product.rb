@@ -42,7 +42,7 @@ class Product < ActiveRecord::Base
     indexes products_type
     indexes actors.actors_name,                 :as => :actors_name
     indexes director.directors_name,            :as => :director_name
-    indexes descriptions.products_description,  :as => :descriptions_text
+    #indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
 
     has products_availability,      :as => :availability

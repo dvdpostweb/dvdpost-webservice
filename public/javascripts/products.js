@@ -18,6 +18,7 @@ $(function() {
     $.ajax({
       url: html_item.attr('href'),
       type: 'GET',
+      data: {},
       success: function(data) {
         root_item.html(data);
       },
@@ -40,6 +41,7 @@ $(function() {
     $.ajax({
       url: url,
       type: 'POST',
+      data: {},
       success: function(data) {
         if (url.match(/replace=homepage/)){
           html_item.parent().replaceWith(data);
@@ -128,6 +130,7 @@ $(function() {
       url: this.href,
       dataType: 'script',
       type: 'GET',
+      data: {},
       success: function(data) {
         html_item.html(data);
         $("#oscars").hide();
