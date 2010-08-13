@@ -178,7 +178,7 @@ module ApplicationHelper
   end
 
   def production_path(country_id=nil)
-    if country_id.to_i == 21 || country_id == nil
+    if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
       'http://www.dvdpost.be/'
     else
       'http://www.dvdpost.nl/'
