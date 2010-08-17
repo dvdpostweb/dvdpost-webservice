@@ -13,7 +13,7 @@
       <tr>
         <td align="right"><strong><%= t '.credit' %></strong></td>
         <td align="left">
-          <%= customer.credits == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
+          <%= current_customer.subscription_type.qty_credit == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
         </td>
       </tr>
       <tr>

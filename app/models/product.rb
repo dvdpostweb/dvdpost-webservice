@@ -64,6 +64,7 @@ class Product < ActiveRecord::Base
     has director(:directors_id),    :as => :director_id
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
+    has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
 
@@ -98,6 +99,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
+  
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
@@ -137,7 +139,13 @@ class Product < ActiveRecord::Base
         products
       end
     end
-    products = products.by_kind(:normal).available.order(:id, :desc)
+    if options[:list_id] && !options[:list_id].blank?
+      products = products.by_kind(:normal).available.order(:special_order, :asc)
+    elsif options[:search] && !options[:search].blank?
+      products = products.by_kind(:normal).available
+    else
+       products = products.by_kind(:normal).available.order(:id, :desc)
+    end
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
