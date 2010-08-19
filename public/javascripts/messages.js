@@ -42,6 +42,7 @@ $(function() {
       $.ajax({
         url: $(this).attr('value'),
         type: 'DELETE',
+        data: {},
         success: function() {
           parent.parent().parent().remove();
         },

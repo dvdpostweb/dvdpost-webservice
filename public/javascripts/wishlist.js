@@ -5,8 +5,9 @@ $(function() {
     html_item.html("Updating...");
     wishlist_item_id = this.id;
     priority = this.value;
+    locale = $('#locale').html();
     $.ajax({
-      url: '/fr/wishlist_items/' + wishlist_item_id,
+      url: '/'+locale+'/wishlist_items/' + wishlist_item_id,
       contentType: 'application/json; charset=utf-8',
       type: 'PUT',
       data: JSON.stringify({"wishlist_item": {"priority": priority}}),
