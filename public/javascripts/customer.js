@@ -10,6 +10,7 @@ $(function() {
     $.ajax({
       url: url,
       type: 'POST',
+      data: {},
       success: function(data) {
         item = html_item.html(data);
       },
@@ -29,6 +30,7 @@ $(function() {
     $.ajax({
       url: url,
       type: 'POST',
+      data: {},
       success: function(data) {
         item = html_item.html(data);
       },
@@ -48,6 +50,7 @@ $(function() {
     $.ajax({
       url: url,
       type: 'POST',
+      data: {},
       success: function(data) {
         item = html_item.replaceWith(data);
       },
@@ -67,6 +70,7 @@ $(function() {
     $.ajax({
       url: url,
       type: 'POST',
+      data: {},
       success: function(data) {
         item = html_item.replaceWith(data);
       },
