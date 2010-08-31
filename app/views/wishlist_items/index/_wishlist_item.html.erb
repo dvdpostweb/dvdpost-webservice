@@ -1,3 +1,4 @@
+<% debug(wishlist_item)%>
 <div class="<%= product_media_id(wishlist_item.product.media) %> clearfix">
   <div class="title">
     <%= link_to truncate(wishlist_item.product.title, :length => 65), product_path(:id => wishlist_item.product.to_param) %> 
@@ -8,6 +9,6 @@
     <%= render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => wishlist_item} %>
   </ul>
   <span class="trash">
-    <%= link_to image_tag('trash-icon.gif', :alt => 'Trash it'), wishlist_item_path(:id => wishlist_item.to_param), :method => :delete %>
+    <%= link_to image_tag('trash-icon.gif', :alt => 'Trash it'), wishlist_item_path(:id => wishlist_item.to_param) %>
   </span>
 </div>

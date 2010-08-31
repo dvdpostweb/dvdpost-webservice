@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def wishlist_size
-    @wishlist_size = (current_customer.wishlist_items.count || 0) if current_customer
+    @wishlist_size = (current_customer.wishlist_items.available.by_kind(:normal).current.include_products.count || 0) if current_customer
   end
 
   def delegate_locale
@@ -120,10 +120,6 @@ module ApplicationHelper
     "#{result}#{result.include?('?') ? '&' : '?'}language=#{I18n.locale}"
   end
 
-  def sponsor_path
-    php_path 'member_get_member.php'
-  end
-
   def who_we_are_path
     php_path 'whoweare.php'
   end
@@ -182,7 +178,7 @@ module ApplicationHelper
   end
 
   def production_path(country_id=nil)
-    if country_id.to_i == 21 || country_id == nil
+    if country_id.to_i == 21 || country_id.to_i == 124 || country_id == nil
       'http://www.dvdpost.be/'
     else
       'http://www.dvdpost.nl/'

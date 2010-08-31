@@ -13,7 +13,7 @@
       <tr>
         <td align="right"><strong><%= t '.credit' %></strong></td>
         <td align="left">
-          <%= customer.credits == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
+          <%= current_customer.subscription_type.qty_credit == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
         </td>
       </tr>
       <tr>
@@ -22,13 +22,15 @@
       </tr>
       <tr>
         <td colspan="2" align="center">
-          <ul>
-            <li class="links">
-              <%= link_to t('.modify_abo'), limited_subscription_change_path, :class => 'modif' %>
-              <span><%= image_tag 'delimiter.gif' %></span>
-              <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' %>
-            </li>
-          </ul>
+          <% if customer.subscription %>
+            <ul>
+              <li class="links">
+                <%= link_to t('.modify_abo'), limited_subscription_change_path, :class => 'modif' %>
+                <span><%= image_tag 'delimiter.gif' %></span>
+                <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' %>
+              </li>
+            </ul>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -66,23 +68,25 @@
       </tr>
       <tr>
         <td align="right"><strong><%= t '.type_abo' %></strong></td>
-        <td align="left"><%= customer.subscription_payment_method.name.downcase %></td>
+        <td align="left"><%= customer.subscription_payment_method.name.downcase if customer.subscription_payment_method %></td>
       </tr>
       <tr>
         <td colspan='2'>
-          <ul>
-            <li class='link_payment'>
-              <% if current_customer.payment_method == 1 %>
-                <%= link_to t('.ogone_payment_method_change'), payment_method_change_path('ogone_change') %>
-                <span><%= image_tag 'delimiter.gif' %></span>
-              <% end %>
-              <%= link_to t('.payment_method_change'), payment_method_change_path %>
-            </li>
-          </ul>
+          <% if customer.subscription %>
+            <ul>
+              <li class='link_payment'>
+                <% if current_customer.payment_method == 1 %>
+                  <%= link_to t('.ogone_payment_method_change'), payment_method_change_path('ogone_change') %>
+                  <span><%= image_tag 'delimiter.gif' %></span>
+                <% end %>
+                <%= link_to t('.payment_method_change'), payment_method_change_path %>
+              </li>
+            </ul>
+          <% end %>
         </td>  
       </tr>
     </table>
   </div>
-  <p><%= image_tag 'help.png' %></p>
+  <p><%= image_tag "#{DVDPost.images_language_path[I18n.locale]}/telephone.gif", :width => 375 %></p>
 </div>
 <div class="end"></div>

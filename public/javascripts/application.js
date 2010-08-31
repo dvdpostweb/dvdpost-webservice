@@ -18,13 +18,13 @@ $(function() {
 
   $("#indicator #n7").click(function() {
     $("#indicator-tips").toggle(0);
-    $.getScript('/fr/home/indicator_closed');
+    $.getScript($(this).attr('href'));
     return false;
   });
 
   $("#close").click(function() {
     $("#indicator-tips").hide();
-    $.getScript('/fr/home/indicator_closed');
+    $.getScript($("#close a").attr('href'));
     return false;
   });
 

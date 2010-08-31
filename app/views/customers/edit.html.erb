@@ -52,6 +52,8 @@
     <td>
       <span align="left">
         <%= f.text_field :email %>
+        <%= f.hidden_field :new_email, :value => @customer.email %>
+        
       </span>
     </td>
     <td class="explain_text" align="left">

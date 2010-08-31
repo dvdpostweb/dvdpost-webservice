@@ -42,7 +42,7 @@ class Product < ActiveRecord::Base
     indexes products_type
     indexes actors.actors_name,                 :as => :actors_name
     indexes director.directors_name,            :as => :director_name
-    indexes descriptions.products_description,  :as => :descriptions_text
+    #indexes descriptions.products_description,  :as => :descriptions_text
     indexes descriptions.products_name,         :as => :descriptions_title
 
     has products_availability,      :as => :availability
@@ -56,6 +56,7 @@ class Product < ActiveRecord::Base
     has products_year,              :as => :year
     has products_language_fr,       :as => :french
     has products_undertitle_nl,     :as => :dutch
+    has products_rating,            :as => :dvdpost_rating
     has imdb_id
     has in_cinema_now
     has actors(:actors_id),         :as => :actors_id
@@ -63,6 +64,7 @@ class Product < ActiveRecord::Base
     has director(:directors_id),    :as => :director_id
     has languages(:languages_id),   :as => :language_ids
     has product_lists(:id),         :as => :products_list_ids
+    has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
 
@@ -91,20 +93,20 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
-  sphinx_scope(:available)          {{:without =>       {:status => -1}}}
+  sphinx_scope(:available)          {{:with =>       {:status => [0,1]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
-  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :rating => 3..5}}}
-  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :rating => 3..5}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :rating => 3..5}, :order => '@random'}}
+  sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
+  
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
   def self.filter(filter, options={})
-    
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
-    products = products.by_actor(options[:actor_id]) if filter[:actor_id]
+    products = products.by_actor(options[:actor_id]) if options[:actor_id]
     products = products.by_category(options[:category_id]) if options[:category_id]
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
@@ -137,7 +139,13 @@ class Product < ActiveRecord::Base
         products
       end
     end
-    products = products.by_kind(:normal).available.order(:id, :desc)
+    if options[:list_id] && !options[:list_id].blank?
+      products = products.by_kind(:normal).available.order(:special_order, :asc)
+    elsif options[:search] && !options[:search].blank?
+      products = products.by_kind(:normal).available
+    else
+       products = products.by_kind(:normal).available.order(:id, :desc)
+    end
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
@@ -202,6 +210,10 @@ class Product < ActiveRecord::Base
 
   def available_to_sale?
     quantity_to_sale > 0
+  end
+
+  def good_language?(language)
+    languages.find_by_languages_id(language) || subtitles.find_by_undertitles_id(language)
   end
 
   def views_increment

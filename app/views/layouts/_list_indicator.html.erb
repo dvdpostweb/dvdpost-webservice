@@ -1,4 +1,4 @@
-<%= link_to t('.indicator'), nil, :id => 'n7', :class => list_indicator_class(wishlist_size) %>
+<%= link_to t('.indicator'), indicator_closed_path , :id => 'n7', :class => list_indicator_class(wishlist_size) %>
 <ul id="indicator-tips">
   <li>
     <h3>
@@ -25,8 +25,6 @@
     
   </li>
   <li id="close">
-    <a href="">
-      <%= t '.close' %>
-    </a>
+    <%= link_to t('.close'), indicator_closed_path %>
   </li>
 </ul>

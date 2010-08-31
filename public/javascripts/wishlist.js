@@ -5,8 +5,9 @@ $(function() {
     html_item.html("Updating...");
     wishlist_item_id = this.id;
     priority = this.value;
+    locale_short = $('#locale').html();
     $.ajax({
-      url: '/fr/wishlist_items/' + wishlist_item_id,
+      url: '/'+locale_short+'/wishlist_items/' + wishlist_item_id,
       contentType: 'application/json; charset=utf-8',
       type: 'PUT',
       data: JSON.stringify({"wishlist_item": {"priority": priority}}),
@@ -20,15 +21,16 @@ $(function() {
   });
 
   $(".trash a").live("click", function() {
-    if (confirm('Are you sure?')) {
+    if (confirm($("#confirm").html())) {
       content = $(this).html();
-      parent = $(this).parent()
-      parent.html("<img src='/images/ajax-loader.gif' />");
+      parent_div = $(this).parent();
+      parent_div.html("<img src='/images/ajax-loader.gif' />");
       $.ajax({
         url: $(this).attr('href'),
         type: 'DELETE',
+        data: {},
         success: function() {
-          parent.parent().remove();
+          parent_div.parent().remove();
         },
         error: function() {
           $(this).html(content);
