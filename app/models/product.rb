@@ -212,6 +212,10 @@ class Product < ActiveRecord::Base
     quantity_to_sale > 0
   end
 
+  def good_language?(language)
+    languages.find_by_languages_id(language) || subtitles.find_by_undertitles_id(language)
+  end
+
   def views_increment
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.

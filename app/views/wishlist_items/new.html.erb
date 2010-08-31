@@ -34,6 +34,9 @@
       </tr>
     </table>
   </fieldset>
+  <% unless @wishlist_item.product.good_language?(DVDPost.product_languages[I18n.locale]) %>
+    <p>ce film n'est pas dans votre langue</p>
+  <% end %>
   <p class="align" id="add_to_wishlist">
   <%= f.submit title_add_to_wishlist(:long), :class => 'item' %>
   <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series' if @wishlist_item.product.series? %>
