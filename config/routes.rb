@@ -88,5 +88,10 @@ ActionController::Routing::Routes.draw do |map|
       sponsorship.resource :additional_card, :only => [:new, :create]
     end
 
+    localized.resources :movies, :only => [:show]
+
   end
+  
+  map.get_authentication 'authentication/api/Authenticate', :controller => :authentication, :action => :ok, :conditions => { :method => :get }
+  
 end

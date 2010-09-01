@@ -35,7 +35,7 @@ GEM
     activeresource (2.3.5)
       activesupport (= 2.3.5)
     activesupport (2.3.5)
-    addressable (2.1.2)
+    addressable (2.2.0)
     bullet (1.7.6)
     capistrano (2.5.19)
       highline
@@ -49,20 +49,23 @@ GEM
       addressable (>= 2.1.1)
       rack (>= 1.0.1)
     highline (1.6.1)
-    hoptoad_notifier (2.3.2)
+    hoptoad_notifier (2.3.6)
       activesupport
     hpricot (0.8.2)
-    json (1.4.3)
+    json (1.4.6)
     multi_json (0.0.4)
     mysql (2.8.1)
-    net-scp (1.0.2)
+    net-scp (1.0.3)
       net-ssh (>= 1.99.1)
-    net-sftp (2.0.4)
+    net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
     net-ssh (2.0.23)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
     orderedhash (0.0.6)
+    panztel-actionwebservice (2.3.5)
+      actionpack (= 2.3.5)
+      activerecord (= 2.3.5)
     rack (1.0.1)
     rails (2.3.5)
       actionmailer (= 2.3.5)
@@ -90,6 +93,7 @@ DEPENDENCIES
   mysql
   oauth2!
   orderedhash
+  panztel-actionwebservice (>= 2.3.5)
   rails (= 2.3.5)
   rails_warden!
   rmagick
