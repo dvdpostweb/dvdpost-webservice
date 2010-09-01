@@ -15,7 +15,6 @@ gem 'warden'
 gem 'warden_oauth', :git => 'git://github.com/mrs/warden_oauth.git', :branch => 'oauth2'
 #gem 'warden_oauth', :path => 'vendor/submodules/warden_oauth'
 gem 'rails_warden', :git => 'git://github.com/mrs/rails_warden.git'
-gem 'rails_warden', :git => 'git://github.com/mrs/rails_warden.git'
 gem 'panztel-actionwebservice', '>= 2.3.5'
 #gem 'rails_warden', :path => 'vendor/submodules/rails_warden'
 
