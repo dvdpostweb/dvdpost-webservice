@@ -8,24 +8,11 @@ end
 
 require 'hoptoad_notifier/capistrano'
 
+require 'bundler/capistrano'
+
 after 'deploy:symlink' do
   run "ln -nfs #{deploy_to}/shared/uploaded/partner_logos #{deploy_to}/#{current_dir}/public/images/logo"
 end
-
-namespace :bundler do
-  task :create_symlink, :roles => :app do
-    shared_dir = File.join(shared_path, 'bundle')
-    release_dir = File.join(current_release, 'vendor', 'bundle')
-    run "mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}"
-  end
-
-  task :bundle_new_release, :roles => :app do
-    bundler.create_symlink
-    run "cd #{release_path}; export PATH=/opt/ruby/bin:$PATH; bundle install --production --without development"
-  end
-end
-
-before "deploy:symlink", "bundler:bundle_new_release"
 
 # Thinking Sphinx
 namespace :thinking_sphinx do
