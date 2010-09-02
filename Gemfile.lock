@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/jeroenj/oauth2.git
-  revision: bdd30ea
-  specs:
-    oauth2 (0.0.10)
-      faraday (~> 0.4.1)
-      multi_json (>= 0.0.4)
-
-GIT
   remote: git://github.com/mrs/rails_warden.git
   revision: d224a5f
   specs:
@@ -21,6 +13,14 @@ GIT
     warden_oauth (0.2.0)
       oauth2
       warden (>= 0.8.1)
+
+GIT
+  remote: git://github.com/redstorm/oauth2.git
+  revision: bdd30ea
+  specs:
+    oauth2 (0.0.10)
+      faraday (~> 0.4.1)
+      multi_json (>= 0.0.4)
 
 GEM
   remote: http://rubygems.org/
