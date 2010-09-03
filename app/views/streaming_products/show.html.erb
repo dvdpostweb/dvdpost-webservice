@@ -1,0 +1,5 @@
+<h2 id="movie-title">Title: <%=h @product.description.title %></h2>
+  <a class="player" id="player" style="display:block;width:697px;height:389px">
+    <img src="http://static.flowplayer.org/img/player/btn/showme.png"/>
+  </a>
+<%= render :partial => '/streaming_products/show/kind', :collection => @streaming, :locale => { :token => @token } %>

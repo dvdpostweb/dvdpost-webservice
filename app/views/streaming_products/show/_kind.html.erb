@@ -1,0 +1,11 @@
+audio <%= kind.language.by_language(I18n.locale).first.name %>
+<% if kind.subtitle.count > 0 %>
+subtitle <%= kind.subtitle.by_language(I18n.locale).first.name %>
+<% end %>
+<% qualities = ['LOW', 'HIGH'] %>
+<% qualities.each do |quality| %>
+  <div>
+    <%= link_to quality, streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality), :class => "#{quality} play", :id =>  quality %>
+  </div>
+<% end %>
+<br/>

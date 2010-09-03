@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/redstorm/oauth2.git
-  revision: bdd30ea
+  revision: bdd30ea98405405924a674a66a58426747105700
   specs:
     oauth2 (0.0.10)
       faraday (~> 0.4.1)

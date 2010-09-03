@@ -98,4 +98,7 @@
     <%= content_tag(:span, '', :class => 'new') if product.is_new? %>
   </span>
   <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
+  
+  <%= render :partial => 'products/streaming', :locals => {:product => product} if product.streaming?%>
+  
 </div>

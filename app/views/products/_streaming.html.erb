@@ -1,0 +1,5 @@
+<% if @token %>
+  <%= link_to 'replay', streaming_product_path(:id => product.imdb_id), :class => 'streaming_btn_replay' %>
+<% else %>
+  <%= link_to '.buy', new_product_token_path(:product_id => product.to_param), :class => 'streaming_btn streaming_action' %>
+<% end %>

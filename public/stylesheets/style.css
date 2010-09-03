@@ -1510,6 +1510,29 @@ a#next10 {
   text-shadow: 1px 1px 1px #555555;
 }
 
+#details .cover a.streaming_btn {
+  background: url(../images/vodbtn.png) 0 -3px no-repeat;
+  display: block;
+  height: 38px;
+  line-height: 34px;
+  width: 130px;
+  padding-left: 36px;
+  color: white;
+  font-size: 1em;
+  text-shadow: 1px 1px 1px #555555;
+}
+#details .cover a.streaming_btn_replay {
+  background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;
+  display: block;
+  height: 38px;
+  line-height: 34px;
+  width: 130px;
+  padding-left: 36px;
+  color: white;
+  font-size: 1em;
+  text-shadow: 1px 1px 1px #555555;
+}
+
 #details .cover a.btn:hover {
   background: url(../images/ajouterbtn.png) 0 100% no-repeat;
   text-decoration: none;

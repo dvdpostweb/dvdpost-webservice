@@ -1,0 +1,11 @@
+<div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
+<div id="addwishlist_explain">
+  <%= t '.intro' %>
+</div>
+<% if current_customer.credits > 0 %>
+il vous reste <%= current_customer.credits %> crédit
+<br />
+<%= link_to 'go to play',streaming_product_path(:id => @product.imdb_id) %>
+<% else %>
+il ne vous reste plus de crédit, reconduisez mnt
+<% end %>

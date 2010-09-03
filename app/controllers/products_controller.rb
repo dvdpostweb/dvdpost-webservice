@@ -50,6 +50,10 @@ class ProductsController < ApplicationController
         end
         DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
+      @token = Token.available.find_by_imdb_id(@product.imdb_id)
+      if @token && !@token.restriction(request.remote_ip)
+        @token = nil
+      end
       format.js {
         if params[:reviews_page]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
