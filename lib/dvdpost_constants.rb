@@ -78,6 +78,15 @@ module DVDPost
       })
     end
 
+    def products_special_types
+      HashWithIndifferentAccess.new.merge({
+        :dvd              => 1,
+        :streaming_dvd    => 2,
+        :bluray           => 3,
+        :streaming_bluray => 4
+      })
+    end
+
     def product_types
       HashWithIndifferentAccess.new.merge({
         :dvd    => 'DVD',

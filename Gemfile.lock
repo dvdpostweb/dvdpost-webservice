@@ -1,13 +1,13 @@
 GIT
   remote: git://github.com/mrs/rails_warden.git
-  revision: d224a5f
+  revision: d224a5f39ad1ffe9a29e4bfae62c269bada2e728
   specs:
     rails_warden (0.5.2)
       warden
 
 GIT
   remote: git://github.com/mrs/warden_oauth.git
-  revision: b532628
+  revision: b5326284833ff0d7b6e07d48714a6e148659afbe
   branch: oauth2
   specs:
     warden_oauth (0.2.0)

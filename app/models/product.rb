@@ -27,7 +27,7 @@ class Product < ActiveRecord::Base
   has_many :uninteresteds, :foreign_key => :products_id
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
   has_many :wishlist_items
-  has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id
+  has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}
@@ -68,7 +68,15 @@ class Product < ActiveRecord::Base
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
-
+    has streaming_products(:imdb_id), :as => :streaming_imdb_id
+    has streaming_products(:available_from), :as => :available_from
+    has streaming_products(:expire_at), :as => :expire_at
+    has "case 
+    when products_media = 'DVD' and streaming_products.imdb_id is null then 1 
+    when products_media = 'DVD' and streaming_products.imdb_id is not null then 2
+    when products_media = 'blueray' and streaming_products.imdb_id is null then 3
+    when products_media = 'blueray' and streaming_products.imdb_id is not null then 4 
+    else 5 end", :type  => :integer, :as => :special_media
     set_property :enable_star => true
     set_property :min_prefix_len => 3
     set_property :charset_type => 'sbcs'
@@ -87,18 +95,20 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_imdb_id)         {|imdb_id|          {:with =>       {:imdb_id => imdb_id}}}
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
-  sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media.flatten.collect {|m| DVDPost.product_types[m]}}}}
+  sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media}}}
+  sphinx_scope(:by_special_media)   {|media|            {:with => {:special_media => media}}}
   sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
   sphinx_scope(:by_products_list)   {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:by_ratings)         {|min, max|         {:with =>       {:rating => min..max}}}
   sphinx_scope(:by_recommended_ids) {|recommended_ids|  {:with =>       {:id => recommended_ids}}}
   sphinx_scope(:with_languages)     {|language_ids|     {:with =>       {:language_ids => language_ids}}}
   sphinx_scope(:with_subtitles)     {|subtitle_ids|     {:with =>       {:subtitle_ids => subtitle_ids}}}
-  sphinx_scope(:available)          {{:with =>       {:status => [0,1]}}}
+  sphinx_scope(:available)          {{:with =>          {:status => [0,1]}}}
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
+  sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0 }}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
@@ -112,7 +122,32 @@ class Product < ActiveRecord::Base
     products = products.by_director(options[:director_id]) if options[:director_id]
     products = products.by_audience(filter.audience_min, filter.audience_max) if filter.audience?
     products = products.by_country(filter.country_id) if filter.country_id?
-    products = products.by_media(filter.media) if filter.media?  
+    if filter.media? 
+      
+      medias = filter.media.dup
+      if medias.include?(:dvd)
+        if medias.include?(:bluray)
+          if medias.include?(:streaming)
+            medias = [1,2,3,4]
+          else
+            medias = [1,3]
+          end
+        elsif medias.include?(:streaming)
+          medias = [1,2]
+        else
+          medias = [1,2]
+        end
+      elsif medias.include?(:bluray)
+        if medias.include?(:streaming)
+          medias = [3,4]
+        else
+          medias = [3,4]
+        end
+      elsif medias.include?(:streaming)
+        medias = [2,4]
+      end
+      products = products.by_special_media(medias)
+    end
     products = products.by_ratings(filter.rating_min, filter.rating_max) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year?
     if filter.audio?
@@ -134,6 +169,8 @@ class Product < ActiveRecord::Base
         products.soon
       when :cinema
         products.cinema
+      when :streaming
+        products.streaming
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       else
@@ -144,6 +181,8 @@ class Product < ActiveRecord::Base
       products = products.by_kind(:normal).available.order(:special_order, :asc)
     elsif options[:search] && !options[:search].blank?
       products = products.by_kind(:normal).available
+    elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
+      products = products.by_kind(:normal).available.order(:imdb_id, :desc)
     else
        products = products.by_kind(:normal).available.order(:id, :desc)
     end

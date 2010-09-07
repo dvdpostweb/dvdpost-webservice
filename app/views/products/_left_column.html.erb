@@ -19,6 +19,7 @@
           <%= left_column_categories(@category) %>
         </ul>
       </li>
+      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming) %></li>
       <li><%= link_to t('.new'), products_path(:view_mode => :recent) %></li>
       <li><%= link_to t('.soon'), products_path(:view_mode => :soon) %></li>
       <li><%= link_to t('.cinema'), products_path(:view_mode => :cinema) %></li>
