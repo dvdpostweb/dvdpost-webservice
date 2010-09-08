@@ -1254,9 +1254,18 @@ a#next10 {
 
 #details #movie-info {
   float: left;
-  min-height: 310px;
   padding-left: 177px;
   width: 293px;
+}
+
+.height-classic
+{
+  min-height: 310px;
+}
+
+.height-stream
+{
+  min-height: 350px;
 }
 
 * html #detail-wrap #movie-info {

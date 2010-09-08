@@ -137,22 +137,24 @@ class Customer < ActiveRecord::Base
     begin
       # external service call can't be allowed to crash the app
       recommendation_ids = DVDPost.home_page_recommendations(self)
+      results = if recommendation_ids
+        hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
+        result_ids = recommendation_ids - hidden_ids
+        build_filter unless filter
+        filter.update_attributes(:recommended_ids => result_ids)
+        options.merge!(:subtitles => [2]) if I18n.locale == :nl
+        options.merge!(:audio => [1]) if I18n.locale == :fr
+        filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
+        Product.filter(filter, options.merge(:view_mode => :recommended))
+      else
+        []
+      end
     rescue => e
       logger.error("Failed to retrieve recommendations: #{e.message}")
+      false
     end
 
-    results = if recommendation_ids
-      hidden_ids = (rated_products + seen_products + wishlist_products).uniq.collect(&:id)
-      result_ids = recommendation_ids - hidden_ids
-      build_filter unless filter
-      filter.update_attributes(:recommended_ids => result_ids)
-      options.merge!(:subtitles => [2]) if I18n.locale == :nl
-      options.merge!(:audio => [1]) if I18n.locale == :fr
-      filter.nil? ? build_filter(:recommended_ids => result_ids) : filter.update_attributes(:recommended_ids => result_ids)
-      Product.filter(filter, options.merge(:view_mode => :recommended))
-    else
-      []
-    end
+    
   end
 
   def update_dvd_at_home!(operator, product)

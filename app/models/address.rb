@@ -7,6 +7,7 @@ class Address < ActiveRecord::Base
   alias_attribute :street, :entry_street_address
   alias_attribute :postal_code, :entry_postcode
   alias_attribute :city, :entry_city
+  alias_attribute :country_id, :entry_country_id
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
@@ -14,6 +15,10 @@ class Address < ActiveRecord::Base
   validates_length_of :postal_code, :minimum => 4
   validates_length_of :city, :minimum => 1
   
+  def belgian?
+    country_id == 21
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

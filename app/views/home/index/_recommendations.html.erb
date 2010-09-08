@@ -5,7 +5,7 @@
         <%= t '.title' %>
       </h3>
     </li>
-    <% if products.size > 0 %>
+    <% if products && products.size > 0 %>
       <li>
         <%= link_to t('.see_all'), products_path(:view_mode => :recommended) %>
       </li>
@@ -14,7 +14,7 @@
   <!-- Carousel -->
   <div id="carousel-wrap-hp">
     <div id="carousel">
-      <% if products.size > 0 %>
+      <% if products && products.size > 0 %>
         <ul>
           <%= render :partial => 'home/index/recommendation_product', :collection => products %>
         </ul>
@@ -23,7 +23,7 @@
       <% else %>
         <br />
         <p class='error'>
-          <%= t '.recommendations_unavailable' %>
+          <%= products == false ? t('.recommendations_unavailable') : t('.recommendations_empty') %>
         <p>
       <% end %>
     </div>

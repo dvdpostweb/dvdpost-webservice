@@ -4,13 +4,18 @@
   <%= render :partial => 'layouts/filters' %>
   <div id="titles-wrap">
     <div class="top"></div>
-    <%= render :partial => 'products/index/movie_detail', :collection => @products %>
-    <% if @products.size == 0 && params[:view_mode] == 'recommended' %>
-      <%= t '.recommendations_unavailable' %>
-    <% end %>
+      <% if @products %>
+        <%= render :partial => 'products/index/movie_detail', :collection => @products %>
+        <% if @products.size == 0 && params[:view_mode] == 'recommended' %>
+          <%= t '.recommendations_empty' %>
+        <% end %>
+      <% else %>
+        <%= t '.recommendations_unavailable' %>
+      <% end %>
     <div class="end"></div>
   </div>
-  <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' %>
+  <%= will_paginate @products, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;' if @products %>
+  
 </div>
 <!--   ==============   END MAIN CONTENT   ==============   -->
 <%= render :partial => 'products/left_column', :locals => {:filter => @filter} %>

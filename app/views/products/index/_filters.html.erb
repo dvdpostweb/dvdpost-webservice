@@ -7,7 +7,8 @@
       <li class="technology<%= ' open' if filter.media? %>">
         <%= link_to t('.tech') %>
         <div>
-          <% [:dvd, :bluray, :streaming].each do |media| %>
+          <% medias = current_customer.address.belgian? ? [:dvd, :bluray, :streaming] : [:dvd, :bluray] %>
+          <% medias.each do |media| %>
             <label>
               <%= filter_checkbox_tag :media, media, (filter.media? && filter.media.include?(media)) %>
               <%= t ".#{media}" %>
