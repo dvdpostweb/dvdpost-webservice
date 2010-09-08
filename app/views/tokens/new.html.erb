@@ -5,7 +5,11 @@
 <% if current_customer.credits > 0 %>
 il vous reste <%= current_customer.credits %> crédit
 <br />
-<%= link_to 'go to play',streaming_product_path(:id => @product.imdb_id) %>
+<%= link_to 'go to play',streaming_product_path(:id => @product.imdb_id, :product_id => @product.id) %>
+<br />
+<% if @product_in_wishlist %>
+  ce titre sera supprimé de votre liste automatiquement!
+<% end %>
 <% else %>
 il ne vous reste plus de crédit, reconduisez mnt
 <% end %>

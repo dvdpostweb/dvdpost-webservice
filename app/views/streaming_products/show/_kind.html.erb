@@ -5,7 +5,7 @@ subtitle <%= kind.subtitle.by_language(I18n.locale).first.name %>
 <% qualities = ['LOW', 'HIGH'] %>
 <% qualities.each do |quality| %>
   <div>
-    <%= link_to quality, streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality), :class => "#{quality} play", :id =>  quality %>
+    <%= link_to quality, streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality, :product_id => params[:product_id]), :class => "#{quality} play", :id =>  quality %>
   </div>
 <% end %>
 <br/>

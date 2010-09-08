@@ -35,7 +35,14 @@ class StreamingProductsController < ApplicationController
             #to do credit history
           end
         
-          if @token   
+          if @token
+            if params[:product_id]
+              wl = current_customer.wishlist_items.find_by_product_id(params[:product_id])
+              if wl
+                wl.destroy()
+                DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:product_id], current_customer, request.remote_ip)   
+              end
+            end
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => stream.filename}, :layout => false
           else
