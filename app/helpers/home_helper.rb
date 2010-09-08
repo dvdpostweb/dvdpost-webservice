@@ -43,4 +43,5 @@ module HomeHelper
         category_products_path(:category_id => carousel.reference_id)
       end
   end
+
 end

@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
   def show
     @customer = current_customer
+    @streaming_available = current_customer.tokens.available
   end
 
   def edit

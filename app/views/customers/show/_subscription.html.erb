@@ -51,6 +51,23 @@
         <td align="right" class="transit"><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
       </tr>
       <% end %>
+      <% if current_customer.address.belgian? %>
+        <tr>
+          <th colspan="2" class="rotation">
+            <%= t '.streaming_available' %>
+            <span>
+              <%= streaming_available.count %> <%= t '.movies' %>
+            </span>
+          </th>
+        </tr>
+        <% streaming_available.each do |stream| %>
+          <tr>
+            <td align="left"  class="transit"><%= link_to truncate(stream.products.first.description.title, :length => 50), streaming_product_path(:id => stream.imdb_id) %></td>
+            <td align="right"  class="transit"><% stream.created_at.strftime("%d/%m/%Y") %>
+              <%= "#{distance_of_time_in_hours((stream.created_at + 48.hours), Time.now)}" %></td>
+          </tr>
+        <% end %>
+      <% end %>
       <tr>
         <td colspan="2"><div class="ligne"></div></td>
       </tr>

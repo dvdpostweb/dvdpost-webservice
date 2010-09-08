@@ -687,7 +687,7 @@ fieldset {
 #titles-wrap .action {
   background: white;
   float: left;
-  height: 132px;
+  min-height: 132px;
   width: 171px;
   text-align: center;
 }
@@ -757,6 +757,32 @@ fieldset {
   text-shadow: 1px 1px 1px #999999;
   text-align: left;
 }
+#titles-wrap .action a.streaming_btn {
+  background: url(../images/vodbtn.png) 0 -3px no-repeat;  display: block;
+  float: left;
+  height: 38px;
+  line-height: 35px;
+  margin: 0 0 0 3px;
+  width: 132px;
+  padding: 2px 0 0 40px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+}
+#titles-wrap .action a.streaming_btn_replay {
+  background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;  display: block;
+  float: left;
+  height: 38px;
+  line-height: 35px;
+  margin: 0 0 0 3px;
+  width: 132px;
+  padding: 2px 0 0 40px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+} 
 
 #titles-wrap .action a.btn:hover {
   background: url(../images/ajouter-btn.png) 0 -39px no-repeat;

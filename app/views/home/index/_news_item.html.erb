@@ -1,4 +1,5 @@
 <li>
   <h3><%= link_to news_item.title, news_item.link, :target => :_blank %></h3>
+  <%= image_tag news_item.enclosure.url, :align => 'left' if I18n.locale == :en %>
   <%= news_item.description.gsub('<a ', '<a target="_blank" ').gsub('</a>','').gsub('</p>','</a></p>') %>
 </li>

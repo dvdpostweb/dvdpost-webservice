@@ -12,7 +12,7 @@ module DVDPost
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://syndication.cinenews.be/rss/newsfr.xml',
         :nl => 'http://syndication.cinenews.be/rss/newsnl.xml',
-        :en => 'http://syndication.cinenews.be/rss/newsnl.xml'
+        :en => 'http://www.cinemablend.com/rss.php'
       })
     end
 

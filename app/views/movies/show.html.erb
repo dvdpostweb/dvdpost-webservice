@@ -1,8 +1,0 @@
-<h2 id="movie-title">Title: <%=h @movie.title %></h2>
-<p id="CDN">Filename at CDN: <%=h @movie.filename %></p>
-<div id="page" style="margin-top: -25px;">
-  <a class="player" id="player" style="display:block;width:697px;height:389px">
-    <img src="http://static.flowplayer.org/img/player/btn/showme.png"/>
-  </a>
-  <%= flowplayer(@movie.filename, @token) %>
-</div>

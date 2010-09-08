@@ -28,6 +28,7 @@ class HomeController < ApplicationController
         @recommendations = retrieve_recommendations
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
         @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
+        @streaming_available = current_customer.tokens.available
       }
       format.js {
         if params[:news_page]

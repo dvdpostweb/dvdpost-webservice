@@ -1,10 +1,11 @@
 class Token < ActiveRecord::Base
   belongs_to :customer, :foreign_key => :customers_id
   has_many :token_ips
+  has_many :products, :foreign_key => :imdb_id, :primary_key => :imdb_id
 
   after_create :generate_token
 
-  named_scope :available,  lambda {{:conditions => {:created_at => (48.hours.ago)..0.hours.ago}}}
+  named_scope :available,  lambda {{:conditions => {:created_at => 48.hours.ago..0.hours.ago}}}
 
   def self.validate(imdb_id, ip, type = 'external' )
     token = self.available.find_by_imdb_id(imdb_id)

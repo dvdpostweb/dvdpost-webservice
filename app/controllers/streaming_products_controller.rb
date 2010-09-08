@@ -36,7 +36,7 @@ class StreamingProductsController < ApplicationController
           end
         
           if @token   
-            StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param)
+            StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => stream.filename}, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :filename => stream.filename}, :layout => false
