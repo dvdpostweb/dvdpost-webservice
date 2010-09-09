@@ -25,12 +25,12 @@
     <td><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
   </tr>
   <% end %>
-  <% if current_customer.address.belgian? %>
+  <% if current_customer.address.belgian? && streaming_available.count > 0 %>
     <tr>
       <th colspan="2">
-        <%= t '.streaming_available' %>
+        <%= t '.streaming_available' %> :
         <span>
-          <%= streaming_available.count %> <%= t '.movies' %>
+          <%= streaming_available.count %> <%= streaming_available.count > 1 ? t('.movies') : t('.movie') %>
         </span>
       </th>
     </tr>

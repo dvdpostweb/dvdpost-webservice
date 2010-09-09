@@ -15,21 +15,49 @@ class Token < ActiveRecord::Base
       if select
         type == 'external' ? 1 : token
       else
-        if token_ips.count < 2
-          token_ip = TokenIp.create(
-            :token_id => token.id,
-            :ip => ip
-          )
-          type == 'external' ? 1 : token
-        else
-          type == 'external' ? 0 : nil
+        if type == 'internal'
+          if token_ips.count < 2
+            token
+          else
+            nil
+          end
         end
       end
     else
       type == 'external' ? 0 : nil
     end
   end
+  def self.validate_and_create(imdb_id, ip)
+    token = self.available.find_by_imdb_id(imdb_id)
+    if token 
+      token_ips = token.token_ips
+      select = token_ips.find_by_ip(ip)
+      if select
+        token
+      else
+        if token_ips.count < 2
+          token_ip = TokenIp.create(
+            :token_id => token.id,
+            :ip => ip
+          )
+          token
+        else
+          nil
+        end
+      end
+    else
+      nil
+    end
+  end
 
+  def self.error
+    error = OrderedHash.new
+    error.push("ABO_PROCESS", 1)
+    error.push("CREDIT", 2)
+    error.push("ROLLBACK", 3)
+    error.push("IP", 4)
+    error
+  end
   private
   def generate_token
     update_attribute(:token, Digest::SHA1.hexdigest((created_at.to_s) + (97 * created_at.to_i).to_s))

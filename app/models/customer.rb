@@ -66,6 +66,8 @@ class Customer < ActiveRecord::Base
   has_many :gifts_history, :foreign_key => :customers_id
   has_many :additional_card, :foreign_key => :customers_id
   has_many :tokens
+  has_many :customer_abo_process_stats, :foreign_key => :customers_id
+  
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 

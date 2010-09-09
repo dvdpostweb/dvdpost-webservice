@@ -764,7 +764,7 @@ fieldset {
   line-height: 35px;
   margin: 0 0 0 3px;
   width: 132px;
-  padding: 2px 0 0 40px;
+  padding: 0 0 0 40px;
   color: white;
   text-decoration: none;
   text-shadow: 1px 1px 1px #999999;
@@ -777,7 +777,7 @@ fieldset {
   line-height: 35px;
   margin: 0 0 0 3px;
   width: 132px;
-  padding: 2px 0 0 40px;
+  padding: 0 0 0 40px;
   color: white;
   text-decoration: none;
   text-shadow: 1px 1px 1px #999999;
