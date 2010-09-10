@@ -2,7 +2,7 @@
   <h4>
     <%= t '.welcome' %> <%= current_customer.customers_firstname %>
   </h4>
-  <div id="votre-liste">
+  <div id="votre-liste" class="<%= list_indicator_class(@wishlist_size) %>">
     <%= t('.contains') %> 
     <span><%= wishlist_count %> <%= t '.dvd' %></span>
   </div>

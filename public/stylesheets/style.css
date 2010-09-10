@@ -2028,11 +2028,19 @@ html ul.tabs li.active a:hover {
 #welcome #votre-liste {
   height: 22px;
   line-height: 22px;
-  background: url(../images/yellow-green-grad.png) 0 0 no-repeat;
   padding: 0 3px 0 20px;
   font-size: 1.25em;
   font-weight: bold;
   margin-bottom: 5px;
+}
+#welcome #votre-liste.low {
+  background: url(../images/red-grad.png) 0 0 no-repeat;
+}
+#welcome #votre-liste.medium {
+  background: url(../images/orange-grad.png) 0 0 no-repeat;
+}
+#welcome #votre-liste.high {
+  background: url(../images/yellow-green-grad.png) 0 0 no-repeat;
 }
 
 #welcome #votre-liste span {

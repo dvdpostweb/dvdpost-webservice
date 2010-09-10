@@ -1,12 +1,19 @@
+require 'geo_ip'
+
 class StreamingProductsController < ApplicationController
   def show
     @streaming = StreamingProduct.find_all_by_imdb_id(params[:id])
     @product = Product.find_by_imdb_id(params[:id])
+    geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
+    logger.debug('@@@')
+    logger.debug(geo.inspect)
    
     respond_to do |format|
       format.html do
        @token = Token.validate(@product.imdb_id, request.remote_ip, 'internal')
-        if current_customer.address.belgian?
+       @unavailable_token = current_customer.tokens.unavailable.find_by_imdb_id(params[:id])
+       
+       if current_customer.address.belgian?
           render :action => :show
         else
           render :partial => 'streaming_products/no_access', :layout => true
@@ -14,40 +21,43 @@ class StreamingProductsController < ApplicationController
       end
       format.js do
         if current_customer.address.belgian?
-          @token = Token.validate_and_create(@product.imdb_id, request.remote_ip)
-          stream = StreamingProduct.find_by_id(params[:streaming_product_id])
-          if !@token
-            if current_customer.credits > 0
-              abo_process = AboProcess.today.last
-              if abo_process 
-                customer_abo_process = current_customer.customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
-              end
-              if !abo_process || customer_abo_process
-                Token.transaction do
-                  @token = Token.create(
-                    :customer_id => current_customer.to_param,
-                    :imdb_id     => params[:id]
-                  )
-                  token_ip = TokenIp.create(
-                    :token_id => @token.id,
-                    :ip => request.remote_ip
-                  )
+          if !current_customer.payment_suspended?
+            @token = Token.validate_and_create(@product.imdb_id, request.remote_ip)
+            stream = StreamingProduct.find_by_id(params[:streaming_product_id])
+            if !@token
+              if current_customer.credits > 0
+                abo_process = AboProcess.today.last
+                if abo_process 
+                  customer_abo_process = current_customer.customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
+                end
+                if !abo_process || customer_abo_process
+                  Token.transaction do
+                    @token = Token.create(
+                      :customer_id => current_customer.to_param,
+                      :imdb_id     => params[:id]
+                    )
+                    token_ip = TokenIp.create(
+                      :token_id => @token.id,
+                      :ip => request.remote_ip
+                    )
               
-                  credit = current_customer.update_attribute(:credits, (current_customer.credits - 1))
-                  if credit == false || !@token || !token_ip
-                    raise ActiveRecord::Rollback
-                    error = Token.error["ROLLBACK"]
+                    credit = current_customer.update_attribute(:credits, (current_customer.credits - 1))
+                    if credit == false || !@token || !token_ip
+                      raise ActiveRecord::Rollback
+                      error = Token.error["ROLLBACK"]
+                    end
+                    #to do credit history
                   end
-                  #to do credit history
+                else
+                  error = Token.error["ABO_PROCESS"]
                 end
               else
-                error = Token.error["ABO_PROCESS"]
+                error = Token.error["CREDIT"]
               end
-            else
-              error = Token.error["CREDIT"]
             end
+          else
+            error = Token.error["SUSPENSION"]
           end
-        
           if @token
             if params[:product_id]
               wl = current_customer.wishlist_items.find_by_product_id(params[:product_id])

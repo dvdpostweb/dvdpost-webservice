@@ -2,4 +2,7 @@
   <div class="player" id="player" style="display:block;width:697px;height:389px">
     <img src="http://static.flowplayer.org/img/player/btn/showme.png"/>
   </div>
+<div id ='streaming_message'>
+  <%= message_streaming(@token,@unavailable_token)%>
+</div>
 <%= render :partial => '/streaming_products/show/kind', :collection => @streaming, :locale => { :token => @token } %>

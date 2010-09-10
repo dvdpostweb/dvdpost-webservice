@@ -17,4 +17,10 @@ module StreamingProductsHelper
     script
     javascript_tag script
   end
+
+  def message_streaming(token, unavailable_token)
+    if !token && unavailable_token
+      t '.old_token'
+    end
+  end
 end
