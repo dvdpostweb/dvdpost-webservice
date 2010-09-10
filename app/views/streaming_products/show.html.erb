@@ -5,4 +5,5 @@
 <div id ='streaming_message'>
   <%= message_streaming(@token,@unavailable_token)%>
 </div>
+<%= debug(@geo.inspect) %>
 <%= render :partial => '/streaming_products/show/kind', :collection => @streaming, :locale => { :token => @token } %>

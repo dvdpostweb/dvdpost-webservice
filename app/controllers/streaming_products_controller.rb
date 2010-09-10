@@ -4,9 +4,7 @@ class StreamingProductsController < ApplicationController
   def show
     @streaming = StreamingProduct.find_all_by_imdb_id(params[:id])
     @product = Product.find_by_imdb_id(params[:id])
-    geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
-    logger.debug('@@@')
-    logger.debug(geo.inspect)
+    @geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
    
     respond_to do |format|
       format.html do
