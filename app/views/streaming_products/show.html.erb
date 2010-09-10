@@ -1,9 +1,41 @@
-<h2 id="movie-title">Title: <%=h @product.description.title %></h2>
-  <div class="player" id="player" style="display:block;width:697px;height:389px">
-    <img src="http://static.flowplayer.org/img/player/btn/showme.png"/>
+    <div class="player" id="player">
+      <%= image_tag 'vod.jpg' %>
+    </div>
+    <div id="maincontent">
+      <div id="vod-wrap">
+        <div class="top"></div>
+          <h2><%= h @product.description.title %> (<%= @product.year %>)</h2>
+          <% if @token %>
+            <span class="vodtime">Temps restants : <strong><%= time_left(@token) %></strong></span>
+          <% end %>
+          <div class="clear"></div>
+          
+          <div id ='streaming_message'>
+            <%= message_streaming(@validation, @unavailable_token)%>
+          </div>
+          <%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})", :class => 'cover_vod' %>
+          <% if !current_customer.payment_suspended? %>
+          <% logger.debug(@status) %>
+          <% logger.debug('@@@') %>
+          
+            <% if current_customer.credits > 0 || (@token && @status != :IP_TO_CREATED) %>
+              <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
+            <% else %>
+              vous n'avez plus de crédit
+            <% end %>
+          <% else %>
+            vous êtes suspendu vous n'avez pas acces à la vod
+          <% end %>
+    </div>
+    <p class="linkpc">
+      <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
+      <%= link_to "Connectez votre PC à votre TV", info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %>
+    </p>
+
+    <div class="clear"></div>
+
+    <div class="end"></div>
+
   </div>
-<div id ='streaming_message'>
-  <%= message_streaming(@token,@unavailable_token)%>
+
 </div>
-<%= debug(@geo.inspect) %>
-<%= render :partial => '/streaming_products/show/kind', :collection => @streaming, :locale => { :token => @token } %>

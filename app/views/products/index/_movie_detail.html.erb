@@ -1,6 +1,8 @@
 <% product = movie_detail %>
-<% @token = Token.validate(product.imdb_id, request.remote_ip, 'internal') if product.streaming? %>
-
+<% if product.streaming? %>
+  <% validation = validation(product.imdb_id, request.remote_ip, 'internal')  %>
+  <% @token = validation[:token] %>
+<% end %>
 <% path = (!params[:recommended]) ? product_path(:id => product.to_param) : product_path(:id => product.to_param, :recommendation => 1) %>
 <div class="<%= product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
@@ -49,7 +51,7 @@
       <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
     </div>
     <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
-    <%= render :partial => 'products/streaming', :locals => {:product => product} if product.streaming? and current_customer.address.belgian? %>
+    <%= render :partial => 'products/streaming', :locals => {:product => product} if product.streaming? and current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')%>
     
   </div>
   <div>

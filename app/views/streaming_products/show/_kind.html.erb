@@ -1,11 +1,23 @@
-audio <%= kind.language.by_language(I18n.locale).first.name %>
-<% if kind.subtitle.count > 0 %>
-subtitle <%= kind.subtitle.by_language(I18n.locale).first.name %>
-<% end %>
-<% qualities = ['LOW', 'HIGH'] %>
-<% qualities.each do |quality| %>
-  <div>
-    <%= link_to quality, streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality, :product_id => params[:product_id]), :class => "#{quality} play", :id =>  quality %>
-  </div>
-<% end %>
-<br/>
+<tr class="choose_color">
+  <td class="choose_padding">
+    <p>
+      AUDIO : <%= kind.language.by_language(I18n.locale).first.name %> <br />
+      <% if kind.subtitle.count > 0 %>
+        SOUS-TITRE : <%= kind.subtitle.by_language(I18n.locale).first.name %>
+      <% else %>
+        SANS SOUS-TITRAGE
+      <% end %>
+    </p>
+  </td>
+    <% qualities = ['LOW', 'HIGH'] %>
+    <% qualities.each do |quality| %>
+  <td>
+    <p>
+      <%= link_to "#{quality} quality", streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality, :product_id => params[:product_id]), :class => "btn qualityvod", :id =>  quality %>
+    </p>
+  </td>
+    <% end %>
+</tr>
+<tr class="choose_empty">
+  <td></td>
+</tr>

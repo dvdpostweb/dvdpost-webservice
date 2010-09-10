@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'open-uri'
 require 'rss/2.0'
+require 'geo_ip'
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -18,6 +19,8 @@ class ApplicationController < ActionController::Base
   before_filter :load_partners
   before_filter :redirect_after_registration
   before_filter :set_locale_from_params
+  before_filter :set_country
+  
 
   rescue_from ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
@@ -33,6 +36,16 @@ class ApplicationController < ActionController::Base
     set_locale(locale || :fr)
   end
 
+  def set_country
+     if !session[:country_code]
+       geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
+       country_code = geo[:country_code]
+       session[:country_code] = country_code
+     else
+       country_code = session[:country_code]
+     end
+  end
+  
   def available_locales
     AVAILABLE_LOCALES
   end

@@ -18,8 +18,14 @@ module StreamingProductsHelper
     javascript_tag script
   end
 
-  def message_streaming(token, unavailable_token)
-    if !token && unavailable_token
+  def message_streaming(validation, unavailable_token)
+    if validation
+      token = validation[:token]
+      status = validation[:status]
+    end
+    if token && status == :IP_TO_CREATED
+      t '.ip_to_created'
+    elsif !token && unavailable_token
       t '.old_token'
     end
   end

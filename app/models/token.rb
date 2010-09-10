@@ -5,8 +5,8 @@ class Token < ActiveRecord::Base
 
   after_create :generate_token
 
-  named_scope :available,  lambda {{:conditions => {:created_at => 48.hours.ago..0.hours.ago}}}
-  named_scope :unavailable,  lambda {{:conditions => ["created_at < ?", 48.hours.ago]}}
+  named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
+  named_scope :unavailable,  lambda {{:conditions => ["updated_at < ?", 48.hours.ago]}}
 
   def self.validate(imdb_id, ip, type = 'external' )
   # token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
@@ -27,29 +27,6 @@ class Token < ActiveRecord::Base
   # else
   #   type == 'external' ? 0 : nil
   # end
-  end
-
-  def self.validate_and_create(imdb_id, ip)
-   #token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
-   #if token 
-   #  token_ips = token.token_ips
-   #  select = token_ips.find_by_ip(ip)
-   #  if select
-   #    token
-   #  else
-   #    if token_ips.count < 2
-   #      token_ip = TokenIp.create(
-   #        :token_id => token.id,
-   #        :ip => ip
-   #      )
-   #      token
-   #    else
-   #      nil
-   #    end
-   #  end
-   #else
-   #  nil
-   #end
   end
 
   def self.error

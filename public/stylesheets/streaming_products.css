@@ -1,0 +1,147 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#header #logout {
+display:block;
+font-size:1.2em;
+padding:2px 5px;
+position:absolute;
+right:16px;
+top:10px;
+}
+
+#header h1 span {
+color:#333333;
+display:inline-block;
+margin:-6px 0 0;
+}
+
+#vod-wrap h2 {
+	font-size: 2em;
+	margin-bottom: 15px;
+	float:left;
+	
+}
+
+.vodtime {
+background:url("../images/icon_time.gif") no-repeat scroll 0 -2px transparent;
+float:right;
+font-size:1.6em;
+height:51px;
+padding-left:31px;
+padding-right:31px;
+padding-top:4px;
+
+}
+
+.choice_quality {font-size:1.3em;
+
+}
+
+
+.connect_linkpc {
+padding-right:113px;
+color:#FF4B00;
+text-decoration: underline;
+font-size:1.2em;
+
+}
+.cover_vod{
+border:solid #333333 1px;
+padding:9px;
+
+float:left;}
+
+.quality {
+	border:1px solid #333333;
+	float:left;
+	margin-left:10px;
+	padding:16px;
+	background-color: #FFFFFF;
+}
+
+.linkpc {
+	float:right;
+	margin-right:126px;
+	padding:6px;
+	
+}
+#vod-wrap .quality a.btn {
+background:url("../images/button_qualityvod.png") no-repeat scroll 0 -9px transparent;
+color:white;
+display:block;
+font-size:1em;
+height:38px;
+line-height:34px;
+text-shadow:1px 1px 1px #555555;
+width:97px;
+text-align:center;
+}
+
+#vod-wrap .quality a.btn:hover {
+background:url("../images/button_qualityvod.png") no-repeat scroll 0 -45px transparent;
+text-decoration:none;
+
+}
+
+#vod-wrap .quality a.btnselect {
+background:url("../images/button_qualityvod.png") no-repeat scroll 0 -81px transparent;
+color:white;
+display:block;
+font-size:1em;
+height:38px;
+line-height:34px;
+text-shadow:1px 1px 1px #555555;
+width:97px;
+text-align:center;
+}
+
+#vod-wrap .quality a.btnselect:hover {
+background:url("../images/button_qualityvod.png") no-repeat scroll 0 -45px transparent;
+text-decoration:none;
+
+}
+
+
+
+#wrap {
+background:url("../images/content-bg.png") repeat-y scroll 0 0 transparent;
+margin:0 auto;
+padding:0 8px 10px;
+text-align:left;
+width:970px;
+}
+
+#player
+{
+  text-align:center;
+  padding: 10px 0 0 0;
+  height: 389px;
+  width: 696px;
+  margin:0 auto;
+}
+
+.choose_color
+{
+  background-color: #c7c5c5;
+  padding: 5px 0 0 5px;
+}
+
+.choose_empty
+{
+  background-color: #fff;
+  height: 10px;
+}
+.choose_padding
+{
+  
+  padding: 0 0 0 15px;
+}
+.load
+{
+  height:32px;
+  width:32px;
+  position:absolute;
+  top:50%;
+  left:50%;
+}

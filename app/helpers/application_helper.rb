@@ -220,4 +220,28 @@ module ApplicationHelper
       "#{distance_in_hours} #{distance_in_hours == 1 ? t('time.hour') : t('time.hours')}"
     end
   end
+
+  def time_left(stream)
+    distance_of_time_in_hours((stream.created_at + 48.hours), Time.now)
+  end
+
+  def validation(imdb_id, ip, type = 'check')
+    token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
+    if token 
+      token_ips = token.token_ips
+      select = token_ips.find_by_ip(ip)
+      if select
+        {:token => token, :status => :OK}
+      else
+        if token_ips.count < 2
+          {:token => token, :status => :IP_TO_GENERATED}
+        else
+          {:token => token, :status => :IP_TO_CREATED}  
+        end
+      end
+    else
+      {:token => nil, :status => :FAILED} 
+    end
+  end
+  
 end
