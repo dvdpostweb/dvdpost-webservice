@@ -1,6 +1,17 @@
 require 'actionwebservice'
 
 class AuthenticationController < ApplicationController
+  
+  skip_before_filter :save_attempted_path
+  skip_before_filter :authenticate!
+  skip_before_filter :wishlist_size
+  skip_before_filter :delegate_locale
+  skip_before_filter :messages_size
+  skip_before_filter :load_partners
+  skip_before_filter :redirect_after_registration
+  skip_before_filter :set_locale_from_params
+  skip_before_filter :set_country
+
   web_service_api AuthenticationApi
   web_service_dispatching_mode :direct
   wsdl_service_name 'ContentAuthenticationService'
