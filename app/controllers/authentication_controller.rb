@@ -8,7 +8,9 @@ class AuthenticationController < ApplicationController
   web_service_scaffold :invoke
 
   def Authenticate(strAccount, strToken, strReferrer, strSourceURL, strClientIP)
+    logger.debug("#{strAccount}, #{strToken}, #{strReferrer}, #{strSourceURL}, #{strClientIP}, #{strClientIP.strip}")
     begin
+    
       if strSourceURL =~ CDN.source_file_regexp
         # $3, which represents the filename will be nil for now. It's commented out in the validation of token.
         Token.validate(strToken, $3, strClientIP.strip)

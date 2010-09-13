@@ -28,6 +28,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :birthday,                     :customers_dob
   alias_attribute :gender,                       :customers_gender
   alias_attribute :payment_method,               :customers_abo_payment_method
+  alias_attribute :abo_type_id,                  :customers_abo_type
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
@@ -67,6 +68,7 @@ class Customer < ActiveRecord::Base
   has_many :additional_card, :foreign_key => :customers_id
   has_many :tokens
   has_many :customer_abo_process_stats, :foreign_key => :customers_id
+  has_many :credit_histories, :foreign_key => :customers_id
   
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
@@ -212,6 +214,47 @@ class Customer < ActiveRecord::Base
     new_locale ||= locale
     update_attribute(:customers_language, (DVDPost.customer_languages[new_locale] || :fr))
     locale = new_locale.blank? ? :fr : new_locale
+  end
+
+  def get_credits()
+    credit_histories.last
+  end
+  
+  def remove_credit(quantity, action)
+    credit_history = self.get_credits()
+    if credit_history
+      credit_free = credit_history.credit_free + credit_history.quantity_free
+    else
+      credit_free = 0
+    end
+    if credit_free >= quantity
+      history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- quantity), :abo_type => abo_type_id)
+      if history.id.blank?
+        false
+      else
+        true
+      end
+    elsif credit_free + credits >= quantity
+      qt_paid = quantity - credit_free
+      qt_free = credit_free
+      history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
+      if history.id.blank?
+        false
+      else
+        true
+      end
+      
+    elsif credits >= quantity 
+      history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_paid => (- quantity), :abo_type => abo_type_id)
+      if history.id.blank?
+        false
+      else
+        true
+      end
+      
+    else
+      false
+    end
   end
 
   private

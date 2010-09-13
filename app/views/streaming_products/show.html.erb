@@ -15,10 +15,7 @@
           </div>
           <%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})", :class => 'cover_vod' %>
           <% if !current_customer.payment_suspended? %>
-          <% logger.debug(@status) %>
-          <% logger.debug('@@@') %>
-          
-            <% if current_customer.credits > 0 || (@token && @status != :IP_TO_CREATED) %>
+            <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
               <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
             <% else %>
               vous n'avez plus de crédit

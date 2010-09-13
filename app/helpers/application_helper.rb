@@ -222,7 +222,7 @@ module ApplicationHelper
   end
 
   def time_left(stream)
-    distance_of_time_in_hours((stream.created_at + 48.hours), Time.now)
+    distance_of_time_in_hours((stream.updated_at + 48.hours), Time.now)
   end
 
   def validation(imdb_id, ip, type = 'check')
@@ -231,17 +231,17 @@ module ApplicationHelper
       token_ips = token.token_ips
       select = token_ips.find_by_ip(ip)
       if select
-        {:token => token, :status => :OK}
+        {:token => token, :status => Token.status[:OK]}
       else
-        if token_ips.count < 2
-          {:token => token, :status => :IP_TO_GENERATED}
+        if token_ips.count < token.count_ip
+          
+          {:token => token, :status => Token.status["IP_TO_GENERATED"]}
         else
-          {:token => token, :status => :IP_TO_CREATED}  
+          {:token => token, :status => Token.status["IP_TO_CREATED"]}  
         end
       end
     else
-      {:token => nil, :status => :FAILED} 
+      {:token => nil, :status => Token.status[:FAILED]} 
     end
   end
-  
 end

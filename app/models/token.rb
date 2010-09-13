@@ -5,28 +5,20 @@ class Token < ActiveRecord::Base
 
   after_create :generate_token
 
+  validates_presence_of :imdb_id
+
   named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
   named_scope :unavailable,  lambda {{:conditions => ["updated_at < ?", 48.hours.ago]}}
 
-  def self.validate(imdb_id, ip, type = 'external' )
-  # token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
-  # if token 
-  #   token_ips = token.token_ips
-  #   select = token_ips.find_by_ip(ip)
-  #   if select
-  #     type == 'external' ? 1 : token
-  #   else
-  #     if type == 'internal'
-  #       if token_ips.count < 2
-  #         token
-  #       else
-  #         nil
-  #       end
-  #     end
-  #   end
-  # else
-  #   type == 'external' ? 0 : nil
-  # end
+  def self.validate(token_param, filename, ip)
+    token = self.available.find_by_token(token_param)
+    token_ips = token.token_ips
+    select = token_ips.find_by_ip(ip)
+    if token && select # && token.filename == filename
+      1
+    else
+      0
+    end
   end
 
   def self.error
@@ -34,11 +26,21 @@ class Token < ActiveRecord::Base
     error.push("ABO_PROCESS", 1)
     error.push("CREDIT", 2)
     error.push("ROLLBACK", 3)
-    error.push("TOO_MUTCH_IP", 4)
-    error.push("SUSPENSION", 5)
+    error.push("SUSPENSION", 4)
     
     error
   end
+
+  def self.status
+    status = OrderedHash.new
+    status.push("OK", 1)
+    status.push("IP_TO_GENERATED", 2)
+    status.push("IP_TO_CREATED", 3)
+    status.push("FAILED", 4)
+
+    status
+  end
+
   private
   def generate_token
     update_attribute(:token, Digest::SHA1.hexdigest((created_at.to_s) + (97 * created_at.to_i).to_s))
