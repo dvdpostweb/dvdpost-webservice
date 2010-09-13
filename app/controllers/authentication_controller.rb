@@ -2,7 +2,6 @@ require 'actionwebservice'
 
 class AuthenticationController < ApplicationController
   
-  skip_before_filter :save_attempted_path
   skip_before_filter :authenticate!
   skip_before_filter :wishlist_size
   skip_before_filter :delegate_locale
