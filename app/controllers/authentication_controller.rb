@@ -11,6 +11,8 @@ class AuthenticationController < ApplicationController
   skip_before_filter :set_locale_from_params
   skip_before_filter :set_country
 
+  layout nil
+
   web_service_api AuthenticationApi
   web_service_dispatching_mode :direct
   wsdl_service_name 'ContentAuthenticationService'
@@ -18,7 +20,6 @@ class AuthenticationController < ApplicationController
   web_service_scaffold :invoke
 
   def Authenticate(strAccount, strToken, strReferrer, strSourceURL, strClientIP)
-    logger.debug("#{strAccount}, #{strToken}, #{strReferrer}, #{strSourceURL}, #{strClientIP}, #{strClientIP.strip}")
     begin
     
       if strSourceURL =~ CDN.source_file_regexp
