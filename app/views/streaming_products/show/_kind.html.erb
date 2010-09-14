@@ -3,9 +3,9 @@
     <p>
       AUDIO : <%= kind.language.by_language(I18n.locale).first.name %> <br />
       <% if kind.subtitle.count > 0 %>
-        SOUS-TITRE : <%= kind.subtitle.by_language(I18n.locale).first.name %>
+        <%= t '.subtitle' %> : <%= kind.subtitle.by_language(I18n.locale).first.name %>
       <% else %>
-        SANS SOUS-TITRAGE
+        <%= t '.without_subtitle' %>
       <% end %>
     </p>
   </td>
@@ -13,7 +13,7 @@
     <% qualities.each do |quality| %>
   <td>
     <p>
-      <%= link_to "#{quality} quality", streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality, :product_id => params[:product_id]), :class => "btn qualityvod", :id =>  quality %>
+      <%= link_to t(".#{quality.downcase}"), streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality, :product_id => params[:product_id]), :class => "btn qualityvod", :id =>  quality %>
     </p>
   </td>
     <% end %>

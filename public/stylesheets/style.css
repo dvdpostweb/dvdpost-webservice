@@ -3313,6 +3313,32 @@ a#change_password
 {
   color:#454545;
 }
+
+.rajouter {
+  color:#FF4B00;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+}
+
+#add_to_vod:hover {
+  background:url(/images/vodbtn.png) no-repeat scroll 0 -41px transparent;
+}
+
+	
+#add_to_vod  {
+  background:url("/images/vodbtn.png") repeat scroll 0 -2px transparent;
+  border-style:hidden;
+  color:white;
+  cursor:pointer;
+  display:block;
+  height:26px;
+  padding:11px 0 0 19px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:145px;
+
+	
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }

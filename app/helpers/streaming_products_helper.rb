@@ -29,4 +29,17 @@ module StreamingProductsHelper
       t '.old_token'
     end
   end
+
+  def message_error(error)
+    case error
+      when Token.error["ROLLBACK"] then
+        t('.rollback')
+      when Token.error["ABO_PROCESS"] then
+        t('.abo_process')
+      when Token.error["CREDIT"] then
+        t('.credit_empty', :url => reconduction_path)
+      when Token.error["SUSPENSION"] then
+        t('.customer_suspended')
+    end
+  end
 end
