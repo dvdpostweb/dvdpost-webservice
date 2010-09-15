@@ -26,7 +26,8 @@
     </div>
     <p class="linkpc">
       <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
-      <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %>
+      <% link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %>
+      <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
     </p>
 
     <div class="clear"></div>

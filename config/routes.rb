@@ -31,8 +31,10 @@ ActionController::Routing::Routes.draw do |map|
       product.trailer      'trailer',      :controller => :products, :action => :trailer, :conditions => {:method => :get}
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
     end
-    localized.resources :streaming_products, :only => [:show]
-    
+    localized.resources :streaming_products, :only => [:show] do |stream|
+      stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+    end 
+
     localized.resources :categories, :only => [] do |category|
       category.resources :products, :only => :index
     end

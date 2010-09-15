@@ -1,5 +1,6 @@
 class Token < ActiveRecord::Base
   belongs_to :customer, :foreign_key => :customers_id
+  belongs_to :streaming_product, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :token_ips
   has_many :products, :foreign_key => :imdb_id, :primary_key => :imdb_id
 
@@ -11,10 +12,14 @@ class Token < ActiveRecord::Base
   named_scope :unavailable,  lambda {{:conditions => ["updated_at < ?", 48.hours.ago]}}
 
   def self.validate(token_param, filename, ip)
+    
     token = self.available.find_by_token(token_param)
-    token_ips = token.token_ips
-    select = token_ips.find_by_ip(ip)
-    if token && select # && token.filename == filename
+    if(token)
+      filename_select = StreamingProduct.by_filename(filename).all(:include => :tokens, :conditions => ['tokens.id = ?', token.id])
+      token_ips = token.token_ips
+      select = token_ips.find_by_ip(ip)
+    end
+    if token && select && !filename_select.blank?
       1
     else
       0

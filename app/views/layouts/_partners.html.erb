@@ -3,8 +3,10 @@
     <%= t '.title' %>
   </h3>
   <div id="partners-box">
-    <% partners.collect do |partner| %>
-    <%= link_to image_tag(partner.logo.url, :alt => partner.name, :title => partner.name), partner.url, :target => :_blank %>
+    <% if Rails.env != 'development' %>
+      <% partners.collect do |partner| %>
+        <%= link_to image_tag(partner.logo.url, :alt => partner.name, :title => partner.name), partner.url, :target => :_blank %>
+      <% end %>
     <% end %>
   </div>
 </div>

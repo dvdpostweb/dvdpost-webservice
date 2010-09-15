@@ -1,17 +1,22 @@
 class StreamingProductsController < ApplicationController
   def show
-    @streaming = StreamingProduct.find_all_by_imdb_id(params[:id])
+    @streaming = StreamingProduct.available.find_all_by_imdb_id(params[:id])
     @product = Product.find_by_imdb_id(params[:id])
     
    
     respond_to do |format|
       format.html do
+        
        @validation = validation(@product.imdb_id, request.remote_ip, 'check')
        @token = @validation[:token]
        @status = @validation[:status]
        @unavailable_token = current_customer.tokens.unavailable.find_by_imdb_id(params[:id])
        if current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')
+         if !@streaming.blank?
           render :action => :show
+         else
+           render :partial => 'streaming_products/not_available', :layout => true
+         end
         else
           render :partial => 'streaming_products/no_access', :layout => true
         end  
@@ -115,5 +120,9 @@ class StreamingProductsController < ApplicationController
         end
       end
     end
+  end
+
+  def faq
+    
   end
 end

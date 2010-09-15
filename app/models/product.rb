@@ -77,6 +77,9 @@ class Product < ActiveRecord::Base
     when products_media = 'blueray' and streaming_products.imdb_id is null then 3
     when products_media = 'blueray' and streaming_products.imdb_id is not null then 4 
     else 5 end", :type  => :integer, :as => :special_media
+    has "case 
+    when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
+    else 0 end", :type => :integer, :as => :streaming_available
     set_property :enable_star => true
     set_property :min_prefix_len => 3
     set_property :charset_type => 'sbcs'
@@ -108,7 +111,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
-  sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0 }}}
+  sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
@@ -253,7 +256,7 @@ class Product < ActiveRecord::Base
   end
 
   def streaming?
-    streaming_products.count > 0
+    streaming_products.available.count > 0
   end
 
   def good_language?(language)

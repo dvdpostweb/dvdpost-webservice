@@ -1,0 +1,35 @@
+<%= stylesheet 'sponsorships', :media => :all %>
+<div id="maincontent" >
+  <div class="top"></div>
+  <h2><%= t('.title') %></h2>
+  <div id="tool-wrap">
+    <div id="points-wrap">
+      <div id="contact-wrap">
+        <div id='faq'>
+          <ul id='faq-nav'>
+            <li>
+              <ul>
+                <% for n in 1..8 %>
+                <li>
+                  <%= link_to t(".q#{n}"), nil, :id => "q#{n}", :class => "q" %>
+                </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+          <% for n in 1..8 %>
+          <div style="<%= n == 1 ? '' : 'display:none' %>" id="r<%= n %>" class="faq-answer">
+            <h3><%= t(".q#{n}") %></h3>
+            <div class="box">
+              <p> 
+                <%= t(".r#{n}", :sponsor_link => sponsorships_path) %>
+              </p>
+            </div>
+          </div>
+          <% end %>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

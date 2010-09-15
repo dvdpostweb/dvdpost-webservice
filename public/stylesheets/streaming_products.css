@@ -40,7 +40,6 @@ padding-top:4px;
 
 
 .connect_linkpc {
-padding-right:113px;
 color:#FF4B00;
 text-decoration: underline;
 font-size:1.2em;
@@ -62,7 +61,7 @@ float:left;}
 
 .linkpc {
 	float:right;
-	margin-right:126px;
+	margin-right:80px;
 	padding:6px;
 	
 }
