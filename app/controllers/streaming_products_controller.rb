@@ -51,8 +51,19 @@ class StreamingProductsController < ApplicationController
                       @token = nil
                       error = Token.error["ROLLBACK"]
                       raise ActiveRecord::Rollback
+                    else
+                      #mail = Email.by_language(I18n.locale).find(DVDPost.email[:sponsorships_invitation])
+                      ##recipient = params[:sponsorship_email][:email]
+                      #options = {"\\$\\$\\$godfather_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", 
+                      #"\\$\\$\\$son_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
+                      #"\\$\\$\\$target_email\\$\\$\\$" => 'tiguss@gmail.com'}
+                      #email_data_replace(mail.subject, options)
+                      #subject = email_data_replace(mail.subject, options)
+                      #message = email_data_replace(mail.body, options)
+                      #Emailer.deliver_send('tiguss@gmail.com', subject, message)
                     end
                   end
+                  
                 else
                   error = Token.error["ABO_PROCESS"]
                 end
@@ -111,7 +122,8 @@ class StreamingProductsController < ApplicationController
               end
             end
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => stream.filename}, :layout => false
+            filename =  stream.filename.sub(/\.mp4/,"_#{params[:quality].downcase}.mp4")
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => filename}, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end

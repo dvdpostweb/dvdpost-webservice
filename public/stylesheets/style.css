@@ -783,7 +783,14 @@ fieldset {
   text-shadow: 1px 1px 1px #999999;
   text-align: left;
 } 
-
+#titles-wrap .action a.streaming_btn_replay.en{
+  padding: 0 0 0 29px !important;
+  width: 143px;
+}
+#titles-wrap .action a.streaming_btn_replay.nl{
+  padding: 0 0 0 32px !important;
+  width: 1146px;
+}
 #titles-wrap .action a.btn:hover {
   background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
 }
@@ -1554,7 +1561,7 @@ a#next10 {
   padding-left: 36px;
   color: white;
   font-size: 1em;
-  text-shadow: 1px 1px 1px #555555;
+  text-shadow: 1px 1px 1px #5555x
 }
 #details .cover a.streaming_btn_replay {
   background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;
@@ -1567,7 +1574,16 @@ a#next10 {
   font-size: 1em;
   text-shadow: 1px 1px 1px #555555;
 }
-
+#details .cover a.streaming_btn_replay.en
+{
+  padding-left: 29px !important;
+  width: 136px;
+}
+#details .cover a.streaming_btn_replay.nl
+{
+  padding-left: 31px !important;
+  width: 144px;
+}
 #details .cover a.btn:hover {
   background: url(../images/ajouterbtn.png) 0 100% no-repeat;
   text-decoration: none;
@@ -3337,7 +3353,12 @@ a#change_password
   text-decoration:none;
   text-shadow:1px 1px 1px #999999;
   width:145px;
-
+}
+.error_language
+{
+  text-align:center;
+  color: #990000;
+}
 	
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
