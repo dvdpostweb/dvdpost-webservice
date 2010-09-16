@@ -136,13 +136,13 @@ class Product < ActiveRecord::Base
             medias = [1,3]
           end
         elsif medias.include?(:streaming)
-          medias = [1,2]
+          medias = [1,2,4]
         else
           medias = [1,2]
         end
       elsif medias.include?(:bluray)
         if medias.include?(:streaming)
-          medias = [3,4]
+          medias = [2,3,4]
         else
           medias = [3,4]
         end
