@@ -3359,7 +3359,18 @@ a#change_password
   text-align:center;
   color: #990000;
 }
-	
+
+#attention_langues {
+  border:1px solid #FF4B00;
+  color:#FF4B00;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:12px;
+  padding:5px;
+  width:370px;
+  margin: 15px 0;
+}
+
+  
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }

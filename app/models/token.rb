@@ -10,7 +10,8 @@ class Token < ActiveRecord::Base
 
   named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
   named_scope :unavailable,  lambda {{:conditions => ["updated_at < ?", 48.hours.ago]}}
-
+  named_scope :ordered, :order => 'updated_at desc'
+  
   def self.validate(token_param, filename, ip)
     
     token = self.available.find_by_token(token_param)

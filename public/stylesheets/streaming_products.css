@@ -144,3 +144,20 @@ width:970px;
   top:50%;
   left:50%;
 }
+
+.attention_vod {
+  background:url("../images/attention_vod.gif") no-repeat scroll 12px 9px transparent;
+  border:1px solid #FF4B00;
+  font-size:14px;
+  padding:14px 5px 14px 65px;
+  margin: 15px auto;
+  text-align:left;
+  width:623px;
+  min-height:30px;
+  
+}
+
+.attention_vod a {
+color:#FF4B00;
+text-decoration:underline;
+}

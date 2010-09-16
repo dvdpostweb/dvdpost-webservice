@@ -169,6 +169,7 @@ module DVDPost
     def email
       HashWithIndifferentAccess.new.merge({
         :sponsorships_invitation    => 446,
+        :streaming_product    => 451,
       })
     end
 

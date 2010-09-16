@@ -47,7 +47,7 @@
       </tr>
       <% customer.orders.in_transit.all(:include => :product).each do |transit_item| %>
       <tr>
-        <td align="left" class="transit"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 50), product_assigned_path(transit_item.product) %></td>
+        <td align="left" class="transit"><%= link_to truncate(product_assigned_title(transit_item.product), :length => 30), product_assigned_path(transit_item.product) %></td>
         <td align="right" class="transit"><%= transit_item.changed_at.strftime("%d/%m/%Y") %></td>
       </tr>
       <% end %>
@@ -62,7 +62,7 @@
         </tr>
         <% streaming_available.each do |stream| %>
           <tr>
-            <td align="left"  class="transit"><%= link_to truncate(stream.products.first.description.title, :length => 50), streaming_product_path(:id => stream.imdb_id) %></td>
+            <td align="left"  class="transit"><%= link_to truncate(stream.products.first.description.title, :length => 30), streaming_product_path(:id => stream.imdb_id) %></td>
             <td align="right"  class="transit"><% stream.created_at.strftime("%d/%m/%Y") %>
               <%= "#{time_left(stream)}" %></td>
           </tr>

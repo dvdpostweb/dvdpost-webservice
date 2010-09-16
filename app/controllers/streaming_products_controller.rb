@@ -52,15 +52,25 @@ class StreamingProductsController < ApplicationController
                       error = Token.error["ROLLBACK"]
                       raise ActiveRecord::Rollback
                     else
-                      #mail = Email.by_language(I18n.locale).find(DVDPost.email[:sponsorships_invitation])
-                      ##recipient = params[:sponsorship_email][:email]
-                      #options = {"\\$\\$\\$godfather_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", 
-                      #"\\$\\$\\$son_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
-                      #"\\$\\$\\$target_email\\$\\$\\$" => 'tiguss@gmail.com'}
-                      #email_data_replace(mail.subject, options)
-                      #subject = email_data_replace(mail.subject, options)
-                      #message = email_data_replace(mail.body, options)
-                      #Emailer.deliver_send('tiguss@gmail.com', subject, message)
+                      mail = Email.by_language(I18n.locale).find(DVDPost.email[:streaming_product])
+                      recipient = current_customer.email
+                      if params[:product_id]
+                        product_id = params[:product_id]
+                      else
+                        product_id = @product.id
+                      end
+                      options = 
+                      {
+                        "\\{\\{customers_name\\}\\}" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
+                        "\\{\\{product_title\\}\\}" => @product.title,
+                        "\\{\\{product_image\\}\\}" => @product.image,
+                        "\\{\\{streaming_link\\}\\}" => "http://#{request.host}#{products_path(:view_mode => :streaming)}",
+                        "\\{\\{product_streaming_link\\}\\}" => "http://#{request.host}#{streaming_product_path(:id => @product.imdb_id, :product_id => product_id)}",
+                      }
+                      email_data_replace(mail.subject, options)
+                      subject = email_data_replace(mail.subject, options)
+                      message = email_data_replace(mail.body, options)
+                      Emailer.deliver_send(recipient, subject, message)
                     end
                   end
                   

@@ -1,6 +1,17 @@
     <div class="player" id="player">
       <%= image_tag "#{DVDPost.images_path}/vod.jpg" %>
     </div>
+    <% if !current_customer.payment_suspended? %>
+      <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
+        <div class='error'><%= message_streaming(@validation, @unavailable_token)%></div>
+      <% else %>
+        <div class='error'><div class="attention_vod"><%= t '.credit_empty', :url => reconduction_path  %></div></div>
+      <% end %>
+    <% else %>
+      <div class='error'><div class="attention_vod"><%= t '.customer_suspended' %></div></div>
+    <% end %>
+    
+    
     <div id="maincontent">
       <div id="vod-wrap">
         <div class="top"></div>
@@ -9,20 +20,12 @@
             <span class="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></span>
           <% end %>
           <div class="clear"></div>
-          
-          <div id ='streaming_message'>
-            <%= message_streaming(@validation, @unavailable_token)%>
-          </div>
           <%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})", :class => 'cover_vod' %>
           
           <% if !current_customer.payment_suspended? %>
             <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
               <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
-            <% else %>
-              <div class="streaming_error"><%= t '.credit_empty', :url => reconduction_path  %></div>
             <% end %>
-          <% else %>
-            <div class="streaming_error"><%= t '.customer_suspended' %></div>
           <% end %>
     </div>
     <p class="linkpc">

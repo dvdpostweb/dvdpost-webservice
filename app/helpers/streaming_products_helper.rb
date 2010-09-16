@@ -24,9 +24,9 @@ module StreamingProductsHelper
       status = validation[:status]
     end
     if token && status == Token.status["IP_TO_CREATED"]
-      t '.ip_to_created'
+      "<div class ='attention_vod'>#{t '.ip_to_created'}</div>"
     elsif !token && unavailable_token
-      t '.old_token'
+      "<div class ='attention_vod'>#{t '.old_token'}</div>"
     end
   end
 
