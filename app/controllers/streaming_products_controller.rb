@@ -132,7 +132,7 @@ class StreamingProductsController < ApplicationController
               end
             end
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])
-            filename =  stream.filename.sub(/\.mp4/,"_#{params[:quality].downcase}.mp4")
+            filename =  stream.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => filename}, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
