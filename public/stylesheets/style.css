@@ -770,6 +770,22 @@ fieldset {
   text-shadow: 1px 1px 1px #999999;
   text-align: left;
 }
+
+#titles-wrap .action a.streaming_btn .en
+{
+  padding: 0 0 0 40px;
+}
+
+#titles-wrap .action a.streaming_btn .nl
+{
+  padding: 0 0 0 32px;
+}
+
+#titles-wrap .action a.streaming_btn .fr
+{
+  padding: 0 0 0 31px;
+}
+
 #titles-wrap .action a.streaming_btn_replay {
   background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;  display: block;
   float: left;

@@ -7,7 +7,7 @@
       <% if filter.media? %>
         <li>
           <strong><%= t 'products.index.technology' %></strong>
-          <%= filter.media.collect{|media| media.to_s.humanize}.join(', ') %>
+          <%= filter.media.collect{|media| t("products.index.filters.#{media}")}.join(', ') %>
         </li>
       <% end %>
       <% if filter.audience? %>
