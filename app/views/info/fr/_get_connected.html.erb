@@ -1,3 +1,67 @@
-<div id="maincontent">
-test
+<%= stylesheet 'info', :media => :all %>
+<%= javascript 'info' %>
+  <div id="maincontent">
+    <div id="vod-wrap">
+      <div class="top"></div>
+      <div id="main_box">
+        <div id="top_box">
+          <h1 title="How to watch streamed movies on your TV">Comment connecter votre PC<br />à <font color="#FF3300">votre TV</font></h1>
+          <p id="intro_copy"> La plupart des téléviseurs possèdent une connectique adaptée qui permet de relier un laptop/ordinateur à une télévision. Tout ce dont vous avez besoin est un câble: une extrémité sera connectée à votre téléviseur et l’autre à votre ordinateur. <br />C'est plus simple que vous ne le pensez...</p>
+          <div id="left_box">
+            <p>En répondant simplement aux <strong>2 questions ci-dessous</strong>, nous pourrons vous aider à trouver le bon câble.</p>
+            <h3>Vérifiez la connectique de votre ordinateur</h3>
+            <p>Observez les côtés, l'avant et l'arrière de votre ordinateur et cliquez sur la connectique correspondante.</p>
+            <h3>Vérifiez la connectique de votre téléviseur</h3>
+            <p>Observez les côtés, l'avant et l'arrière de votre téléviseur et cliquez sur la connectique correspondante.</p>
+          </div>
+          <div id="right_box">
+            <p>Dès que vous aurez acheté un câble adapté et que vous l’aurez connecté à votre ordinateur, vous pourrez aussitôt lire <%= link_to 'nos films en streaming', products_path(:view_mode => :streaming) %> et les faire passer sur votre TV</p>
+            <p>Ce service est accessible à tous les membres belge de DVDPost. 
+              For those on an Unlimited package, there are thousands of titles at no extra cost. Premium titles are available to everyone on pay-per-view basis, and a number of titles are available to all site visitors for free with advertising support.</p>
+            <p> </p>
+            <p id="enjoy">Essayez et soyez convaincu par la qualité <%= link_to 'des films en streaming.', products_path(:view_mode => :streaming) %></p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div id="guide_smallprint">
+          <p>Nous espérons que les câbles que nous vous avons suggérés seront les bons. Si un problème persistait, veuillez alors consulter la notice de votre laptop/ordinateur et de votre téléviseur ou contactez votre revendeur pour de plus amples renseignements.</p>
+        </div>
+        <div id="middle_box">
+          <div class="options_box" id="box_output">
+            <h2>Step 1</h2>
+            <div class="options_top">
+              <h3>Vérifiez la connectique <br />de <font color="#FF3300">votre ordinateur</font> <br /></h3>
+              <%= image_tag 'your_comp.jpg' %>
+              <p>Sélectionnez la connectique correspondante</p>
+            </div>
+            <%= render :partial => "info/get_connected/step1" %>
+          </div>
+          <div class="options_box" id="box_input">
+            <h2>Step 2</h2>
+            <div class="options_top">
+              <h3>Vérifiez la connectique <br />de <font color="#FF3300">votre téléviseur</font></h3>
+              <img src="/images/your_tv.jpg" alt="Check the connector on your TV">
+              <p>Sélectionnez la connectique correspondante</p>
+            </div>
+            <%= render :partial => "info/get_connected/step2" %>
+          </div>
+          <div class="options_box" id="option_last">
+            <h2>Step 3</h2>
+            <div class="options_top">
+              <h3>Voici ce que nous <br />
+                <font color="#FF3300">vous suggérons</font></h3>
+              <img src="/images/suggested.jpg" alt="Suggested connection">
+              <p style="display: block;">Merci de compléter l’étape 1 et 2</p>
+            </div>
+            <%= render :partial => "info/get_connected/step3" %>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="end"></div>
+  </div>
+  <div style='display:none'>
+    <div id='locale'><%= I18n.locale %></div>
+  </div>
 </div>
+

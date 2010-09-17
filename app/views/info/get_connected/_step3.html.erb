@@ -1,0 +1,32 @@
+<div style="display: none;" id="video_suggestion" class="suggestion">
+  <h3><%= t '.video_connect'%>:</h3>
+  <div id="video_result" class="guide_result">
+    <div id="video_output" class="result_card"> <img alt="VGA" src="/images/res_vga.gif">
+      <p>VGA</p>
+    </div>
+    <div id="video_input" class="result_card"> <img alt="VGA" src="/images/res_vga.gif">
+      <p>VGA</p>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <p class="cable_name"></p>
+  <a target="_blank" class="guide_buy" href=""><%= t('.buy') %></a> </div>
+<div style="display: none;" id="audio_suggestion" class="suggestion">
+  <hr>
+  <h3><%= t '.audio_connect'%></h3>
+  <div class="guide_result" id="audio_result">
+    <div class="result_card" id="audio_output"> <img src="/images/minijack.gif" alt="Mini Jack">
+      <p>Mini Jack</p>
+    </div>
+    <div class="result_card" id="audio_input"> <img src="/images/rca.gif" alt="RCA">
+      <p>R/L RCA</p>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <p class="cable_name">Audio Y-Cable</p>
+  <a class="guide_buy" href="http://www.pixmania.be/be/<%= I18n.locale %>/168111/art/hama/cable-rca-jack-stereo-mal.html" title="Buy Mini Jack to RCA cable or adaptor" target="_blank"><%= t('.buy') %></a> </div>
+</div>  
+<div style='display:none'>
+  <div id='locale_db'><%= I18n.locale %></div>
+  <div id='cable'><%= t '.cable' %></div>
+</div>

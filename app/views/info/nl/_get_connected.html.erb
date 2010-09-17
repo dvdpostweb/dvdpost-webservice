@@ -1,0 +1,64 @@
+<%= stylesheet 'info', :media => :all %>
+<%= javascript 'info' %>
+  <div id="maincontent">
+    <div id="vod-wrap">
+      <div class="top"></div>
+      <div id="main_box">
+        <div id="top_box">
+          <h1 title="How to watch streamed movies on your TV">Hoe je PC aansluiten?<br />op <font color="#FF3300"> je TV</font></h1>
+          <p id="intro_copy"> De meeste televisies  hebben een aangepast verbindingsstuk dat toelaat uw laptop of computer aan te sluiten op uw televisie. Alles wat u nog nodig hebt is een kabel , deze wordt aan het ene eind vastgemaakt aan uw computer, aan het andere aan uw televisie.<br />Het is gemakkelijker dan u denkt!</p>
+          <div id="left_box">
+            <p>U hoeft enkel onderstaande <strong>2 vragen te beantwoorden</strong> om te weten wat voor een kabel uw zal nodig hebben.</p>
+            <h3>Kijk het verbindingsstuk na van uw computer</h3>
+            <p>Observeer de zijkant ook de voor- en achterkant van uw computer en klik dan op de passende kabel. </p>
+            <h3>Kijk het verbindingsstuk na van uw televisie</h3>
+            <p>Observeer de zijkant, ook de voor- en achterkant van uw televisie en klik dan op de passende kabel.</p>
+          </div>
+          <div id="right_box">
+            <p>Zogauw u de correcte kabel hebt gekocht en deze hebt aangesloten, kan u <%= link_to 'onze films streamen', products_path(:view_mode => :streaming) %> om ze dan weer te geven op uw televisiescherm.</p>
+            <p>Deze service is toegankelijk voor alle DVDPost klanten.
+              For those on an Unlimited package, there are thousands of titles at no extra cost. Premium titles are available to everyone on pay-per-view basis, and a number of titles are available to all site visitors for free with advertising support.</p>
+            <p> </p>
+            <p id="enjoy">Probeer het en geniet van gestreamde <%= link_to 'films op uw televisiescherm.', products_path(:view_mode => :streaming) %></p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div id="guide_smallprint">
+          <p>Wij hopen dat uw kabel perfect werkt. Mochten er echter problemen zijn, kijk dan de leveringsinstructies na van uw laptop/computer en tv. U kan ook de verkoper contacteren om verder geholpen te worden.</p>
+        </div>
+        <div id="middle_box">
+          <div class="options_box" id="box_output">
+            <h2>Step 1</h2>
+            <div class="options_top">
+              <h3>Kijk het verbindingsstuk na <br />van <font color="#FF3300">uw computer</font> <br /></h3>
+              <%= image_tag 'your_comp.jpg' %>
+              <p>Kies het passende verbindingsstuk</p>
+            </div>
+            <%= render :partial => "info/get_connected/step1" %>
+          </div>
+          <div class="options_box" id="box_input">
+            <h2>Step 2</h2>
+            <div class="options_top">
+              <h3>Kijk nu het verbindingsstuk<br />na  van <font color="#FF3300">uw televisie</font></h3>
+              <img src="/images/your_tv.jpg" alt="Check the connector on your TV">
+              <p>Kies het passende verbindingsstuk</p>
+            </div>
+            <%= render :partial => "info/get_connected/step2" %>
+          </div>
+          <div class="options_box" id="option_last">
+            <h2>Step 3</h2>
+            <div class="options_top">
+              <h3>Dit is wat wij <br />
+                <font color="#FF3300">voorstellen</font></h3>
+              <img src="/images/suggested.jpg" alt="Suggested connection">
+              <p style="display: block;">Gelieve stap 1 en stap 2 te vervolledigen</p>
+            </div>
+            <%= render :partial => "info/get_connected/step3" %>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="end"></div>
+  </div>
+</div>
+
