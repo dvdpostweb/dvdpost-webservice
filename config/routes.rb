@@ -95,7 +95,7 @@ ActionController::Routing::Routes.draw do |map|
 
   end
   
-  map.get_authentication 'authentication/api/Authenticate', :controller => :authentication, :action => :ok, :conditions => { :method => :get }
+  map.get_authentication 'authentication/Authenticate', :controller => :authentication, :action => :ok, :conditions => { :method => :get }
   
   
   map.connect ':controller/:action/:id'

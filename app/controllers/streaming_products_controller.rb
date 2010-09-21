@@ -24,9 +24,9 @@ class StreamingProductsController < ApplicationController
       format.js do
         if current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD') 
           if !current_customer.payment_suspended?
-            validation = validation(@product.imdb_id, request.remote_ip,'modify')
-            @token = validation[:token]
-            status = validation[:status]
+            validation_result = validation(@product.imdb_id, request.remote_ip,'modify')
+            @token = validation_result[:token]
+            status = validation_result[:status]
             stream = StreamingProduct.find_by_id(params[:streaming_product_id])
             if !@token
               if current_customer.credits > 0
@@ -122,7 +122,7 @@ class StreamingProductsController < ApplicationController
           if @token
             all = Product.find_all_by_imdb_id(params[:id])
             wl = current_customer.wishlist_items.find_all_by_product_id(all)
-            if wl
+            unless wl.blank?
               wl.each do |item|
                 item.destroy()
                 DVDPost.send_evidence_recommendations('RemoveFromWishlist', item.to_param, current_customer, request.remote_ip)   

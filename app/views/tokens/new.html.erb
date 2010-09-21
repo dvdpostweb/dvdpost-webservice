@@ -6,7 +6,7 @@
 	  <% if current_customer.credits > 0 %>
       <%= t '.credit_left', :credit => current_customer.credits %>
       <br />
-      <% if @product_in_wishlist %>
+      <% unless @product_in_wishlist.blank? %>
         <%= t '.remove_from_wishlist' %>
       <% end %>
       <br />
