@@ -54,18 +54,14 @@ class StreamingProductsController < ApplicationController
                     else
                       mail = Email.by_language(I18n.locale).find(DVDPost.email[:streaming_product])
                       recipient = current_customer.email
-                      if params[:product_id]
-                        product_id = params[:product_id]
-                      else
-                        product_id = @product.id
-                      end
+                      product_id = @product.id
                       options = 
                       {
                         "\\{\\{customers_name\\}\\}" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}",
                         "\\{\\{product_title\\}\\}" => @product.title,
                         "\\{\\{product_image\\}\\}" => @product.image,
                         "\\{\\{streaming_link\\}\\}" => "http://#{request.host}#{products_path(:view_mode => :streaming)}",
-                        "\\{\\{product_streaming_link\\}\\}" => "http://#{request.host}#{streaming_product_path(:id => @product.imdb_id, :product_id => product_id)}",
+                        "\\{\\{product_streaming_link\\}\\}" => "http://#{request.host}#{streaming_product_path(:id => @product.imdb_id)}",
                       }
                       email_data_replace(mail.subject, options)
                       subject = email_data_replace(mail.subject, options)
@@ -124,11 +120,13 @@ class StreamingProductsController < ApplicationController
             error = Token.error["SUSPENSION"]
           end
           if @token
-            if params[:product_id]
-              wl = current_customer.wishlist_items.find_by_product_id(params[:product_id])
-              if wl
-                wl.destroy()
-                DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:product_id], current_customer, request.remote_ip)   
+            all = Product.find_all_by_imdb_id(params[:id])
+            wl = current_customer.wishlist_items.find_all_by_product_id(all)
+            if wl
+              wl.each do |item|
+                item.destroy()
+                DVDPost.send_evidence_recommendations('RemoveFromWishlist', item.to_param, current_customer, request.remote_ip)   
+                
               end
             end
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])

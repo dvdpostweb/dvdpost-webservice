@@ -13,7 +13,7 @@
     <% qualities.each do |quality| %>
   <td>
     <p>
-      <%= link_to t(".#{quality.downcase}"), streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality, :product_id => params[:product_id]), :class => "btn qualityvod", :id =>  quality %>
+      <%= link_to t(".#{quality.downcase}"), streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality), :class => "btn qualityvod", :id =>  quality %>
     </p>
   </td>
     <% end %>

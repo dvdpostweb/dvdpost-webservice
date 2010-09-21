@@ -10,7 +10,7 @@
         <%= t '.remove_from_wishlist' %>
       <% end %>
       <br />
-  	  <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id, :product_id => @product.id), :id => 'add_to_vod' %></p>
+  	  <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id, :id => 'add_to_vod' %></p>
     <% else %>
       <%= t '.credit_empty', :url => reconduction_path  %>
     <% end %>

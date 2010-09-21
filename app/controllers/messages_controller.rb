@@ -28,7 +28,7 @@ class MessagesController < ApplicationController
   end
 
   def faq
-    @faqs = Faq.all
+    @faqs = Faq.ordered.all
   end
 
   def destroy

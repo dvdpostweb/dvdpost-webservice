@@ -11,7 +11,7 @@
           <ul id='faq-nav'>
             <li>
               <ul>
-                <% for n in 1..13 %>
+                <% for n in 1..14 %>
                 <li>
                   <%= link_to t(".q#{n}"), nil, :id => "q#{n}", :class => "q" %>
                 </li>
@@ -19,7 +19,7 @@
               </ul>
             </li>
           </ul>
-          <% for n in 1..13 %>
+          <% for n in 1..14 %>
           <div style="<%= n == 1 ? '' : 'display:none' %>" id="r<%= n %>" class="faq-answer">
             <h3><%= t(".q#{n}") %></h3>
             <div class="box">

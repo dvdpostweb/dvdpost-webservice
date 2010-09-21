@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_after_registration
   before_filter :set_locale_from_params
   before_filter :set_country
+  before_filter :last_login
   
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
@@ -34,6 +35,15 @@ class ApplicationController < ActionController::Base
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if current_customer
     set_locale(locale || :fr)
+  end
+
+  def last_login
+    if current_customer
+      if !session[:last_login]
+        current_customer.update_attributes(:login_count  =>  (current_customer.login_count + 1), :last_login_at => Time.now.to_s(:db) )
+        session[:last_login] = true
+      end
+    end
   end
 
   def set_country
