@@ -1,7 +1,8 @@
 require 'actionwebservice'
 
-class AuthenticationController < ApplicationController
-  
+class AuthenticationController < ActionController::Base
+
+=begin
   skip_before_filter :authenticate!
   skip_before_filter :wishlist_size
   skip_before_filter :delegate_locale
@@ -10,6 +11,7 @@ class AuthenticationController < ApplicationController
   skip_before_filter :redirect_after_registration
   skip_before_filter :set_locale_from_params
   skip_before_filter :set_country
+=end 
 
   layout nil
 
