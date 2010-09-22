@@ -11,6 +11,17 @@ module StreamingProductsHelper
         softlayer: {
           url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
           netConnectionUrl: '#{CDN.connect_url(token_name)}'
+        },
+        controls: {
+          autoHide:
+          {
+            "enabled":true,
+            "mouseOutDelay":500,
+            "hideDelay":500,
+            "hideDuration":400,
+            "hideStyle":"fade",
+            "fullscreenOnly":true
+          }
         }
       }
     });
