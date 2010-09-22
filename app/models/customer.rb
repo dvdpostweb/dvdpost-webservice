@@ -48,6 +48,7 @@ class Customer < ActiveRecord::Base
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_one :filter
+  has_one :beta_test
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -232,30 +233,42 @@ class Customer < ActiveRecord::Base
     if credit_free >= quantity
       history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- quantity), :abo_type => abo_type_id)
       if history.id.blank?
-        false
+        status = false
       else
-        true
+        status = true
       end
     elsif credit_free + credits >= quantity
       qt_paid = quantity - credit_free
       qt_free = credit_free
       history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => (- qt_free), :quantity_paid => (- qt_paid), :abo_type => abo_type_id)
+      
       if history.id.blank?
-        false
+        status = false
       else
-        true
+        status = true
       end
       
     elsif credits >= quantity 
       history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_paid => (- quantity), :abo_type => abo_type_id)
       if history.id.blank?
+        status = false
+      else
+        status = true
+      end
+      
+    else
+      status = false
+    end
+    
+    if status == true
+      credit = self.update_attribute(:credits, (self.credits - 1))
+      if credit == false
         false
       else
         true
       end
-      
     else
-      false
+      false  
     end
   end
 

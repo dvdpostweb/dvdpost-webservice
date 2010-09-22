@@ -11,7 +11,7 @@ class StreamingProductsController < ApplicationController
        @token = @validation[:token]
        @status = @validation[:status]
        @unavailable_token = current_customer.tokens.unavailable.find_by_imdb_id(params[:id])
-       if current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')
+       if streaming_access?
          if !@streaming.blank?
           render :action => :show
          else
@@ -22,7 +22,7 @@ class StreamingProductsController < ApplicationController
         end  
       end
       format.js do
-        if current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD') 
+        if streaming_access? 
           if !current_customer.payment_suspended?
             validation_result = validation(@product.imdb_id, request.remote_ip,'modify')
             @token = validation_result[:token]
@@ -44,10 +44,9 @@ class StreamingProductsController < ApplicationController
                       :token_id => @token.id,
                       :ip => request.remote_ip
                     )
-                    result_history = current_customer.remove_credit(1,12)
-                    credit = current_customer.update_attribute(:credits, (current_customer.credits - 1))
+                    result_credit = current_customer.remove_credit(1,12)
 
-                    if credit == false || @token.id.blank? || token_ip.id.blank? || result_history == false
+                    if @token.id.blank? || token_ip.id.blank? || result_credit == false
                       @token = nil
                       error = Token.error["ROLLBACK"]
                       raise ActiveRecord::Rollback
@@ -97,9 +96,8 @@ class StreamingProductsController < ApplicationController
                     Token.transaction do
                       more_ip = @token.update_attributes(:count_ip => (@token.count_ip + 2), :updated_at => Time.now.to_s(:db))
                       result_history = current_customer.remove_credit(1,13)
-                      credit = current_customer.update_attribute(:credits, (current_customer.credits - 1))
                       token_ip = TokenIp.create(:token_id => @token.id,:ip => request.remote_ip)
-                      if credit == false || more_ip == false || token_ip.id.blank? || result_history == false
+                      if more_ip == false || token_ip.id.blank? || result_history == false
                         @token = nil
                         error = Token.error["ROLLBACK"]
                         raise ActiveRecord::Rollback

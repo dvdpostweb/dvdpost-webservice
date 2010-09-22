@@ -105,16 +105,6 @@ $(function() {
     return false;
   });
 
-  $(".streaming_action").live("click", function() {
-    wishlist_item = $(this);
-    jQuery.facebox(function() {
-      $.getScript(wishlist_item.attr('href'), function(data) {
-        jQuery.facebox(data);
-      });
-    });
-    return false;
-  });
-
   $(".action .links a").live("click", function() {
     html_item = $(this).parent();
     content = html_item.html();

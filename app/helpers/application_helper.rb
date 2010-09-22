@@ -244,4 +244,8 @@ module ApplicationHelper
       {:token => nil, :status => Token.status[:FAILED]} 
     end
   end
+
+  def streaming_access?
+    current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD') and current_customer.beta_test
+  end
 end

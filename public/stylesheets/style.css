@@ -1117,7 +1117,24 @@ a#next10 {
   padding-left: 10px;
   width: 158px;
 }
+.box .availability.streaming 
+{
+  padding:0 0 0 10px;
+  height:22px;
+}
 
+.box .availability a.streaming_btn_replay, .box .availability a.streaming_btn  {
+  background: url(../images/wishlist_vod.png) 0 2px no-repeat;
+  display: block;
+  height: 22px;
+  line-height: 27px;
+  width: 149px;
+  color: white;
+  font-size: 1em;
+  text-shadow: 1px 1px 1px #555555;
+  text-decoration: none;
+  text-align: center;
+}
 .box .status {
   width: 351px;
 }
@@ -1572,12 +1589,25 @@ a#next10 {
   display: block;
   height: 38px;
   line-height: 34px;
-  width: 130px;
+  width: 134px;
   padding-left: 36px;
   color: white;
   font-size: 1em;
-  text-shadow: 1px 1px 1px #5555x
+  text-shadow: 1px 1px 1px #555555;
+  text-decoration: none;
 }
+#details .cover a.streaming_btn.fr {
+  padding-left: 30px;
+}
+#details .cover a.streaming_btn:hover
+{
+  background: url(../images/vodbtn.png) 0 -42px no-repeat;
+}
+#details .cover a.streaming_btn_replay:hover
+{
+  background: url(../images/vodbtn_replay.png) 0 -42px no-repeat;
+}
+
 #details .cover a.streaming_btn_replay {
   background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;
   display: block;
@@ -1588,6 +1618,7 @@ a#next10 {
   color: white;
   font-size: 1em;
   text-shadow: 1px 1px 1px #555555;
+  text-decoration: none;
 }
 #details .cover a.streaming_btn_replay.en
 {

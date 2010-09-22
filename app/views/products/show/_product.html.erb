@@ -99,6 +99,6 @@
   </span>
   <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
   
-  <%= render :partial => 'products/streaming', :locals => {:product => product} if product.streaming? and current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD') %>
+  <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token} if product.streaming? and streaming_access? %>
   
 </div>

@@ -1,4 +1,4 @@
-<div style="display: block;" class="content">
+<div style="display: block;width:450px" class="content">
 
   <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
   <div id="addwishlist_explain">
@@ -7,7 +7,7 @@
       <%= t '.credit_left', :credit => current_customer.credits %>
       <br />
       <% unless @product_in_wishlist.blank? %>
-        <%= t '.remove_from_wishlist' %>
+        <p><%= t '.remove_from_wishlist' %></p>
       <% end %>
       <br />
   	  <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
