@@ -18,7 +18,7 @@ margin:-6px 0 0;
 
 #vod-wrap h2 {
 	font-size: 2em;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	float:left;
 	
 }
@@ -27,7 +27,7 @@ margin:-6px 0 0;
 background:url("../images/icon_time.gif") no-repeat scroll 0 -2px transparent;
 float:right;
 font-size:1.6em;
-height:51px;
+height:30px;
 padding-left:31px;
 padding-right:31px;
 padding-top:4px;
@@ -141,8 +141,8 @@ width:970px;
   height:32px;
   width:32px;
   position:absolute;
-  top:50%;
-  left:50%;
+  top: 178px;
+  left:445px;
 }
 
 .attention_vod {

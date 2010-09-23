@@ -1,39 +1,39 @@
-    <div class="player" id="player">
-      <%= image_tag "#{DVDPost.images_path}/vod.jpg" %>
-    </div>
-    <% if !current_customer.payment_suspended? %>
-      <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
-        <div class='error'><%= message_streaming(@validation, @unavailable_token)%></div>
-      <% else %>
-        <div class='error'><div class="attention_vod"><%= t '.credit_empty', :url => reconduction_path  %></div></div>
+<div id="maincontent">
+  <div id="vod-wrap">
+    <div class="top"></div>
+      <h2><%= h @product.description.title %> (<%= @product.year %>)</h2>
+      <% if @token %>
+        <span class="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></span>
       <% end %>
-    <% else %>
-      <div class='error'><div class="attention_vod"><%= t '.customer_suspended' %></div></div>
-    <% end %>
+      <div class="clear"></div>
+      <div class="player" id="player">
+        <%= image_tag "#{DVDPost.images_path}/vod.jpg" %>
+      </div>
+      <% if !current_customer.payment_suspended? %>
+        <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
+          <div class='error'><%= message_streaming(@validation, @unavailable_token)%></div>
+        <% else %>
+          <div class='error'><div class="attention_vod"><%= t '.credit_empty', :url => reconduction_path  %></div></div>
+        <% end %>
+      <% else %>
+        <div class='error'><div class="attention_vod"><%= t '.customer_suspended' %></div></div>
+      <% end %>
     
-    
-    <div id="maincontent">
-      <div id="vod-wrap">
-        <div class="top"></div>
-          <h2><%= h @product.description.title %> (<%= @product.year %>)</h2>
-          <% if @token %>
-            <span class="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></span>
+      <p>
+        <%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})", :class => 'cover_vod' %>
+      
+        <% if !current_customer.payment_suspended? %>
+          <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
+            <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
           <% end %>
-          <div class="clear"></div>
-          <%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})", :class => 'cover_vod' %>
-          
-          <% if !current_customer.payment_suspended? %>
-            <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
-              <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
-            <% end %>
-          <% end %>
-    </div>
-    <p class="linkpc">
-      <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
-      <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
-      <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
+        <% end %>
+      </div>
+      <p class="linkpc">
+        <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
+        <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
+        <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
+      </p>
     </p>
-
     <div class="clear"></div>
 
     <div class="end"></div>
