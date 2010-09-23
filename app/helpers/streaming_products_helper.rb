@@ -1,7 +1,9 @@
 module StreamingProductsHelper
   def flowplayer(source_file, token_name)
     script = <<-script
-    $f("player", "/flowplayer/flowplayer.commercial-3.2.4.swf", {
+    $f("player", "/flowplayer/flowplayer.commercial-3.2.4.swf",
+    {
+      key: '\#$dcba96641dab5d22c24', 
       clip: {
         url: '#{source_file}',
         provider: 'softlayer'
@@ -17,7 +19,7 @@ module StreamingProductsHelper
           {
             "enabled":true,
             "mouseOutDelay":500,
-            "hideDelay":500,
+            "hideDelay":2000,
             "hideDuration":400,
             "hideStyle":"fade",
             "fullscreenOnly":true
