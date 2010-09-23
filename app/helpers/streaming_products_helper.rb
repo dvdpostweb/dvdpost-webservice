@@ -1,7 +1,7 @@
 module StreamingProductsHelper
   def flowplayer(source_file, token_name)
     script = <<-script
-    $f("player", "/flowplayer/flowplayer-3.1.5.swf", {
+    $f("player", "/flowplayer/flowplayer.commercial-3.2.4.swf", {
       clip: {
         url: '#{source_file}',
         provider: 'softlayer'
