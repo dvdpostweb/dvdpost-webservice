@@ -32,16 +32,27 @@ module StreamingProductsHelper
   end
 
   def message_streaming(validation, unavailable_token)
-    if validation
-      token = validation[:token]
-      status = validation[:status]
-    end
-    if token && status == Token.status["IP_TO_CREATED"]
-      "<div class ='attention_vod'>#{t '.ip_to_created'}</div>"
-    elsif !token && unavailable_token
-      "<div class ='attention_vod'>#{t '.old_token'}</div>"
+    if !current_customer.payment_suspended?
+      if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED")
+        if validation
+          token = validation[:token]
+          status = validation[:status]
+        end
+        if token && status == Token.status["IP_TO_CREATED"]
+          "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
+        elsif !token && unavailable_token
+          "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
+        end
+      else
+        "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => reconduction_path}</div>"
+      end
+    else
+      "<div class='attention_vod' id='suspended'>#{t '.customer_suspended'}</div>"
     end
   end
+      
+
+      
 
   def message_error(error)
     case error

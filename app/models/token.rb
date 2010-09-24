@@ -9,8 +9,8 @@ class Token < ActiveRecord::Base
   validates_presence_of :imdb_id
 
   named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
-  named_scope :unavailable,  lambda {{:conditions => ["updated_at < ?", 48.hours.ago]}}
-  named_scope :ordered, :order => 'updated_at desc'
+  named_scope :unavailable,  lambda {{:conditions => {:updated_at=> 1.weeks.ago..48.hours.ago}}}
+  named_scope :ordered, :order => 'updated_at asc'
   
   def self.validate(token_param, filename, ip)
     

@@ -7,37 +7,23 @@
       <% end %>
       <div class="clear"></div>
       <div class="player" id="player">
-        <%= image_tag "#{DVDPost.images_path}/vod.jpg" %>
+        <div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div>
       </div>
+      <% message = message_streaming(@validation, @unavailable_token) %>
+      <% if message %>
+        <div class='error'><%= message %></div>
+      <% end %>
       <% if !current_customer.payment_suspended? %>
         <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
-          <div class='error'><%= message_streaming(@validation, @unavailable_token)%></div>
-        <% else %>
-          <div class='error'><div class="attention_vod"><%= t '.credit_empty', :url => reconduction_path  %></div></div>
+          <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
         <% end %>
-      <% else %>
-        <div class='error'><div class="attention_vod"><%= t '.customer_suspended' %></div></div>
       <% end %>
-    
-      <p>
-        <%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})", :class => 'cover_vod' %>
-      
-        <% if !current_customer.payment_suspended? %>
-          <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
-            <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
-          <% end %>
-        <% end %>
-      </div>
-      <p class="linkpc">
-        <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
-        <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
-        <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
-      </p>
+    </div>
+    <p class="linkpc">
+      <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
+      <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
+      <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
     </p>
-    <div class="clear"></div>
-
-    <div class="end"></div>
-
   </div>
-
+  <div class="end"></div>
 </div>

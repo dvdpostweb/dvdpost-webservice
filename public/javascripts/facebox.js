@@ -286,7 +286,10 @@
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+      .click(function() { 
+        if ($.facebox.settings.modal != true)
+           $(document).trigger('close.facebox')
+        })
       .fadeIn(200)
     return false
   }

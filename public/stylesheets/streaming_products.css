@@ -53,15 +53,15 @@ float:left;}
 
 .quality {
 	border:1px solid #333333;
-	float:left;
-	margin-left:10px;
+	
+	margin: 30px auto 10px;
+	width:640px;
 	padding:16px;
 	background-color: #FFFFFF;
 }
 
 .linkpc {
-	float:right;
-	margin-right:80px;
+	margin:0 0 0 113px;
 	padding:6px;
 	
 }
@@ -161,3 +161,19 @@ width:970px;
 color:#FF4B00;
 text-decoration:underline;
 }
+
+#image_vod
+{
+  background:url("../images/vod.jpg");
+  width: 696px;
+  height: 334px;
+  padding: 60px 0 0 0;
+}
+#image_vod img 
+{
+  padding:15px 11px 16px 14px;
+  background: #fff;
+  width:160px;
+  height:240px;
+}
+

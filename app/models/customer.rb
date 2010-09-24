@@ -29,7 +29,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :gender,                       :customers_gender
   alias_attribute :payment_method,               :customers_abo_payment_method
   alias_attribute :abo_type_id,                  :customers_abo_type
-  alias_attribute :last_login_at,                :customers_info_date_account_last_modified
+  alias_attribute :last_login_at,                :customers_info_date_of_last_logon
   alias_attribute :login_count,                  :customers_info_number_of_logons
 
   validates_length_of :first_name, :minimum => 2
