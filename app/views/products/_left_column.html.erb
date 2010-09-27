@@ -9,7 +9,7 @@
         <%= display_btn_tops %>
         <ul <%= (session[:menu_tops] == false || session[:menu_tops] == nil) ? "style = 'display:none'" : '' %> id="tops_list">
           <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).ordered.collect do |list| %>
-            <li><%= link_to list.name, list_products_path(:list_id => list) %></li>
+            <li><%= link_to list.name, list_products_path(:list_id => list), :class => (list.to_param == params[:list_id]) ? 'actived' : 'top' %></li>
           <% end %>
         </ul>
       </li>

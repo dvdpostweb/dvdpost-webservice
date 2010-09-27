@@ -187,7 +187,7 @@ module ProductsHelper
       if selected_category && (category == selected_category || category == selected_category.parent)
         category.children.active.movies.by_kind(:normal).remove_themes.ordered.collect do |sub_category|
           html_content << content_tag(:li, :class => 'subcat') do
-            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => ('activated' if sub_category == selected_category)
+            link_to " | #{sub_category.name}", category_products_path(:category_id => sub_category), :class => ('actived' if sub_category == selected_category)
           end
         end
         html_content << content_tag(:li) do
