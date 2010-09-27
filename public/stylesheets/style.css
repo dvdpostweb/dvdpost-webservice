@@ -2700,6 +2700,11 @@ div.top10.first p a {
   color: white;
 }
 
+#leftcolumn #left-nav li a.active_close {
+  background: url(../images/leftnav-active-close-bg.png) no-repeat;
+  color: white;
+}
+
 #leftcolumn #left-nav li ul {
   background: url(../images/subnav-bg.png) bottom no-repeat;
   display: block;

@@ -31,20 +31,17 @@ module StreamingProductsHelper
     javascript_tag script
   end
 
-  def message_streaming(validation, unavailable_token)
+  def message_streaming(token)
+    
+    token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
+
     if !current_customer.payment_suspended?
-      if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED")
-        if validation
-          token = validation[:token]
-          status = validation[:status]
-        end
-        if token && status == Token.status["IP_TO_CREATED"]
-          "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
-        elsif !token && unavailable_token
-          "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
-        end
-      else
+      if (current_customer.credits <= 0) && !token.valid?(request.remote_ip)
         "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => reconduction_path}</div>"
+      elsif token_status == Token.status[:ip_invalid]
+        "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
+      elsif token_status == Token.status[:expired]
+        "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
       end
     else
       "<div class='attention_vod' id='suspended'>#{t '.customer_suspended'}</div>"
@@ -52,17 +49,20 @@ module StreamingProductsHelper
   end
       
 
+  def validation(imdb_id, remote_ip, vlavla)
+    {:token => nil, :status => Token.status[:FAILED]} 
+  end
       
 
   def message_error(error)
     case error
-      when Token.error["ROLLBACK"] then
+      when Token.error[:query_rollback] then
         t('.rollback')
-      when Token.error["ABO_PROCESS"] then
+      when Token.error[:abo_process_error] then
         t('.abo_process')
-      when Token.error["CREDIT"] then
+      when Token.error[:not_enough_credit] then
         t('.credit_empty', :url => reconduction_path)
-      when Token.error["SUSPENSION"] then
+      when Token.error[:user_suspended] then
         t('.customer_suspended')
     end
   end

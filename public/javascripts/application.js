@@ -43,4 +43,35 @@ $(function() {
     return false;
   });
 
+  $("#tops, #categories").live("click", function() {
+    
+    id = $(this).attr('id')
+    list = "#"+id+"_list"
+    $(list).toggle();
+    $.getScript($(this).attr('href'));
+    if($(list).is(':hidden') == true)
+    {
+      $(this).removeClass('active')
+      url = $(this).attr('href').replace('close', 'open')
+      $(this).attr('href',url)
+    }
+    else
+    {
+      $(this).addClass('active')
+      url = $(this).attr('href').replace('open', 'close')
+      $(this).attr('href',url)
+      menus = ["tops","categories"]
+      for(var i=0; i < menus.length;i++)
+      {
+        if(menus[i] != id)
+        {
+          list = "#"+menus[i]+"_list"
+          $("#"+menus[i]).removeClass('active')
+          $(list).hide()
+        }
+      }
+    }
+    return false;
+  });
+
 });

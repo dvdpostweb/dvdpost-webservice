@@ -225,27 +225,30 @@ module ApplicationHelper
     distance_of_time_in_hours((stream.updated_at + 48.hours), Time.now)
   end
 
-  def validation(imdb_id, ip, type = 'check')
-    token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
-    if token 
-      token_ips = token.token_ips
-      select = token_ips.find_by_ip(ip)
-      if select
-        {:token => token, :status => Token.status[:OK]}
-      else
-        if token_ips.count < token.count_ip
-          
-          {:token => token, :status => Token.status["IP_TO_GENERATED"]}
-        else
-          {:token => token, :status => Token.status["IP_TO_CREATED"]}  
-        end
-      end
-    else
-      {:token => nil, :status => Token.status[:FAILED]} 
-    end
-  end
-
   def streaming_access?
     current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD') and current_customer.beta_test
   end
+
+  def display_btn_tops
+    if session[:menu_tops] == true
+      type = 'close'
+      css_class = 'active'
+    else
+      type = 'open'
+      css_class = ''
+    end
+    link_to t('.tops'), menu_tops_path(:type => type), :id => :tops, :class => css_class
+  end
+  
+  def display_btn_categories
+    if session[:menu_categories] == true || session[:menu_categories] == nil
+      type = 'close'
+      css_class = 'active'
+    else
+      type = 'open'
+      css_class = ''
+    end
+    link_to t('.categories'), menu_categories_path (:type => type), :id => :categories, :class => css_class
+  end
+
 end

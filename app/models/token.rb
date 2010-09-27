@@ -1,5 +1,5 @@
 class Token < ActiveRecord::Base
-  belongs_to :customer, :foreign_key => :customers_id
+  belongs_to :customer, :primary_key => :customers_id
   belongs_to :streaming_product, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :token_ips
   has_many :products, :foreign_key => :imdb_id, :primary_key => :imdb_id
@@ -10,6 +10,9 @@ class Token < ActiveRecord::Base
 
   named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
   named_scope :unavailable,  lambda {{:conditions => {:updated_at=> 1.weeks.ago..48.hours.ago}}}
+
+  named_scope :recent,  lambda {{:conditions => {:updated_at=> 1.weeks.ago..0.hours.ago}}}  
+
   named_scope :ordered, :order => 'updated_at asc'
   
   def self.validate(token_param, filename, ip)
@@ -31,23 +34,64 @@ class Token < ActiveRecord::Base
 
   def self.error
     error = OrderedHash.new
-    error.push("ABO_PROCESS", 1)
-    error.push("CREDIT", 2)
-    error.push("ROLLBACK", 3)
-    error.push("SUSPENSION", 4)
+    error.push(:abo_process_error, 1)
+    error.push(:not_enough_credit, 2)
+    error.push(:query_rollback, 3)
+    error.push(:user_suspended, 4)
     
     error
   end
 
   def self.status
     status = OrderedHash.new
-    status.push("OK", 1)
-    status.push("IP_TO_GENERATED", 2)
-    status.push("IP_TO_CREATED", 3)
-    status.push("FAILED", 4)
+    status.push(:ok, 1)
+    status.push(:ip_valid, 2)
+    status.push(:ip_invalid, 3)
+    status.push(:expired, 4)
 
     status
   end
+  
+  def expired?
+    updated_at < 48.hours.ago
+  end
+
+  def current_status(current_ip)
+    
+    return Token.status[:expired] if expired?
+    
+    current_ips = token_ips
+    return Token.status[:ok] unless current_ips.find_by_ip(current_ip).nil?
+    return Token.status[:ip_valid] if current_ips.count < count_ip
+    return Token.status[:ip_invalid] 
+  end
+  
+  def validate?(current_ip)
+    token_status = current_status(current_ip)
+    return token_status == Token.status[:ok] || token_status == Token.status[:ip_valid]
+  end
+  
+=begin
+  def validation(imdb_id, ip)
+    token = current_customer.tokens.available.find_by_imdb_id(imdb_id)
+    if token 
+      token_ips = token.token_ips
+      select = token_ips.find_by_ip(ip)
+      if select
+        {:token => token, :status => Token.status[:OK]}
+      else
+        if token_ips.count < token.count_ip
+          
+          {:token => token, :status => Token.status[:ip_valid]}
+        else
+          {:token => token, :status => Token.status[:ip_invalid]}  
+        end
+      end
+    else
+      {:token => nil, :status => Token.status[:FAILED]} 
+    end
+  end
+=end
 
   private
   def generate_token

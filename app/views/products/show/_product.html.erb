@@ -78,7 +78,7 @@
   <strong>
     <%= t '.image' %>
   </strong>
-  <%= product.picture_format.name %><br />
+  <%= product.picture_format.name if product.picture_format %><br />
   <strong>
     <%= t '.sound' %>
   </strong>

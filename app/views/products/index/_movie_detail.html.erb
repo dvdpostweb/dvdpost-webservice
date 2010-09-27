@@ -1,7 +1,6 @@
 <% product = movie_detail %>
 <% if product.streaming? %>
-  <% validation = validation(product.imdb_id, request.remote_ip, 'internal')  %>
-  <% @token = validation[:token] %>
+  <% @token = current_customer.get_token(product.imdb_id) %>
 <% end %>
 <% path = (!params[:recommended]) ? product_path(:id => product.to_param) : product_path(:id => product.to_param, :recommendation => 1) %>
 <div class="<%= product_media_id(product.media) %> clearfix">

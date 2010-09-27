@@ -57,6 +57,10 @@ ActionController::Routing::Routes.draw do |map|
 
     localized.resources :contests, :only => [:new, :create, :index]
     localized.resources :quizzes,  :only => [:show, :index]
+    
+    localized.menu_tops 'menu_tops', :controller => :products, :action => :menu_tops, :conditions => {:method => :get}
+    localized.menu_categories 'menu_categories', :controller => :products, :action => :menu_categories, :conditions => {:method => :get}
+    
 
     localized.resources :wishlist_items, :only => [:new, :create, :update, :destroy]
     localized.wishlist 'wishlist', :controller => :wishlist_items, :action => :index, :conditions => {:method => :get}

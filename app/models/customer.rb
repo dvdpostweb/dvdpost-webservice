@@ -76,6 +76,14 @@ class Customer < ActiveRecord::Base
   has_and_belongs_to_many :seen_products, :class_name => 'Product', :join_table => :products_seen, :uniq => true
   has_and_belongs_to_many :roles, :uniq => true
 
+  def self.credit_action
+    credit = OrderedHash.new
+    credit.push(:vod, 1)
+    credit.push(:vod_more_ip, 2)
+
+    credit
+  end
+
   def email_change
     if self.email != self.new_email
       self.is_email_valid = 1
@@ -269,6 +277,92 @@ class Customer < ActiveRecord::Base
       end
     else
       false  
+    end
+  end
+
+  def create_token(imdb_id, product, current_ip)
+    if credits > 0
+      abo_process = AboProcess.today.last
+      if abo_process 
+        customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
+      end
+      
+      if !abo_process || customer_abo_process
+        Token.transaction do
+          token = Token.create(
+            :customer_id => id,
+            :imdb_id     => imdb_id
+          )
+          token_ip = TokenIp.create(
+            :token_id => token.id,
+            :ip => current_ip
+          )
+          result_credit = remove_credit(1, 12)
+          if token.id.blank? || token_ip.id.blank? || result_credit == false
+            error = Token.error[:query_rollback]
+            raise ActiveRecord::Rollback
+            return {:token => nil, :error => Token.error[:query_rollback]}
+          end
+          {:token => token, :error => nil}
+        end
+        
+      else
+        return {:token => nil, :error => Token.error[:abo_process_error]}
+      end
+    else
+      return {:token => nil, :error => Token.error[:not_enough_credit]}
+    end
+  end
+
+  def create_token_ip(token, current_ip)
+    token_ip = TokenIp.create(
+      :token_id => token.id,
+      :ip => current_ip
+    )
+    if token_ip.id.blank?
+      error = Token.error[:query_rollback]
+    else
+      true
+    end 
+  end
+
+  def create_more_ip(token, current_ip)
+    if credits > 0
+      abo_process = AboProcess.today.last
+      if abo_process 
+        customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
+      end
+      if !abo_process || customer_abo_process
+        Token.transaction do
+          more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
+          result_history = remove_credit(1,13)
+          token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
+          if more_ip == false || token_ip.id.blank? || result_history == false
+            raise ActiveRecord::Rollback
+            return {:token => nil, :error => Token.error[:query_rollback]}
+          else
+            return {:token => token, :error => nil}
+          end
+        end
+      else
+        return {:token => nil, :error => Token.error[:abo_process_error]}
+      end
+    else
+      return {:token => nil, :error => Token.error[:not_enough_credit]}
+    end
+  end
+  def get_token(imdb_id)
+    tokens.recent.find_all_by_imdb_id(imdb_id).last
+  end
+
+  def remove_product_from_wishlist(imdb_id, current_ip)
+    all = Product.find_all_by_imdb_id(imdb_id)
+    wl = wishlist_items.find_all_by_product_id(all)
+    unless wl.blank?
+      wl.each do |item|
+        item.destroy()
+        DVDPost.send_evidence_recommendations('RemoveFromWishlist', item.to_param, self, current_ip)   
+      end
     end
   end
 

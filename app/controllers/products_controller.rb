@@ -18,6 +18,10 @@ class ProductsController < ApplicationController
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @countries = ProductCountry.visible.order
+    if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
+      session[:menu_categories] = true
+      session[:menu_tops] = false
+    end
   end
 
   def show
@@ -50,8 +54,7 @@ class ProductsController < ApplicationController
         end
         DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
-      validation = validation(@product.imdb_id, request.remote_ip, 'check')
-      @token = validation[:token]
+      @token = current_customer.get_token(@product.imdb_id)
       format.js {
         if params[:reviews_page]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}
@@ -92,6 +95,30 @@ class ProductsController < ApplicationController
       format.js   {render :partial => 'products/trailer', :locals => {:product => @product}}
       format.html {redirect_to @product.trailer.url}
     end
+  end
+
+  def menu_tops
+    
+    type = params[:type] || 'open'
+    if type == 'close'
+      session[:menu_tops] = false
+    else
+      session[:menu_tops] = true
+      session[:menu_categories] = false
+      
+    end
+   render :nothing => true
+  end
+
+  def menu_categories
+    type = params[:type] || 'open'
+    if type == 'close'
+      session[:menu_categories] = false
+    else
+      session[:menu_categories] = true
+      session[:menu_tops] = false
+    end
+   render :nothing => true
   end
 
 private

@@ -5,8 +5,7 @@
   </div>
   <% if wishlist_item.product.streaming? and streaming_access? %>  
     <div class="availability streaming">
-        <% validation = validation(wishlist_item.product.imdb_id, request.remote_ip, 'internal')  %>
-        <% @token = validation[:token] %>
+        <% @token = current_customer.get_token(wishlist_item.product.imdb_id) %>
         <%= render :partial => 'products/streaming', :locals => {:product => wishlist_item.product, :token => @token} %>
     </div>
   <% else %>  

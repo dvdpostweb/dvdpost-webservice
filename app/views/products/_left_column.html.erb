@@ -4,25 +4,25 @@
     <%= text_field_tag :search, (params[:search] || t('.search')), {:id => 'search-field'} %>
     <%= content_tag :button, t('.search'), {:type => :submit, :class => 'like-btn'} %>
     <ul id="left-nav">
-      <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended) %></li>
+      <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended), :class => ((params[:view_mode] == 'recommended') ? 'active_close' : 'close') %></li>
       <li>
-        <%= link_to t('.tops'), products_path %>
-        <ul>
+        <%= display_btn_tops %>
+        <ul <%= (session[:menu_tops] == false || session[:menu_tops] == nil) ? "style = 'display:none'" : '' %> id="tops_list">
           <% ProductList.status.top.by_language(DVDPost.product_languages[I18n.locale]).ordered.collect do |list| %>
             <li><%= link_to list.name, list_products_path(:list_id => list) %></li>
           <% end %>
         </ul>
       </li>
       <li>
-        <%= link_to t('.categories'), products_path %>
-        <ul id="cat">
+        <%= display_btn_categories %>
+        <ul id="categories_list" <%= session[:menu_categories] == false ? 'style="display :none"' : '' %>>
           <%= left_column_categories(@category) %>
         </ul>
       </li>
-      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming) if streaming_access? %></li>
-      <li><%= link_to t('.new'), products_path(:view_mode => :recent) %></li>
-      <li><%= link_to t('.soon'), products_path(:view_mode => :soon) %></li>
-      <li><%= link_to t('.cinema'), products_path(:view_mode => :cinema) %></li>
+      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close' : 'close') if streaming_access? %></li>
+      <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>
+      <li><%= link_to t('.soon'), products_path(:view_mode => :soon), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
+      <li><%= link_to t('.cinema'), products_path(:view_mode => :cinema), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>
     </ul>
     <p id="special">
       <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>

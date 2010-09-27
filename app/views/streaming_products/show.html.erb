@@ -2,22 +2,24 @@
   <div id="vod-wrap">
     <div class="top"></div>
       <h2><%= h @product.description.title %> (<%= @product.year %>)</h2>
-      <% if @token %>
+      <% if @token and @token_valid %>
         <span class="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></span>
       <% end %>
       <div class="clear"></div>
       <div class="player" id="player">
         <div id = 'image_vod'><%= product_image_tag @product.image, :alt => "#{@product.title} (#{@product.year})" %></div>
       </div>
-      <% message = message_streaming(@validation, @unavailable_token) %>
+      <% message = message_streaming(@token) %>
       <% if message %>
         <div class='error'><%= message %></div>
       <% end %>
+
       <% if !current_customer.payment_suspended? %>
-        <% if current_customer.credits > 0 || (@token && @status != "IP_TO_CREATED") %>
+        <% if current_customer.credits > 0 || (@token && @token_valid) %>
           <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
         <% end %>
       <% end %>
+
     </div>
     <p class="linkpc">
       <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
