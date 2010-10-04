@@ -197,4 +197,47 @@ module ProductsHelper
     end
     html_content
   end
+
+  def streaming_audio_bublles(product)
+    content=[]
+    country=[]
+    content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
+    |product|
+      lang = product.language.by_language(I18n.locale).first
+      short = lang.short
+      name = lang.name
+      if !country.include?(short)
+        country << short
+        content_tag(:div, short.upcase, :class => :language, :alt => name, :title => name) 
+      end
+    }
+    content
+  end
+
+  def streaming_subtitle_bublles(product)
+    content=[]
+    country=[]
+    content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
+    |product|
+      if product.subtitle.by_language(I18n.locale).first && product.subtitle.by_language(I18n.locale).first.short
+        lang = product.subtitle.by_language(I18n.locale).first
+        short = lang.short
+        name = lang.name
+        
+        if !country.include?(short)
+          country << short
+          content_tag(:div, short.upcase, :class => :subtitle, :alt => name, :title => name)
+        end
+      end
+    }
+    content
+  end
+
+  def bubbles(product)
+    if params[:view_mode] == 'streaming'
+      "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
+    else
+      "#{audio_bubbles(product)} #{subtitle_bubbles(product)}"
+    end
+  end
 end
