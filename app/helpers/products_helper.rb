@@ -203,12 +203,14 @@ module ProductsHelper
     country=[]
     content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
     |product|
-      lang = product.language.by_language(I18n.locale).first
-      short = lang.short
-      name = lang.name
-      if !country.include?(short)
-        country << short
-        content_tag(:div, short.upcase, :class => :language, :alt => name, :title => name) 
+      if product.language.by_language(I18n.locale).first && product.language.by_language(I18n.locale).first.short
+        lang = product.language.by_language(I18n.locale).first
+        short = lang.short
+        name = lang.name
+        if !country.include?(short)
+          country << short
+          content_tag(:div, short.upcase, :class => :language, :alt => name, :title => name) 
+        end
       end
     }
     content
