@@ -36,7 +36,7 @@
     </tr>
     <% streaming_available.each do |stream| %>
       <tr>
-        <td><%= link_to truncate(stream.products.first.description.title, :length => 30), streaming_product_path(:id => stream.imdb_id) %></td>
+        <td><%= link_to truncate(stream.products.first.description.title, :length => 30), streaming_product_path(:id => stream.imdb_id) if stream.products.first %></td>
         <td><%= "#{time_left(stream)}" %></td>
       </tr>
     <% end %>

@@ -36,7 +36,7 @@ module StreamingProductsHelper
     token_status = token.nil? ? Token.status[:invalid] : token.current_status(request.remote_ip)
 
     if !current_customer.payment_suspended?
-      if (current_customer.credits <= 0) && !token.valid?(request.remote_ip)
+      if (current_customer.credits <= 0) && !token.validate?(request.remote_ip)
         "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => reconduction_path}</div>"
       elsif token_status == Token.status[:ip_invalid]
         "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
