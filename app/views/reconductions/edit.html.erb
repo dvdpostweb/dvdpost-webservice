@@ -1,0 +1,14 @@
+<p><h2>Prolongation de votre abonnement maintenant</h2></p>
+
+
+
+<% if current_customer.credits > 0 %>
+  il vous reste des crédits
+<% else %>
+  <% if @reconduction_earlier %>
+      vous avez deja effectuée une reconduction anticipée récemment
+  <% else %>
+      confirmer votre reconduction anticipée ....<br />
+      <%= link_to 'CONFIRM', customer_reconduction_path(:customer_id => current_customer.to_param), :id => :reconduction%>
+  <% end %>
+<% end %>

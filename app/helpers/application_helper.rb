@@ -248,7 +248,7 @@ module ApplicationHelper
       type = 'open'
       css_class = ''
     end
-    link_to t('.categories'), menu_categories_path (:type => type), :id => :categories, :class => css_class
+    link_to t('.categories'), menu_categories_path(:type => type), :id => :categories, :class => css_class
   end
 
 end

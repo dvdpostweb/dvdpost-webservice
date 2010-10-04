@@ -31,6 +31,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :abo_type_id,                  :customers_abo_type
   alias_attribute :last_login_at,                :customers_info_date_of_last_logon
   alias_attribute :login_count,                  :customers_info_number_of_logons
+  alias_attribute :auto_stop,                     :customers_abo_auto_stop_next_reconduction
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
@@ -64,6 +65,7 @@ class Customer < ActiveRecord::Base
   has_many :addresses, :foreign_key => :customers_id
   has_many :payment_offline_request, :foreign_key => :customers_id
   has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
+  has_many :actions, :foreign_key => :customerid, :class_name => 'Subscription'
   has_many :contests, :foreign_key => :customers_id
   has_many :sponsorships, :foreign_key => :father_id
   has_many :sponsorship_emails, :foreign_key => :customers_id
@@ -364,6 +366,15 @@ class Customer < ActiveRecord::Base
         DVDPost.send_evidence_recommendations('RemoveFromWishlist', item.to_param, self, current_ip)   
       end
     end
+  end
+  
+  def recondutction_ealier?
+    !actions.reconduction_ealier.recent.blank?
+  end
+
+  def reconduction_now
+    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().to_s(:db))
+    Subscription.create(:customer_id => self.to_param, :Action => Subscription.action[:reconduction_ealier], :Date => Time.now().to_s(:db), :product_id => self.abo_type_id, :site => 1, :payment_method => subscription_payment_method.name.upcase)
   end
 
   private

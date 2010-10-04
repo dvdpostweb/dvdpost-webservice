@@ -84,6 +84,8 @@ ActionController::Routing::Routes.draw do |map|
       customer.rotation_dvd 'rotation_dvd', :controller => :customers, :action => :rotation_dvd, :only => [:update]
       customer.resource 'addresses', :only => [:edit, :update]
       customer.resource 'suspension', :only => [:new, :create, :destroy]
+      customer.resource 'reconduction', :only => [:edit, :update]
+      
     end
 
     localized.resources :filters, :only => [:create, :destroy]
