@@ -8,7 +8,7 @@ class SponsorshipsEmailsController < ApplicationController
       options = {
         "\\$\\$\\$godfather_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", 
         "\\$\\$\\$son_name\\$\\$\\$" => "#{params[:sponsorship_email][:firstname].capitalize} #{params[:sponsorship_email][:lastname].capitalize}",
-        "\\$\\$\\$target_email\\$\\$\\$" => recipient
+        "\\$\\$\\$target_email\\$\\$\\$" => recipient,
         "\\$\\$\\$mail_messages_sent_history_id\\$\\$\\$" => mail_history.to_param
         }
       list = ""
