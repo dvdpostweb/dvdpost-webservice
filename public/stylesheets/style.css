@@ -3355,7 +3355,7 @@ a#all_categorie, a#all_categorie:hover {
   font-weight: bold;
   padding: 4px 0 0 0;
   text-align:center;
-  margin: 0 2px 0 0;
+  margin: 0 1px 0 0;
 }
 .language.small{
   font-size: 7pt; 
@@ -3378,6 +3378,11 @@ a#all_categorie, a#all_categorie:hover {
   padding: 4px 0 0 0;
   text-align:center;
   margin: 0 2px 0 0;
+}
+.subtitle.small{
+  font-size: 7pt; 
+  padding: 5px 0 0 0;
+  height: 21px;
 }
 .language_title{
   float:left;
