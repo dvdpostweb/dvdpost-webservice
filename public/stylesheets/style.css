@@ -628,13 +628,14 @@ fieldset {
 #titles-wrap .movie-descr p {
   color: #61646d;
   font-size: 0.92em;
-  margin: 10px 0 18px;
+  margin: 10px 0 5px;
   padding: 0;
 }
 
 #titles-wrap .movie-descr p.links {
   margin: 0;
   text-align: right;
+  clear:both;
 }
 
 #titles-wrap .movie-descr p.links a, #titles-wrap .movie-descr p.links span {
@@ -3355,6 +3356,11 @@ a#all_categorie, a#all_categorie:hover {
   padding: 4px 0 0 0;
   text-align:center;
   margin: 0 2px 0 0;
+}
+.language.small{
+  font-size: 7pt; 
+  padding: 5px 0 0 0;
+  height: 21px;
 }
 .language_text
 {

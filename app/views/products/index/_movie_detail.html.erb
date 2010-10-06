@@ -10,6 +10,7 @@
     </h2>
     <p>
       <%= product_description_text(product) %>
+      <%= bubbles(product) %>
     </p>
     <p class="links">
       <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) if product.trailer %>
@@ -19,7 +20,6 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-      <%= bubbles(product) %>
       <%= image_tag product.public.image, :alt => product.public.description if product.public %>
       <div style='clear:left'></div>
     </div>

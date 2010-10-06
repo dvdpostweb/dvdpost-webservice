@@ -3,18 +3,45 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
-  def audio_bubbles(product)
-    audio = product.languages.preferred.collect{|language| content_tag(:div, DVDPost.product_languages.invert[language.to_param.to_i].upcase, :class => language.class.name.underscore)}
-    unless audio.empty?
-      audio
-    else
-      language = product.languages.by_language(I18n.locale).first
-      content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text") if language
-    end
+  def class_bubble(text)
+    text.size == 3 ? 'small' : 'normal'
   end
 
+  def audio_bubbles(product)
+    audio_count=0
+    audio = product.languages.preferred.collect{|language| 
+      audio_count +=1
+      content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+    }
+    if audio_count < 5
+      audio << product.languages.not_preferred.limit(5 - audio_count).collect{|language| 
+        if language.short
+          content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+        else
+          content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text")
+        end
+      }
+    end
+    audio
+  end
+  
+
   def subtitle_bubbles(product)
-    product.subtitles.preferred.collect{|subtitle| content_tag(:div, DVDPost.product_languages.invert[subtitle.to_param.to_i].upcase, :class => subtitle.class.name.underscore)}
+    subtitle_count=0
+    sub = product.subtitles.preferred.collect{|subtitle| 
+      subtitle_count += 1
+      content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
+    }
+    if subtitle_count < 5
+       sub << product.subtitles.not_preferred.limit(5 - subtitle_count).collect{|subtitle| 
+        if subtitle.short
+          content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
+        else
+          content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text")
+        end
+      }
+    end
+    sub
   end
 
   def rating_review_image_links(product, replace=nil)
@@ -209,7 +236,7 @@ module ProductsHelper
         name = lang.name
         if !country.include?(short)
           country << short
-          content_tag(:div, short.upcase, :class => :language, :alt => name, :title => name) 
+          content_tag(:div, short.upcase, :class => "language  #{class_bubble(name)}", :alt => name, :title => name) 
         end
       end
     }
@@ -228,7 +255,7 @@ module ProductsHelper
         
         if !country.include?(short)
           country << short
-          content_tag(:div, short.upcase, :class => :subtitle, :alt => name, :title => name)
+          content_tag(:div, short.upcase, :class => "subtitle #{class_bubble(name)}", :alt => name, :title => name)
         end
       end
     }
