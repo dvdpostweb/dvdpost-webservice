@@ -8,7 +8,9 @@ module StreamingProductsHelper
         url: '#{source_file}',
         provider: 'softlayer'
       },
-
+      canvas: {
+      		backgroundColor:'#000000'
+      },
       plugins: {
         softlayer: {
           url: '/flowplayer/flowplayer.rtmp-3.1.3.swf',
@@ -26,7 +28,7 @@ module StreamingProductsHelper
           }
         }
       }
-    }).ipad();
+    });
     script
     javascript_tag script
   end
