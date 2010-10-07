@@ -26,7 +26,7 @@ module StreamingProductsHelper
           }
         }
       }
-    });
+    }).ipad();
     script
     javascript_tag script
   end
