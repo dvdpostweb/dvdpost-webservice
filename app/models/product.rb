@@ -170,7 +170,7 @@ class Product < ActiveRecord::Base
     if options[:view_mode]
       products = case options[:view_mode].to_sym
       when :recent
-        products.recent
+        products.recent.order(:available_at, :desc)
       when :soon
         products.soon
       when :cinema
