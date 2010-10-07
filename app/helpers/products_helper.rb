@@ -3,8 +3,12 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
-  def class_bubble(text)
-    text.size == 3 ? 'small' : 'normal'
+  def class_bubble(text, type = :classic)
+    if type == :classic
+      text.size == 3 ? 'small' : 'normal'
+    else
+      'special'
+    end
   end
 
   def audio_bubbles(product)
@@ -35,7 +39,13 @@ module ProductsHelper
     if subtitle_count < 5
        sub << product.subtitles.not_preferred.limit(5 - subtitle_count).collect{|subtitle| 
         if subtitle.short
-          content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
+          if subtitle.short.include?('_m')
+            subtitle.short = subtitle.short.slice(0..1)
+            class_undertitle = class_bubble(subtitle.short, :special)
+          else
+            class_undertitle = class_bubble(subtitle.short, :classic)
+          end
+          content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_undertitle}", :alt => subtitle.name, :title => subtitle.name)
         else
           content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text")
         end
@@ -255,7 +265,13 @@ module ProductsHelper
         
         if !country.include?(short)
           country << short
-          content_tag(:div, short.upcase, :class => "subtitle #{class_bubble(name)}", :alt => name, :title => name)
+          if short.include?('_m')
+            short = short.slice(0..1)
+            class_undertitle = class_bubble(short, :special)
+          else
+            class_undertitle = class_bubble(short, :classic)
+          end
+          content_tag(:div, short.upcase, :class => "subtitle #{class_undertitle}", :alt => name, :title => name)
         end
       end
     }
