@@ -170,7 +170,7 @@ class Product < ActiveRecord::Base
     if options[:view_mode]
       products = case options[:view_mode].to_sym
       when :recent
-        products.recent.order(:available_at, :desc)
+        products.recent
       when :soon
         products.soon
       when :cinema
@@ -189,6 +189,8 @@ class Product < ActiveRecord::Base
       products = products.by_kind(:normal).available
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
       products = products.by_kind(:normal).available.group('imdb_id','streaming_id desc')
+    elsif options[:view_mode] && options[:view_mode].to_sym == :recent
+      products = products.by_kind(:normal).available.order(:available_at, :desc)
     else
        products = products.by_kind(:normal).available.order(:id, :desc)
     end
