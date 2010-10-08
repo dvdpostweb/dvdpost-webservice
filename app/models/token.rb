@@ -1,6 +1,6 @@
 class Token < ActiveRecord::Base
   belongs_to :customer, :primary_key => :customers_id
-  belongs_to :streaming_product, :primary_key => :imdb_id, :foreign_key => :imdb_id
+  has_many :streaming_product, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :token_ips
   has_many :products, :foreign_key => :imdb_id, :primary_key => :imdb_id
 
