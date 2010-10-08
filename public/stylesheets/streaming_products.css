@@ -118,8 +118,12 @@ width:970px;
   height: 389px;
   width: 696px;
   margin:0 auto;
+  
 }
-
+#player #player_api
+{
+  background: #990000;
+}
 .choose_color
 {
   background-color: #c7c5c5;
@@ -141,8 +145,8 @@ width:970px;
   height:32px;
   width:32px;
   position:absolute;
-  top: 178px;
-  left:445px;
+  top: 235px;
+  left:456px;
 }
 
 .attention_vod {

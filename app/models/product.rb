@@ -69,6 +69,7 @@ class Product < ActiveRecord::Base
     has subtitles(:undertitles_id), :as => :subtitle_ids
     has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
+    has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
     has "case 
@@ -115,6 +116,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:random)             {{:order =>         '@random'}}
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
+  sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
+  
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
   def self.filter(filter, options={})
@@ -185,7 +188,9 @@ class Product < ActiveRecord::Base
     elsif options[:search] && !options[:search].blank?
       products = products.by_kind(:normal).available
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
-      products = products.by_kind(:normal).available.order(:imdb_id, :desc)
+      products = products.by_kind(:normal).available.group('imdb_id','streaming_id desc')
+    elsif options[:view_mode] && options[:view_mode].to_sym == :recent
+      products = products.by_kind(:normal).available.order(:available_at, :desc)
     else
        products = products.by_kind(:normal).available.order(:id, :desc)
     end

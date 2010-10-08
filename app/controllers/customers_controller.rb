@@ -1,7 +1,8 @@
 class CustomersController < ApplicationController
   def show
     @customer = current_customer
-    @streaming_available = current_customer.tokens.available.ordered
+    @streaming_available = current_customer.tokens.available.ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => {'streaming_products.available' => 1})
+    
   end
 
   def edit

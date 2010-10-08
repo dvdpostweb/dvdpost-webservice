@@ -593,7 +593,7 @@ fieldset {
   color:#303030;
 }
 
-#titles-wrap .dvd, #titles-wrap .bluray {
+#titles-wrap .dvd, #titles-wrap .vod, #titles-wrap .bluray {
   background: white;
   background: white url(../images/movie-info-shadow.png) 495px 0 repeat-y;
   border: 1px solid #a7a7a7;
@@ -607,7 +607,7 @@ fieldset {
   background: #c2edfb url(../images/movie-info-shadow.png) 495px 0 repeat-y;
 }
 
-* html #titles-wrap .dvd, * html #titles-wrap .bluray {
+* html #titles-wrap .dvd, * html #titles-wrap .vod, * html #titles-wrap .bluray {
   height: 132px;
 }
 
@@ -628,13 +628,14 @@ fieldset {
 #titles-wrap .movie-descr p {
   color: #61646d;
   font-size: 0.92em;
-  margin: 10px 0 18px;
+  margin: 10px 0 5px;
   padding: 0;
 }
 
 #titles-wrap .movie-descr p.links {
   margin: 0;
   text-align: right;
+  clear:both;
 }
 
 #titles-wrap .movie-descr p.links a, #titles-wrap .movie-descr p.links span {
@@ -829,7 +830,7 @@ fieldset {
   background: url(../images/drop-btn.png) 0 -39px no-repeat;
 }
 
-#titles-wrap .dvd .cover, #titles-wrap .bluray .cover {
+#titles-wrap .dvd .cover,#titles-wrap .vod .cover, #titles-wrap .bluray .cover {
   background: url(../images/dvd-cover-bg.png) 0 0 no-repeat;
   display: block;
   height: 105px;
@@ -840,8 +841,13 @@ fieldset {
   width: 69px;
 }
 
+
 #titles-wrap .bluray .cover {
   background: url(../images/bluray-cover-bg.png) 0 0 no-repeat;
+  width: 67px;
+}
+#titles-wrap .vod .cover {
+  background: url(../images/vod-cover-bg.png) 0 0 no-repeat;
   width: 67px;
 }
 
@@ -3349,7 +3355,12 @@ a#all_categorie, a#all_categorie:hover {
   font-weight: bold;
   padding: 4px 0 0 0;
   text-align:center;
-  margin: 0 2px 0 0;
+  margin: 0 1px 0 0;
+}
+.language.small{
+  font-size: 7pt; 
+  padding: 5px 0 0 0;
+  height: 21px;
 }
 .language_text
 {
@@ -3367,6 +3378,11 @@ a#all_categorie, a#all_categorie:hover {
   padding: 4px 0 0 0;
   text-align:center;
   margin: 0 2px 0 0;
+}
+.subtitle.small{
+  font-size: 7pt; 
+  padding: 5px 0 0 0;
+  height: 21px;
 }
 .language_title{
   float:left;

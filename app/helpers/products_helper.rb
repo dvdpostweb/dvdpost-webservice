@@ -3,18 +3,55 @@ module ProductsHelper
     session[:indicator_stored] || !current_customer ? javascript_tag("$('#indicator-tips').hide();") : ''
   end
 
-  def audio_bubbles(product)
-    audio = product.languages.preferred.collect{|language| content_tag(:div, DVDPost.product_languages.invert[language.to_param.to_i].upcase, :class => language.class.name.underscore)}
-    unless audio.empty?
-      audio
+  def class_bubble(text, type = :classic)
+    if type == :classic
+      text.size == 3 ? 'small' : 'normal'
     else
-      language = product.languages.by_language(I18n.locale).first
-      content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text") if language
+      'special'
     end
   end
 
+  def audio_bubbles(product)
+    audio_count=0
+    audio = product.languages.preferred.collect{|language| 
+      audio_count +=1
+      content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+    }
+    if audio_count < 5
+      audio << product.languages.not_preferred.limit(5 - audio_count).collect{|language| 
+        if language.short
+          content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+        else
+          content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text")
+        end
+      }
+    end
+    audio
+  end
+  
+
   def subtitle_bubbles(product)
-    product.subtitles.preferred.collect{|subtitle| content_tag(:div, DVDPost.product_languages.invert[subtitle.to_param.to_i].upcase, :class => subtitle.class.name.underscore)}
+    subtitle_count=0
+    sub = product.subtitles.preferred.collect{|subtitle| 
+      subtitle_count += 1
+      content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
+    }
+    if subtitle_count < 5
+       sub << product.subtitles.not_preferred.limit(5 - subtitle_count).collect{|subtitle| 
+        if subtitle.short
+          if subtitle.short.include?('_m')
+            subtitle.short = subtitle.short.slice(0..1)
+            class_undertitle = class_bubble(subtitle.short, :special)
+          else
+            class_undertitle = class_bubble(subtitle.short, :classic)
+          end
+          content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_undertitle}", :alt => subtitle.name, :title => subtitle.name)
+        else
+          content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text")
+        end
+      }
+    end
+    sub
   end
 
   def rating_review_image_links(product, replace=nil)
@@ -196,5 +233,56 @@ module ProductsHelper
       end
     end
     html_content
+  end
+
+  def streaming_audio_bublles(product)
+    content=[]
+    country=[]
+    content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
+    |product|
+      if product.language.by_language(I18n.locale).first && product.language.by_language(I18n.locale).first.short
+        lang = product.language.by_language(I18n.locale).first
+        short = lang.short
+        name = lang.name
+        if !country.include?(short)
+          country << short
+          content_tag(:div, short.upcase, :class => "language  #{class_bubble(name)}", :alt => name, :title => name) 
+        end
+      end
+    }
+    content
+  end
+
+  def streaming_subtitle_bublles(product)
+    content=[]
+    country=[]
+    content << StreamingProduct.find_all_by_imdb_id(product.imdb_id).collect{
+    |product|
+      if product.subtitle.by_language(I18n.locale).first && product.subtitle.by_language(I18n.locale).first.short
+        lang = product.subtitle.by_language(I18n.locale).first
+        short = lang.short
+        name = lang.name
+        
+        if !country.include?(short)
+          country << short
+          if short.include?('_m')
+            short = short.slice(0..1)
+            class_undertitle = class_bubble(short, :special)
+          else
+            class_undertitle = class_bubble(short, :classic)
+          end
+          content_tag(:div, short.upcase, :class => "subtitle #{class_undertitle}", :alt => name, :title => name)
+        end
+      end
+    }
+    content
+  end
+
+  def bubbles(product)
+    if params[:view_mode] == 'streaming'
+      "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
+    else
+      "#{audio_bubbles(product)} #{subtitle_bubbles(product)}"
+    end
   end
 end

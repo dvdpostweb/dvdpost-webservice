@@ -3,13 +3,14 @@
   <% @token = current_customer.get_token(product.imdb_id) %>
 <% end %>
 <% path = (!params[:recommended]) ? product_path(:id => product.to_param) : product_path(:id => product.to_param, :recommendation => 1) %>
-<div class="<%= product_media_id(product.media) %> clearfix">
+<div class="<%= (params[:view_mode] == 'streaming') ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>
       <%= link_to product.title, path %>
     </h2>
     <p>
       <%= product_description_text(product) %>
+      <%= bubbles(product) %>
     </p>
     <p class="links">
       <%= link_to(t('.trailer'), product_trailer_path(:product_id => product.to_param), :class => 'trailer', :target => :_blank) if product.trailer %>
@@ -19,8 +20,6 @@
   </div>
   <div class="movie-info">
     <div class="subs">
-      <%= audio_bubbles(product) %>
-      <%= subtitle_bubbles(product) %>
       <%= image_tag product.public.image, :alt => product.public.description if product.public %>
       <div style='clear:left'></div>
     </div>
@@ -49,7 +48,7 @@
     <div class="links" id="seen-uninterested-<%= product.to_param %>">
       <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
     </div>
-    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} %>
+    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming'  %>
     <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token } if product.streaming? and streaming_access? %>
     
   </div>
