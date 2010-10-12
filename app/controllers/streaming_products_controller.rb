@@ -1,6 +1,6 @@
 class StreamingProductsController < ApplicationController
   def show
-    @streaming = StreamingProduct.available.find_all_by_imdb_id(params[:id])
+    @streaming = StreamingProduct.get_streaming_by_imdb_id(params[:id], I18n.locale)
     @product = Product.find_by_imdb_id(params[:id])
     
    

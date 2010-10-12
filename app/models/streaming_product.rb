@@ -6,5 +6,15 @@ class StreamingProduct < ActiveRecord::Base
   
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
   named_scope :available, lambda {{:conditions => ['available = ? and available_from < ? and streaming_products.expire_at > ?', 1, Time.now.to_s(:db), Time.now.to_s(:db)]}}
+  named_scope :prefered_audio, lambda {|language_id| {:conditions => {:language_id => language_id }}}
+  named_scope :prefered_subtitle, lambda {|subtitle_id| {:conditions => {:subtitle_id => subtitle_id }}}
+  named_scope :not_prefered, lambda {|language_id| {:conditions => ["language_id != :language_id and (subtitle_id != :language_id or subtitle_id is null)",{:language_id => language_id}]}}
   
+  def self.get_streaming_by_imdb_id(imdb_id, local)
+    streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    streaming += available.prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    streaming += available.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    
+    streaming
+  end
 end

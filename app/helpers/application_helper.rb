@@ -251,4 +251,15 @@ module ApplicationHelper
     link_to t('.categories'), menu_categories_path(:type => type), :id => :categories, :class => css_class
   end
 
+  def set_title(alter_title, replace = true)
+    if alter_title.blank?
+      @title = t '.title'
+    else
+      if replace
+        @title = alter_title
+      else
+        @title = "#{t '.title'} - #{alter_title}"
+      end
+    end
+  end
 end

@@ -1,0 +1,77 @@
+.text_anticipation {
+	padding-left: 20px;
+	padding-right: 10px;
+	text-align:left;
+	font-size:13px;
+	width:350px;
+}
+.text_title_abo {
+	text-align:left;
+	font-size:16px;
+	color:#FFFFFF;
+	text-transform: uppercase;
+	padding-top:20px;
+	padding-left:50px;
+}
+.text_prices {
+	font-size:36px;
+	color:#ff3300;
+	
+}
+.text_nb_movie {
+	font-size:24px;
+}
+.text_month {
+	font-size:16px;
+}
+.dvd_icon {
+	padding-left:50px;
+	line-height: normal;
+}
+#bg_anticipation {
+	background-image: url(../images/bg_anticipation.png);
+	background-repeat: no-repeat;
+	height:324px;
+}
+.title_movie {
+	font-size:18px;
+	text-align:left;
+}
+.title_prices {
+	color:#ff3300;
+	padding-left:25px;
+	font-size:24px;
+	text-align:right;
+	padding-right:10px;
+}
+.separtions {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #666666;
+}
+.table_abo {
+	width:500px;
+	padding-top:20px;
+}
+.big_yes {
+	font-size:24px;
+	color:#ff3300;
+}
+
+.select_abo {
+background-color:#d5f5ff;
+
+}
+.choice_anticipation { padding-top:10px;
+font-size:16px;
+text-align:left;
+
+}
+
+.right_content { float:right; font-size:16px; text-align:left; padding-top:20px;}
+
+.left_content { float:left; font-size:16px; text-align:left;  padding-top:20px;}
+
+.monthquote { font-size:13px;}
+
+.button_confirm { padding-top:10px;}

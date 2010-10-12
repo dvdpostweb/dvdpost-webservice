@@ -2,5 +2,7 @@
 <%= javascript 'streaming_products' %>
 <%= stylesheet_link_tag 'streaming_products', :media => :all %>
 <% content_for :body_id do %>one-col<% end %>
+<% content_for :title do %>VOD : <%= @product.description.title %><% end %>
+
 <%= yield %>
 <% parent_layout 'application' %>

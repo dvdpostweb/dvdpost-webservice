@@ -1,0 +1,15 @@
+<% if current_customer.next_abo_type_id != abo.id %>
+  <% showing = @showing_abo > 0 ? true : false %>
+  <% style = get_style(current_abo_credit, abo.credits, showing)%>
+  <% @showing_abo = @showing_abo - 1 if style == 'table-row' %>
+  <tr class='abo' style="display:<%= style %>">
+    <td><%= f.radio_button(:next_abo_type_id, abo.id)%><td>
+    <td><!--><img src="/images/dvd<%= abo.credits %>.png" align="absmiddle" />--></td>
+    <td><strong><span class="title_movie"><%= abo.credits %> Films</span></strong> par mois</td>
+    <td align="right"><strong><span class="title_prices">&euro; <%= abo.product.price %></span></strong></td>
+  </tr>
+  <tr class='abo' style="display:<%= style %>">
+    <td colspan="5"class="separtions"></td>
+  </tr>
+  
+<% end %>

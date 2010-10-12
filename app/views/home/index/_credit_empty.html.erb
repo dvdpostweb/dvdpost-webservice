@@ -1,3 +1,4 @@
 <div id="alert" class="credit_empty">
-  <%= t '.title', :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :link =>  edit_customer_recondution_path(:locale=> I18n.locale, :customer_id => current_customer.to_param) %> 
+  <% path = current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale=> I18n.locale, :customer_id => current_customer.to_param) : reconduction_path  %>
+  <%= t '.title', :reconduction_date => current_customer.subscription_expiration_date.strftime("%d/%m/%Y"), :link => path %> 
 </div>

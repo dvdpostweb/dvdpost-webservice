@@ -13,7 +13,7 @@
       <tr>
         <td align="right"><strong><%= t '.credit' %></strong></td>
         <td align="left">
-          <%= current_customer.subscription_type.qty_credit == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
+          <%= current_customer.subscription_type.credits == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
         </td>
       </tr>
       <tr>
@@ -25,7 +25,9 @@
           <% if customer.subscription %>
             <ul>
               <li class="links">
-                <%= link_to t('.modify_abo'), limited_subscription_change_path, :class => 'modif' %>
+                <% path = current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale=> I18n.locale, :customer_id => current_customer.to_param) : limited_subscription_change_path  %>
+                
+                <%= link_to t('.modify_abo'), path, :class => 'modif' %>
                 <span><%= image_tag 'delimiter.gif' %></span>
                 <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' %>
               </li>

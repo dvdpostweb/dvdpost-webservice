@@ -1,14 +1,61 @@
 <p><h2>Prolongation de votre abonnement maintenant</h2></p>
 
+<div id="bg_anticipation">
+  <table cellpadding="0" cellspacing="0"  border="0" height="114" width="300" >
+    <tr>
+      <td colspan="2"><p class="text_title_abo">Votre abonnement actuel</p></td>
+    </tr>
+    <tr>
+      <td class="dvd_icon" valign="top"><img src="images/dvd4.png" /></td>
+      <td  valign="top" ><span class="text_nb_movie"><strong><%= current_customer.subscription_type.credits %> Films</strong></span><br />
+        <span class="text_month">par mois </span> <span class="text_prices"><strong>&euro; <%= current_customer.subscription_type.product.price %></strong></span></td>
+    </tr>
+  </table>
+  <p class="text_anticipation">&nbsp;</p>
+  <p class="text_anticipation"><strong>En fonction de vos besoins, vous pouvez ‡ tout moment changer votre formule d'abonnement.</strong></p>
+  <p class="text_anticipation">Vous souhaitez plus de DVD/Blu-ray en automne et en hiver par exemple? Vous pouvez  facilement augmenter votre nombre de locations ‡ ce moment-l‡ et diminuer ‡ nouveau votre formule quand vous partez en vacances.</p>
+</div>
+<div class="top"></div>
+<% form_for(:customer, :url => customer_reconduction_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
 
-
-<% if current_customer.credits > 0 %>
-  il vous reste des crédits
-<% else %>
-  <% if @reconduction_earlier %>
-      vous avez deja effectuée une reconduction anticipée récemment
-  <% else %>
-      confirmer votre reconduction anticipée ....<br />
-      <%= link_to 'CONFIRM', customer_reconduction_path(:customer_id => current_customer.to_param), :id => :reconduction%>
-  <% end %>
+<div id="tool-wrap">
+  <div class="left_content">
+    <table cellpadding="0" cellspacing="0"  border="0" width="400" >
+      <tr>
+        <td>
+          <INPUT TYPE=RADIO NAME="" VALUE="">
+          </td>
+          <td><span class="big_yes">YES</span>, je veux míabonner dËs maintenant <br />
+            et <strong>garder ma formule actuellle</strong>.<br /></td>
+          <tr>
+              <td></td>
+              <td ><span class="monthquote">Ma mensualitÈ sera automatiquement adaptÈe <strong>le <%= Date.tomorrow.strftime("%d/%m/%Y") %></strong>.</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="right_content">
+    <table cellpadding="0" cellspacing="0"  border="0" width="400" >
+      <tr>
+        <td>
+        <INPUT TYPE=RADIO NAME="" VALUE="">
+        </td>
+        <td><span class="big_yes">YES</span>, je veux míabonner dËs maintenant <br />
+          et <strong>choisir une nouvelle formule</strong><br /></td>
+        <tr>
+            <td></td>
+            <td ><span class="monthquote">Ma mensualitÈ sera automatiquement adaptÈe <strong>le <%= Date.tomorrow.strftime("%d/%m/%Y") %></strong>.</span></td>
+          </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0"  border="0" width="400" class="table_abo">
+      <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.subscription_type.credits, :f => f} %>
+    </table>
+    <a href="" id='show_all'>show all</a>
+  </div>
+  <div class="clear"></div>
+  <div class="end"></div>
+  <div class="button_confirm">
+    <%= f.submit 'update' %>
+  </div>
+</div>
 <% end %>

@@ -111,19 +111,29 @@ text-align:left;
 width:970px;
 }
 
-#player
+#presentation, #player
 {
   text-align:center;
   padding: 10px 0 0 0;
   height: 389px;
   width: 696px;
   margin:0 auto;
+}
+#player
+{
+  position:absolute;
+  left: 126px;
+  top:69px;
+}
+#player_api
+{
+  height: 389px;
+  width: 696px;
   
 }
-#player #player_api
-{
-  background: #990000;
-}
+
+
+
 .choose_color
 {
   background-color: #c7c5c5;

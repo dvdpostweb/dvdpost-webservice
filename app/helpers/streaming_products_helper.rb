@@ -68,4 +68,16 @@ module StreamingProductsHelper
         t('.customer_suspended')
     end
   end
+  
+  def get_style(current_abo_credit, abo_credits, showing)
+    if(current_abo_credit < abo_credits)
+      if showing
+        "table-row"
+      else
+        "none"
+      end
+    else
+      "none"
+    end
+  end
 end

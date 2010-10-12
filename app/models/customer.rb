@@ -31,7 +31,9 @@ class Customer < ActiveRecord::Base
   alias_attribute :abo_type_id,                  :customers_abo_type
   alias_attribute :last_login_at,                :customers_info_date_of_last_logon
   alias_attribute :login_count,                  :customers_info_number_of_logons
-  alias_attribute :auto_stop,                     :customers_abo_auto_stop_next_reconduction
+  alias_attribute :auto_stop,                    :customers_abo_auto_stop_next_reconduction
+  alias_attribute :next_abo_type_id,             :customers_next_abo_type
+  
 
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
@@ -353,10 +355,15 @@ class Customer < ActiveRecord::Base
       return {:token => nil, :error => Token.error[:not_enough_credit]}
     end
   end
+
   def get_token(imdb_id)
     tokens.recent.find_all_by_imdb_id(imdb_id).last
   end
-
+  
+  def get_all_tokens
+    tokens.available.ordered.all(:joins => :streaming_product, :group => :imdb_id, :conditions => { :streaming_products => { :available => 1 }})
+  end
+  
   def remove_product_from_wishlist(imdb_id, current_ip)
     all = Product.find_all_by_imdb_id(imdb_id)
     wl = wishlist_items.find_all_by_product_id(all)
@@ -373,8 +380,18 @@ class Customer < ActiveRecord::Base
   end
 
   def reconduction_now
-    update_attributes(:auto_stop => 0, :subscription_expiration_date => Time.now().to_s(:db))
-    Subscription.create(:customer_id => self.to_param, :Action => Subscription.action[:reconduction_ealier], :Date => Time.now().to_s(:db), :product_id => self.abo_type_id, :site => 1, :payment_method => subscription_payment_method.name.upcase)
+    update_attribute(:auto_stop, 0)
+    update_attribute(:subscription_expiration_date, Time.now().to_s(:db))
+    abo_history(Subscription.action[:reconduction_ealier])
+  end
+  
+  def abo_history(action, new_abo_type = 0)
+    Subscription.create(:customer_id => self.to_param, :Action => action, :Date => Time.now().to_s(:db), :product_id => (new_abo_type > 0 ? new_abo_type : self.abo_type_id), :site => 1, :payment_method => subscription_payment_method.name.upcase)
+  end
+
+  def is_freetest?
+    actions.reconduction.last.action == 17
+    false
   end
 
   private

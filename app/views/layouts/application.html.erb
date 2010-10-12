@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" >
 <head>
   <title>
-    <%= t '.title' %>
+    <%= h yield(:title).blank? ? t('.title') : yield(:title) %>
   </title>
   <%= render :partial => 'layouts/meta' %>
   <link rel="SHORTCUT ICON" href="/favicon.ico" />

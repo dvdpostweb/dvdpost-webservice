@@ -3,16 +3,20 @@ $(function() {
     content = $('#player').html()
     loader = 'loading.gif';
     $('.error').html('');
-    $('#player').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
+    $('#player').html('')
+    $('#presentation').html("<div style='height:389px'><div class='load'><img src='/images/"+loader+"'/></div></div>")
     $.ajax({
       url: $(this).attr('href'),
       type: 'GET',
       data: {},
       success: function(data) {
-        $('#player').html(data);
+        
+        $('#flow').html(data);
+        
+        
       },
       error: function() {
-        $(this).html(content);
+        $('#player').html(content);
       }
       
     });
