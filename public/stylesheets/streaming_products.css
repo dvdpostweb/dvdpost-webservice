@@ -132,133 +132,60 @@ width:970px;
   
 }
 
+choose_color
+{
+  background-color: #c7c5c5;
+  padding: 5px 0 0 5px;
+}
 
+.choose_empty
+{
+  background-color: #fff;
+  height: 10px;
+}
+.choose_padding
+{
+  
+  padding: 0 0 0 15px;
+}
+.load
+{
+  height:32px;
+  width:32px;
+  position:absolute;
+  top: 235px;
+  left:456px;
+}
 
-.text_anticipation {
-	padding-left: 20px;
-	padding-right: 10px;
-	text-align:left;
-	font-size:13px;
-	width:350px;
+.attention_vod {
+  background:url("../images/attention_vod.gif") no-repeat scroll 12px 9px transparent;
+  border:1px solid #FF4B00;
+  font-size:14px;
+  padding:14px 5px 14px 65px;
+  margin: 15px auto;
+  text-align:left;
+  width:623px;
+  min-height:30px;
+  
 }
-.text_title_abo {
-	text-align:left;
-	font-size:16px;
-	color:#FFFFFF;
-	text-transform: uppercase;
-	padding-top:20px;
-	padding-left:50px;
+
+.attention_vod a {
+color:#FF4B00;
+text-decoration:underline;
 }
-.text_prices {
-	font-size:36px;
-	color:#ff3300;
+
+#image_vod
+{
+  background:url("../images/vod.jpg");
+  width: 696px;
+  height: 334px;
+  padding: 60px 0 0 0;
 }
-.check {
-	background:url("../images/check.png") no-repeat scroll 0 0 transparent;
-	height:24px;
+#image_vod img 
+{
+  padding:15px 11px 16px 14px;
+  background: #fff;
+  width:160px;
+  height:240px;
 }
-.checkalive {
-	background:url("../images/check.png") no-repeat scroll 0 -27px transparent;
-	height:31px;
-}
-.text_nb_movie {
-	font-size:24px;
-}
-.text_month {
-	font-size:16px;
-}
-.dvd_icon {
-	padding-left:50px;
-	line-height: normal;
-}
-#bg_anticipation {
-	background-image: url(../images/bg_anticipation.png);
-	background-repeat: no-repeat;
-	height:664px;
-	background-color:#f4fbfd;
-}
-.title_movie {
-	font-size:18px;
-	text-align:left;
-}
-.title_prices {
-	color:#ff3300;
-	padding-left:25px;
-	font-size:30px;
-	text-align:right;
-	padding-right:10px;
-}
-.separtions {
-	border-bottom-width: 1px;
-	border-bottom-style: dotted;
-	border-bottom-color: #666666;
-}
-.table_abo {
-	width:400px;
-}
-.big_yes {
-	font-size:24px;
-	color:#ff3300;
-}
-.select_abo {
-	background-color:#d5f5ff;
-}
-.choice_anticipation {
-	padding-top:10px;
-	font-size:16px;
-	text-align:left;
-}
-.right_content {
-	float:right;
-	font-size:16px;
-	text-align:left;
-	padding-top:349px;
-	padding-right:13px;
-}
-.left_content {
-	float:left;
-	font-size:16px;
-	padding-left:13px;
-	padding-top:349px;
-	text-align:left;
-}
-.abo_actu {
-	padding-left:80px;
-}
-.monthquote {
-	font-size:13px;
-	text-align:center;
-	padding-left:13px;
-}
-.button_confirm {
-	background:url("../images/button-anticipation.png") no-repeat scroll 0 0 transparent;
-	border:medium none;
-	color:white;
-	font-weight:bold;
-	height:52px;
-	text-shadow:1px 1px 1px #333333;
-	width:269px;
-	font-size:16px;
-}
-.button_confirm:hover {
-	background:url("../images/button-anticipation.png") no-repeat scroll 0 -55px transparent;
-	border:medium none;
-	color:white;
-	font-weight:bold;
-	height:52px;
-	text-shadow:1px 1px 1px #333333;
-	width:269px;
-}
-button {
-	text-indent:0;
-	white-space:inherit;
-}
-.text-more {
-	color:#ff3300;
-	font-size:12px;
-	text-align:right;
-	padding-top:10px;
-}
-.text_yes {
-	padding-top:18px;
-}
+

@@ -50,7 +50,7 @@ $(function() {
   
   
   $('.qualityvod').live("click", function() {
-    content = $('#player').html()
+    content = $('#presentation').html()
     loader = 'loading.gif';
     $('.error').html('');
     $('#player').html('')
@@ -60,13 +60,11 @@ $(function() {
       type: 'GET',
       data: {},
       success: function(data) {
-        
         $('#flow').html(data);
-        
-        
+        $('#presentation').html('')
       },
       error: function() {
-        $('#player').html(content);
+        $('#presentation').html(content);
       }
       
     });

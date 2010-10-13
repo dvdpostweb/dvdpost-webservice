@@ -291,7 +291,7 @@ class Customer < ActiveRecord::Base
         customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
       end
       
-      if !abo_process || customer_abo_process
+      if !abo_process || (customer_abo_process || abo_process.finished?)
         Token.transaction do
           token = Token.create(
             :customer_id => id,
@@ -336,7 +336,7 @@ class Customer < ActiveRecord::Base
       if abo_process 
         customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
       end
-      if !abo_process || customer_abo_process
+      if !abo_process || (customer_abo_process || abo_process.finished?)
         Token.transaction do
           more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
           result_history = remove_credit(1,13)
@@ -390,7 +390,7 @@ class Customer < ActiveRecord::Base
   end
 
   def is_freetest?
-    actions.reconduction.last.action == 17
+    actions.reconduction.last.action == 17 if actions && actions.reconduction
   end
 
   private

@@ -1,23 +1,17 @@
-<p><h2>Prolongation de votre abonnement maintenant</h2></p>
-
-
-
 <% form_for(:customer, :url => customer_reconduction_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
 
-<div id="bg_anticipation">
-  <div class="left_content active">
-    <table cellpadding="0" cellspacing="0"  border="0" width="400" >
-      <tr>
-        <td width="33"><div class="checkalive"></div></td>
+<div id="bg_anticipation" class="<%= I18n.locale %>">
+  <div id="left_content">
+    <table cellpadding="0" cellspacing="0"  border="0" width="400" class="yes" >
+      <tr class="choice">
+        <td width="33"><div class="check"></div></td>
         <td width="10"></td>
         <td><p class="text_yes"><span class="big_yes">YES !</span>, je veux devenir membre dËs maintenant  
             et <strong>garder ma formule actuelle</strong>.</p></td>
       <tr>
-        <td colspan="3"><table cellpadding="0" cellspacing="0"  border="0" height="114" width="200" class="abo_actu" >
+        <td colspan="3"><table cellpadding="0" cellspacing="0"  border="0" height="114" width="260" class="abo_actu" >
             <tr>
-              <td valign="top"><img src="images/dvd2.png" /></td>
-              <td width="20"></td>
-              <td  valign="top" ><span class="text_nb_movie"><strong><%= current_customer.subscription_type.credits %> films</strong></span><br />
+              <td valign="top"><span class="text_nb_movie"><strong><%= current_customer.subscription_type.credits %> films</strong></span><br />
                 <span class="text_month">par mois </span><br />
                 <span class="text_prices"><strong>&euro; <%= current_customer.subscription_type.product.price %></strong></span></td>
             </tr>
@@ -28,19 +22,23 @@
       </tr>
     </table>
   </div>
-  <div class="right_content">
-    <table cellpadding="0" cellspacing="0"  border="0" width="400" >
-      <tr>
+  <div id="right_content">
+    <table cellpadding="0" cellspacing="0"  border="0" width="400" class="yes" >
+      <tr class="choice">
         <td width="33"><div class="check"></div></td>
         </td>
         <td><p class="text_yes"><span class="big_yes">YES !</span>, je veux devenir membre dËs maintenant <br />
             et <strong>choisir une autre formule</strong></p></td>
     </table>
     <table cellpadding="0" cellspacing="0"  border="0" width="400" class="table_abo">
-      <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.subscription_type.credits, :f => f} %>
+      <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.subscription_type.credits} %>
+      <tr>
+        <td colspan="5" class="text-more" id ="show_all"><a href=""><img src="/images/plus.png" alt="Plus" align="absmiddle"></a> Plus de formules</td>
+      </tr>
     </table>
   </div>
   <div class="clear"></div>
-  <button type="submit" class="button_confirm">CONFIRMER mon choix</button>
+  <%= f.hidden_field :next_abo_type_id %>
+  <div align='center' style="width:920px; height:50px"><button type="submit" class="button_confirm">CONFIRMER mon choix</button></div>
 </div>
 <% end %>
