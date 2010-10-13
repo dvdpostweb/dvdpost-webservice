@@ -391,7 +391,6 @@ class Customer < ActiveRecord::Base
 
   def is_freetest?
     actions.reconduction.last.action == 17
-    false
   end
 
   private

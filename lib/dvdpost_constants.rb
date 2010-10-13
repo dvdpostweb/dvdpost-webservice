@@ -180,5 +180,9 @@ module DVDPost
         :else    => 'ELSEWHERE',
       })
     end
+
+    def flash_player_link
+      'http://get.adobe.com/fr/flashplayer/'
+    end
   end
 end

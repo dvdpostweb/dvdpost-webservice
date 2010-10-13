@@ -3,7 +3,8 @@ module StreamingProductsHelper
     script = <<-script
     $f("player", "/flowplayer/flowplayer.commercial-3.2.4.swf",
     {
-      key: '\#$dcba96641dab5d22c24', 
+      key: '\#$dcba96641dab5d22c24',
+      version: [10, 0],
       clip: {
         url: '#{source_file}',
         provider: 'softlayer'
