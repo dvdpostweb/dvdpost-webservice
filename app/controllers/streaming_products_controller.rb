@@ -12,10 +12,12 @@ class StreamingProductsController < ApplicationController
          if !@streaming.blank?
           render :action => :show
          else
-           render :partial => 'streaming_products/not_available', :layout => true
+           flash[:error] = t('streaming_products.not_available.not_available')
+           redirect_to root_path
          end
         else
-          render :partial => 'streaming_products/no_access', :layout => true
+          flash[:error] = t('streaming_products.no_access.no_access')
+          redirect_to root_path
         end  
       end
       format.js do

@@ -3210,7 +3210,15 @@ p.notice {
   text-align: center;
   width: 900px;
 }
-
+p.flash_error {
+  background: none repeat scroll 0 0 #D9A0A7;
+  border: 1px solid #888888;
+  font-size: 14px;
+  margin: 9px auto;
+  padding: 10px;
+  text-align: center;
+  width: 900px;
+}
 #add_to_wishlist .item {
   background: url("../images/ajouterbtn.png") no-repeat scroll 0 0 transparent;
   color: white;

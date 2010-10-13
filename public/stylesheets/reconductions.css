@@ -67,7 +67,6 @@
 }
 .title_prices {
 	color:#ff3300;
-	padding-left:25px;
 	font-size:30px;
 	text-align:right;
 	padding-right:10px;
@@ -98,7 +97,7 @@
 	text-align:left;
 	margin: 349px 14px 0 13px;
 	padding: 0 5px 13px 5px;
-	min-height:220px;
+	min-height:250px;
 }
 #left_content {
 	float:left;
@@ -106,7 +105,7 @@
 	padding: 0 5px 13px 5px;
 	margin: 349px 0 0 13px;
 	text-align:left;
-	height:220px;
+	height:250px;
 }
 .abo_actu {
   background:url("../images/bg_white.png") no-repeat scroll 0 transparent;

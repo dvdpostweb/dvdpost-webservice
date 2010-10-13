@@ -6,7 +6,7 @@
   <tr class="abo" style="display:<%= style %>">
     <td width="33"><div class="check" id ='<%= abo.id %>'></div></td>
     <td><img src="/images/dvd<%= abo.credits %>.png" align="absmiddle" /></td>
-    <td><strong><span class="title_movie"><%= abo.credits %> films</span></strong> par mois</td>
+    <td width="155"><%= t '.film', :count => abo.credits %></td>
     <td align="right"><strong><span class="title_prices">&euro; <%= abo.product.price %></span></strong></td>
   </tr>
   <tr class="abo" style="display:<%= style %>">
