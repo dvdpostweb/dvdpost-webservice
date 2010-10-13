@@ -87,6 +87,6 @@ class StreamingProductsController < ApplicationController
   end
 
   def faq
-    
+    @product = Product.find_by_imdb_id(params[:streaming_product_id])
   end
 end
