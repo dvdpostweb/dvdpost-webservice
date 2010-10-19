@@ -3385,7 +3385,13 @@ a#all_categorie, a#all_categorie:hover {
   font-weight: bold;
   padding: 4px 0 0 0;
   text-align:center;
-  margin: 0 2px 0 0;
+  margin: 0 1px 0 0;
+}
+.subtitle.special
+{
+  background: url(/images/icon_deaf.png) no-repeat;
+  width: 28px;
+  padding: 5px 0 0 18px;
 }
 .subtitle.small{
   font-size: 7pt; 
@@ -3445,7 +3451,18 @@ a#change_password
   margin: 15px 0;
 }
 
-  
+.subtitle_hide, .audio_hide
+{
+  display:none;
+}
+.audio_more, .subtitle_more
+{
+  background: url(/images/plus.png);
+  width:16px;
+  height:16px;
+  float:left;
+  cursor: pointer;
+}
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }

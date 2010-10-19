@@ -107,7 +107,15 @@ class Customer < ActiveRecord::Base
   end
 
   def not_rated_products
-    assigned_products.normal_available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+    seen = seen_products.normal_available
+    return_product = return_products
+    rated = rated_products
+    p = seen + return_product - rated
+  end
+
+  def return_products
+    o = orders.return.all(:select => 'orders_products.products_id as orders_id', :joins => :order_product)
+    Product.normal_available.find_all_by_products_id(o)
   end
 
   def has_rated?(product)
@@ -393,6 +401,13 @@ class Customer < ActiveRecord::Base
     actions.reconduction.last.action == 17 if actions && actions.reconduction
   end
 
+  def nederlands?
+    address.country_id == 150
+  end
+
+  def actived?
+    abo_active == 1 
+  end
   private
   def convert_created_at
     begin

@@ -54,23 +54,23 @@
   <%= link_to(t('.official'), product.description.full_url, {:class => 'link', :target => :_blank}) if product.description.url_present? %>
 </p>
 <p>
-<% audio = audio_bubbles(product) %>
-<% unless audio.blank? %>
+<% audio_bubble = audio_bubbles(product, 2)%>
+<% unless audio_bubble[:audio].blank? %>
   <div class='language_title'>
     <strong>
       <%= t '.audio' %>
     </strong>
   </div>
-  <%= audio %>
+  <%= audio_bubble[:audio] %>
 <% end %>
-<% subtitles = subtitle_bubbles(product) %>
-<% unless subtitles.blank? %>
+<% subtitles = subtitle_bubbles(product, 2) %>
+<% unless subtitles[:sub].blank? %>
   <br style ="clear:both" /><div class='language_title'>
     <strong>
       <%= t '.subtitles' %>
     </strong>
   </div>
-  <%= subtitles %>
+  <%= subtitles[:sub] %>
 <% end %>
 </p>
 <%= render :partial => 'products/show/awards', :locals => {:product => product , :size => 'small'} %>

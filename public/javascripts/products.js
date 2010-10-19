@@ -320,4 +320,15 @@ $(function() {
       return false;
     } 
   });
+  $(".audio_more").live('click',function(){
+    $(this).parent('.movie-descr').children('.audio_hide').removeClass('audio_hide');
+    $(this).parent('#movie-info').children('.audio_hide').removeClass('audio_hide');
+    $(this).hide();
+  });
+  $(".subtitle_more").live('click',function(){
+    $(this).parent('.movie-descr').children('.subtitle_hide').removeClass('subtitle_hide');
+    $(this).parent('#movie-info').children('.subtitle_hide').removeClass('subtitle_hide');
+    $(this).hide();
+  });
+  
 });

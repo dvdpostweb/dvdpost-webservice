@@ -17,18 +17,16 @@ class SuspensionsController < ApplicationController
   end
 
   def create
+    path = php_path(DVDPost.url_suspension);
     if !current_customer.suspended? && suspension_count_current_year < 3
-      duration = params[:suspensions][:duration].to_i
-      suspension = Suspension.create(
-                               :customer_id => current_customer.to_param,
-                               :status => 'HOLIDAYS',
-                               :date_added => Time.now.to_s(:db),
-                               :date_end => duration.days.from_now,
-                               :last_modified => Time.now.to_s(:db),
-                               :user_modified => 0
-                               )
-      expiration_date = current_customer.subscription_expiration_date
-      current_customer.update_attributes(:suspension_status => 1, :subscription_expiration_date => expiration_date + duration.days)
+     duration = params[:suspensions][:duration].to_i
+
+      status = DVDPost.send_suspension(current_customer.to_param,duration,path)
+      if status == false
+        @error = true
+      else
+        @error = false
+      end
       respond_to do |format|
         format.html
         format.js {render :layout => false}

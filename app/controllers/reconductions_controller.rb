@@ -1,7 +1,7 @@
 class ReconductionsController < ApplicationController
   def edit
     @reconduction_earlier = current_customer.recondutction_ealier?
-    group = (current_customer.address.country_id == 150 ? 2 : 1)
+    group = (current_customer.nederlands? ? 2 : 1)
     @showing_abo = 3
     @list_abo = ProductAbo.get_list(group)
     if @reconduction_earlier

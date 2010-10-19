@@ -14,6 +14,8 @@ class Order < ActiveRecord::Base
   named_scope :in_transit, :conditions => {:orders_status => [1, 2]}
   named_scope :in_transit_plus, :conditions => {:orders_status => [1, 2, 12, 17]}
   named_scope :in_history, :conditions => {:orders_status => [3, 12, 17]}
+  named_scope :return, :conditions => {:orders_status => [3]}
+  
   named_scope :ordered, :order => 'date_purchased DESC'
 
   def changed_at

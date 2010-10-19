@@ -34,9 +34,19 @@ $(function() {
   $('.button_confirm').live('click',function(){
     if(selected==0)
     {
-      alert('make your choice')
+      alert($('#error1').html())
       return false;
       
+    }
+    else if (selected==2)
+    {
+      value = $('#customer_next_abo_type_id').attr('value');
+      if(!parseInt(value) > 0)
+      {
+        alert($('#error2').html())
+        return false;
+        
+      }
     }
   });
   

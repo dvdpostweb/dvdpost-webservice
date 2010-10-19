@@ -7,12 +7,12 @@ class HomeController < ApplicationController
         @soon = Product.by_kind(:normal).available.soon.random.limit(3)
         @recent = Product.by_kind(:normal).available.recent.random.limit(3)
         @quizz = QuizzName.find_last_by_focus(1)
-        not_rated_products = current_customer.not_rated_products
         @offline_request = current_customer.payment_offline_request.recovery
         if @offline_request.count == 0
           if current_customer.credit_empty?
             @renew_subscription = true
           else
+            not_rated_products = current_customer.not_rated_products
             @not_rated_product = not_rated_products[rand(not_rated_products.count)]
           end
         end
