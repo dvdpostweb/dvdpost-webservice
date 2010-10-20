@@ -26,6 +26,8 @@ class HomeController < ApplicationController
           logger.error("Failed to retrieve news: #{e.message}")
         end
         @recommendations = retrieve_recommendations
+        @popular = retrieve_popular
+        
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
         @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
         @streaming_available = current_customer.get_all_tokens
@@ -35,6 +37,8 @@ class HomeController < ApplicationController
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
         elsif params[:recommendation_page]
           render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations}
+        elsif params[:popular_page]
+          render :partial => 'home/index/popular', :locals => {:products => retrieve_popular}
         end
       }
     end
@@ -63,4 +67,9 @@ class HomeController < ApplicationController
   def retrieve_recommendations
     current_customer.recommendations({:per_page => 8, :page => params[:recommendation_page]})
   end
+
+  def retrieve_popular
+    current_customer.popular({:per_page => 8, :page => params[:popular_page]})
+  end
+
 end

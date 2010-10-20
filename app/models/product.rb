@@ -74,6 +74,7 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
+    
     has "case 
     when products_media = 'DVD' and streaming_products.imdb_id is null then 1 
     when products_media = 'DVD' and streaming_products.imdb_id is not null then 2
@@ -84,7 +85,7 @@ class Product < ActiveRecord::Base
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available
     has products_quantity,          :type => :integer, :as => :in_stock
-      
+    has products_series_id,          :type => :integer, :as => :series_id
     set_property :enable_star => true
     set_property :min_prefix_len => 3
     set_property :charset_type => 'sbcs'
@@ -118,6 +119,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
+  sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 2..5, :series_id => 0}}}
+  
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
@@ -183,6 +186,8 @@ class Product < ActiveRecord::Base
         products.streaming
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
+      when :popular
+        products.popular
       else
         products
       end

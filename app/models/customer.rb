@@ -180,8 +180,12 @@ class Customer < ActiveRecord::Base
       logger.error("Failed to retrieve recommendations: #{e.message}")
       false
     end
+  end
 
-    
+  def popular(options={})
+    options.merge!(:subtitles => [2]) if I18n.locale == :nl
+    options.merge!(:audio => [1]) if I18n.locale == :fr
+    popular = Product.filter(filter, options.merge(:view_mode => :popular))
   end
 
   def update_dvd_at_home!(operator, product)

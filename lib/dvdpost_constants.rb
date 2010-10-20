@@ -193,6 +193,7 @@ module DVDPost
         :recommandation    => 'RECOMMANDATION',
         :recommandation_product    => 'RECOMMANDATION_PRODUCT',
         :recommandation_mail    => 'RECOMMANDATION_MAIL',
+        :popular    => 'POPULAR',
         :else    => 'ELSEWHERE',
       })
     end

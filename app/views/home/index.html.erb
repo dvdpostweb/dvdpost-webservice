@@ -11,6 +11,8 @@
   <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
   <!-- BIENVENUE  -->
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
+  <!-- popular movie -->
+  <%= render :partial => 'home/index/popular', :locals => {:products => @popular} %>
   <!-- Recommandations  -->
   <%= render :partial => 'home/index/recommendations', :locals => {:products => @recommendations} %>
   <!-- Flash News  -->

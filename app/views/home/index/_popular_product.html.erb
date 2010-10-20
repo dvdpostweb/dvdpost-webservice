@@ -1,0 +1,12 @@
+<% path = product_path(:id => popular_product.to_param, :recommendation => 4) %>
+<li>
+  <div class="stars" id="rating-stars-<%= popular_product.to_param %>" product_id ="<%= popular_product.to_param %>">
+    <%= render :partial => 'products/rating', :locals => {:product => popular_product, :background => :white, :size => :small} %>
+  </div>
+  <% link_to path, :class => product_media_id(popular_product.media) do %>
+    <%= product_image_tag popular_product.image, :width => 76, :height => 118, :alt => "#{popular_product.title} (#{popular_product.year})" %>
+    <%= content_tag(:span, '', :class => 'new') if popular_product.is_new? %>
+  <% end %>
+  <%= render :partial => 'products/wishlist', :locals => {:product => popular_product, :text => :short, :source => DVDPost.source_wishlist[:popular]} %>
+  <%= link_to popular_product.title, path, :class => 'more' %>
+</li>
