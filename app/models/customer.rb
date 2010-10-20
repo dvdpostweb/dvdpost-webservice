@@ -107,7 +107,15 @@ class Customer < ActiveRecord::Base
   end
 
   def not_rated_products
-    assigned_products.normal_available.all(:conditions => ['products.products_id not in (select products_id from products_rating where customers_id = ?)', to_param.to_i])
+    seen = seen_products.normal_available
+    return_product = return_products
+    rated = rated_products
+    p = seen + return_product - rated
+  end
+
+  def return_products
+    o = orders.return.all(:select => 'orders_products.products_id as orders_id', :joins => :order_product)
+    Product.normal_available.find_all_by_products_id(o)
   end
 
   def has_rated?(product)
@@ -291,7 +299,7 @@ class Customer < ActiveRecord::Base
         customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
       end
       
-      if !abo_process || customer_abo_process
+      if !abo_process || (customer_abo_process || abo_process.finished?)
         Token.transaction do
           token = Token.create(
             :customer_id => id,
@@ -336,7 +344,7 @@ class Customer < ActiveRecord::Base
       if abo_process 
         customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
       end
-      if !abo_process || customer_abo_process
+      if !abo_process || (customer_abo_process || abo_process.finished?)
         Token.transaction do
           more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
           result_history = remove_credit(1,13)
@@ -391,9 +399,15 @@ class Customer < ActiveRecord::Base
 
   def is_freetest?
     actions.reconduction.last.action == 17 if actions && actions.reconduction && actions.reconduction.last
-    false
   end
 
+  def nederlands?
+    address.country_id == 150
+  end
+
+  def actived?
+    abo_active == 1 
+  end
   private
   def convert_created_at
     begin

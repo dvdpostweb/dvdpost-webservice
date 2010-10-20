@@ -1,61 +1,56 @@
-<p><h2>Prolongation de votre abonnement maintenant</h2></p>
 
-<div id="bg_anticipation">
-  <table cellpadding="0" cellspacing="0"  border="0" height="114" width="300" >
-    <tr>
-      <td colspan="2"><p class="text_title_abo">Votre abonnement actuel</p></td>
-    </tr>
-    <tr>
-      <td class="dvd_icon" valign="top"><img src="images/dvd4.png" /></td>
-      <td  valign="top" ><span class="text_nb_movie"><strong><%= current_customer.subscription_type.credits %> Films</strong></span><br />
-        <span class="text_month">par mois </span> <span class="text_prices"><strong>&euro; <%= current_customer.subscription_type.product.price %></strong></span></td>
-    </tr>
-  </table>
-  <p class="text_anticipation">&nbsp;</p>
-  <p class="text_anticipation"><strong>En fonction de vos besoins, vous pouvez ‡ tout moment changer votre formule d'abonnement.</strong></p>
-  <p class="text_anticipation">Vous souhaitez plus de DVD/Blu-ray en automne et en hiver par exemple? Vous pouvez  facilement augmenter votre nombre de locations ‡ ce moment-l‡ et diminuer ‡ nouveau votre formule quand vous partez en vacances.</p>
-</div>
-<div class="top"></div>
-<% form_for(:customer, :url => customer_reconduction_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
-
-<div id="tool-wrap">
-  <div class="left_content">
-    <table cellpadding="0" cellspacing="0"  border="0" width="400" >
-      <tr>
-        <td>
-          <INPUT TYPE=RADIO NAME="" VALUE="">
-          </td>
-          <td><span class="big_yes">YES</span>, je veux míabonner dËs maintenant <br />
-            et <strong>garder ma formule actuellle</strong>.<br /></td>
+<div id="bg_anticipation" class="<%= I18n.locale %>">
+  <% if @reconduction_earlier %>
+  <div id="left_content">
+    vous avez deja reconduit anticiapativement
+  </div>
+  <% else %>
+    <% form_for(:customer, :url => customer_reconduction_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
+  
+      <div id="left_content">
+        <table cellpadding="0" cellspacing="0"  border="0" width="400" class="yes" >
+          <tr class="choice">
+            <td width="33"><div class="check"></div></td>
+            <td width="10"></td>
+            <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= t '.now' %>.</p></td>
           <tr>
-              <td></td>
-              <td ><span class="monthquote">Ma mensualitÈ sera automatiquement adaptÈe <strong>le <%= Date.tomorrow.strftime("%d/%m/%Y") %></strong>.</span>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="right_content">
-    <table cellpadding="0" cellspacing="0"  border="0" width="400" >
-      <tr>
-        <td>
-        <INPUT TYPE=RADIO NAME="" VALUE="">
-        </td>
-        <td><span class="big_yes">YES</span>, je veux míabonner dËs maintenant <br />
-          et <strong>choisir une nouvelle formule</strong><br /></td>
-        <tr>
-            <td></td>
-            <td ><span class="monthquote">Ma mensualitÈ sera automatiquement adaptÈe <strong>le <%= Date.tomorrow.strftime("%d/%m/%Y") %></strong>.</span></td>
+            <td colspan="3"><table cellpadding="0" cellspacing="0"  border="0" height="114" width="260" class="abo_actu" >
+                <tr>
+                  <td valign="top"><%= t('.film', :count => current_customer.subscription_type.credits) %>
+                    <br />
+                    <span class="text_prices"><strong>&euro; <%= current_customer.subscription_type.product.price %></strong></span></td>
+                </tr>
+              </table></td>
           </tr>
-    </table>
-    <table cellpadding="0" cellspacing="0"  border="0" width="400" class="table_abo">
-      <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.subscription_type.credits, :f => f} %>
-    </table>
-    <a href="" id='show_all'>show all</a>
-  </div>
-  <div class="clear"></div>
-  <div class="end"></div>
-  <div class="button_confirm">
-    <%= f.submit 'update' %>
-  </div>
+          <tr style='display:none' class="date_recondutcion">
+            <td colspan="3"><span class="monthquote"><br/><%= t '.date', :date => Date.tomorrow.strftime("%d/%m/%Y") %>.</span> </td>
+          </tr>
+        </table>
+      </div>
+      <div id="right_content">
+        <table cellpadding="0" cellspacing="0"  border="0" width="400" class="yes" >
+          <tr class="choice">
+            <td width="33"><div class="check"></div></td>
+            </td>
+            <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= t '.now_plus' %>.</p></td>
+        </table>
+        <table cellpadding="0" cellspacing="0"  border="0" width="400" class="table_abo">
+          <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.subscription_type.credits} %>
+          <tr>
+            <td colspan="5" class="text-more" id ="show_all"><a href=""><img src="/images/plus.png" alt="Plus" align="absmiddle"></a> <%= t '.plus' %></td>
+          </tr>
+          <tr style='display:none' class="date_recondutcion">
+            <td colspan="5"><span class="monthquote"><%= t '.date', :date => Date.tomorrow.strftime("%d/%m/%Y") %>.</span> </td>
+          </tr>
+        </table>
+      </div>
+      <div class="clear"></div>
+      <%= f.hidden_field :next_abo_type_id %>
+      <div align='center' style="width:920px; height:50px"><button type="submit" class="button_confirm"><%= t '.confirm' %></button></div>
+    <% end %>
+  <% end %>
 </div>
-<% end %>
+<div style="display:none">
+  <div id="error1"><%= t '.choice_missing' %></div>
+  <div id="error2"><%= t '.abo_missing' %></div>
+</div>

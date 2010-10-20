@@ -13,14 +13,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :save_attempted_path
   before_filter :authenticate!
-  before_filter :wishlist_size
+  before_filter :wishlist_size, :unless => :is_it_js?
   before_filter :delegate_locale
-  before_filter :messages_size
-  before_filter :load_partners
+  before_filter :messages_size, :unless => :is_it_js?
+  before_filter :load_partners, :unless => :is_it_js?
   before_filter :redirect_after_registration
   before_filter :set_locale_from_params
   before_filter :set_country
-  before_filter :last_login
+  before_filter :last_login, :unless => :is_it_js?
   
 
   rescue_from ::ActionController::MethodNotAllowed do |exception|
@@ -31,6 +31,11 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
+  
+  def is_it_js?
+    request.format.js?
+  end
+  
   def set_locale_from_params
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if current_customer

@@ -3210,7 +3210,15 @@ p.notice {
   text-align: center;
   width: 900px;
 }
-
+p.flash_error {
+  background: none repeat scroll 0 0 #D9A0A7;
+  border: 1px solid #888888;
+  font-size: 14px;
+  margin: 9px auto;
+  padding: 10px;
+  text-align: center;
+  width: 900px;
+}
 #add_to_wishlist .item {
   background: url("../images/ajouterbtn.png") no-repeat scroll 0 0 transparent;
   color: white;
@@ -3377,7 +3385,13 @@ a#all_categorie, a#all_categorie:hover {
   font-weight: bold;
   padding: 4px 0 0 0;
   text-align:center;
-  margin: 0 2px 0 0;
+  margin: 0 1px 0 0;
+}
+.subtitle.special
+{
+  background: url(/images/icon_deaf.png) no-repeat;
+  width: 28px;
+  padding: 5px 0 0 18px;
 }
 .subtitle.small{
   font-size: 7pt; 
@@ -3437,7 +3451,19 @@ a#change_password
   margin: 15px 0;
 }
 
-  
+.subtitle_hide, .audio_hide
+{
+  display:none;
+}
+.audio_more, .subtitle_more
+{
+  background: url(/images/plus.png);
+  width:16px;
+  height:16px;
+  float:left;
+  cursor: pointer;
+  margin:4px 0 0;
+}
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;
 }

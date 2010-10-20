@@ -127,6 +127,21 @@ module DVDPost
       end
     end
 
+    def url_suspension
+      'webservice/suspend.php'
+    end
+
+    def send_suspension(customer_id,duration,host)
+      xml = "#{host}&customer_id=#{customer_id}&type=HOLIDAYS&duration=#{duration}&user_id=55"
+      doc = Hpricot(open(xml))
+      status = (doc/'root').each do|st|
+        error = (st/'error').inner_html
+        status = (st/'status').inner_html
+        return status
+      end
+      return status
+    end
+
     def cinopsis_critics(imdb_id)
       open("http://www.cinopsis.be/dvdpost_test.cfm?imdb_id=#{imdb_id}") do |data|
         Hpricot(Iconv.conv('UTF-8', data.charset, data.read)).search('//p')
@@ -177,8 +192,13 @@ module DVDPost
       HashWithIndifferentAccess.new.merge({
         :recommandation    => 'RECOMMANDATION',
         :recommandation_product    => 'RECOMMANDATION_PRODUCT',
+        :recommandation_mail    => 'RECOMMANDATION_MAIL',
         :else    => 'ELSEWHERE',
       })
+    end
+
+    def flash_player_link
+      'http://get.adobe.com/fr/flashplayer/'
     end
   end
 end

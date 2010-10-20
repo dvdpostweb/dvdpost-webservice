@@ -11,47 +11,78 @@ module ProductsHelper
     end
   end
 
-  def audio_bubbles(product)
+  def audio_bubbles(product, additional_bubble = 0)
     audio_count=0
-    audio = product.languages.preferred.collect{|language| 
-      audio_count +=1
-      content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
-    }
-    if audio_count < 5
-      audio << product.languages.not_preferred.limit(5 - audio_count).collect{|language| 
+    total_bubble = 5 + additional_bubble 
+    preferred_audio = product.languages.preferred
+    audio = Array.new
+    unless preferred_audio.count == 0
+      audio = preferred_audio.collect{|language| 
+        audio_count +=1
+        content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+      }
+    end
+    
+    not_preferred_audio = product.languages.not_preferred
+    unless not_preferred_audio.count == 0
+      audio << not_preferred_audio.collect{|language| 
+        audio_count +=1
+        display = audio_count > total_bubble ? 'audio_hide' : ''
         if language.short
-          content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)}", :alt => language.name, :title => language.name)
+          content_tag(:div, language.short.upcase, :class => "#{language.class.name.underscore} #{class_bubble(language.short)} #{display}", :alt => language.name, :title => language.name)
         else
-          content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text")
+          content_tag(:div, language.name,:class => "#{language.class.name.underscore}_text #{display}")
         end
       }
     end
-    audio
+    if audio_count > total_bubble
+      audio << content_tag(:div, '', :class => "audio_more")
+      hide = true
+    else
+      hide = false
+    end
+    {:audio => audio, :hide => hide}
   end
   
 
-  def subtitle_bubbles(product)
+  def subtitle_bubbles(product, additional_bubble)
     subtitle_count=0
-    sub = product.subtitles.preferred.collect{|subtitle| 
-      subtitle_count += 1
-      content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
-    }
-    if subtitle_count < 5
-       sub << product.subtitles.not_preferred.limit(5 - subtitle_count).collect{|subtitle| 
-        if subtitle.short
-          if subtitle.short.include?('_m')
-            subtitle.short = subtitle.short.slice(0..1)
-            class_undertitle = class_bubble(subtitle.short, :special)
-          else
-            class_undertitle = class_bubble(subtitle.short, :classic)
-          end
-          content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_undertitle}", :alt => subtitle.name, :title => subtitle.name)
-        else
-          content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text")
-        end
+    total_bubble = 5 + additional_bubble 
+    preferred_subtitle = product.subtitles.preferred
+    sub = Array.new
+    unless preferred_subtitle.count == 0
+      sub = preferred_subtitle.preferred.collect{|subtitle| 
+        subtitle_count += 1
+        content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_bubble(subtitle.short)}", :alt => subtitle.name, :title => subtitle.name)
       }
     end
-    sub
+    if subtitle_count < total_bubble
+       not_preferred_sub = product.subtitles.not_preferred
+       unless not_preferred_sub.count == 0
+         sub << not_preferred_sub.collect{|subtitle| 
+          subtitle_count += 1
+          display = subtitle_count > total_bubble ? 'subtitle_hide' : '' 
+          if subtitle.short
+            if subtitle.short.include?('_m')
+              subtitle.short = subtitle.short.slice(0..1)
+              class_undertitle = class_bubble(subtitle.short, :special)
+            else
+              class_undertitle = class_bubble(subtitle.short, :classic)
+            end
+            content_tag(:div, subtitle.short.upcase, :class => "#{subtitle.class.name.underscore} #{class_undertitle} #{display}", :alt => subtitle.name, :title => subtitle.name)
+          else
+            content_tag(:div, subtitle.name, :class => "#{subtitle.class.name.underscore}_text #{display}")
+          end
+        }
+      end
+      if subtitle_count > total_bubble
+        sub << content_tag(:div, '', :class => "subtitle_more")
+        hide = true
+      else
+        hide = false
+      end
+    end
+    {:sub => sub, :hide => hide}
   end
 
   def rating_review_image_links(product, replace=nil)
@@ -117,14 +148,20 @@ module ProductsHelper
     link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace))
   end
 
-  def available_on_other_media(product)
+  def available_on_other_media(product, recommendation)
     unless product.series?
       if product.dvd?
         bluray = product.media_alternative(:bluray)
-        link_to(t('.dispo_bluray'), product_path(:id => bluray), :id => 'bluray-btn') if bluray
+        if bluray
+          path = recommendation.to_i > 0 ? product_path(:id => bluray, :recommendation => recommendation) : product_path(:id => bluray)
+          link_to(t('.dispo_bluray'), path, :id => 'bluray-btn') 
+        end
       elsif product.bluray?
         dvd = product.media_alternative(:dvd)
-        link_to(t('.dispo_dvd'), product_path(:id => dvd), :id => 'dvd-btn') if dvd
+        if dvd
+          path = recommendation.to_i > 0 ? product_path(:id => dvd, :recommendation => recommendation) : product_path(:id => dvd)
+          link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
+        end
       else
         ''
       end
@@ -133,12 +170,14 @@ module ProductsHelper
     end
   end
 
-  def available_on_other_language(product)
+  def available_on_other_language(product, recommendation)
     if product.products_other_language.to_i > 0
+      path = recommendation.to_i > 0 ? product_path(:id => product.products_other_language, :recommendation => recommendation) : product_path(:id => product.products_other_language)
+      
       if product.languages.preferred.include?(Language.find(1))
-        link_to(t('.dispo_nl'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')
+        link_to(t('.dispo_nl'), path, :id => 'dispo-btn', :class => 'dispo-btn')
       else
-        link_to(t('.dispo_fr'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')
+        link_to(t('.dispo_fr'), path, :id => 'dispo-btn', :class => 'dispo-btn')
       end
     end
   end
@@ -282,7 +321,10 @@ module ProductsHelper
     if params[:view_mode] == 'streaming'
       "#{streaming_audio_bublles(product)} #{streaming_subtitle_bublles(product)}"
     else
-      "#{audio_bubbles(product)} #{subtitle_bubbles(product)}"
+      audio_bubble = audio_bubbles(product, 0)
+      subtitle_bubble = subtitle_bubbles(product, 0)
+      separator = (audio_bubble[:hide] == true || subtitle_bubble[:hide] == true ) ? '<div style="clear:both"></div>': ''
+      "#{audio_bubble[:audio]} #{separator} #{subtitle_bubble[:sub]}"
     end
   end
 end

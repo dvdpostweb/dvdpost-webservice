@@ -2,7 +2,7 @@
 <% if product.streaming? %>
   <% @token = current_customer.get_token(product.imdb_id) %>
 <% end %>
-<% path = (!params[:recommended]) ? product_path(:id => product.to_param) : product_path(:id => product.to_param, :recommendation => 1) %>
+<% path = (params[:view_mode] == 'recommended') ? product_path(:id => product.to_param, :recommendation => 1) : product_path(:id => product.to_param) %>
 <div class="<%= (params[:view_mode] == 'streaming') ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>

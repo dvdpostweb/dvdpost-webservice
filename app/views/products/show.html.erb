@@ -33,8 +33,8 @@
                 <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
               </li>
             </ul>
-            <%= available_on_other_media(@product) %>
-            <%= available_on_other_language(@product) %>
+            <%= available_on_other_media(@product, params[:recommendation]) %>
+            <%= available_on_other_language(@product, params[:recommendation]) %>
             <% if @product.available_to_sale? %>
               <div id="buy">
                 <%= link_to t('.buy'), product_shop_path(@product), :class => 'like-btn', :id => 'acheter-btn' , :target => :_blank %>

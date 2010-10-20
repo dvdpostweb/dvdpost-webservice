@@ -22,10 +22,10 @@
       </tr>
       <tr>
         <td colspan="2" align="center">
-          <% if customer.subscription %>
+          <% if customer.actived? && customer.subscription %>
             <ul>
               <li class="links">
-                <% path = current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale=> I18n.locale, :customer_id => current_customer.to_param) : limited_subscription_change_path  %>
+                <% path = current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) : limited_subscription_change_path  %>
                 
                 <%= link_to t('.modify_abo'), path, :class => 'modif' %>
                 <span><%= image_tag 'delimiter.gif' %></span>
@@ -76,7 +76,7 @@
       <tr>
         <td align="right" class="adresse"><strong><%= t '.date_abo' %></strong></td>
         <td align="left" class="adresse">
-          <%= customer.subscription.created_at.strftime("%d/%m/%Y") if customer.subscription %>
+          <%= customer.subscription.created_at.strftime("%d/%m/%Y") if customer.actived? && customer.subscription %>
         </td>
       </tr>
       <tr>
@@ -91,7 +91,7 @@
       </tr>
       <tr>
         <td colspan='2'>
-          <% if customer.subscription %>
+          <% if customer.actived? %>
             <ul>
               <li class='link_payment'>
                 <% if current_customer.payment_method == 1 %>
