@@ -3462,6 +3462,7 @@ a#change_password
   height:16px;
   float:left;
   cursor: pointer;
+  margin:4px 0 0;
 }
 /*.navbypagefull .navbar .navnextbtn {
   margin-left: 4px;

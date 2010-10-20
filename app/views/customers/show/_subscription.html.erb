@@ -25,7 +25,7 @@
           <% if customer.actived? && customer.subscription %>
             <ul>
               <li class="links">
-                <% path = current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale=> I18n.locale, :customer_id => current_customer.to_param) : limited_subscription_change_path  %>
+                <% path = current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) : limited_subscription_change_path  %>
                 
                 <%= link_to t('.modify_abo'), path, :class => 'modif' %>
                 <span><%= image_tag 'delimiter.gif' %></span>
