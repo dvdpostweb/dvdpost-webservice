@@ -192,6 +192,7 @@ module DVDPost
       HashWithIndifferentAccess.new.merge({
         :recommandation    => 'RECOMMANDATION',
         :recommandation_product    => 'RECOMMANDATION_PRODUCT',
+        :recommandation_mail    => 'RECOMMANDATION_MAIL',
         :else    => 'ELSEWHERE',
       })
     end

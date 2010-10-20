@@ -35,6 +35,8 @@ class ProductsController < ApplicationController
       @source = DVDPost.source_wishlist[:recommandation]
     elsif params[:recommendation].to_i == 2
       @source = DVDPost.source_wishlist[:recommandation_product]
+    elsif params[:recommendation].to_i == 3
+      @source = DVDPost.source_wishlist[:recommandation_mail]
     else
       @source = DVDPost.source_wishlist[:else]
     end

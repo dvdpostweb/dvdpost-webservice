@@ -148,14 +148,20 @@ module ProductsHelper
     link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace))
   end
 
-  def available_on_other_media(product)
+  def available_on_other_media(product, recommendation)
     unless product.series?
       if product.dvd?
         bluray = product.media_alternative(:bluray)
-        link_to(t('.dispo_bluray'), product_path(:id => bluray), :id => 'bluray-btn') if bluray
+        if bluray
+          path = recommendation.to_i > 0 ? product_path(:id => bluray, :recommendation => recommendation) : product_path(:id => bluray)
+          link_to(t('.dispo_bluray'), path, :id => 'bluray-btn') 
+        end
       elsif product.bluray?
         dvd = product.media_alternative(:dvd)
-        link_to(t('.dispo_dvd'), product_path(:id => dvd), :id => 'dvd-btn') if dvd
+        if dvd
+          path = recommendation.to_i > 0 ? product_path(:id => dvd, :recommendation => recommendation) : product_path(:id => dvd)
+          link_to(t('.dispo_dvd'), path, :id => 'dvd-btn')
+        end
       else
         ''
       end
@@ -164,12 +170,14 @@ module ProductsHelper
     end
   end
 
-  def available_on_other_language(product)
+  def available_on_other_language(product, recommendation)
     if product.products_other_language.to_i > 0
+      path = recommendation.to_i > 0 ? product_path(:id => product.products_other_language, :recommendation => recommendation) : product_path(:id => product.products_other_language)
+      
       if product.languages.preferred.include?(Language.find(1))
-        link_to(t('.dispo_nl'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')
+        link_to(t('.dispo_nl'), path, :id => 'dispo-btn', :class => 'dispo-btn')
       else
-        link_to(t('.dispo_fr'), product_path(:id => product.products_other_language), :id => 'dispo-btn', :class => 'dispo-btn')
+        link_to(t('.dispo_fr'), path, :id => 'dispo-btn', :class => 'dispo-btn')
       end
     end
   end
