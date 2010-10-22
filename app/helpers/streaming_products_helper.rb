@@ -40,7 +40,7 @@ module StreamingProductsHelper
 
     if !current_customer.payment_suspended?
       if (current_customer.credits <= 0) && (token.nil? || !token.validate?(request.remote_ip))
-        "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) : reconduction_path}</div>"
+        "<div class='attention_vod' id ='credit_empty'>#{t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) }</div>"
       elsif token_status == Token.status[:ip_invalid]
         "<div class ='attention_vod' id ='ip_to_created'>#{t '.ip_to_created'}</div>"
       elsif token_status == Token.status[:expired]
@@ -64,7 +64,7 @@ module StreamingProductsHelper
       when Token.error[:abo_process_error] then
         t('.abo_process')
       when Token.error[:not_enough_credit] then
-        t('.credit_empty', :url => current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) : reconduction_path)
+        t('.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param))
       when Token.error[:user_suspended] then
         t('.customer_suspended')
     end

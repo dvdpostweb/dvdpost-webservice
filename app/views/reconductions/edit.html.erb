@@ -12,7 +12,7 @@
           <tr class="choice">
             <td width="33"><div class="check"></div></td>
             <td width="10"></td>
-            <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= t '.now' %>.</p></td>
+            <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= current_customer.is_freetest? ? t('.now') : t('.now_payed') %>.</p></td>
           <tr>
             <td colspan="3"><table cellpadding="0" cellspacing="0"  border="0" height="114" width="260" class="abo_actu" >
                 <tr>
@@ -32,7 +32,7 @@
           <tr class="choice">
             <td width="33"><div class="check"></div></td>
             </td>
-            <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= t '.now_plus' %>.</p></td>
+            <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= current_customer.is_freetest? ? t('.now_plus') : t('.now_plus_payed')%>.</p></td>
         </table>
         <table cellpadding="0" cellspacing="0"  border="0" width="400" class="table_abo">
           <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.subscription_type.credits} %>

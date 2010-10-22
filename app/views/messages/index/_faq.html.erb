@@ -20,7 +20,7 @@
       <div class="faq-answer" id ="<%= "r#{faq.to_param}_#{(i+1)}" %>" style="display:none">
         <h3><%= t(".q#{faq.to_param}_#{(i+1)}") %></h3>
         <div class="box">
-          <%= t(".r#{faq.to_param}_#{(i+1)}", :stream_link => products_path(:view_mode => :streaming) , :reconduction_link => current_customer.is_freetest? == true ? edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) : reconduction_path, :connect_link => info_path(:page_name => 'get_connected')) %>
+          <%= t(".r#{faq.to_param}_#{(i+1)}", :stream_link => products_path(:view_mode => :streaming) , :reconduction_link =>  edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) , :connect_link => info_path(:page_name => 'get_connected')) %>
         </div>
       </div>
     <% end %>
