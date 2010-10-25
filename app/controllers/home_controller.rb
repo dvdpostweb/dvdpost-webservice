@@ -69,7 +69,7 @@ class HomeController < ApplicationController
   end
 
   def retrieve_popular
-    current_customer.popular({:per_page => 8, :page => params[:popular_page]})
+    current_customer.popular.paginate(:per_page => 8, :page => params[:popular_page])
   end
 
 end
