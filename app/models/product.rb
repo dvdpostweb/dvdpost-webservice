@@ -119,7 +119,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
-  sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 2..5, :series_id => 0}}}
+  sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 3..5, :series_id => 0, :in_stock => 10..1000}}}
   
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
