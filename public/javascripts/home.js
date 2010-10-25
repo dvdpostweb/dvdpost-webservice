@@ -16,10 +16,42 @@ $(function() {
     return false;
   });
   
-  $('#carousel-wrap-hp a.next_page').live('click',function(){
+  $('#home_recommendations #carousel-wrap-hp a.next_page').live('click',function(){
     url = this.href;
-    html_item = $(this).parent().parent().parent();
-
+    html_item_recommendation = $('#home_recommendations');
+    content = html_item_recommendation.html()
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        html_item_recommendation.replaceWith(data);
+      },
+      error: function() {
+        html_item_recommendation.replaceWith(content);
+      }
+    });
+    return false;
+  });
+  
+  $('#home_recommendations #carousel-wrap-hp a.prev_page').live('click',function(){
+    url = this.href;
+    html_item_recommendation = $('#home_recommendations');
+    content = html_item_recommendation.html()
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        html_item_recommendation.replaceWith(data);
+      },
+      error: function() {
+        html_item_recommendation.replaceWith(content);
+      }
+    });
+    return false;
+  });
+  $('#home_popular #carousel-wrap-hp a.next_page').live('click',function(){
+    url = this.href;
+    html_item = $('#home_popular');
     content = html_item.html()
     $.ajax({
       url: url,
@@ -34,9 +66,9 @@ $(function() {
     return false;
   });
   
-  $('#carousel-wrap-hp a.prev_page').live('click',function(){
+  $('#home_popular #carousel-wrap-hp a.prev_page').live('click',function(){
     url = this.href;
-    html_item = $(this).parent().parent().parent();
+    html_item = $('#home_popular');
     content = html_item.html()
     $.ajax({
       url: url,
