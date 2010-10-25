@@ -18,7 +18,8 @@ $(function() {
   
   $('#carousel-wrap-hp a.next_page').live('click',function(){
     url = this.href;
-    html_item = $('#home_recommendations');
+    html_item = $(this).parent().parent().parent();
+
     content = html_item.html()
     $.ajax({
       url: url,
@@ -35,7 +36,7 @@ $(function() {
   
   $('#carousel-wrap-hp a.prev_page').live('click',function(){
     url = this.href;
-    html_item = $('#home_recommendations');
+    html_item = $(this).parent().parent().parent();
     content = html_item.html()
     $.ajax({
       url: url,
