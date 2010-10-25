@@ -187,7 +187,7 @@ class Product < ActiveRecord::Base
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
-        products.popular
+        products.popular.limit(800)
       else
         products
       end
