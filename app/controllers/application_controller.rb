@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :save_attempted_path
   before_filter :authenticate!
-  before_filter :wishlist_size, :unless => :is_it_js?
+  before_filter :wishlist_size
   before_filter :delegate_locale
   before_filter :messages_size, :unless => :is_it_js?
   before_filter :load_partners, :unless => :is_it_js?
