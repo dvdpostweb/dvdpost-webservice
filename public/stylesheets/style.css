@@ -12,7 +12,10 @@ html, body {
   padding: 0;
   text-align: center;
 }
-
+body.halloween
+{
+  background:url("../images/overlay.jpg") no-repeat fixed center 0 #18162e;
+}
 img {
   border: 0px;
 }
@@ -113,6 +116,9 @@ fieldset {
   background: url(../images/logo.gif) 0 0 no-repeat;
   display: block;
   height: 51px;
+}
+#header h1 a.halloween {
+  background: url(../images/logo_dvdpost_halloween.gif) 0 0 no-repeat;
 }
 
 #header .subnav {
@@ -2744,7 +2750,9 @@ div.top10.first p a {
   text-transform: uppercase;
   width: 111px;
 }
-
+#leftcolumn p#special.halloween {
+  background: url(../images/specialhalloween-banner-bg.jpg) 0 0 no-repeat;
+}
 #leftcolumn p#special a {
   color: #303030;
 }

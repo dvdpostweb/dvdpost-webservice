@@ -5,7 +5,7 @@ module DVDPost
     end
 
     def images_carousel_path
-      'landings'
+      "#{images_path}/landings"
     end
 
     def news_url

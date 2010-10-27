@@ -4,6 +4,7 @@
   </h3>
   <div id="partners-box">
     <% if Rails.env != 'development' %>
+      <% partners = Partner.active.by_language(I18n.locale).ordered if partners.nil? %>
       <% partners.collect do |partner| %>
         <%= link_to image_tag(partner.logo.url, :alt => partner.name, :title => partner.name), partner.url, :target => :_blank %>
       <% end %>
