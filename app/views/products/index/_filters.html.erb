@@ -6,7 +6,7 @@
     <ul>
       <li class="technology<%= ' open' if filter.media? %>">
         <%= link_to t('.tech') %>
-        <div>
+        <div <%= "style='display:none'" unless filter.media? %>>
           <% medias = streaming_access? ? [:dvd, :bluray, :streaming] : [:dvd, :bluray] %>
           <% medias.each do |media| %>
             <label>
@@ -18,7 +18,7 @@
       </li>
       <li class="audience<%= ' open' if filter.audience? %>">
         <%= link_to t('.public') %>
-        <div id="audience-slider">
+        <div id="audience-slider" <%= "style='display:none'" unless filter.audience? %>>
           <%= f.hidden_field :audience_min, :value => filter.audience_min || 0 %>
           <%= f.hidden_field :audience_max, :value => filter.audience_max || 18 %>
           <ul id="audience_labels">
@@ -26,18 +26,18 @@
               <li><%= p %></li>
             <% end %>
           </ul>
-          <div id="audience-slider-range"></div>
+          <div id="audience-slider-range" <%= "style='display:none'" unless filter.audience? %>></div>
         </div>
       </li>
       <li class="country<%= ' open' if filter.country_id? %>">
         <%= link_to t('.countries') %>
-        <div>
+        <div <%= "style='display:none'" unless filter.country_id? %>>
           <%= f.select :country_id, countries.collect{|country| [country.name, country.id]}, {:include_blank => true} %>
         </div>
       </li>
       <li class="year<%= ' open' if filter.year? %>">
         <%= link_to t('.year') %>
-        <div id="year-slider">
+        <div id="year-slider" <%= "style='display:none'" unless filter.year? %>>
           <%= f.hidden_field :year_min, :value => filter.year_min || 0 %>
           <%= f.hidden_field :year_max, :value => filter.year_max || 2020 %>
           <ul id="year_labels">
@@ -45,12 +45,12 @@
               <li><%= year %></li>
             <% end %>
           </ul>
-          <div id="year-slider-range"></div>
+          <div id="year-slider-range" <%= "style='display:none'" unless filter.year? %>></div>
         </div>
       </li>
       <li class="ratings<%= ' open' if filter.rating? %>">
         <%= link_to t('.ratings') %>
-        <div id="ratings-slider">
+        <div id="ratings-slider" <%= "style='display:none'" unless filter.rating? %>>
           <%= f.hidden_field :rating_min, :value => filter.rating_min || 0 %>
           <%= f.hidden_field :rating_max, :value => filter.rating_max || 5 %>
           <ul id="ratings_labels">
@@ -59,11 +59,11 @@
             <% end %>
           </ul>
         </div>
-        <div id="ratings-slider-range"></div>
+        <div id="ratings-slider-range" <%= "style='display:none'" unless filter.rating? %>></div>
       </li>
       <li class="dvdpost_choice<%= ' open' if filter.dvdpost_choice? %>">
         <%= link_to t('.dvdpost_choice') %>
-        <div>
+        <div <%= "style='display:none'" unless filter.dvdpost_choice? %>>
           <label>
             <%= f.check_box :dvdpost_choice %>
             <%= t '.dvdpost_choice' %>
@@ -72,7 +72,7 @@
       </li>
       <li class="audio<%= ' open' if filter.audio? %>">
         <%= link_to t('.audio') %>
-        <div>
+        <div <%= "style='display:none'" unless filter.audio? %>>
           <% Language.by_language(I18n.locale).each do |track| %>
             <label>
               <%= filter_checkbox_tag :audio, track.to_param, (filter.audio? && filter.audio.include?(track.to_param.to_i)) %>
@@ -83,7 +83,7 @@
       </li>
       <li class="subtitles<%= ' open' if filter.subtitles? %>">
         <%= link_to t('.subtitles') %>
-        <div>
+        <div <%= "style='display:none'" unless filter.subtitles? %>>
           <% Subtitle.by_language(I18n.locale).each do |sub| %>
             <label>
               <%= filter_checkbox_tag :subtitles, sub.to_param, (filter.subtitles? && filter.subtitles.include?(sub.to_param.to_i)) %>

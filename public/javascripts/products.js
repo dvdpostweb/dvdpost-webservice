@@ -144,13 +144,6 @@ $(function() {
   });
 
 
-  if($("#leftcolumn #filters").length > 0) {
-    $("#filters li").each(function(i){
-      if (!($(this).hasClass('open'))) {
-        $(this).find("div").toggle(1);
-      }
-    });
-  }
   $("#filters ul li a").live("click", function() {
     $(this).parent().toggleClass('open');
     $(this).parent().find("div").toggle(1);
