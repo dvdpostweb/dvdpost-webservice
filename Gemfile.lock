@@ -85,6 +85,7 @@ GEM
     rake (0.8.7)
     rmagick (2.13.1)
     timed_fragment_cache (0.0.1)
+    truncate_html (0.4.0)
     warden (1.0.1)
       rack (>= 1.0.0)
     will_paginate (2.3.15)
@@ -103,10 +104,11 @@ DEPENDENCIES
   oauth2!
   orderedhash
   panztel-actionwebservice (>= 2.3.5)
-  rails (= 2.3.5)
+  rails (~> 2.3.0)
   rails_warden!
   rmagick
   timed_fragment_cache
+  truncate_html
   warden
   warden_oauth!
   will_paginate (~> 2.3.12)

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '2.3.5' # This should become 2.3.8
+gem 'rails', '~> 2.3.0' # This should become 2.3.8
 gem 'mysql', :group => :bundle
 
 gem 'rmagick'
@@ -18,7 +18,7 @@ gem 'rails_warden', :git => 'git://github.com/mrs/rails_warden.git'
 gem 'panztel-actionwebservice', '>= 2.3.5'
 gem 'geo_ip', :git => 'git://github.com/jeroenj/geo_ip.git'
 #gem 'rails_warden', :path => 'vendor/submodules/rails_warden'
-
+gem 'truncate_html'
 gem 'orderedhash'
 gem 'will_paginate', '~> 2.3.12'
 gem 'timed_fragment_cache'

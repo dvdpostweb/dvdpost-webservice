@@ -183,7 +183,7 @@ module ProductsHelper
   end
 
   def product_description_text(product)
-    product.description.nil? || product.description.text.nil? ? '' : truncate_html(product.description.text, 300)
+    product.description.nil? || product.description.text.nil? ? '' : truncate_html2(product.description.text, 300)
   end
 
   def product_image_tag(source, options={})

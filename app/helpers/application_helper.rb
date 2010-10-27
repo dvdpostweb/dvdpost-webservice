@@ -263,7 +263,7 @@ module ApplicationHelper
     end
   end
   require 'rexml/parsers/pullparser.rb'
-  def truncate_html(input, len = 30, extension = "...")  
+  def truncate_html2(input, len = 30, extension = "...")  
     def attrs_to_s(attrs)  
       return '' if attrs.empty?  
       attrs.to_a.map { |attr| %{#{attr[0]}="#{attr[1]}"} }.join(' ')  
