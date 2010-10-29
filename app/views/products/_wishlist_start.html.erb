@@ -1,0 +1,8 @@
+<% if current_customer.wishlist_products.include?(product) %>
+  <% title = title_remove_from_wishlist(text) %>
+  <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.to_param) %>
+  <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param, :product_id => product.to_param, :popular => 1), :class => 'btn_remove wishlist_button' %>
+<% else %>
+  <% title = title_add_to_wishlist(text) %>
+    <%= link_to title, wishlist_items_path(:wishlist_item => {:product_id => product.to_param, :priority => 1, :source_added => DVDPost.source_wishlist[:popular]}), :class => 'btn add_to_wishlist_button' %>
+<% end %>

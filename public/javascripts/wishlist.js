@@ -94,4 +94,86 @@ $(function() {
     });
     return false;
   });
+  /*var options = {
+    	//success: showResponse  // post-submit callback
+	};
+	function showResponse(responseText, statusText)  {
+    	//$("#wishlist #carousel").html(responseText);
+    	
+  }
+  $('.add_to_wishlist_button').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $(this).parent('.add_to_wishlist').ajaxSubmit(options);
+    $(this).parent().html("<div style='height:20px'><img src='/images/"+loader+"'/></div>")
+    return false; // prevent default behaviour
+  });
+  */
+  $("a.add_to_wishlist_button").live("click", function() {
+      content = $(this).html();
+      $(this).removeClass('btn');
+      $(this).html("<div style='height:31px'><img src='/images/ajax-loader.gif' /></div>");
+      $.ajax({
+        url: $(this).attr('href'),
+        type: 'POST',
+        data: {},
+        success: function() {
+        },
+        error: function() {
+          $(this).html(content)
+        }
+      });
+    return false;
+  });
+  
+  $("a.btn_remove").live("click", function() {
+      content = $(this).html();
+      $(this).removeClass('btn_remove');
+      $(this).html("<div style='height:31px'><img src='/images/ajax-loader.gif' /></div>");
+      $.ajax({
+        url: $(this).attr('href'),
+        type: 'DELETE',
+        data: {},
+        success: function() {
+        },
+        error: function() {
+          $(this).html(content)
+        }
+      });
+    return false;
+  });
+  
+  $('#carousel a.next_page').live('click',function(){
+    url = this.href;
+    html_item = $('#popular_tab');
+    content = html_item.html()
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        html_item.replaceWith(data);
+      },
+      error: function() {
+        html_item.replaceWith(content);
+      }
+    });
+    return false;
+  });
+  
+  $('#carousel a.prev_page').live('click',function(){
+    url = this.href;
+    html_item = $('#popular_tab');
+    content = html_item.html()
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        html_item.replaceWith(data);
+      },
+      error: function() {
+        html_item.replaceWith(content);
+      }
+    });
+    return false;
+  });
+  
 });

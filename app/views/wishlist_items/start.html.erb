@@ -1,0 +1,40 @@
+<div id="maincontent">
+  <div class="top"></div>
+  <div id="box_right">
+    <div class="free_trial">
+      <div class="step_text"><strong><%= t '.explain2' %></strong></div>
+      <div class="step_macaron"><img src="images/dvd.png" /></div>
+      <div style="clear:both"></div>
+  
+    </div>
+    <div class="bouton_confirm" align="right">
+        <a href='/' class="step31_image"><%= t '.go_to_site' %></a>
+      </div>
+    </div>
+
+
+    <!-- Tabs rotattor -->
+    <!-- BIENVENUE  -->
+    <div id="welcome">
+      <h4>
+        <%= t 'home.index.wishlist.welcome' %> <%= current_customer.customers_firstname %> 
+      </h4>
+      <div id="votre-liste" class="high"><%= t '.title_fill' %></div>
+      <p class="text-list"><%= t '.explain1' %></p>
+      <table border="0" cellspacing="0" cellpadding="0" id ='wishlist_widget'>
+        <colgroup>
+        <col class="col1" />
+        <col class="col2" />
+        </colgroup>
+      </table>
+    </div>
+    <%= render :partial => 'wishlist_items/popular', :locals => {:products => @popular, :id => :popular_tab} %>
+    <%= render :partial => 'wishlist_items/popular', :locals => {:products => @wishlist, :id => :wishlist_tab} %>
+      <div class="clear"></div>
+      <div class="bouton_confirm" align="right">
+        <a href='/' class="step31_image"><%= t '.go_to_site' %></a>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="end"></div>
+</div>

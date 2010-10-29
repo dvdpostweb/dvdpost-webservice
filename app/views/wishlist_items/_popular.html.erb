@@ -1,0 +1,22 @@
+<div id='<%= id %>' class="home">
+  <ul class="ttls-nav" id="recom">
+    <li>
+      <h3>
+        <%= t ".#{id}_title" %>
+      </h3>
+    </li>
+  </ul>
+  <!-- Carousel -->
+  <div id="carousel-wrap-hp">
+    <div id="carousel" style ='min-height:260px'>
+        <ul id="<%= id%>_ul">
+          <%= render :partial => 'wishlist_items/popular_product', :collection => products, :locals => {:html_id => id} %>
+        </ul>
+        <% if id == :popular_tab %>
+          <%= will_paginate products, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :popular_page, :id => 'prev', :class => 'like-btn', :container => false %>
+          <%= will_paginate products, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :popular_page, :id => 'next', :class => 'like-btn', :container => false %>
+        <% end %>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>

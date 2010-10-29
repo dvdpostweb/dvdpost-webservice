@@ -104,7 +104,7 @@ DEPENDENCIES
   oauth2!
   orderedhash
   panztel-actionwebservice (>= 2.3.5)
-  rails (~> 2.3.0)
+  rails (= 2.3.5)
   rails_warden!
   rmagick
   timed_fragment_cache

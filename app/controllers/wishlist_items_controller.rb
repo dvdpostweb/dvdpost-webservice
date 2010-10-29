@@ -17,6 +17,21 @@ class WishlistItemsController < ApplicationController
     end
   end
 
+  def start
+    @hide_menu = true
+    @popular = current_customer.popular.paginate(:page => params[:popular_page], :per_page => 8)
+    
+    respond_to do |format|
+      format.html {@wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)}
+      format.js {
+        render :partial => 'wishlist_items/popular', :locals => {:products => @popular, :id => :popular_tab}
+      }
+    end
+    #@wishlist = current_customer.wishlist_products.paginate(:per_page => 16, :page => 1)
+    
+    
+  end
+
   def new
     session[:return_to] = request.env["HTTP_REFERER"]
     product = Product.normal_available.find(params[:product_id])
@@ -37,7 +52,16 @@ class WishlistItemsController < ApplicationController
         @wishlist_item = create_wishlist_item(params[:wishlist_item])
         flash[:notice] = t('wishlist_items.index.product_add', :title => @wishlist_item.product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
       end
-      redirect_back_or @wishlist_item.product
+      respond_to do |format|
+        format.html {redirect_back_or @wishlist_item.product}
+        format.js do
+          @product_id = params[:wishlist_item][:product_id]
+          @popular = current_customer.popular.paginate(:page => 1, :per_page => 8)
+          @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
+          #render :partial => 'wishlist_items/popular', :locals => {:products => wish, :id => :wishlist}
+        end
+      end
+      
     rescue Exception => e
       if @wishlist_item && product
         flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
@@ -65,7 +89,15 @@ class WishlistItemsController < ApplicationController
     DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
     respond_to do |format|
       format.html {redirect_back_or  wishlist_path}
-      format.js   {render :status => :ok, :layout => false}
+      format.js   do
+        if params[:popular]
+          @product_id = params[:product_id]
+          @popular = current_customer.popular.paginate(:page => 1, :per_page => 8)
+          @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
+        else  
+          render :status => :ok, :layout => false
+        end
+      end
     end
   end
 
@@ -83,4 +115,5 @@ class WishlistItemsController < ApplicationController
   rescue ActionController::RedirectBackError
     redirect_to path
   end
+  
 end

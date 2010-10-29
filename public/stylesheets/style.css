@@ -104,6 +104,10 @@ fieldset {
   width: 100%;
   z-index: 10;
 }
+#header.small
+{
+  height: 55px;
+}
 
 #header h1 {
   float: left;
@@ -3472,76 +3476,210 @@ a#change_password
   cursor: pointer;
   margin:4px 0 0;
 }
-/*.navbypagefull .navbar .navnextbtn {
-  margin-left: 4px;
+.step_macaron {
+float:left;
+padding-left:6px;
 }
 
-.navbar .navprevbtn span {
-  display: none;
+.free_trial {
+background-color:#FFFFFF;
+border:1px solid #DDDDDD;
+margin-right:31px;
+overflow:hidden;
+}
+#box_right {float:right;
+position:relative;}
+
+.step_text {
+float:right;
+padding:19px;
+text-align:justify;
+width:388px;
+
 }
 
-.navbar .navnextbtn span {
-  display: none;
+.whislist_films  {
+	background-color:#FFFFFF;
+	border:1px solid #DDDDDD;
+	float:right;
+	padding:0 0 11px 2px;
+	margin-right:40px;
+	overflow:hidden;
+	
 }
 
-.navbar .navprevbtn_end span {
-  display: none;
+.ttls-nav .icon_sucess li {
+float:left;
+margin-right:6px;
+padding-top:12px;
 }
 
-.navbar .navnextbtn_end span {
-  display: none;
+
+
+
+#wishlist h3 {
+
+color:#30292A;
+font-family:Arial,Helvetica,sans-serif;
+font-size:24px;
+font-weight:normal;
+line-height:35px;
+z-index:1;
+font-size:23px;
+min-height:29px;
+padding-top:5px;
 }
 
-.navprevbtn a {
-  text-decoration: none;
-}
-.navprevbtn img {
-  height: 24px;
-  width: 25px;
-  vertical-align: top;
+#wishlist {
+height:29px;
 }
 
-.navprevbtn_end a {
-  text-decoration: none;
+#box_wishlist{
+background:none repeat scroll 0 0 #FFFFFF;
+border:1px solid #DDDDDD;
+margin-top:10px;
+padding:0 10px 10px;
+width:866px;
+height:195px;
+position:relative;
 }
 
-.navprevbtn_end {
-  background-image: url(../images/precedent_end_off.gif);
-  background-repeat: no-repeat;
-}
-.navprevbtn_end img {
-  height: 24px;
-  width: 25px;
-  vertical-align: top;
-}
-
-.navnextbtn a {
-  text-decoration: none;
-}
-.navnextbtn {
-  background-image: url(../images/suivant_on.gif);
-  background-repeat: no-repeat;
+#box_wishlist li .dvd, #box_wishlist li .bluray {
+background:url("/images/dvd-cover-mid.png") no-repeat scroll 0 0 transparent;
+display:block;
+height:125px;
+margin:2px 0 4px 2px;
+padding-top:18px;
+position:relative;
 }
 
-.navnextbtn img {
-  height: 24px;
-  width: 25px;
-  vertical-align: top;
+#box_wishlist li {
+float:left;
+font-size:0.92em;
+height:230px;
+margin:0 5px;
+overflow:hidden;
+text-align:center;
+width:92px;
 }
 
-.navnextbtn_end a {
-  text-decoration: none;
+#box_wishlist-wrap {
+margin-left:2px;
+}
+#box_wishlist-wrap h2 {
+font-size:1.17em;
+margin-left:2px;
+text-transform:uppercase;
 }
 
-.navnextbtn_end {
-  background-image: url(../images/suivant_end_off.gif);
-  background-repeat: no-repeat;
+#box_wishlist .error, #flash-news .error, .tab_container .error {
+background:url("/images/attention_icon.png") no-repeat scroll 0 0 transparent;
+padding:18px 0 0 50px;
+}
+#flash-news .error, .tab_container .error {
+margin:0 0 0 30px;
+}
+#box_wishlist ul {
+display:block;
+left:33px;
+position:absolute;
+top:12px;
+}
+#box_wishlist a {
+color:#454545;
+}
+* html #box_wishlist ul {
+display:inline;
+width:100%;
+}
+#box_wishlist li {
+float:left;
+font-size:0.92em;
+height:230px;
+margin:0 5px;
+overflow:hidden;
+text-align:center;
+width:92px;
+}
+* html #box_wishlist li {
+display:inline;
+}
+#box_wishlist li .dvd, #box_wishlist li .bluray {
+background:url("/images/dvd-cover-mid.png") no-repeat scroll 0 0 transparent;
+display:block;
+height:125px;
+margin:2px 0 4px 2px;
+padding-top:18px;
+position:relative;
+}
+#box_wishlist li .bluray {
+background:url("/images/bluray-cover-mid.png") no-repeat scroll 0 0 transparent;
+}
+#box_wishlist li .dvd img, #box_wishlist li .bluray img {
+float:left;
+margin-left:4px;
+}
+#box_wishlist li .dvd .new, #box_wishlist li .bluray .new {
+background:url("/images/new-mid.png") no-repeat scroll 0 0 transparent;
+display:block;
+height:50px;
+left:39px;
+position:absolute;
+top:0;
+width:47px;
+}
+#box_wishlist li a.btn {
+background:url("/images/ajouter-btn-mid.png") no-repeat scroll 0 -1px transparent;
+color:white;
+display:block;
+font-size:1.09em;
+height:27px;
+line-height:24px;
+margin:0 0 4px 2px;
+padding-left:27px;
+text-align:left;
+text-shadow:1px 1px 1px #999999;
+width:59px;
+}
+#box_wishlist li a.btn:hover {
+background:url("/images/ajouter-btn-mid.png") no-repeat scroll 0 -30px transparent;
+text-decoration:none;
+}
+#box_wishlist li a.btn_remove {
+background:url("/images/drop-btn-mid.png") no-repeat scroll 0 -1px transparent;
+color:white;
+display:block;
+font-size:1.09em;
+height:27px;
+line-height:24px;
+margin:0 0 4px 2px;
+padding-left:24px;
+text-align:left;
+text-shadow:1px 1px 1px #999999;
+width:59px;
+}
+#box_wishlist li a.btn_remove:hover {
+background:url("/images/drop-btn-mid.png") no-repeat scroll 0 -30px transparent;
+text-decoration:none;
 }
 
-.navnextbtn_end img {
-  height: 24px;
-  width: 25px;
-  vertical-align: top;
+.text-list {
+padding:0 3px 0 20px;
+
 }
-*/
-/* Fin pagination */
+
+.step31_image {
+  background:url("http://www.dvdpost.be/images/submit_step31.png") no-repeat scroll 0 0 transparent;
+  border:medium none;
+  color:white;
+  cursor:pointer;
+  display:block;
+  font-size:13px;
+  height:27px;
+  margin:15px 0 0;
+  padding:7px 0 0 0;
+  text-align:center;
+  width:202px;
+}
+.bouton_confirm {padding-right:31px;}
+.step31_image:hover { background:url("http://www.dvdpost.be/images/submit_step31.png") no-repeat scroll 0 -38px transparent;}
