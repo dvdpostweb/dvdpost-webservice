@@ -2240,7 +2240,7 @@ h3.hp-ttls {
   height: 30px;
 }
 
-#recom {
+#recom, #list {
   height: 29px;
 }
 
@@ -2254,13 +2254,21 @@ h3.hp-ttls {
   background: url(../images/flash-news-ttl.png) 0 4px no-repeat;
 }
 
-#recom h3 {
+#recom h3, #list h3 {
   min-height: 29px;
   font: normal 2em "MisoBold", Arial, Helvetica, sans-serif;
   color: #ff4b00;
   padding-left: 40px;
   padding-top:5px;
   background: url(../images/recommandations-icon.png) 0 0 no-repeat;
+}
+
+#list .stack{
+  margin: -4px 0 0 0;
+}
+
+#list .success{
+  margin: 7px 0 0 0;
 }
 
 #fl-news li {
@@ -3683,3 +3691,8 @@ padding:0 3px 0 20px;
 }
 .bouton_confirm {padding-right:31px;}
 .step31_image:hover { background:url("http://www.dvdpost.be/images/submit_step31.png") no-repeat scroll 0 -38px transparent;}
+
+.title_color_grey
+{
+  color: #30292A;
+}

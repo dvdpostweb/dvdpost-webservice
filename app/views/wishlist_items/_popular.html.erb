@@ -1,16 +1,22 @@
 <div id='<%= id %>' class="home">
-  <ul class="ttls-nav" id="recom">
+  <ul class="ttls-nav" id="list">
     <li>
       <h3>
-        <%= t ".#{id}_title" %>
+        <%= t ".#{id}_title" %><%= "<span class='title_color_grey'> #{t '.contains'} <span id ='wishlist_size'>#{@wishlist_size}</span> #{t '.film'}</span></span>" if id == :wishlist_tab%>
       </h3>
     </li>
+    <% if id == :wishlist_tab %>
+      <li></li>
+      <li><%= image_tag DVDPost.image_stack[list_indicator_class(@wishlist_size)], :class => :stack, :id => :stack %></li>
+      <li class="icon_success"><%= image_tag 'success-icon.png', :class => :success, :id => :image_sucess, :style => "display:none" %></li>
+   <% end %>   
   </ul>
   <!-- Carousel -->
   <div id="carousel-wrap-hp">
     <div id="carousel" style ='min-height:260px'>
+      
         <ul id="<%= id%>_ul">
-          <%= render :partial => 'wishlist_items/popular_product', :collection => products, :locals => {:html_id => id} %>
+          <%= render :partial => 'wishlist_items/popular_product', :locals => {:html_id => id, :products => products} %>
         </ul>
         <% if id == :popular_tab %>
           <%= will_paginate products, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :popular_page, :id => 'prev', :class => 'like-btn', :container => false %>

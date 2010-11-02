@@ -201,5 +201,14 @@ module DVDPost
     def flash_player_link
       'http://get.adobe.com/fr/flashplayer/'
     end
+
+    def image_stack
+      HashWithIndifferentAccess.new.merge({
+        :high   => 'indicator-bg_green.png',
+        :medium => 'indicator-bg_orange.png',
+        :low    => 'indicator-bg_red.png'
+      })
+    end
+    
   end
 end

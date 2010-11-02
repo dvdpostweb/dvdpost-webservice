@@ -1,9 +1,7 @@
-<% popular_product = popular_product.product if popular_product.class.name != 'Product'%>
-<% path = product_path(:id => popular_product.to_param, :recommendation => 4) %>
-<li id ="<%= html_id %>_<%= popular_product.to_param %>">
-  <% link_to path, :class => product_media_id(popular_product.media) do %>
-    <%= product_image_tag popular_product.image, :width => 76, :height => 118, :alt => "#{popular_product.title} (#{popular_product.year})" %>
+<%= render :partial => 'wishlist_items/popular_product_item', :collection => products, :locals => {:html_id => html_id} %>
+<% if html_id == :wishlist_tab %>
+  <% invisible_number = (@wishlist_size<8) ? (8 - @wishlist_size) : 0 %>
+  <% invisible_number.times do |i| %>
+    <%= "<li>#{image_tag 'dvd_invisible.png'}</li>" %>
   <% end %>
-  <%= render :partial => 'products/wishlist_start', :locals => {:product => popular_product, :text => :short, :source => DVDPost.source_wishlist[:popular]} %>
-  <%= link_to popular_product.title, path, :class => 'more' %>
-</li>
+<% end %>

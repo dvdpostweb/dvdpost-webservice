@@ -16,8 +16,8 @@ module ApplicationHelper
 
   def list_indicator_class(value)
     case value
-      when 0..10 then 'low'
-      when 11..30 then 'medium'
+      when 0..9 then 'low'
+      when 10..29 then 'medium'
       else 'high'
     end
   end
