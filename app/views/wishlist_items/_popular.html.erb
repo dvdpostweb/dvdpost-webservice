@@ -2,7 +2,7 @@
   <ul class="ttls-nav" id="list">
     <li>
       <h3>
-        <%= t ".#{id}_title" %><%= "<span class='title_color_grey'> #{t '.contains'} <span id ='wishlist_size'>#{@wishlist_size}</span> #{t '.film'}</span></span>" if id == :wishlist_tab%>
+        <%= t ".#{id}_title" %><%= "<span class='title_color_grey'> <span id ='wishlist_size'>#{wishlist_message_count(@wishlist_size)}</span></span></span>" if id == :wishlist_tab%>
       </h3>
     </li>
     <% if id == :wishlist_tab %>

@@ -4,6 +4,6 @@
   <% link_to path, :class => product_media_id(popular_product_item.media) do %>
     <%= product_image_tag popular_product_item.image, :width => 76, :height => 118, :alt => "#{popular_product_item.title} (#{popular_product_item.year})" %>
   <% end %>
-  <%= render :partial => 'products/wishlist_start', :locals => {:product => popular_product_item, :text => :short, :source => DVDPost.source_wishlist[:popular]} %>
+  <%= render :partial => 'products/wishlist_start', :locals => {:product => popular_product_item, :text => :short} %>
   <%= link_to popular_product_item.title, path, :class => 'more' %>
 </li>

@@ -3,7 +3,7 @@ wishlist_new_item =  render :partial => 'wishlist_items/popular_product', :local
 popular_new_item  =  render :partial => 'wishlist_items/popular_product', :locals => {:html_id => :popular_tab, :products => @popular} 
 page["#wishlist_tab_ul"].html wishlist_new_item
 page["#popular_tab_ul"].html popular_new_item
-page["#wishlist_size"].html @wishlist_size
+page["#wishlist_size"].html wishlist_message_count(@wishlist_size)
 indicator = list_indicator_class(@wishlist_size)
 page["#stack"].replaceWith(image_tag DVDPost.image_stack[indicator], :class => :stack, :id => :stack)
 if indicator.to_sym != :low 

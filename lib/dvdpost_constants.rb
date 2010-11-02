@@ -194,6 +194,14 @@ module DVDPost
         :recommandation_product    => 'RECOMMANDATION_PRODUCT',
         :recommandation_mail    => 'RECOMMANDATION_MAIL',
         :popular    => 'POPULAR',
+        :top    => 'TOP',
+        :theme    => 'THEME',
+        :search    => 'POPULAR',
+        :categorie    => 'CATEGORIE',
+        :popular_start    => 'POPULAR_START',
+        :new    => 'POPULAR',
+        :recent    => 'RECENT',
+        :cinema    => 'CINEMA',
         :else    => 'ELSEWHERE',
       })
     end

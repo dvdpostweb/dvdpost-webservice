@@ -12,5 +12,11 @@ module WishlistItemsHelper
       else 'not_ok'
     end
   end
-
+  def wishlist_message_count(wishlist_size)
+    if@wishlist_size == 0 
+      t('wishlist_items.popular.film0')
+    else
+      "#{t('wishlist_items.popular.contains')} #{pluralize(wishlist_size, t('wishlist_items.popular.film'))}"
+    end
+  end
 end
