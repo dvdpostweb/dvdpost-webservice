@@ -185,6 +185,7 @@ class Customer < ActiveRecord::Base
   def popular(options={})
     options.merge!(:subtitles => [2]) if I18n.locale == :nl
     options.merge!(:audio => [1]) if I18n.locale == :fr
+    build_filter unless filter
     popular = Product.filter(filter, options.merge(:view_mode => :popular))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular - hidden_products
