@@ -95,7 +95,7 @@ class WishlistItemsController < ApplicationController
           @popular = current_customer.popular.paginate(:page => 1, :per_page => 8)
           @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
         else  
-          render :status => :ok, :layout => false
+          render :status => :ok, :nothing => true
         end
       end
     end
