@@ -97,14 +97,14 @@ $(function() {
   }
   $.facebox.settings.opacity = 0.4; 
   $.facebox.settings.modal = true; 
-  versionStr+='';
+  /*versionStr+='';
   v = versionStr.split('.');
   version = parseInt(v[0]);
   if (versionStr == -1 || version <= 9)
   {
     $('.quality').hide();
     go('<div style="width:500px;" class="attention_vod">'+$('#flash_problem').html()+'</div>')
-  }
+  }*/
   if ($('#old_token').html()!= undefined)
   {
     go('<div style="width:500px;" class="attention_vod">'+$('#old_token').html()+'</div>')
