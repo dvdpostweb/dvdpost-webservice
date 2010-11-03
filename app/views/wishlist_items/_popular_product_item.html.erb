@@ -1,9 +1,9 @@
 <% popular_product_item = popular_product_item.product if popular_product_item.class.name != 'Product'%>
 <% path = product_path(:id => popular_product_item.to_param, :recommendation => 4) %>
 <li id ="<%= html_id %>_<%= popular_product_item.to_param %>">
-  <% if html_id == :ppopular_tab %>
+  <% if html_id == :popular_tab %>
     <div class="stars" id="rating-stars-<%= popular_product_item.to_param %>" product_id ="<%= popular_product_item.to_param %>">
-      <%= render :partial => 'products/rating', :locals => {:product => popular_product_item, :background => :white, :size => :small} %>
+      <%= render :partial => 'products/rating', :locals => {:product => popular_product_item, :background => :white, :size => :small, :replace => :wishlist_start_list} %>
     </div>
   <% end %>
   <% content_tag :div, :class => product_media_id(popular_product_item.media) do %>

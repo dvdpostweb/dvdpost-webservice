@@ -190,12 +190,7 @@ $(function() {
       type: 'POST',
       data: {},
       success: function(data) {
-        if (url.match(/replace=homepage/)){
-          html_item.parent().replaceWith(data);
-        }else{
-          html_item.html(data);
-        }
-        
+        $('#popular_tab').replaceWith(data);
       },
       error: function() {
         html_item.html(content);
