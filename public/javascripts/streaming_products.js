@@ -44,13 +44,13 @@ $(function() {
         return flashVer;
   }
 
-  for (i=25;i>0;i--) {      
+  /*for (i=25;i>0;i--) {      
     if (isIE && isWin && !isOpera) {
           versionStr = VBGetSwfVer(i);
     } else {
           versionStr = JSGetSwfVer(i);
     } 
-  }
+  }*/
   
   
   $('.qualityvod').live("click", function() {
