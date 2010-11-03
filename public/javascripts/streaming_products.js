@@ -7,9 +7,6 @@ $(function() {
 
   // JavaScript helper required to detect Flash Player PlugIn version information
   
-  <script language="VBScript"> 
-    <!-- // Visual basic helper required to detect Flash Player ActiveX control version information Function VBGetSwfVer(i) on error resume next Dim swControl, swVersion swVersion = 0 set swControl = CreateObject("ShockwaveFlash.ShockwaveFlash." + CStr(i)) if (IsObject(swControl)) then swVersion = swControl.GetVariable("$version") end if VBGetSwfVer = swVersion End Function // --> 
-  </script>
   function JSGetSwfVer(i){
         // NS/Opera version >= 3 check for Flash plugin in plugin array
         if (navigator.plugins != null && navigator.plugins.length > 0) {
