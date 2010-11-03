@@ -82,6 +82,7 @@ class ProductsController < ApplicationController
 
   def seen
     @product.seen_customers << current_customer
+    DVDPost.send_evidence_recommendations('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param)}
       format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}
