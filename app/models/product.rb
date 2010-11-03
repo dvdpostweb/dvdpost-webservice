@@ -82,7 +82,7 @@ class Product < ActiveRecord::Base
     when products_media = 'blueray' and streaming_products.imdb_id is not null then 4 
     else 5 end", :type  => :integer, :as => :special_media
     has "case 
-    when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
+    when  streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 1
     else 0 end", :type => :integer, :as => :streaming_available
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
