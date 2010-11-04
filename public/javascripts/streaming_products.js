@@ -109,9 +109,16 @@ $(function() {
   {
     go('<div style="width:500px;" class="attention_vod">'+$('#old_token').html()+'</div>')
   }
-  if ($('#ip_to_created').html()!=undefined)
+  else if ($('#ip_to_created').html()!=undefined)
   {
     go('<div style="width:500px;" class="attention_vod">'+$('#ip_to_created').html()+'</div>')
   }
-  
+ else if ($('#warning').html()!=undefined)
+  {
+    jQuery.facebox(function() {
+      $.getScript($('#warning').html(), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+  }
 });

@@ -33,5 +33,13 @@
     </p>
   </div>
   <div class="end"></div>
-  <div id='flash_problem' style='display:none'><%= t('.no_flash', :link => DVDPost.flash_player_link) %></div>
+  <div id='flash_problem' style='display:none'>
+    <%= t('.no_flash', :link => DVDPost.flash_player_link) %>
+  </div>
+  
+  <% if params[:warning].to_i == 1 && (@token.nil? || !@token_valid)%>
+    <div id='warning' style='display:none'>
+      <%= new_product_token_path(:product_id => @product.to_param, :imdb_id => @product.imdb_id, :btn => :hide) %>
+    </div>
+  <% end %>
 </div>

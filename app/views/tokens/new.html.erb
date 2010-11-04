@@ -10,7 +10,9 @@
         <p><%= t '.remove_from_wishlist' %></p>
       <% end %>
       <br />
-  	  <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
+      <% unless params[:btn] == 'hide' %>
+  	    <p align='center'><%= link_to t('.see_to_vod'), streaming_product_path(:id => @product.imdb_id), :id => 'add_to_vod' %></p>
+  	  <% end %>
     <% else %>
       <%= t '.credit_empty', :url => edit_customer_reconduction_path(:locale => I18n.locale, :customer_id => current_customer.to_param) %>
     <% end %>
