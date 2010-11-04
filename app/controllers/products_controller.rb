@@ -18,6 +18,12 @@ class ProductsController < ApplicationController
 
     @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
     @countries = ProductCountry.visible.order
+    if params[:list_id] && !params[:list_id].blank?
+      style = ProductList.find(params[:list_id]).style
+      if style == 'STREAMING'
+        params[:view_mode] = 'streaming'
+      end
+    end
     if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
       session[:menu_categories] = true
       session[:menu_tops] = false

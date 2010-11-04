@@ -41,6 +41,10 @@ module HomeHelper
         actor_products_path(:actor_id => carousel.reference_id)
       when 'CATEGORY'
         category_products_path(:category_id => carousel.reference_id)
+      when 'STREAMING_PRODUCT'
+        streaming_product_path(:id => carousel.reference_id, :warning => 1)
+      when 'URL'
+        eval(t(".url_#{carousel.id}"))
       end
   end
 

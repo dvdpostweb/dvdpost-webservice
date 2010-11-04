@@ -11,10 +11,15 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :not_prefered, lambda {|language_id| {:conditions => ["language_id != :language_id and (subtitle_id != :language_id or subtitle_id is null)",{:language_id => language_id}]}}
   
   def self.get_streaming_by_imdb_id(imdb_id, local)
-    streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
-    streaming += available.prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
-    streaming += available.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
-    
+    if Rails.env == "production"
+      streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming += available.prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming += available.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    else
+      streaming = prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming += prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming += not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    end
     streaming
   end
 end
