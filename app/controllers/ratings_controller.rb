@@ -18,7 +18,12 @@ class RatingsController < ApplicationController
             render :nothing => true
           end
         when 'wishlist_start_list'
-          popular = current_customer.popular.paginate(:page => 1, :per_page => 8)
+          popular_page = session[:popular_page] || 1
+          popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
+          if popular_page.to_i > 1 && popular.size == 0
+            session[:popular_page] = popular_page.to_i - 1
+            popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+          end
           render :partial => 'wishlist_items/popular', :locals => {:products => popular, :id => :popular_tab}
         else
           render :partial => 'products/rating', :locals => {:product => @product, :background => params[:background], :size => params[:size]}

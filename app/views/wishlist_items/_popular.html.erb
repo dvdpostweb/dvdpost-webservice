@@ -19,8 +19,8 @@
           <%= render :partial => 'wishlist_items/popular_product', :locals => {:html_id => id, :products => products} %>
         </ul>
         <% if id == :popular_tab %>
-          <%= will_paginate products, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :popular_page, :id => 'prev', :class => 'like-btn', :container => false %>
-          <%= will_paginate products, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :popular_page, :id => 'next', :class => 'like-btn', :container => false %>
+          <%= will_paginate products, :previous_label => 'Prev', :next_label => '', :page_links => false, :param_name => :popular_page, :id => 'prev', :class => 'like-btn', :container => false, :renderer => "RemoteLinkRenderer", :remote => { :url => wishlist_start_path, :param_name => :popular_page}  %>
+          <%= will_paginate products, :previous_label => '', :next_label => 'Next', :page_links => false, :param_name => :popular_page, :id => 'next', :class => 'like-btn', :container => false, :renderer => "RemoteLinkRenderer", :remote => { :url => wishlist_start_path, :param_name => :popular_page} %>
         <% end %>
     </div>
   </div>

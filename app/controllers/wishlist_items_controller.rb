@@ -22,14 +22,15 @@ class WishlistItemsController < ApplicationController
     @popular = current_customer.popular.paginate(:page => params[:popular_page], :per_page => 8)
     
     respond_to do |format|
-      format.html {@wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)}
+      format.html do
+        session[:popular_page] = params[:popular_page] || 1
+        @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
+      end      
       format.js {
+        session[:popular_page] = params[:popular_page]
         render :partial => 'wishlist_items/popular', :locals => {:products => @popular, :id => :popular_tab}
       }
     end
-    #@wishlist = current_customer.wishlist_products.paginate(:per_page => 16, :page => 1)
-    
-    
   end
 
   def new
@@ -56,9 +57,13 @@ class WishlistItemsController < ApplicationController
         format.html {redirect_back_or @wishlist_item.product}
         format.js do
           @product_id = params[:wishlist_item][:product_id]
-          @popular = current_customer.popular.paginate(:page => 1, :per_page => 8)
+          popular_page = session[:popular_page] || 1
+          @popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
+          if popular_page.to_i > 1 && @popular.size == 0
+            session[:popular_page] = popular_page.to_i - 1
+            @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+          end
           @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
-          #render :partial => 'wishlist_items/popular', :locals => {:products => wish, :id => :wishlist}
         end
       end
       
@@ -92,7 +97,13 @@ class WishlistItemsController < ApplicationController
       format.js   do
         if params[:popular]
           @product_id = params[:product_id]
-          @popular = current_customer.popular.paginate(:page => 1, :per_page => 8)
+          popular_page = session[:popular_page] || 1
+          @popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
+          if popular_page.to_i > 1 && @popular.size == 0
+            session[:popular_page] = popular_page.to_i - 1
+            @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+          end
+          
           @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
         else  
           render :status => :ok, :nothing => true
