@@ -84,6 +84,9 @@ class Product < ActiveRecord::Base
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 1
     else 0 end", :type => :integer, :as => :streaming_available
+    has "case 
+    when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
+    else 0 end", :type => :integer, :as => :streaming_available_test
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
     set_property :enable_star => true
@@ -118,6 +121,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
   sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
+  sphinx_scope(:streaming_test)          {{:without =>  {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 3..5, :series_id => 0, :in_stock => 3..1000}}}
   
@@ -183,7 +187,11 @@ class Product < ActiveRecord::Base
       when :cinema
         products.cinema
       when :streaming
-        products.streaming
+        if Rails.env == "production"
+          products.streaming
+        else
+          products.streaming_test
+        end
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
@@ -270,7 +278,11 @@ class Product < ActiveRecord::Base
   end
 
   def streaming?
-    streaming_products.available.count > 0
+    if Rails.env == "production"
+      streaming_products.available.count > 0
+    else
+      streaming_products.count > 0
+    end  
   end
 
   def good_language?(language)
