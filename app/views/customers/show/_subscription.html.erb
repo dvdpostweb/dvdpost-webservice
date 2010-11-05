@@ -7,13 +7,13 @@
       <tr>
         <td width="207" align="right"><strong><%= t '.abo' %></strong></td>
         <td width="141" align="left">
-          <%= "#{customer.subscription_type.credits == 0 ? t('.unlimited') : customer.subscription_type.credits} DVD" %>
+          <%= customer.subscription_type.credits == 0 ? t('.unlimited') : "#{customer.subscription_type.credits} DVD" %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong><%= t '.credit' %></strong></td>
+        <td align="right"><strong><%= current_customer.subscription_type.credits == 0 ? t('.credit_vod') : t('.credit') %></strong></td>
         <td align="left">
-          <%= current_customer.subscription_type.credits == 0 ? t('.unlimited') : "#{customer.credits} DVD" %>
+          <%= current_customer.subscription_type.credits == 0 ? customer.credits : "#{customer.credits} DVD" %>
         </td>
       </tr>
       <tr>
@@ -26,9 +26,10 @@
             <ul>
               <li class="links">
                 <% path = limited_subscription_change_path  %>
-                
-                <%= link_to t('.modify_abo'), path, :class => 'modif' %>
-                <span><%= image_tag 'delimiter.gif' %></span>
+                <% if !current_customer.is_freetest? %>
+                  <%= link_to t('.modify_abo'), path, :class => 'modif' %>
+                  <span><%= image_tag 'delimiter.gif' %></span>
+                <% end %>
                 <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' %>
               </li>
             </ul>
