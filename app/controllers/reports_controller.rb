@@ -72,7 +72,7 @@ class ReportsController < ApplicationController
   private
   def redirect_back_or(path)
     redirect_to :back
-  rescue ActionController::RedirectBackError
+  rescue ::ActionController::RedirectBackError
     redirect_to path
   end
 end

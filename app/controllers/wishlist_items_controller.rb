@@ -34,7 +34,6 @@ class WishlistItemsController < ApplicationController
   end
 
   def new
-    session[:return_to] = request.env["HTTP_REFERER"]
     product = Product.normal_available.find(params[:product_id])
     @wishlist_item = product.wishlist_items.build
     render :layout => false
@@ -54,7 +53,7 @@ class WishlistItemsController < ApplicationController
         flash[:notice] = t('wishlist_items.index.product_add', :title => @wishlist_item.product.title, :priority => DVDPost.wishlist_priorities.invert[@wishlist_item.priority])
       end
       respond_to do |format|
-        format.html {redirect_back_or @wishlist_item.product}
+        format.html {redirect_back_or wishlist_path}
         format.js do
           @product_id = params[:wishlist_item][:product_id]
           popular_page = session[:popular_page] || 1
@@ -82,7 +81,7 @@ class WishlistItemsController < ApplicationController
     begin
       @wishlist_item = WishlistItem.find(params[:id])
       @wishlist_item.update_attributes(params[:wishlist_item])
-      DVDPost.send_evidence_recommendations('UpdateWishlistItem', params[:id], current_customer, request.remote_ip, {:priority => params[:wishlist_item][:priority]})
+      DVDPost.send_evidence_recommendations('UpdateWishlistItem', params[:id], current_customer, request.remote_ip, {:priority => params[:wishlist_item][:priority]}) if params[:wishlist_item]
       respond_to do |format|
         format.js {render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => @wishlist_item}}
       end
@@ -123,7 +122,7 @@ class WishlistItemsController < ApplicationController
 
   def redirect_back_or(path)
     redirect_to :back
-  rescue ActionController::RedirectBackError
+  rescue ::ActionController::RedirectBackError
     redirect_to path
   end
   
