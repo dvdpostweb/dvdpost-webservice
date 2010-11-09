@@ -206,7 +206,7 @@ class Product < ActiveRecord::Base
       products = products.by_kind(:normal).available
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
       products = products.by_kind(:normal).available.group('imdb_id','streaming_id desc')
-    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :popular)
+    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :popular || options[:view_mode].to_sym == :soon)
       products = products.by_kind(:normal).available.order(:available_at, :desc)
     else
       products = products.by_kind(:normal).available.order('in_stock DESC, rating DESC', :extended)

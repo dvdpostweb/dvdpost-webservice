@@ -1,5 +1,13 @@
 if @type == 'classic'
-  page['.popup .content'].html("<p align='center' id='notice_popup'>#{flash[:notice]}</p>")
+  if flash[:error]
+    page['.popup .content'].html("<p align='center' id='notice_popup'>#{flash[:error]}</p>")
+  end
+  if flash[:notice]
+    page["body"].trigger('close.facebox')
+    page[".notice"].remove()
+    page[".container"].prepend("<p class='notice'>#{flash[:notice]}</p>")
+    page["body"].trigger('close.facebox')
+  end
   page["##{@submit_id}"].replaceWith render :partial => 'products/wishlist', :locals => {:product => @product, :text => @text, :source => @source, :load_color => @load_color} if @product
   flash.discard
 else

@@ -84,10 +84,10 @@ class WishlistItemsController < ApplicationController
       
     rescue Exception => e
       if @wishlist_item && product
-        flash[:notice] = t('wishlist_items.index.product_not_add', :title => product.title)
+        flash[:error] = t('wishlist_items.index.product_not_add', :title => product.title)
         redirect_to product
       else
-        flash[:notice] = t('wishlist_items.index.product_error_unexpected')
+        flash[:error] = t('wishlist_items.index.product_error_unexpected')
         respond_to do |format|
           format.html {redirect_to wishlist_path}
           format.js {}
