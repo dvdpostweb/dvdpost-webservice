@@ -835,7 +835,15 @@ fieldset {
   text-shadow: 1px 1px 1px #999999;
   text-align: left;
 }
-
+#titles-wrap .action .load {
+  display:block;
+  float:left;
+  height:41px;
+  line-height:35px;
+  margin:9px 0 0;
+  text-align:center;
+  width:170px;
+}
 #titles-wrap .action a.btn_remove:hover {
   background: url(../images/drop-btn.png) 0 -39px no-repeat;
 }
@@ -1663,6 +1671,13 @@ a#next10 {
   text-shadow: 1px 1px 1px #555555;
 }
 
+#details .cover .load {
+  display: block;
+  height: 38px;
+  line-height: 34px;
+  width: 130px;
+  text-align:center;
+}
 #details .cover a.btn_remove:hover {
   background: url(../images/drop-btn.png) 0 -43px no-repeat;
   text-decoration: none;
@@ -2483,7 +2498,21 @@ h3.hp-ttls {
   font-size: 1.09em;
   background: url(../images/ajouter-btn-mid.png) 0 0 no-repeat;
 }
-
+.top10 .load
+{
+  position: absolute;
+  top: 9px;
+  right: 0px;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 32px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+}
 .top10 .btn_remove {
   position: absolute;
   top: 5px;
@@ -2528,6 +2557,10 @@ div.top10.first a.btn {
   left: 27px;
   top: 164px;
   background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
+}
+div.top10.first .load {
+  left: 27px;
+  top: 164px;
 }
 
 div.top10.first a.btn_remove {
@@ -3695,4 +3728,8 @@ padding:0 3px 0 20px;
 .title_color_grey
 {
   color: #30292A;
+}
+#notice_popup
+{
+  font-size:15px;
 }

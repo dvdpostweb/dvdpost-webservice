@@ -104,7 +104,29 @@ $(function() {
     });
     return false;
   });
-
+  
+  $("a.btn_remove").live("click", function() {
+    html_item = $(this).parent();
+    content = html_item.html();
+    loader = "ajax-loader.gif";
+    if ($(this).attr('href').match(/black/i)){
+      loader = 'black-'+loader;
+    }
+    html_item.html("<div class='load'><img src='/images/"+loader+"' /></div>");
+    $.ajax({
+      url: this.href,
+      type: 'DELETE',
+      data: {},
+      success: function(data) {
+        //html_item.replaceWith(data);
+      },
+      error: function() {
+        //html_item.html(content);
+      }
+    });
+    return false;
+  });
+  
   $(".action .links a").live("click", function() {
     html_item = $(this).parent();
     content = html_item.html();
@@ -324,4 +346,11 @@ $(function() {
     $(this).hide();
   });
   
+  var options = {};
+  $('#wishlist_item_submit.item').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('#add_to_wishlist').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('form.#new_wishlist_item').ajaxSubmit(options);
+    return false; // prevent default behaviour
+  });
 });

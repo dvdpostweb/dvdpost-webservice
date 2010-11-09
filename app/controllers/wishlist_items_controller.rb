@@ -35,11 +35,23 @@ class WishlistItemsController < ApplicationController
 
   def new
     product = Product.normal_available.find(params[:product_id])
+    @submit_id = params[:submit_id]
+    @text = params[:text]
+    
     @wishlist_item = product.wishlist_items.build
     render :layout => false
   end
 
   def create
+    if params[:type] == 'classic'
+      @source = params[:wishlist_item][:source_added]
+      @submit_id = params[:submit_id]
+      @type = params[:type]
+      @text = params[:text].to_sym
+      @load_color = params[:load_color].to_sym if params[:load_color]
+      
+    end
+
     begin
       if params[:add_all_from_series]
         product = Product.normal_available.find(params[:wishlist_item][:product_id])
@@ -55,14 +67,18 @@ class WishlistItemsController < ApplicationController
       respond_to do |format|
         format.html {redirect_back_or wishlist_path}
         format.js do
-          @product_id = params[:wishlist_item][:product_id]
-          popular_page = session[:popular_page] || 1
-          @popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
-          if popular_page.to_i > 1 && @popular.size == 0
-            session[:popular_page] = popular_page.to_i - 1
-            @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+          if params[:type] == 'classic'
+            @product = @wishlist_item.product
+          else
+            @product_id = params[:wishlist_item][:product_id]
+            popular_page = session[:popular_page] || 1
+            @popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
+            if popular_page.to_i > 1 && @popular.size == 0
+              session[:popular_page] = popular_page.to_i - 1
+              @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+            end
+            @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
           end
-          @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
         end
       end
       
@@ -72,7 +88,10 @@ class WishlistItemsController < ApplicationController
         redirect_to product
       else
         flash[:notice] = t('wishlist_items.index.product_error_unexpected')
-        redirect_to wishlist_path
+        respond_to do |format|
+          format.html {redirect_to wishlist_path}
+          format.js {}
+        end
       end
     end
   end
@@ -102,8 +121,15 @@ class WishlistItemsController < ApplicationController
             session[:popular_page] = popular_page.to_i - 1
             @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
           end
-          
           @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
+        elsif params[:list]
+          @product = @wishlist_item.product
+          @source = params[:source]
+          @type = 'list'
+          @text = params[:text].to_sym
+          @submit_id = params[:submit_id]
+          @load_color = params[:load_color].to_sym if params[:load_color]
+          
         else  
           render :status => :ok, :nothing => true
         end
