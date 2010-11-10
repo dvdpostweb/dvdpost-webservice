@@ -28,6 +28,27 @@ class ProductsController < ApplicationController
       session[:menu_categories] = true
       session[:menu_tops] = false
     end
+    @class_sort = Hash.new
+    @next_type_sort = Hash.new
+    type = case params[:sort_type]
+      when 'asc' then  params[:sort_type]
+      when 'desc' then  params[:sort_type]
+      else 
+        'desc'
+      end
+    if !params[:sort]
+      params[:sort] = 'default'
+    end
+    DVDPost.sort_by.each do |key, value|
+      if params[:sort] == key
+        @class_sort[key] = "select select_#{type}"
+        @next_type_sort[key] = params[:sort_type] == 'asc' ? 'desc' : 'asc' 
+      else
+        @class_sort[key] = ""
+        @next_type_sort[key] = DVDPost.sort_type_next[key]
+      end
+    end
+      
   end
 
   def show

@@ -218,5 +218,21 @@ module DVDPost
       })
     end
     
+    def sort_by
+      HashWithIndifferentAccess.new.merge({
+        :alpha   => 'alpha',
+        :rating => 'rating',
+        :default    => 'default'
+      })
+    end
+
+    def sort_type_next
+      HashWithIndifferentAccess.new.merge({
+        :alpha   => 'asc',
+        :rating => 'desc',
+        :default    => 'desc'
+      })
+    end
+    
   end
 end

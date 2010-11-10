@@ -69,11 +69,16 @@ class Product < ActiveRecord::Base
     has product_lists(:id),         :as => :products_list_ids
     has "CAST(listed_products.order AS SIGNED)", :type => :integer, :as => :special_order
     has subtitles(:undertitles_id), :as => :subtitle_ids
-    has 'CAST((rating_users/rating_count) AS SIGNED)', :type => :integer, :as => :rating
+    has 'cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1))', :type => :float, :as => :rating
     has streaming_products(:imdb_id), :as => :streaming_imdb_id
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
+    
+    
+    has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),'é','e'),'ç','c'),'à','a'),'ö','o'),'è','e'),'ô','o'),'ë','e'),'ê','e'),'î','i'),'ï','i'),'ù','u'),'û','u'),'à','a'),'ä','a'),'ú','u'),'â','a'),'ó','o'),'á','a'),'í','i'),'ñ','n'),'å','a'),'ä','a'),'ü','u'),'ò','o'),'ì','i'))  AS products_name_ord from products_description where  language_id = 1 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr
+    has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),'é','e'),'ç','c'),'à','a'),'ö','o'),'è','e'),'ô','o'),'ë','e'),'ê','e'),'î','i'),'ï','i'),'ù','u'),'û','u'),'à','a'),'ä','a'),'ú','u'),'â','a'),'ó','o'),'á','a'),'í','i'),'ñ','n'),'å','a'),'ä','a'),'ü','u'),'ò','o'),'ì','i'))  AS products_name_ord from products_description where  language_id = 2 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_nl
+    has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),'é','e'),'ç','c'),'à','a'),'ö','o'),'è','e'),'ô','o'),'ë','e'),'ê','e'),'î','i'),'ï','i'),'ù','u'),'û','u'),'à','a'),'ä','a'),'ú','u'),'â','a'),'ó','o'),'á','a'),'í','i'),'ñ','n'),'å','a'),'ä','a'),'ü','u'),'ò','o'),'ì','i'))  AS products_name_ord from products_description where  language_id = 3 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
     
     has "case 
     when products_media = 'DVD' and streaming_products.imdb_id is null then 1 
@@ -201,16 +206,32 @@ class Product < ActiveRecord::Base
       end
     end
     if options[:list_id] && !options[:list_id].blank?
-      products = products.by_kind(:normal).available.order(:special_order, :asc)
+      products = products.by_kind(:normal).available
+      sort = sort_by("special_order asc", options)
     elsif options[:search] && !options[:search].blank?
       products = products.by_kind(:normal).available
+      sort = sort_by("", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
-      products = products.by_kind(:normal).available.group('imdb_id','streaming_id desc')
-    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :popular || options[:view_mode].to_sym == :soon)
-      products = products.by_kind(:normal).available.order(:available_at, :desc)
+      products = products.by_kind(:normal).available
+      sort = sort_by("streaming_id desc", options)
+    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :popular)
+      products = products.by_kind(:normal).available
+      sort = sort_by("available_at desc", options)
+    elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
+      sort = sort_by("available_at asc", options)
+      products = products.by_kind(:normal).available
     else
-      products = products.by_kind(:normal).available.order('in_stock DESC, rating DESC', :extended)
+      sort = sort_by("in_stock DESC, rating DESC", options)
+      products = products.by_kind(:normal).available
     end
+    if sort !=""
+      if options[:view_mode] && options[:view_mode].to_sym == :streaming
+        products = products.group('imdb_id', sort)
+      else
+        products = products.order(sort, :extended) 
+      end
+    end
+    products
     # products = products.sphinx_order('listed_products.order asc', :asc) if params[:top_id] && !params[:top_id].empty?
   end
 
@@ -245,7 +266,7 @@ class Product < ActiveRecord::Base
     if customer && customer.has_rated?(self)
       ratings.by_customer(customer).first.value.to_i * 2
     else
-      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count) * 2).ceil
+      rating_count == 0 ? 0 : ((rating_users.to_f / rating_count) * 2).round
     end
   end
 
@@ -298,6 +319,27 @@ class Product < ActiveRecord::Base
 
   def media_alternative(media)
     self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).by_language(I18n.locale).limit(1).first
+  end
+  
+  def self.sort_by(default, options={})
+    if options[:sort]
+      type = case options[:sort_type]
+        when 'asc' then  options[:sort_type]
+        when 'desc' then  options[:sort_type]
+        else 
+          'desc'
+        end   
+      type =
+      if options[:sort] == 'alpha'
+        "descriptions_title_#{I18n.locale} #{type}"
+      elsif options[:sort] == 'rating'
+        "rating #{type}, in_stock DESC"
+      else
+        default
+      end
+    else
+      default
+    end
   end
 
   def self.search_clean(query_string, options={})

@@ -3733,3 +3733,54 @@ padding:0 3px 0 20px;
 {
   font-size:15px;
 }
+
+
+.sortby {
+font-size:12px;
+border:#666666 solid 1px;
+}
+.sortby td{
+border-right:#666666 solid 1px;
+}
+.sortby a 
+{
+  color:#000;
+  display:block;
+  padding:0 0 0 8px;
+  text-decoration:none;
+  width:90px;
+}
+.select
+{
+  color:#FFF;
+  font-size:12px;
+  height:18px;
+}
+.select_desc {
+  background:url(../images/bg_select.gif) no-repeat scroll -27px -3px transparent;
+
+}
+.select_asc {
+  background:url(../images/bg_select.gif) no-repeat scroll -27px -30px transparent;
+}
+
+.select a
+{
+  color: #FFF;
+}
+.end {
+padding-left:8px;
+}
+
+.bysort_title { 
+  float:left; 
+  font-size:12px;
+  padding: 3px 10px 0 0;
+}
+.bysort_choice { float:left;}
+
+.bysort { 
+  width:461px;
+  padding: 0 0 5px 0;
+  margin:0 0 0 316px;
+}
