@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
     @filter = current_customer.filter || current_customer.build_filter
     params.delete(:search) if params[:search] == t('products.left_column.search')
     @products = if params[:view_mode] == 'recommended'
-      current_customer.recommendations({:page => params[:page]})
+      current_customer.recommendations({:page => params[:page], :sort => params[:sort], :sort_type => params[:sort_type]})
     else
       Product.filter(@filter, params)
     end

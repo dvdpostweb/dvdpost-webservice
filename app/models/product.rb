@@ -82,9 +82,9 @@ class Product < ActiveRecord::Base
     
     has "case 
     when products_media = 'DVD' and streaming_products.imdb_id is null then 1 
-    when products_media = 'DVD' and streaming_products.imdb_id is not null then 2
+    when products_media = 'DVD' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 2
     when products_media = 'blueray' and streaming_products.imdb_id is null then 3
-    when products_media = 'blueray' and streaming_products.imdb_id is not null then 4 
+    when products_media = 'blueray' and streaming_products.imdb_id is not null and streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 4 
     else 5 end", :type  => :integer, :as => :special_media
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() and streaming_products.status = 'online_test_ok' then 1
@@ -124,11 +124,11 @@ class Product < ActiveRecord::Base
   sphinx_scope(:dvdpost_choice)     {{:with =>          {:dvdpost_choice => 1}}}
   sphinx_scope(:recent)             {{:without =>       {:availability => 0}, :with => {:available_at => 2.months.ago..Time.now, :next => 0, :dvdpost_rating => 3..5}}}
   sphinx_scope(:cinema)             {{:with =>          {:in_cinema_now => 1, :next => 1, :dvdpost_rating => 3..5}}}
-  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}, :order => '@random'}}
+  sphinx_scope(:soon)               {{:with =>          {:in_cinema_now => 0, :next => 1, :dvdpost_rating => 3..5}}}
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
-  sphinx_scope(:streaming_test)          {{:without =>  {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
+  sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
-  sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 3..5, :series_id => 0, :in_stock => 3..1000}}}
+  sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
@@ -170,7 +170,7 @@ class Product < ActiveRecord::Base
       end
       products = products.by_special_media(medias)
     end
-    products = products.by_ratings(filter.rating_min, filter.rating_max) if filter.rating?
+    products = products.by_ratings(filter.rating_min.to_f, filter.rating_max.to_f) if filter.rating?
     products = products.by_period(filter.year_min, filter.year_max) if filter.year?
     if filter.audio?
       products = products.with_languages(filter.audio)

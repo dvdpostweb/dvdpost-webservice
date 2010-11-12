@@ -1,7 +1,7 @@
 class StreamingProductsController < ApplicationController
   def show
     @streaming = StreamingProduct.get_streaming_by_imdb_id(params[:id], I18n.locale)
-    @product = Product.find_by_imdb_id(params[:id])
+    @product = Product.normal_available.find_by_imdb_id(params[:id])
     
    
     respond_to do |format|
