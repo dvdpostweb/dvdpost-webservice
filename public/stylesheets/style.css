@@ -3763,7 +3763,10 @@ border-right:#666666 solid 1px;
 .select_asc {
   background:url(../images/bg_select.gif) no-repeat scroll -27px -30px transparent;
 }
-
+.select.normal
+{
+  background:url(../images/bg_select.gif) no-repeat scroll -10px -3px transparent;
+}
 .select a
 {
   color: #FFF;
