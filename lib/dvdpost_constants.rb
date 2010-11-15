@@ -233,6 +233,17 @@ module DVDPost
         :default    => 'desc'
       })
     end
+
+    def dvdpost_ip
+      HashWithIndifferentAccess.new.merge({
+        :external   => '217.112.190.73',
+        :internal => '127.0.0.1'
+      })
+    end
+    
+    def geo_ip_key
+      'c90802746715bfeb0fc6abd2f822174f994f03ca68d61a70944e6e66c4b6f617'
+    end 
     
   end
 end

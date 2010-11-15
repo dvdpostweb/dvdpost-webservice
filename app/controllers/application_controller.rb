@@ -52,7 +52,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_country
-     if !session[:country_code]
+     if session[:country_code].nil? || session[:country_code].empty?
+       GeoIp.api_key = DVDPost.geo_ip_key
        geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
        country_code = geo[:country_code]
        session[:country_code] = country_code
