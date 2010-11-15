@@ -23,7 +23,7 @@ class StreamingProductsController < ApplicationController
       format.js do
         if streaming_access? 
           streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
-          if !current_customer.payment_suspended? && !dvdpost_ip?
+          if !current_customer.payment_suspended? && !Token.dvdpost_ip?(request.remote_ip)
             @token = current_customer.get_token(@product.imdb_id)
             status = @token.nil? ? nil : @token.current_status(request.remote_ip)
             streaming_version = StreamingProduct.find_by_id(params[:streaming_product_id])
@@ -80,7 +80,7 @@ class StreamingProductsController < ApplicationController
             filename =  streaming_version.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")
             DVDPost.send_evidence_recommendations('PlayStart', @product.to_param, current_customer, request.remote_ip)
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => filename}, :layout => false
-          elsif dvdpost_ip?
+          elsif Token.dvdpost_ip?(request.remote_ip)
             filename =  streaming_version.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")
             render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => filename}, :layout => false
           else

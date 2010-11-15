@@ -296,7 +296,4 @@ module ApplicationHelper
     results.to_s + (input.length > len ? extension : '')  
   end
 
-  def dvdpost_ip?
-    request.remote_ip == DVDPost.dvdpost_ip[:external] || request.remote_ip == DVDPost.dvdpost_ip[:internal]
-  end
 end
