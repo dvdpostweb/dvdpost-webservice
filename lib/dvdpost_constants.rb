@@ -236,7 +236,7 @@ module DVDPost
 
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
-        :external   => '217.112.190.73',
+        :external   => '217.112.190.72',
         :internal => '127.0.0.1'
       })
     end
