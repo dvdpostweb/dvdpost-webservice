@@ -53,10 +53,17 @@ class ApplicationController < ActionController::Base
 
   def set_country
      if session[:country_code].nil? || session[:country_code].empty?
-       GeoIp.api_key = DVDPost.geo_ip_key
-       geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
-       country_code = geo[:country_code]
-       session[:country_code] = country_code
+       begin
+         GeoIp.api_key = DVDPost.geo_ip_key
+         geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
+         country_code = geo[:country_code]
+         session[:country_code] = country_code
+         if country_code.nil? || country_code.empty?
+           notify_hoptoad("country code is empty ip : #{request.remote_ip}")
+         end
+       rescue => e
+         notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
+       end
      else
        country_code = session[:country_code]
      end
@@ -82,4 +89,14 @@ class ApplicationController < ActionController::Base
     end
     warden.custom_failure! if performed?
   end
+  
+  def notify_hoptoad(message)
+    begin
+      HoptoadNotifier.notify(:error_message => "GeoIP error : #{message}")
+    rescue => e
+      logger.error("GeoIP error: #{message}")
+      logger.error(e.backtrace)
+    end
+  end
+  
 end
