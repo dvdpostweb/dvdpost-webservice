@@ -8,6 +8,7 @@
       <%= link_to special.name, list_products_path(:list_id => special) %>
     </p>
     <ul id="left-nav">
+      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close' : 'close') if streaming_access? %></li>
       <li><%= link_to t('.recommendations'), products_path(:view_mode => :recommended), :class => ((params[:view_mode] == 'recommended') ? 'active_close' : 'close') %></li>
       <li>
         <%= display_btn_tops %>
@@ -23,7 +24,6 @@
           <%= left_column_categories(@category) %>
         </ul>
       </li>
-      <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close' : 'close') if streaming_access? %></li>
       <li><%= link_to t('.new'), products_path(:view_mode => :recent), :class => ((params[:view_mode] == 'recent') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.soon'), products_path(:view_mode => :soon), :class => ((params[:view_mode] == 'soon') ? 'active_close' : 'close') %></li>
       <li><%= link_to t('.cinema'), products_path(:view_mode => :cinema), :class => ((params[:view_mode] == 'cinema') ? 'active_close' : 'close') %></li>

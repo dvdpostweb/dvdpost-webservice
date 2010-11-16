@@ -1907,7 +1907,7 @@ html ul.tabs li.active a:hover {
   display: inline;
 }
 
-#carousel li .dvd, #carousel li .bluray {
+#carousel li .dvd, #carousel li .bluray, #carousel li .vod {
   background: url(../images/dvd-cover-mid.png) no-repeat;
   display: block;
   height: 125px;
@@ -1919,13 +1919,16 @@ html ul.tabs li.active a:hover {
 #carousel li .bluray {
   background: url(../images/bluray-cover-mid.png) 0 0 no-repeat;
 }
+#carousel li .vod {
+  background: url(../images/vod-cover-mid.png) 0 0 no-repeat;
+}
 
-#carousel li .dvd img, #carousel li .bluray img {
+#carousel li .dvd img, #carousel li .bluray img, #carousel li .vod img {
   float: left;
   margin-left: 4px;
 }
 
-#carousel li .dvd .new, #carousel li .bluray .new {
+#carousel li .dvd .new, #carousel li .bluray .new, #carousel li .vod .new {
   background: url(../images/new-mid.png) no-repeat;
   display: block;
   height: 50px;
@@ -1953,6 +1956,44 @@ html ul.tabs li.active a:hover {
   background: url(../images/ajouter-btn-mid.png) 0 -30px no-repeat;
   text-decoration: none;
 }
+
+#carousel li a.streaming_btn {
+  background: url(../images/add-btn-mid_vod.png) 0 -1px no-repeat;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 27px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+  margin: 0 0 4px 2px;
+}
+
+#carousel li a.streaming_btn:hover {
+  background: url(../images/add-btn-mid_vod.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
+#carousel li a.streaming_btn_replay {
+  background: url(../images/add-btn-mid_vod_replay.png) 0 -1px no-repeat;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 27px;
+  width: 59px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: left;
+  font-size: 1.09em;
+  margin: 0 0 4px 2px;
+}
+
+#carousel li a.streaming_btn_replay:hover {
+  background: url(../images/add-btn-mid_vod_replay.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
+
 
 #carousel li a.btn_remove {
   background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;

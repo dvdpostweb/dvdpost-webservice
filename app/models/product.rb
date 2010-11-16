@@ -221,7 +221,7 @@ class Product < ActiveRecord::Base
       sort = sort_by("available_at asc", options)
       products = products.by_kind(:normal).available
     else
-      sort = sort_by("in_stock DESC, rating DESC", options)
+      sort = sort_by("streaming_id desc, in_stock DESC, rating DESC", options)
       products = products.by_kind(:normal).available
     end
     if sort !=""

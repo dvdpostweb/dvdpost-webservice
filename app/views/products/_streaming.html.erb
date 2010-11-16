@@ -1,5 +1,5 @@
 <% if token && !token.expired? %>
-  <%= link_to t('.replay'), streaming_product_path(:id => product.imdb_id), :class => "streaming_btn_replay #{I18n.locale}" %>
+  <%= link_to t('.replay'), streaming_product_path(:id => product.imdb_id), :class => "streaming_btn_replay #{I18n.locale}", :title => t('.replay'), :label => t('.replay') %>
 <% else %>
-  <%= link_to t('.buy'), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id), :class => "streaming_btn streaming_action #{I18n.locale}" %>
+  <%= link_to t('.buy'), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id), :class => "streaming_btn streaming_action #{I18n.locale}", :title => t('.buy'), :label => t('.buy') %>
 <% end %>

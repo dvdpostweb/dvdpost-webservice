@@ -3,10 +3,10 @@
   <div class="stars" id="rating-stars-<%= recommendation_product.to_param %>" product_id ="<%= recommendation_product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => recommendation_product, :background => :white, :size => :small} %>
   </div>
-  <% link_to path, :class => product_media_id(recommendation_product.media) do %>
+  <% link_to path, :class => ((recommendation_product.streaming? and streaming_access?) ? 'vod' : product_media_id(recommendation_product.media)) do %>
     <%= product_image_tag recommendation_product.image, :width => 76, :height => 118, :alt => "#{recommendation_product.title} (#{recommendation_product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if recommendation_product.is_new? %>
   <% end %>
-  <%= render :partial => 'products/wishlist', :locals => {:product => recommendation_product, :text => :short, :source => DVDPost.source_wishlist[:recommandation]} %>
+  <%= render :partial => 'products/hybrid', :locals => {:product => recommendation_product, :text => :short, :source => DVDPost.source_wishlist[:recommandation]} %>
   <%= link_to recommendation_product.title, path, :class => 'more' %>
 </li>
