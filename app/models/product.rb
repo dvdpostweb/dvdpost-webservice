@@ -200,7 +200,7 @@ class Product < ActiveRecord::Base
           products.streaming_test
         end
       when :popular_streaming
-          products.popular_streaming
+          products.streaming
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
@@ -226,7 +226,7 @@ class Product < ActiveRecord::Base
     elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
       sort = sort_by("available_at asc", options)
     else
-      sort = sort_by("streaming_id desc, in_stock DESC, rating DESC", options)
+      sort = sort_by("in_stock DESC, rating DESC", options)
     end
     if sort !=""
       if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming)

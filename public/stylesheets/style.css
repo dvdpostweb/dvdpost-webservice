@@ -1888,6 +1888,15 @@ html ul.tabs li.active a:hover {
   width: 92px;
 }
 
+#carousel-wrap-hp #carousel li {
+  float: left;
+  font-size: 0.92em;
+  height: 260px;
+  margin: 0 5px;
+  overflow: hidden;
+  text-align: center;
+  width: 92px;
+}
 * html #carousel li {
   display: inline;
 }
@@ -2412,17 +2421,23 @@ h3.hp-ttls {
   background: url(../images/hp-ttls-nav-arrow.gif) 100% 1px no-repeat;
 }
 
-#carousel-wrap-hp {
+#carousel-wrap-hp, #carousel-wrap-wishlist-start {
   margin: 0 0 8px 2px;
+}
+#carousel-wrap-wishlist-start #carousel
+{
+  height: 260px;
+  background: url(../images/hp-carousel-wishlist-start.png) 0 0 no-repeat;
+  width: 827px;
 }
 
 #carousel-wrap-hp #carousel {
-  height: 260px;
+  height: 290px;
   background: url(../images/hp-carousel-bg.png) 0 0 no-repeat;
   width: 827px;
 }
 
-#carousel-wrap-hp #carousel li span.new {
+#carousel-wrap-hp #carousel li span.new, #carousel-wrap-wishlist-start #carousel li span.new {
   width: 72px;
   height: 63px;
   top: -5px;
@@ -2430,11 +2445,11 @@ h3.hp-ttls {
   background: url(../images/new-banner-hp.png) 0 0 no-repeat;
 }
 
-#carousel-wrap-hp #carousel a#next, #carousel-wrap-hp #carousel a.next_page {
+#carousel-wrap-hp #carousel a#next, #carousel-wrap-wishlist-start #carousel a.next_page, #carousel-wrap-hp #carousel a.next_page {
   right: -16px !important;
 }
 
-#carousel-wrap-hp #carousel a#prev, #carousel-wrap-hp #carousel a.prev_page {
+#carousel-wrap-hp #carousel a#prev, #carousel-wrap-hp #carousel a.prev_page, #carousel-wrap-wishlist-start #carousel a.prev_page{
   left: -16px !important;
 }
 
@@ -2796,6 +2811,9 @@ div.top10.first p a {
 #leftcolumn #left-nav li a.active_close {
   background: url(../images/leftnav-active-close-bg.png) no-repeat;
   color: white;
+}
+#leftcolumn #left-nav li a.new.active_close {
+ background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
 }
 
 #leftcolumn #left-nav li ul {
