@@ -226,7 +226,7 @@ module ApplicationHelper
   end
 
   def streaming_access?
-    current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD') and current_customer.beta_test
+    current_customer.address.belgian? && (session[:country_code] == 'BE' || session[:country_code] == 'RD')
   end
 
   def display_btn_tops
