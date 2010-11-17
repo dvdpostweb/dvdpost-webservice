@@ -296,4 +296,12 @@ module ApplicationHelper
     results.to_s + (input.length > len ? extension : '')  
   end
 
+  def streaming_btn_title(type, text)
+    if(type == :replay)
+      text == :short ? t('.replay_short') : t('.replay')
+    else
+      text == :short ? t('.buy_short') : t('.buy')
+    end
+  end
+
 end

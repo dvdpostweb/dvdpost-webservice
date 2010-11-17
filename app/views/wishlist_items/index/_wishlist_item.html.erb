@@ -17,6 +17,6 @@
     <%= render :partial => 'wishlist_items/index/priorities', :locals => {:wishlist_item => wishlist_item} %>
   </ul>
   <span class="trash">
-    <%= link_to image_tag('trash-icon.gif', :alt => 'Trash it'), wishlist_item_path(:id => wishlist_item.to_param) %>
+    <%= link_to image_tag('trash-icon.gif', :alt => "trash : #{wishlist_item.product.title}"), wishlist_item_path(:id => wishlist_item.to_param), :title => "trash : #{wishlist_item.product.title}" %>
   </span>
 </div>

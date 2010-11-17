@@ -755,67 +755,51 @@ fieldset {
 }
 
 #titles-wrap .action a.btn {
-  background: url(../images/ajouter-btn.png) 0 0 no-repeat;
-  display: block;
-  float: left;
-  height: 41px;
-  line-height: 35px;
-  margin: 0 0 0 3px;
-  width: 132px;
-  padding: 2px 0 0 40px;
-  color: white;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  background:url("../images/ajouter-btn.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  display:block;
+  float:left;
+  height:41px;
+  line-height:35px;
+  margin:0 0 0 3px;
+  padding:2px 9px 0 32px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:126px;
 }
 #titles-wrap .action a.streaming_btn {
-  background: url(../images/vodbtn.png) 0 -3px no-repeat;  display: block;
-  float: left;
-  height: 38px;
-  line-height: 35px;
-  margin: 0 0 0 3px;
-  width: 132px;
-  color: white;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  background:url("../images/vodbtn.png") no-repeat scroll 0 -3px transparent;
+  color:white;
+  display:block;
+  float:left;
+  height:38px;
+  line-height:35px;
+  margin:0 0 0 3px;
+  padding:1px 6px 0 25px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:134px;
 }
-
-#titles-wrap .action a.streaming_btn.en
-{
-  padding: 0 0 0 40px;
+#titles-wrap .action a.streaming_btn:hover {
+  background:url("../images/vodbtn.png") no-repeat scroll 0 -42px transparent;
 }
-
-#titles-wrap .action a.streaming_btn.nl
-{
-  padding: 0 0 0 32px;
-}
-
-#titles-wrap .action a.streaming_btn.fr
-{
-  padding: 0 0 0 31px;
-}
-
 #titles-wrap .action a.streaming_btn_replay {
   background: url(../images/vodbtn_replay.png) 0 -3px no-repeat;  display: block;
   float: left;
   height: 38px;
   line-height: 35px;
   margin: 0 0 0 3px;
-  width: 132px;
-  padding: 0 0 0 40px;
+  padding:1px 6px 0 25px;
+  width: 134px;
   color: white;
   text-decoration: none;
   text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  text-align: center;
 } 
-#titles-wrap .action a.streaming_btn_replay.en{
-  padding: 0 0 0 29px !important;
-  width: 143px;
-}
-#titles-wrap .action a.streaming_btn_replay.nl{
-  padding: 0 0 0 32px !important;
-  width: 1146px;
+#titles-wrap .action a.streaming_btn_replay:hover {
+  background:url("../images/vodbtn_replay.png") no-repeat scroll 0 -42px transparent;
 }
 #titles-wrap .action a.btn:hover {
   background: url(../images/ajouter-btn.png) 0 -39px no-repeat;
@@ -1943,13 +1927,13 @@ html ul.tabs li.active a:hover {
   display: block;
   height: 27px;
   line-height: 24px;
-  padding-left: 27px;
-  width: 59px;
+  padding:0 9px 0 18px;
+  width: 62px;
   color: white;
   text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  text-align: center;
   font-size: 1.09em;
-  margin: 0 0 4px 2px;
+  margin: 0 0 4px 1px;
 }
 
 #carousel li a.btn:hover {
@@ -1958,17 +1942,17 @@ html ul.tabs li.active a:hover {
 }
 
 #carousel li a.streaming_btn {
-  background: url(../images/add-btn-mid_vod.png) 0 -1px no-repeat;
-  display: block;
-  height: 27px;
-  line-height: 24px;
-  padding-left: 27px;
-  width: 59px;
-  color: white;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: left;
-  font-size: 1.09em;
-  margin: 0 0 4px 2px;
+  background:url("../images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
+  color:white;
+  display:block;
+  font-size:1.09em;
+  height:27px;
+  line-height:24px;
+  padding:0 9px 0 18px;
+  text-align:center;
+  text-shadow:1px 1px 1px #999999;
+  width:62px;
+  margin: 0 0 4px 1px;
 }
 
 #carousel li a.streaming_btn:hover {
@@ -1977,16 +1961,16 @@ html ul.tabs li.active a:hover {
 }
 #carousel li a.streaming_btn_replay {
   background: url(../images/add-btn-mid_vod_replay.png) 0 -1px no-repeat;
-  display: block;
-  height: 27px;
-  line-height: 24px;
-  padding-left: 27px;
-  width: 59px;
-  color: white;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: left;
-  font-size: 1.09em;
-  margin: 0 0 4px 2px;
+  color:white;
+  display:block;
+  font-size:1.09em;
+  height:27px;
+  line-height:24px;
+  padding:0 9px 0 18px;
+  text-align:center;
+  text-shadow:1px 1px 1px #999999;
+  width:62px;
+  margin: 0 0 4px 1px;
 }
 
 #carousel li a.streaming_btn_replay:hover {
@@ -2001,12 +1985,13 @@ html ul.tabs li.active a:hover {
   height: 27px;
   line-height: 24px;
   padding-left: 24px;
-  width: 59px;
+  width: 62px;
+  padding: 0 9px 0 20px;
   color: white;
   text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  text-align: center;
   font-size: 1.09em;
-  margin: 0 0 4px 2px;
+  margin: 0 0 4px 1px;
 }
 
 #carousel li a.btn_remove:hover {
@@ -2532,11 +2517,13 @@ h3.hp-ttls {
   height: 27px;
   line-height: 24px;
   padding-left: 27px;
-  width: 59px;
+  width: 62px;
   color: white;
   text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  text-align: center;
   font-size: 1.09em;
+  padding:0 9px 0 18px;
+  text-decoration: none;
   background: url(../images/ajouter-btn-mid.png) 0 0 no-repeat;
 }
 .top10 .load
@@ -2562,11 +2549,13 @@ h3.hp-ttls {
   height: 27px;
   line-height: 24px;
   padding-left: 22px;
-  width: 63px;
+  width: 59px;
+  padding:0 9px 0 21px;
   color: white;
   text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  text-align: center;
   font-size: 1.09em;
+  text-decoration: none;
   background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
 }
 
@@ -2701,28 +2690,31 @@ div.top10.first p a {
   display: block;
   height: 27px;
   line-height: 24px;
-  padding-left: 27px;
-  width: 59px;
+  width: 62px;
+  padding: 0 9px 0 18px;
   color: white;
   text-shadow: 1px 1px 1px #999999;
-  text-align: left;
+  text-align: center;
   font-size: 1.09em;
   margin: 7px 0 3px;
+  text-decoration: center;
   background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
+  text-decoration: none;  
 }
 
 #new-m li a.btn_remove {
-  display: block;
-  height: 27px;
-  line-height: 24px;
-  padding-left: 25px;
-  width: 61px;
-  color: white;
-  text-shadow: 1px 1px 1px #999999;
-  text-align: left;
-  font-size: 1.09em;
-  margin: 7px 0 3px;
-  background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
+  background:url("../images/drop-btn-mid.png") no-repeat scroll 0 0 transparent;
+  color:white;
+  display:block;
+  font-size:1.09em;
+  height:27px;
+  line-height:24px;
+  margin:7px 0 3px;
+  padding:0 9px 0 20px;
+  text-align:center;
+  text-shadow:1px 1px 1px #999999;
+  width:62px;
+  text-decoration: none;
 }
 
 #new-m #nouv {
@@ -3314,41 +3306,41 @@ p.flash_error {
   width: 900px;
 }
 #add_to_wishlist .item {
-  background: url("../images/ajouterbtn.png") no-repeat scroll 0 0 transparent;
-  color: white;
-  height: 38px;
-  line-height: 35px;
-  margin: 0 0 0 3px;
-  padding: 0 0 0 22px;
-  text-align: center;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #999999;
-  width: 163px;
-  border-style: hidden;
-  cursor: pointer;
+  background:url("../images/ajouterbtn.png") no-repeat scroll 0 -3px transparent;
+  border-style:hidden;
+  color:white;
+  cursor:pointer;
+  height:37px;
+  line-height:35px;
+  margin:0 0 0 3px;
+  padding:0 7px 5px 31px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:164px;
 }
 
 #add_to_wishlist .item:hover {
-  background: url("../images/ajouterbtn.png") no-repeat scroll 0 -39px transparent;
+  background: url("../images/ajouterbtn.png") no-repeat scroll 0 -42px transparent;
 }
 
 #add_to_wishlist .serie {
-  background: url("../images/ajouterbtn_serie.png") no-repeat scroll 0 0 transparent;
-  color: white;
-  height: 38px;
-  line-height: 35px;
-  margin: 0 0 0 3px;
-  padding: 2px 0 0 40px;
-  text-align: left;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #999999;
-  width: 163px;
-  border-style: hidden;
-  cursor: pointer;
+  background:url("../images/ajouterbtn_serie.png") no-repeat scroll 0 -3px transparent;
+  border-style:hidden;
+  color:white;
+  cursor:pointer;
+  height:38px;
+  line-height:35px;
+  margin:0 0 0 3px;
+  padding:0 7px 5px 31px;
+  text-align:center;
+  text-decoration:none;
+  text-shadow:1px 1px 1px #999999;
+  width:164px;
 }
 
 #add_to_wishlist .serie:hover {
-  background: url("../images/ajouterbtn_serie.png") no-repeat scroll 0 -39px transparent;
+  background: url("../images/ajouterbtn_serie.png") no-repeat scroll 0 -42px transparent;
 }
 
 #all_categorie {

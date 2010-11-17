@@ -92,6 +92,7 @@ class Product < ActiveRecord::Base
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
+    has "(select count(*) as count_tokens from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
     set_property :enable_star => true
@@ -129,6 +130,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
+  sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
@@ -197,6 +199,8 @@ class Product < ActiveRecord::Base
         else
           products.streaming_test
         end
+      when :popular_streaming
+          products.popular_streaming
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
@@ -205,27 +209,27 @@ class Product < ActiveRecord::Base
         products
       end
     end
+    products = products.by_kind(:normal).available
+
     if options[:list_id] && !options[:list_id].blank?
-      products = products.by_kind(:normal).available
       sort = sort_by("special_order asc", options)
     elsif options[:search] && !options[:search].blank?
-      products = products.by_kind(:normal).available
       sort = sort_by("", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
-      products = products.by_kind(:normal).available
       sort = sort_by("streaming_id desc", options)
+    elsif options[:view_mode] && options[:view_mode].to_sym == :streaming
+      sort = sort_by("streaming_id desc", options)
+    elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
+      sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :popular)
-      products = products.by_kind(:normal).available
       sort = sort_by("available_at desc", options)
     elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
       sort = sort_by("available_at asc", options)
-      products = products.by_kind(:normal).available
     else
       sort = sort_by("streaming_id desc, in_stock DESC, rating DESC", options)
-      products = products.by_kind(:normal).available
     end
     if sort !=""
-      if options[:view_mode] && options[:view_mode].to_sym == :streaming
+      if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming)
         products = products.group('imdb_id', sort)
       else
         products = products.order(sort, :extended) 

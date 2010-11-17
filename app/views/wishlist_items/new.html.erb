@@ -17,24 +17,24 @@
     <table align="center">
       <tr>
         <td width="100" align="center">
-          <%= f.label :priority_1, image_tag('high.gif', :alt => 'High') %>
+          <%= f.label :priority_1, image_tag('high.gif', :alt => 'High'), :title => 'priority high' %>
         </td>
         <td width="100" align="center">
-          <%= f.label :priority_2, image_tag('med.gif', :alt => 'Medium') %>
+          <%= f.label :priority_2, image_tag('med.gif', :alt => 'Medium'), :title => 'priority medium' %>
         </td>
         <td width="100" align="center">
-          <%= f.label :priority_3, image_tag('low.gif', :alt => 'Low') %>
+          <%= f.label :priority_3, image_tag('low.gif', :alt => 'Low'), :title => 'priority low' %>
         </td>
       </tr>
       <tr>
         <td width="100" align="center">
-          <%= f.radio_button :priority, '1', :checked => DVDPostConfig[:default_wishlist_priority] == :high %>
+          <%= f.radio_button :priority, '1', :checked => DVDPostConfig[:default_wishlist_priority] == :high, :title => 'priority high' %>
         </td>
         <td width="100" align="center">
-          <%= f.radio_button :priority, '2', :checked => DVDPostConfig[:default_wishlist_priority] == :medium %>
+          <%= f.radio_button :priority, '2', :checked => DVDPostConfig[:default_wishlist_priority] == :medium, :title => 'priority medium' %>
         </td>
         <td width="100" align="center">
-          <%= f.radio_button :priority, '3', :checked => DVDPostConfig[:default_wishlist_priority] == :low %>
+          <%= f.radio_button :priority, '3', :checked => DVDPostConfig[:default_wishlist_priority] == :low, :title => 'priority low' %>
         </td>
       </tr>
     </table>
@@ -43,8 +43,8 @@
     <div id ='attention_langues'><p><%= t '.error_language' %></p></div>
   <% end %>
   <p class="align" id="add_to_wishlist">
-  <%= f.submit title_add_to_wishlist(:long), :class => 'item' %>
-  <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series' if @wishlist_item.product.series? %>
+  <%= f.submit title_add_to_wishlist(:long), :class => 'item', :title => title_add_to_wishlist(:long) %>
+  <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if @wishlist_item.product.series? %>
   </p>
   <% if @wishlist_item.product.products_next == 1 && @wishlist_item.product.available_at %>
     <p class="align">

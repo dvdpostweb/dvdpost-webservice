@@ -21,7 +21,10 @@ $(function() {
   });
 
   $(".trash a").live("click", function() {
-    if (confirm($("#confirm").html())) {
+    title = $(this).parent().parent().children('.title').children().html();
+    question = $("#confirm").html();
+    confirm_sentence =  question.replace('[title]',title);
+    if (confirm(confirm_sentence)) {
       content = $(this).html();
       parent_div = $(this).parent();
       parent_div.html("<img src='/images/ajax-loader.gif' />");

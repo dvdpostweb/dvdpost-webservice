@@ -53,7 +53,7 @@
     
   </div>
   <div>
-    <% link_to path, :class => :cover do %>
+    <% link_to path, :class => :cover, :title => product.title do %>
       <%= product_image_tag product.image, :width => 62, :height => 95 %>
     <% end %>
   </div>

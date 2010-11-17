@@ -191,6 +191,12 @@ class Customer < ActiveRecord::Base
     pop = popular - hidden_products
   end
 
+  def popular_streaming(options={})
+    popular_vod = Product.filter(filter, options.merge(:view_mode => :popular_streaming))
+    hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
+    pop = popular_vod - hidden_products
+  end
+
   def update_dvd_at_home!(operator, product)
     attribute = if product.kind == DVDPost.product_kinds[:adult]
       :customers_abo_dvd_home_adult

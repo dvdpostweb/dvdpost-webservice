@@ -2,21 +2,12 @@
 <div id="maincontent">
   <div id="title"><%= products_index_title %></div>
   <%= render :partial => 'layouts/filters' %>
+  <% if params[:category_id] %>
+    <%= render :partial => 'products/index/streaming', :locals => {:products => @popular} %>
+  <% end %>
   <div id="titles-wrap">
     <div class="top"></div>
-    <div class="bysort">
-      <div class="bysort_title">Trier par : </div>
-      <div class="bysort_choice">
-        <table cellpadding="0" cellspacing="0" class="sortby">
-          <tr>
-            <td width="80" class="normal <%= @class_sort[DVDPost.sort_by[:default]]%>"><%= link_to t('.normal'), url_for(:action => :index , :params => params.except(:sort, :sort_type)) %></td>
-            <td width="80" class="<%= @class_sort[DVDPost.sort_by[:alpha]]%>"><%= link_to t('.titres'), url_for(:action => :index , :params => params.merge({:sort => DVDPost.sort_by[:alpha], :sort_type => @next_type_sort[DVDPost.sort_by[:alpha]]})) %></td>
-            <td width="80" class="<%= @class_sort[DVDPost.sort_by[:rating]]%>"><%= link_to t('.rating'), url_for(:action => :index , :params => params.merge({:sort => DVDPost.sort_by[:rating], :sort_type => @next_type_sort[DVDPost.sort_by[:rating]]})) %></td>
-          </tr>
-        </table>
-      </div>
-      <div style="clear:both"></div>
-    </div>
+    <%= render :partial => 'products/index/sorting' %>
       <% if @products %>
         <%= render :partial => 'products/index/movie_detail', :collection => @products %>
         <% if @products.size == 0 && params[:view_mode] == 'recommended' %>

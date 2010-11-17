@@ -4,51 +4,65 @@ class ProductsController < ApplicationController
   def index
     @filter = current_customer.filter || current_customer.build_filter
     params.delete(:search) if params[:search] == t('products.left_column.search')
-    @products = if params[:view_mode] == 'recommended'
-      current_customer.recommendations({:page => params[:page], :sort => params[:sort], :sort_type => params[:sort_type]})
-    else
-      Product.filter(@filter, params)
+    
+    
+    if params[:category_id]
+      @popular = current_customer.popular_streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
     end
+    
+    
+    respond_to do |format|
+      format.html do
+        @products = if params[:view_mode] == 'recommended'
+          current_customer.recommendations({:page => params[:page], :sort => params[:sort], :sort_type => params[:sort_type]})
+        else
+          Product.filter(@filter, params)
+        end
 
-    if params[:view_mode] == 'recommended'
-      @source = DVDPost.source_wishlist[:recommandation]
-    else
-      @source = DVDPost.source_wishlist[:else]
-    end
-
-    @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
-    @countries = ProductCountry.visible.order
-    if params[:list_id] && !params[:list_id].blank?
-      style = ProductList.find(params[:list_id]).style
-      if style == 'STREAMING'
-        params[:view_mode] = 'streaming'
+        if params[:view_mode] == 'recommended'
+          @source = DVDPost.source_wishlist[:recommandation]
+        else
+          @source = DVDPost.source_wishlist[:else]
+        end
+        @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
+        @countries = ProductCountry.visible.order
+        if params[:list_id] && !params[:list_id].blank?
+          style = ProductList.find(params[:list_id]).style
+          if style == 'STREAMING'
+            params[:view_mode] = 'streaming'
+          end
+        end
+        if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
+          session[:menu_categories] = true
+          session[:menu_tops] = false
+        end
+        @class_sort = Hash.new
+        @next_type_sort = Hash.new
+        type = case params[:sort_type]
+          when 'asc' then  params[:sort_type]
+          when 'desc' then  params[:sort_type]
+          else 
+            'desc'
+          end
+        if !params[:sort]
+          params[:sort] = 'default'
+        end
+        DVDPost.sort_by.each do |key, value|
+          if params[:sort] == key
+            @class_sort[key] = "select select_#{type}"
+            @next_type_sort[key] = params[:sort_type] == 'asc' ? 'desc' : 'asc' 
+          else
+            @class_sort[key] = ""
+            @next_type_sort[key] = DVDPost.sort_type_next[key]
+          end
+        end
       end
-    end
-    if(params[:view_mode] == nil && params[:list_id] == nil && params[:category_id] == nil)
-      session[:menu_categories] = true
-      session[:menu_tops] = false
-    end
-    @class_sort = Hash.new
-    @next_type_sort = Hash.new
-    type = case params[:sort_type]
-      when 'asc' then  params[:sort_type]
-      when 'desc' then  params[:sort_type]
-      else 
-        'desc'
-      end
-    if !params[:sort]
-      params[:sort] = 'default'
-    end
-    DVDPost.sort_by.each do |key, value|
-      if params[:sort] == key
-        @class_sort[key] = "select select_#{type}"
-        @next_type_sort[key] = params[:sort_type] == 'asc' ? 'desc' : 'asc' 
-      else
-        @class_sort[key] = ""
-        @next_type_sort[key] = DVDPost.sort_type_next[key]
-      end
-    end
-      
+      format.js {
+        if params[:category_id]
+          render :partial => 'products/index/streaming', :locals => {:products => @popular}
+        end
+      }
+    end  
   end
 
   def show
