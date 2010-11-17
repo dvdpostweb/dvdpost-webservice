@@ -139,6 +139,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
 
   def self.filter(filter, options={})
+    
     products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
     products = products.by_products_list(options[:list_id]) if options[:list_id] && !options[:list_id].blank?
     products = products.by_actor(options[:actor_id]) if options[:actor_id]
@@ -200,7 +201,7 @@ class Product < ActiveRecord::Base
           products.streaming_test
         end
       when :popular_streaming
-          products.streaming
+          products.streaming.limit(10)
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
@@ -229,10 +230,10 @@ class Product < ActiveRecord::Base
       sort = sort_by("in_stock DESC, rating DESC", options)
     end
     if sort !=""
-      if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming)
+      if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming )
         products = products.group('imdb_id', sort)
       else
-        products = products.order(sort, :extended) 
+        products = products.order(sort, :extended)
       end
     end
     products
@@ -338,6 +339,8 @@ class Product < ActiveRecord::Base
         "descriptions_title_#{I18n.locale} #{type}"
       elsif options[:sort] == 'rating'
         "rating #{type}, in_stock DESC"
+      elsif options[:sort] == 'token'
+        "count_tokens #{type}, streaming_id desc"
       else
         default
       end

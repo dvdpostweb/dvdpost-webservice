@@ -191,8 +191,8 @@ class Customer < ActiveRecord::Base
     pop = popular - hidden_products
   end
 
-  def popular_streaming(options={})
-    popular_vod = Product.filter(filter, options.merge(:view_mode => :popular_streaming))
+  def streaming(options={})
+    popular_vod = Product.filter(filter, options.merge(:view_mode => :streaming, :sort => 'token', :sort_type => 'desc'))
     hidden_products = (rated_products + seen_products + wishlist_products + uninterested_products)
     pop = popular_vod - hidden_products
   end

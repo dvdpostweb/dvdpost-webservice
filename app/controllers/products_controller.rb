@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
     
     
     if params[:category_id]
-      @popular = current_customer.popular_streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
+      @popular = current_customer.streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
     end
     
     
