@@ -81,5 +81,4 @@ module StreamingProductsHelper
       "none"
     end
   end
-
 end

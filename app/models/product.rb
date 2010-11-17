@@ -372,4 +372,21 @@ class Product < ActiveRecord::Base
       logger.error(e.backtrace)
     end
   end
+
+  def self.get_jacket_mode(params)
+    if params[:list_id] && !params[:list_id].blank?
+      style = ProductList.find(params[:list_id]).style
+      if style == 'STREAMING'
+        jacket_mode = :streaming
+      end
+    end
+    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming))
+      jacket_mode = :streaming
+    end
+    if jacket_mode.nil?
+      jacket_mode = :normal
+    end
+    jacket_mode
+  end
+  
 end

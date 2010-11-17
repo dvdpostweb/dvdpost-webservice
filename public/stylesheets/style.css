@@ -768,6 +768,7 @@ fieldset {
   text-shadow:1px 1px 1px #999999;
   width:126px;
 }
+left-tab-bg-vod-new.png
 #titles-wrap .action a.streaming_btn {
   background:url("../images/vodbtn.png") no-repeat scroll 0 -3px transparent;
   color:white;
@@ -2779,7 +2780,9 @@ div.top10.first p a {
   text-transform: uppercase;
   width: 148px;
 }
-
+#leftcolumn #left-nav li a.new {
+  background: url(../images/left-tab-bg-vod-new.png) 0 0 no-repeat;
+}
 #leftcolumn #left-nav li a:hover,#leftcolumn #left-nav li a.actived {
   color: black;
   text-decoration: none;
