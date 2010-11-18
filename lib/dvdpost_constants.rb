@@ -46,6 +46,14 @@ module DVDPost
       })
     end
 
+    def list_languages
+      HashWithIndifferentAccess.new.merge({
+        :fr => 0,
+        :nl => 1,
+        :en => 2
+      })
+    end
+
     def customer_languages
       HashWithIndifferentAccess.new.merge({
         :fr => 1,

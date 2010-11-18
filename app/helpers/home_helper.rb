@@ -31,10 +31,15 @@ module HomeHelper
         info_path(:page_name => carousel.name)
       when 'OLD_SITE'
         remote_carousel_path(t(".url_#{carousel.id}"))
-      when 'TOP'
-        list_products_path(:list_id => carousel.reference_id)
-      when 'THEME'
-        list_products_path(:list_id => carousel.reference_id)
+      when 'TOP' || 'THEME'
+        ref = carousel.reference_id.to_s
+        if ref.include?(',')
+          data = ref.split(',')
+          id = data[DVDPost.list_languages[I18n.locale]]
+        else
+          id = carousel.reference_id
+        end
+        list_products_path(:list_id => id)
       when 'DIRECTOR'
         director_products_path(:director_id => carousel.reference_id)
       when 'ACTOR'
