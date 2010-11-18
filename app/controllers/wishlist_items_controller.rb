@@ -108,31 +108,44 @@ class WishlistItemsController < ApplicationController
   end
 
   def destroy
-    @wishlist_item = WishlistItem.destroy(params[:id])
-    DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
-    respond_to do |format|
-      format.html {redirect_back_or  wishlist_path}
-      format.js   do
-        if params[:popular]
-          @product_id = params[:product_id]
-          popular_page = session[:popular_page] || 1
-          @popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
-          if popular_page.to_i > 1 && @popular.size == 0
-            session[:popular_page] = popular_page.to_i - 1
-            @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
-          end
-          @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
-        elsif params[:list]
-          @product = @wishlist_item.product
-          @source = params[:source]
-          @type = 'list'
-          @text = params[:text].to_sym
-          @submit_id = params[:submit_id]
-          @load_color = params[:load_color].to_sym if params[:load_color]
+    begin
+      @wishlist_item = WishlistItem.destroy(params[:id])
+      DVDPost.send_evidence_recommendations('RemoveFromWishlist', params[:id], current_customer, request.remote_ip)
+      respond_to do |format|
+        format.html {redirect_back_or  wishlist_path}
+        format.js   do
+          if params[:popular]
+            @product_id = params[:product_id]
+            popular_page = session[:popular_page] || 1
+            @popular = current_customer.popular.paginate(:page => popular_page, :per_page => 8)
+            if popular_page.to_i > 1 && @popular.size == 0
+              session[:popular_page] = popular_page.to_i - 1
+              @popular = current_customer.popular.paginate(:page => session[:popular_page], :per_page => 8)
+            end
+            @wishlist = current_customer.wishlist_items.current.available.ordered_by_id.by_kind(:normal).include_products.limit(8)
+          elsif params[:list]
+            @product = @wishlist_item.product
+            @source = params[:source]
+            @type = 'list'
+            @text = params[:text].to_sym
+            @submit_id = params[:submit_id]
+            @load_color = params[:load_color].to_sym if params[:load_color]
           
-        else  
-          render :status => :ok, :nothing => true
+          else  
+              render :status => :ok, :nothing => true
+          end
         end
+      end
+    rescue Exception => e
+      if params[:list]
+        @product = WishlistItem.find(params[:id]).product
+        @source = params[:source]
+        @type = 'list'
+        @text = params[:text].to_sym
+        @submit_id = params[:submit_id]
+        @load_color = params[:load_color].to_sym if params[:load_color]
+      else  
+        render :status => :error, :nothing => true  
       end
     end
   end

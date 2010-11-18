@@ -23,10 +23,11 @@ $(function() {
   $(".trash a").live("click", function() {
     title = $(this).parent().parent().children('.title').children().html();
     question = $("#confirm").html();
+    
     confirm_sentence =  question.replace('[title]',title);
     if (confirm(confirm_sentence)) {
-      content = $(this).html();
       parent_div = $(this).parent();
+      content = parent_div.html();
       parent_div.html("<img src='/images/ajax-loader.gif' />");
       $.ajax({
         url: $(this).attr('href'),
@@ -35,8 +36,20 @@ $(function() {
         success: function() {
           parent_div.parent().remove();
         },
-        error: function() {
-          $(this).html(content);
+        error: function(data) {
+          error = $("#error_delete").html();
+          error_sentence =  error.replace('[title]',title);
+          
+          if ($('.flash_error').length == 0){
+            $(".container").prepend("<p class='flash_error'>"+error_sentence+"</p>")
+            $(".flash_error").css('height','1px')
+            $(".flash_error").css('padding','0')
+            $(".flash_error").animate({height:16, padding: 10}, 300, "linear", function(){} );
+          }else{
+            $(".container .flash_error").html(error_sentence)
+          }
+          
+          parent_div.html(content);
         }
       });
     };
@@ -130,6 +143,7 @@ $(function() {
   
   $("a.btn_remove").live("click", function() {
       content = $(this).html();
+      html_item=$(this)
       $(this).removeClass('btn_remove');
       $(this).html("<div style='height:31px'><img src='/images/ajax-loader.gif' /></div>");
       $.ajax({
@@ -139,7 +153,8 @@ $(function() {
         success: function() {
         },
         error: function() {
-          $(this).html(content)
+          html_item.html(content)
+          html_item.addClass('btn_remove');
         }
       });
     return false;
