@@ -31,7 +31,7 @@ module HomeHelper
         info_path(:page_name => carousel.name)
       when 'OLD_SITE'
         remote_carousel_path(t(".url_#{carousel.id}"))
-      when 'TOP' || 'THEME'
+      when 'TOP', 'THEME'
         ref = carousel.reference_id.to_s
         if ref.include?(',')
           data = ref.split(',')
