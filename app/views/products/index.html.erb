@@ -10,8 +10,14 @@
     <%= render :partial => 'products/index/sorting' %>
       <% if @products %>
         <%= render :partial => 'products/index/movie_detail', :collection => @products, :locals => {:jacket_mode => @jacket_mode} %>
-        <% if @products.size == 0 && params[:view_mode] == 'recommended' %>
-          <%= t '.recommendations_empty' %>
+        <% if @products.size == 0 %>
+          <p>
+          <% if params[:view_mode] == 'recommended'%>
+            <%= t '.recommendations_empty' %>
+          <% else %>
+            <%= t '.products_empty' %>
+          <% end %>
+          </p>
         <% end %>
       <% else %>
         <%= t '.recommendations_unavailable' %>
