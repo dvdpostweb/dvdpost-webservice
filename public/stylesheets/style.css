@@ -612,7 +612,11 @@ fieldset {
   padding-left: 90px;
   position: relative;
 }
-
+#titles-wrap #carousel-wrap .vod
+{
+  padding-left: 0;
+  border: none;
+} 
 #titles-wrap .bluray {
   background: #c2edfb url(../images/movie-info-shadow.png) 495px 0 repeat-y;
 }
@@ -2254,6 +2258,10 @@ html ul.tabs li.active a:hover {
   display: block;
   margin: 18px 0 6px 0;
 }
+.ttls-nav-vod {
+  display: block;
+  margin: 0 0 6px 0;
+}
 
 .ttls-nav li {
   float: left;
@@ -3839,4 +3847,214 @@ padding-left:8px;
   width:461px;
   padding: 0 0 5px 0;
   margin:0 0 0 316px;
+}
+#carousel_vod{
+background-color:#FFFFFF;
+border:1px solid #A7A7A7;
+margin-bottom:8px;
+min-height:254px;
+padding-left:20px;
+padding-right:20px;
+position:relative;
+width:612px;
+}
+
+#carousel_vod-wrap {
+  margin-left: 2px;
+}
+
+#carousel_vod-wrap h2 {
+  font-size: 1.17em;
+  margin-left: 2px;
+  text-transform: uppercase;
+}
+
+#carousel_vod {
+  background: url(/images/carousel_vod-bg.png) no-repeat;
+  height: 262px;
+  margin-bottom: 10px;
+  padding: 0 30px;
+  position: relative;
+  width: 612px;
+}
+#carousel_vod .error, #flash-news .error, .tab_container .error
+{
+  background: url("/images/attention_icon.png") no-repeat scroll 0 0 transparent;
+  padding: 18px 0 0 50px;
+}
+#flash-news .error, .tab_container .error
+{
+  margin: 0 0 0 30px ;
+}
+#carousel_vod ul {
+  display: block;
+  left: 33px;
+  position: absolute;
+  top: 12px;
+}
+
+#carousel_vod a {
+  color: #454545;
+}
+
+* html #carousel_vod ul {
+  display: inline;
+  width: 100%;
+}
+
+#carousel_vod li {
+  float: left;
+  font-size: 0.92em;
+  height:232px;
+  margin: 0 5px;
+  overflow: hidden;
+  text-align: center;
+  width: 92px;
+}
+
+#carousel_vod-wrap-hp #carousel_vod li {
+  float: left;
+  font-size: 0.92em;
+  height: 260px;
+  margin: 0 5px;
+  overflow: hidden;
+  text-align: center;
+  width: 92px;
+}
+* html #carousel_vod li {
+  display: inline;
+}
+
+#carousel_vod li .dvd, #carousel_vod li .bluray, #carousel_vod li .vod {
+  background: url(/images/dvd-cover-mid.png) no-repeat;
+  display: block;
+  height: 125px;
+  margin: 2px 0 4px 2px;
+  padding-top: 18px;
+  position: relative;
+}
+
+#carousel_vod li .bluray {
+  background: url(/images/bluray-cover-mid.png) 0 0 no-repeat;
+}
+#carousel_vod li .vod {
+  background: url(/images/vod-cover-mid.png) 0 0 no-repeat;
+}
+
+#carousel_vod li .dvd img, #carousel_vod li .bluray img, #carousel_vod li .vod img {
+  float: left;
+  margin-left: 4px;
+}
+
+#carousel_vod li .dvd .new, #carousel_vod li .bluray .new, #carousel_vod li .vod .new {
+  background: url(/images/new-mid.png) no-repeat;
+  display: block;
+  height: 50px;
+  left: 39px;
+  position: absolute;
+  top: 0;
+  width: 47px;
+}
+
+#carousel_vod li a.btn {
+  background: url(/images/ajouter-btn-mid.png) 0 -1px no-repeat;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding:0 9px 0 18px;
+  width: 62px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: center;
+  font-size: 1.09em;
+  margin: 0 0 4px 1px;
+}
+
+#carousel_vod li a.btn:hover {
+  background: url(/images/ajouter-btn-mid.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
+
+#carousel_vod li a.streaming_btn {
+  background:url("/images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
+  color:white;
+  display:block;
+  font-size:1.09em;
+  height:27px;
+  line-height:24px;
+  padding:0 9px 0 18px;
+  text-align:center;
+  text-shadow:1px 1px 1px #999999;
+  width:62px;
+  margin: 0 0 4px 1px;
+}
+
+#carousel_vod li a.streaming_btn:hover {
+  background: url(/images/add-btn-mid_vod.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
+#carousel_vod li a.streaming_btn {
+background:url("/images/add-btn-mid_vod.png") no-repeat scroll 0 -1px transparent;
+color:white;
+display:block;
+font-size:1.09em;
+height:27px;
+line-height:24px;
+margin:0 0 4px 1px;
+padding:0 9px 0 18px;
+text-align:center;
+text-shadow:1px 1px 1px #999999;
+width:62px;
+}
+
+#carousel_vod li a.streaming_btn_replay:hover {
+  background: url(/images/add-btn-mid_vod_replay.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
+
+
+#carousel_vod li a.btn_remove {
+  background: url(/images/drop-btn-mid.png) 0 -1px no-repeat;
+  display: block;
+  height: 27px;
+  line-height: 24px;
+  padding-left: 24px;
+  width: 62px;
+  padding: 0 9px 0 20px;
+  color: white;
+  text-shadow: 1px 1px 1px #999999;
+  text-align: center;
+  font-size: 1.09em;
+  margin: 0 0 4px 1px;
+}
+
+#carousel_vod li a.btn_remove:hover {
+  background: url(/images/drop-btn-mid.png) 0 -30px no-repeat;
+  text-decoration: none;
+}
+
+#carousel_vod #prev, #carousel_vod #next,#carousel_vod .prev_page, #carousel_vod .next_page {
+  background: url(/images/carousel_vod-arrows.png) 0 0 no-repeat;
+  display: block;
+  height: 33px;
+  position: absolute;
+  top: 104px;
+  width: 17px;
+}
+
+#carousel_vod #prev, #carousel_vod .prev_page {
+  left: -14px;
+  outline: medium none;
+  text-indent: -999em;
+}
+.title-vod
+{
+  margin: 0 0 10px 0;
+}
+
+#carousel_vod #next, #carousel_vod .next_page {
+  background: url(/images/carousel-arrows.png) 100% 0 no-repeat;
+  right: -17px !important;
+  outline: medium none;
+  text-indent: -999em;
 }

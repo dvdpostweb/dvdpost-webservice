@@ -1,0 +1,13 @@
+<div id="report_title"><%= "#{@product.title} " %></div>
+
+kel est le probleme ?
+<% form_for @message do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field(:category_id, :value =>  21) %>
+  <%= f.text_area 'question' %>
+  <p>
+    <% content_tag :button, :type => :submit, :id => :submit_report do %>
+      <%= t '.send' %>
+    <% end %>
+  </p>
+<% end %>

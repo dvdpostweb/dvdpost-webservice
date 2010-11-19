@@ -252,6 +252,13 @@ module DVDPost
     def geo_ip_key
       'c90802746715bfeb0fc6abd2f822174f994f03ca68d61a70944e6e66c4b6f617'
     end 
-    
+
+    def streaming_poll_url
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'test',
+        :nl => 'test',
+        :en => 'test'
+      })
+    end
   end
 end

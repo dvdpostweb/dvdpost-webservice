@@ -186,4 +186,21 @@ $(function() {
       image.attr('src','/images/'+image.attr('name'));
     }
   });
+  $("#report").live("click", function() {
+    url = $(this);
+    jQuery.facebox(function() {
+      $.getScript(url.attr('href'), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
+  var options = {};
+  $('#submit_report').live("click", function(){
+    loader = 'ajax-loader.gif';
+    $('#submit_report').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('form.#new_message').ajaxSubmit(options);
+    return false; // prevent default behaviour
+  });
+  
 });

@@ -276,9 +276,9 @@ $(function() {
     }
   });
 
-  $('#carousel-wrap a.next_page').live('click',function(){
+  $('.title-vod a.next_page').live('click',function(){
     url = this.href;
-    html_item = $('#carousel-wrap');
+    html_item = $('.title-vod');
     content = html_item.html()
     $.ajax({
       url: url,
@@ -293,9 +293,9 @@ $(function() {
     return false;
   });
   
-  $('#carousel-wrap a.prev_page').live('click',function(){
+  $('.title-vod a.prev_page').live('click',function(){
     url = this.href;
-    html_item = $('#carousel-wrap');
+    html_item = $('.title-vod');
     content = html_item.html()
     $.ajax({
       url: url,

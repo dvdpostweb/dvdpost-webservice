@@ -23,11 +23,15 @@
         <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
         <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
       </p>
-      <% message = message_streaming(@token) %>
-      <% if message %>
-        <div class='error'><%= message %></div>
-      <% end %>
-
+      <p class="linkpc">
+        <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'>enquete sur les streaming</a>
+        <% message = message_streaming(@token) %>
+        <% if message %>
+          <div class='error'><%= message %></div>
+          <% end %>
+          <br/><%= link_to 'test', new_streaming_product_report_path(:streaming_product_id => params[:id]), :class => :connect_linkpc, :id => :report %>
+      </p>
+      
       <% if !current_customer.payment_suspended? %>
         <% if current_customer.credits > 0 || (@token && @token_valid) %>
           <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>

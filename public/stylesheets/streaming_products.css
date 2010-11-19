@@ -66,7 +66,7 @@ float:left;}
 
 .linkpc {
 	margin:0 0 0 113px;
-	padding:6px;
+	padding:12px;
 	
 }
 #vod-wrap .quality a.btn {
@@ -195,4 +195,16 @@ text-decoration:underline;
 .stars
 {
   position: absolute;
+}
+#report_title
+{
+  color: #454545;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  left: 0;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+  border-bottom:1px solid #6E6E6E;
 }

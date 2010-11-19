@@ -20,10 +20,17 @@ class MessagesController < ApplicationController
     @message.messagesent = 0
     if @message.save
       flash[:notice] = "Message sent successfully"
-      redirect_to messages_path
+      
+      respond_to do |format|
+        format.html { redirect_to messages_path }
+        format.js {render :layout => false}
+      end
     else
       flash[:error] = "Message not sent successfully"
-      render :action => :new
+      respond_to do |format|
+        format.html {render :action => :new}
+        format.js {render :layout => false}
+      end
     end
   end
 

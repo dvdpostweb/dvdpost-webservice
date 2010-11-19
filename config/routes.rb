@@ -33,6 +33,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     localized.resources :streaming_products, :only => [:show] do |stream|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+      stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end 
 
     localized.resources :categories, :only => [] do |category|
