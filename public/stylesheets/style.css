@@ -4034,7 +4034,7 @@ width:62px;
 }
 
 #carousel_vod #prev, #carousel_vod #next,#carousel_vod .prev_page, #carousel_vod .next_page {
-  background: url(/images/carousel_vod-arrows.png) 0 0 no-repeat;
+  background: url(/images/carousel-arrows.png) 0 0 no-repeat;
   display: block;
   height: 33px;
   position: absolute;
