@@ -19,17 +19,20 @@ class MessagesController < ApplicationController
     @message.language_id = DVDPost.product_languages[I18n.locale]
     @message.messagesent = 0
     if @message.save
+      if params[:category_id] == DVDPost.message_categorie[:vod]
+        
+      end
       flash[:notice] = "Message sent successfully"
       
       respond_to do |format|
         format.html { redirect_to messages_path }
-        format.js {render :layout => false}
+        format.js {@error = false}
       end
     else
       flash[:error] = "Message not sent successfully"
       respond_to do |format|
         format.html {render :action => :new}
-        format.js {render :layout => false}
+        format.js {@error = true}
       end
     end
   end

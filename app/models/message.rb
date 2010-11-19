@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   set_primary_key :custserv_id
 
   validates_presence_of :custserv_cat_id, :on => :create
-  validates_presence_of :question, :unless => Proc.new {|message| message.order} # Reports require an order
+  validates_presence_of :question, :unless => Proc.new {|message| message.category_id == 21 || message.order } # Reports require an order
 
   alias_attribute :created_at,  :customer_date
   alias_attribute :updated_at,  :admindate

@@ -36,18 +36,18 @@ $(function() {
 
   $(".trash").live("click", function() {
     if (confirm('Are you sure?')) {
-      content = $(this).html();
-      parent = $(this).parent()
-      parent.html("<img src='/images/ajax-loader.gif' />");
+      parent_trash = $(this).parent()
+      content = parent_trash.html();
+      parent_trash.html("<img src='/images/ajax-loader.gif' />");
       $.ajax({
         url: $(this).attr('value'),
         type: 'DELETE',
         data: {},
         success: function() {
-          parent.parent().parent().remove();
+          parent_trash.parent().parent().remove();
         },
         error: function() {
-          $(this).html(content);
+          parent_trash.html(content);
         }
       });
     }

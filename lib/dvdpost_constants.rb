@@ -260,5 +260,12 @@ module DVDPost
         :en => 'test'
       })
     end
+
+    def message_categorie
+      HashWithIndifferentAccess.new.merge({
+        :vod => 21,
+      })
+      
+    end
   end
 end

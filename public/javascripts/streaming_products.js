@@ -196,7 +196,7 @@ $(function() {
     return false;
   });
   var options = {};
-  $('#submit_report').live("click", function(){
+  $('.content #submit_report').live("click", function(){
     loader = 'ajax-loader.gif';
     $('#submit_report').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
     $('form.#new_message').ajaxSubmit(options);

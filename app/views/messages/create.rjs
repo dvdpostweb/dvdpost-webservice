@@ -1,0 +1,16 @@
+if @error == true
+  page['.popup .content'].html("<p align='center' id='notice_popup'>#{flash[:error]}</p>")
+else
+  page["body"].trigger('close.facebox')
+  page << "if ($('.notice').length == 0){"
+    page[".container"].prepend("<p class='notice'>#{flash[:notice]}</p>")
+    page[".notice"].css('height','1px')
+    page[".notice"].css('padding','0')
+    page << '$(".notice").animate({height:16, padding: 10}, 300, "linear", function(){} );'
+  page << "}else{"
+    page[".container .notice"].html(flash[:notice])
+  page << "}"
+  page["body"].trigger('close.facebox')
+  
+end
+flash.discard
