@@ -1,9 +1,14 @@
 <div id="maincontent">
   <div id="vod-wrap">
     <div class="top"></div>
-      <h2><%= h @product.description.title %> (<%= @product.year %>)</h2>
+      <h2>
+        <span id="vod_title"><%= h @product.description.title %> (<%= @product.year %>)&nbsp;<span>
+        <span class="stars" id="rating-stars-<%= @product.to_param %>" product_id="<%= @product.to_param %>">
+          <%= render :partial => 'products/rating', :locals => {:product => @product, :background => :white} %>
+        </span>
+      </h2>
       <% if @token and @token_valid %>
-        <span class="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></span>
+        <div id='time'><div id="vodtime"><%= t '.time_left' %> : <strong><%= time_left(@token) %></strong></div></div>
       <% end %>
       <div class="clear"></div>
       <div id="presentation">
@@ -18,7 +23,6 @@
         <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
         <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
       </p>
-      
       <% message = message_streaming(@token) %>
       <% if message %>
         <div class='error'><%= message %></div>

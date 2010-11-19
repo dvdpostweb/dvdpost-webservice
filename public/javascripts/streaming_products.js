@@ -121,4 +121,69 @@ $(function() {
       });
     });
   }
+  $(".stars .star, #cotez .star").live("click", function() {
+    url = $(this).parent().attr('href');
+    html_item = $(this).parent().parent();
+    content = html_item.html();
+    loader = 'ajax-loader.gif';
+    if ($(this).attr('src').match(/black-star-/i)){
+      loader = 'black-'+loader;
+    }
+    html_item.html("<img src='/images/"+loader+"'/>");
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {},
+      success: function(data) {
+        if (url.match(/replace=homepage/)){
+          html_item.parent().replaceWith(data);
+        }else{
+          html_item.html(data);
+        }
+        
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  });
+
+  $(".stars .star, #cotez .star").live("mouseover", function(){
+    data = $(this).attr('id').replace('star_','').split('_');
+    product_id = data[0];
+    rating_value = data[1];
+
+    image = 'star-voted-';
+    if ($(this).attr('src').match(/black-star-(on|half|off)/i)){
+      image = 'black-'+image;
+    }
+    if ($(this).attr('src').match(/small-star-(on|half|off)/i)){
+      image = 'small-'+image;
+      ext = 'png'
+    }
+    else
+    {
+      ext = 'jpg'
+    }
+    
+    for(var i=1; i<=5; i++)
+    {
+      if(i <= rating_value){
+        full_image = image+'on';
+      }else{
+        full_image = image+'off';
+      }
+      $('#star_'+product_id+"_"+i).attr('src', '/images/'+full_image+'.'+ext);
+    }
+  });
+
+  $(".stars .star, #cotez .star").live("mouseout", function() {
+    product_id = $(this).attr('id').replace('star_','').split('_')[0];
+    for(var i=1; i<=5; i++)
+    {
+      image = $('#star_'+product_id+'_'+i);
+      image.attr('src','/images/'+image.attr('name'));
+    }
+  });
 });

@@ -19,18 +19,22 @@ margin:-6px 0 0;
 #vod-wrap h2 {
 	font-size: 2em;
 	margin-bottom: 10px;
-	float:left;
-	
+	text-align:center;
 }
-
-.vodtime {
-background:url("../images/icon_time.gif") no-repeat scroll 0 -2px transparent;
-float:right;
-font-size:1.6em;
-height:30px;
-padding-left:31px;
-padding-right:31px;
-padding-top:4px;
+#time
+{
+  text-align:center;
+  height:30px;
+}
+#vodtime {
+  background:url("../images/icon_time.gif") no-repeat scroll 0 -2px transparent;
+  font-size:1.6em;
+  height:30px;
+  margin:0 auto;
+  padding-left:31px;
+  padding-top:4px;
+  text-align:center;
+  width:270px;
 
 }
 
@@ -188,4 +192,7 @@ text-decoration:underline;
   width:160px;
   height:240px;
 }
-
+.stars
+{
+  position: absolute;
+}
