@@ -197,8 +197,7 @@ $(function() {
   });
   var options = {};
   $('.content #submit_report').live("click", function(){
-    loader = 'ajax-loader.gif';
-    $('#submit_report').html("<div><img src='/images/"+loader+"'/></div>")
+    $('#submit_align').html('<div align="right" style="margin:0 10px 0 0"><img src=\'/images/ajax-loader.gif\'/></div>')
     $('form.#new_message').ajaxSubmit(options);
     return false; // prevent default behaviour
   });

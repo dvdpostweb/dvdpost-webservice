@@ -256,7 +256,7 @@ module DVDPost
     def streaming_poll_url
       HashWithIndifferentAccess.new.merge({
         :fr => 'http://www.surveymonkey.com/s/vod_fr',
-        :nl => '',
+        :nl => 'http://www.surveymonkey.com/s/VNDHTYW',
         :en => 'http://www.surveymonkey.com/s/L87SHPF'
       })
     end

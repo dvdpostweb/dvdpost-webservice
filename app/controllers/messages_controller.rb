@@ -24,14 +24,14 @@ class MessagesController < ApplicationController
                                :reference_id => params[:reference_id],
                                :message_id => @message.to_param)
       end
-      flash[:notice] = "Message sent successfully"
+      flash[:notice] = t 'message.create.message_sent' #"Message sent successfully"
       
       respond_to do |format|
         format.html { redirect_to messages_path }
         format.js {@error = false}
       end
     else
-      flash[:error] = "Message not sent successfully"
+      flash[:error] = t 'message..create.message_not_sent' # "Message not sent successfully"
       respond_to do |format|
         format.html {render :action => :new}
         format.js {@error = true}
