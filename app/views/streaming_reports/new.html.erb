@@ -1,13 +1,13 @@
 <div id="report_title"><%= "#{@product.title} " %></div>
 <p>
-  <%= t('.description', :title => @product.title) %>
+  <%= t('.description', :title => @product.title) %> :
 </p>
 <% form_for @message do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field(:category_id, :value =>  DVDPost.message_categories[:vod]) %>
   <%= hidden_field_tag(:reference_id, params[:reference_id]) %>
-  <%= f.text_area 'question', :cols => 44 %>
-  <p>
+  <%= f.text_area 'question', :cols => 44, :rows => 5 %>
+  <p id='submit_align'>
     <% content_tag :button, :type => :submit, :id => :submit_report, :title => t('.send') do %>
       <%= t '.send' %>
     <% end %>
