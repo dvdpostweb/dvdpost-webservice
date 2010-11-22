@@ -18,19 +18,20 @@
       </div>
       <a id='player'>
       </a>
-      <p class="linkpc">
-        <%= image_tag 'icon_info_grey.png', :align => :absmiddle, :alt => "info" %>
-        <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %> - 
-        <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
-      </p>
-      <p class="linkpc">
-        <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'>enquete sur les streaming</a>
-        <% message = message_streaming(@token) %>
-        <% if message %>
-          <div class='error'><%= message %></div>
-          <% end %>
-          <br/><%= link_to 'test', new_streaming_product_report_path(:streaming_product_id => params[:id]), :class => :connect_linkpc, :id => :report %>
-      </p>
+      <div class="linkpc">
+      
+        <div class="icon_left">
+          <%= image_tag 'icon_tv.gif', :align => :absmiddle, :alt => 'icon tv' %>
+          <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %><br />
+          <%= image_tag 'icon_infos.gif', :align => :absmiddle, :alt => 'icon info' %>
+          <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
+        </div>
+        <div class="icon_right">
+          <%= image_tag 'icon_survey.gif', :align => :absmiddle, :alt => 'icon poll' %>
+          <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'><%= t '.poll' %></a>
+        </div>
+         <div class="clear"></div>
+      </div>
       
       <% if !current_customer.payment_suspended? %>
         <% if current_customer.credits > 0 || (@token && @token_valid) %>

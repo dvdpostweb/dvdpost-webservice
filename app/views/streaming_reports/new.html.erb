@@ -1,13 +1,17 @@
 <div id="report_title"><%= "#{@product.title} " %></div>
-
-kel est le probleme ?
+<p>
+  <%= t('.description', :title => @product.title) %>
+</p>
 <% form_for @message do |f| %>
   <%= f.error_messages %>
-  <%= f.hidden_field(:category_id, :value =>  21) %>
-  <%= f.text_area 'question' %>
+  <%= f.hidden_field(:category_id, :value =>  DVDPost.message_categories[:vod]) %>
+  <%= hidden_field_tag(:reference_id, params[:reference_id]) %>
+  <%= f.text_area 'question', :cols => 44 %>
   <p>
-    <% content_tag :button, :type => :submit, :id => :submit_report do %>
+    <% content_tag :button, :type => :submit, :id => :submit_report, :title => t('.send') do %>
       <%= t '.send' %>
     <% end %>
+    <span><%= image_tag 'delimiter.gif', :align => :absmiddle %></span>
+    <a href="#" id="cancel" title ="<%= t('.cancel') %>"><%= t('.cancel') %></a>
   </p>
 <% end %>

@@ -30,6 +30,7 @@ class Product < ActiveRecord::Base
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
   has_many :wishlist_items
   has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
+  has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
   has_and_belongs_to_many :categories, :join_table => :products_to_categories, :foreign_key => :products_id, :association_foreign_key => :categories_id
   has_and_belongs_to_many :languages, :join_table => 'products_to_languages', :foreign_key => :products_id, :association_foreign_key => :products_languages_id, :conditions => {:languagenav_id => DVDPost.product_languages[I18n.locale.to_s]}

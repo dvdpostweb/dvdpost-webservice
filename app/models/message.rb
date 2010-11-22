@@ -21,7 +21,9 @@ class Message < ActiveRecord::Base
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :order, :primary_key => :orders_id, :foreign_key => :orders_id
   belongs_to :product, :primary_key => :products_id, :foreign_key => :products_id
+  
   has_many :categories, :class_name => 'MessageCategory', :primary_key => :custserv_cat_id, :foreign_key => :custserv_cat_id
+  has_many :message_reference, :primary_key => :custserv_id
 
   named_scope :ordered, :order => 'custserv_id desc'
   named_scope :not_read, :conditions => {:is_read => false}

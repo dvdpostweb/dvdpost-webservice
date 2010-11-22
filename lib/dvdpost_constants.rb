@@ -255,13 +255,13 @@ module DVDPost
 
     def streaming_poll_url
       HashWithIndifferentAccess.new.merge({
-        :fr => 'test',
+        :fr => 'http://www.surveymonkey.com/s/vod_fr',
         :nl => 'test',
-        :en => 'test'
+        :en => 'http://www.surveymonkey.com/s/L87SHPF'
       })
     end
 
-    def message_categorie
+    def message_categories
       HashWithIndifferentAccess.new.merge({
         :vod => 21,
       })

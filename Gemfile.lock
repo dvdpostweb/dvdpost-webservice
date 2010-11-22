@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/jeroenj/geo_ip.git
-  revision: b397bb312498a45e529216c98a5fa0e3c9aac966
+  revision: 665a32b8cb2196a9f1a110ed1bd8c1b5eee7f6fa
   specs:
-    geo_ip (0.2.0)
+    geo_ip (0.3.0)
+      json (~> 1.4.6)
 
 GIT
   remote: git://github.com/mrs/rails_warden.git
@@ -31,6 +32,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    aaronh-chronic (0.3.9)
     actionmailer (2.3.5)
       actionpack (= 2.3.5)
     actionpack (2.3.5)
@@ -42,8 +44,9 @@ GEM
       activesupport (= 2.3.5)
     activesupport (2.3.5)
     addressable (2.2.2)
-    builder (2.1.2)
-    bullet (1.7.6)
+    builder (3.0.0)
+    bullet (2.0.1)
+      uniform_notifier (~> 1.0.0)
     capistrano (2.5.19)
       highline
       net-scp (>= 1.0.0)
@@ -86,8 +89,12 @@ GEM
     rmagick (2.13.1)
     timed_fragment_cache (0.0.1)
     truncate_html (0.4.0)
+    uniform_notifier (1.0.0)
     warden (1.0.2)
       rack (>= 1.0.0)
+    whenever (0.6.2)
+      aaronh-chronic (>= 0.3.9)
+      activesupport (>= 2.3.4)
     will_paginate (2.3.15)
 
 PLATFORMS
@@ -111,4 +118,5 @@ DEPENDENCIES
   truncate_html
   warden
   warden_oauth!
+  whenever
   will_paginate (~> 2.3.12)

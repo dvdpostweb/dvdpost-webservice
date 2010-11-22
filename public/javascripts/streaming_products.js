@@ -198,9 +198,14 @@ $(function() {
   var options = {};
   $('.content #submit_report').live("click", function(){
     loader = 'ajax-loader.gif';
-    $('#submit_report').html("<div style='height:42px'><img src='/images/"+loader+"'/></div>")
+    $('#submit_report').html("<div><img src='/images/"+loader+"'/></div>")
     $('form.#new_message').ajaxSubmit(options);
     return false; // prevent default behaviour
+  });
+  
+  $("#cancel").live("click", function(){
+    $("body").trigger('close.facebox')
+    return false;
   });
   
 });

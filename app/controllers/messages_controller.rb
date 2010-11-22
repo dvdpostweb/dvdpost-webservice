@@ -19,8 +19,10 @@ class MessagesController < ApplicationController
     @message.language_id = DVDPost.product_languages[I18n.locale]
     @message.messagesent = 0
     if @message.save
-      if params[:category_id] == DVDPost.message_categorie[:vod]
-        
+      if @message.category_id == DVDPost.message_categories[:vod]
+         MessageReference.create(:name => 'streaming_product_id', 
+                               :reference_id => params[:reference_id],
+                               :message_id => @message.to_param)
       end
       flash[:notice] = "Message sent successfully"
       

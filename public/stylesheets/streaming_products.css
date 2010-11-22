@@ -55,20 +55,7 @@ padding:9px;
 
 float:left;}
 
-.quality {
-	border:1px solid #333333;
-	
-	margin: 30px auto 10px;
-	width:640px;
-	padding:16px;
-	background-color: #FFFFFF;
-}
 
-.linkpc {
-	margin:0 0 0 113px;
-	padding:12px;
-	
-}
 #vod-wrap .quality a.btn {
 background:url("../images/button_qualityvod.png") no-repeat scroll 0 -81px transparent;
 color:white;
@@ -207,4 +194,77 @@ text-decoration:underline;
   text-decoration: none;
   top: 0;
   border-bottom:1px solid #6E6E6E;
+}
+
+.status_vod a{ 
+
+
+color:#454545;
+
+margin-right:12px;
+text-decoration:underline;
+}
+
+.status_vod { 
+padding-right:22px;
+padding-top:7px;
+
+float:right;
+
+}
+
+
+
+.quality_vod { float:left;
+padding-left:105px;
+
+}
+
+
+.linkpc {
+background-color:#FFFFFF;
+border:1px solid #333333;
+margin:15px 0 0 113px;
+padding:8px;
+width:678px;
+}
+.choose_color {
+background-color:#E7E8E9;
+padding:5px 0 0 5px;
+}
+
+
+.icon_left{float:left;
+
+}
+
+
+.icon_right{float:right;padding-right:20px;
+
+}
+
+.quality {
+background-color:#FFFFFF;
+border:1px solid #333333;
+margin:9px auto 10px;
+padding:16px;
+width:662px;
+}
+#submit_report{
+  background:url("/images/account_modify.png") no-repeat scroll 4px -1px transparent;
+  border:medium none;
+  color:white;
+  cursor:pointer;
+  height:38px;
+  text-shadow:1px 1px 1px #555555;
+  width:173px;
+}
+
+#submit_report:hover{
+  background:url("/images/account_modify.png") no-repeat scroll 4px -40px transparent;
+}
+a#cancel
+{
+  color:#505050;
+  padding: 0 0 0 2px;
 }

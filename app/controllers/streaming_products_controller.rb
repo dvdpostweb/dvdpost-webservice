@@ -6,19 +6,24 @@ class StreamingProductsController < ApplicationController
    
     respond_to do |format|
       format.html do
-       @token = current_customer.get_token(@product.imdb_id)
-       @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
-       if streaming_access?
-         if !@streaming.blank?
-          render :action => :show
-         else
-           flash[:error] = t('streaming_products.not_available.not_available')
-           redirect_to root_path
-         end
+        if @product
+          @token = current_customer.get_token(@product.imdb_id)
+          @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
+          if streaming_access?
+            if !@streaming.blank?
+             render :action => :show
+            else
+              flash[:error] = t('streaming_products.not_available.not_available')
+              redirect_to root_path
+            end
+          else
+             flash[:error] = t('streaming_products.no_access.no_access')
+             redirect_to root_path
+          end  
         else
-          flash[:error] = t('streaming_products.no_access.no_access')
+          flash[:error] = t('streaming_products.not_available.not_available')
           redirect_to root_path
-        end  
+        end
       end
       format.js do
         if streaming_access? 

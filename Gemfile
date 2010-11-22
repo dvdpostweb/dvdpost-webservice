@@ -23,5 +23,6 @@ gem 'truncate_html'
 gem 'orderedhash'
 gem 'will_paginate', '~> 2.3.12'
 gem 'timed_fragment_cache'
+gem 'whenever', :require => false
 
 gem 'bullet', :group => :development
