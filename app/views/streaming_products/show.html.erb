@@ -26,10 +26,12 @@
           <%= image_tag 'icon_infos.gif', :align => :absmiddle, :alt => 'icon info' %>
           <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
         </div>
-        <div class="icon_right">
-          <%= image_tag 'icon_survey.gif', :align => :absmiddle, :alt => 'icon poll' %>
-          <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'><%= t '.poll' %></a>
-        </div>
+        <% unless DVDPost.streaming_poll_url[I18n.locale].empty? %>
+          <div class="icon_right">
+            <%= image_tag 'icon_survey.gif', :align => :absmiddle, :alt => 'icon poll' %>
+            <a href='<%= DVDPost.streaming_poll_url[I18n.locale] %>' target='_blank' class='connect_linkpc'><%= t '.poll' %></a>
+          </div>
+        <% end %>
          <div class="clear"></div>
       </div>
       
