@@ -2,6 +2,8 @@ class WishlistItemsController < ApplicationController
   def index
     @wishlist_items_current = current_customer.wishlist_items.current.available.by_kind(:normal).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
     @wishlist_items_future = current_customer.wishlist_items.future.available.by_kind(:normal).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
+    @wishlist_items_not_available = current_customer.wishlist_items.not_available.available.by_kind(:normal).ordered.find(:all, :joins => {:product => :descriptions}, :conditions => {"products_description.language_id" => DVDPost.product_languages[I18n.locale.to_s]})
+    
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
       @history_items = current_customer.orders(:include => [:status, :product]).in_history.ordered.paginate(:page => params['history_page'], :per_page => 20)

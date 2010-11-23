@@ -1,5 +1,12 @@
 <div class="list-ttl" id="film-list">
-  <h2><%= kind == 'future_movie' ? t('.upcoming') : t('.current') %></h2>
+  <h2><% if kind == 'future_movie' %>
+        <%= t('.upcoming') %>
+      <% elsif kind == 'not_available_movie'%>
+        <%= t('.not_available') %>
+      <% else %>
+        <%= t('.current') %>
+      <% end %>
+  </h2>
 </div>
 <div class="box">
   <div class="head clearfix">

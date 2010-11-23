@@ -9,8 +9,10 @@
   <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'movie', :wishlist_items => @wishlist_items_current} %>
   <!-- End Ma liste de films -->
   <!-- Ma liste de films à venir -->
-  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items_future} %>
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'future_movie', :wishlist_items => @wishlist_items_future} if @wishlist_items_future.count > 0 %>
   <!-- End Ma liste de films à venir -->
+  <%= render :partial => 'wishlist_items/index/wishlist', :locals => {:kind => 'not_available_movie', :wishlist_items => @wishlist_items_not_available} if @wishlist_items_not_available.count > 0  %>
+  
   <span id ='confirm' style="display:none"><%= t '.confirm' %></span>
   <div class="end"></div>
   <div id='locale' style='display:none'><%= I18n.locale %></div>

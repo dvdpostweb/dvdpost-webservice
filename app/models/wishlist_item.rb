@@ -22,8 +22,9 @@ class WishlistItem < ActiveRecord::Base
   
   named_scope :by_kind, lambda {|kind| {:conditions => {:wishlist_type => DVDPost.product_kinds[kind]}}}
   named_scope :available, :conditions => ['products_status != ?', '-1']
-  named_scope :current, :conditions => ['products.products_next = ?', '0']
-  named_scope :future, :conditions => ['products.products_next = ?', '1']
+  named_scope :current, :conditions => ['products.products_next = ? and products.products_availability != ?', '0', '-1']
+  named_scope :future, :conditions => ['products.products_next = ? and products.products_availability != ?', '1', '-1']
+  named_scope :not_available, :conditions => ['products.products_availability = ?',  '-1']
   named_scope :include_products, :include => :product
   named_scope :by_product, lambda {|product| {:conditions => {:product_id => product.to_param}}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
