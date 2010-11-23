@@ -15,7 +15,7 @@ class RatingsController < ApplicationController
           if not_rated_product 
             render :partial => 'home/index/wishlist_rating', :locals => {:product => not_rated_product}
           else
-            render :nothing => true
+             render :partial => 'home/index/facebook_like'
           end
         when 'wishlist_start_list'
           popular_page = session[:popular_page] || 1
