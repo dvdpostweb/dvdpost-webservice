@@ -44,8 +44,8 @@ class HomeController < ApplicationController
     end
   end
 
-  def indicator_closed
-    session[:indicator_stored] = true
+  def indicator_close
+    current_customer.inducator_close(params[:status])
     render :nothing => true
   end
 

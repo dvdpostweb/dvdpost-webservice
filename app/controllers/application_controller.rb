@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :save_attempted_path
   before_filter :authenticate!
   before_filter :wishlist_size
+  before_filter :indicator_close?
   before_filter :delegate_locale
   before_filter :messages_size, :unless => :is_it_js?
   before_filter :load_partners, :unless => :is_it_js?
@@ -45,9 +46,16 @@ class ApplicationController < ActionController::Base
   def last_login
     if current_customer
       if !session[:last_login]
-        current_customer.update_attributes(:login_count  =>  (current_customer.login_count + 1), :last_login_at => Time.now.to_s(:db) )
+        current_customer.last_login
         session[:last_login] = true
       end
+    end
+  end
+
+  def indicator_close?
+    @indicator_close = false
+    if current_customer && current_customer.customer_attribute && current_customer.customer_attribute.list_indicator_close == true
+        @indicator_close = true
     end
   end
 

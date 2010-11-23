@@ -15,7 +15,18 @@ $(function() {
 
   $("#indicator #n7").click(function() {
     $("#indicator-tips").toggle(0);
-    $.getScript($(this).attr('href'));
+    indicator_url = $(this).attr('href')
+    $.getScript(indicator_url);
+    len = indicator_url.length;
+    if(indicator_url.charAt((len-1))==1)
+    {
+      indicator_url = indicator_url.replace('status=1','status=0')
+    }
+    else
+    {
+      indicator_url = indicator_url.replace('status=0','status=1')
+    }
+    $(this).attr('href',indicator_url)
     return false;
   });
 

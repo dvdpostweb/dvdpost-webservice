@@ -1,5 +1,5 @@
-<%= link_to t('.indicator'), indicator_closed_path , :id => 'n7', :class => list_indicator_class(wishlist_size) %>
-<ul id="indicator-tips" <%= "style='display:none'" if session[:indicator_stored] %>>
+<%= link_to t('.indicator'), indicator_close_path(:status => (@indicator_close == true ? 0 : 1)) , :id => 'n7', :class => list_indicator_class(wishlist_size) %>
+<ul id="indicator-tips" <%= "style='display:none'" if @indicator_close == true %>>
   <li>
     <h3>
       <%= t '.title' %>
@@ -25,6 +25,6 @@
     
   </li>
   <li id="close">
-    <%= link_to t('.close'), indicator_closed_path %>
+    <%= link_to t('.close'), indicator_close_path(:status => 1) %>
   </li>
 </ul>

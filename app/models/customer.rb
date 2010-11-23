@@ -29,8 +29,6 @@ class Customer < ActiveRecord::Base
   alias_attribute :gender,                       :customers_gender
   alias_attribute :payment_method,               :customers_abo_payment_method
   alias_attribute :abo_type_id,                  :customers_abo_type
-  alias_attribute :last_login_at,                :customers_info_date_of_last_logon
-  alias_attribute :login_count,                  :customers_info_number_of_logons
   alias_attribute :auto_stop,                    :customers_abo_auto_stop_next_reconduction
   alias_attribute :next_abo_type_id,             :customers_next_abo_type
   
@@ -52,6 +50,7 @@ class Customer < ActiveRecord::Base
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_one :filter
   has_one :beta_test
+  has_one :customer_attribute
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product
   has_many :assigned_items, :foreign_key => :customers_id
@@ -421,6 +420,17 @@ class Customer < ActiveRecord::Base
   def actived?
     abo_active == 1 
   end
+
+  def inducator_close(status)
+    build_customer_attribute unless customer_attribute
+    customer_attribute.update_attributes(:list_indicator_close => status)
+  end
+
+  def last_login
+    build_customer_attribute unless customer_attribute
+    customer_attribute.update_attributes(:number_of_logins  =>  (customer_attribute.number_of_logins + 1), :last_login_at => Time.now.to_s(:db) )
+  end
+
   private
   def convert_created_at
     begin
