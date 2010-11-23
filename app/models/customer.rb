@@ -428,7 +428,8 @@ class Customer < ActiveRecord::Base
 
   def last_login
     build_customer_attribute unless customer_attribute
-    customer_attribute.update_attributes(:number_of_logins  =>  (customer_attribute.number_of_logins + 1), :last_login_at => Time.now.to_s(:db) )
+    init = (customer_attribute && customer_attribute.number_of_logins ? customer_attribute.number_of_logins : 0)
+    customer_attribute.update_attributes(:number_of_logins  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
   end
 
   private
