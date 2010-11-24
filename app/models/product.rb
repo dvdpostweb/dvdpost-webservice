@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
   alias_attribute :series_id,       :products_series_id
   alias_attribute :year,            :products_year
   alias_attribute :price,           :products_price
+  alias_attribute :next,            :products_next
   
 
   belongs_to :director, :foreign_key => :products_directors_id

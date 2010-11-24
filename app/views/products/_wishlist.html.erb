@@ -1,4 +1,5 @@
 <% load_color = load_color || :normal %>
+<% type_button = product.next.to_i == 1 ? :reserve : :normal %>
 <% if current_customer.wishlist_products.include?(product) %>
   <% title = title_remove_from_wishlist(text) %>
   <% long_title = title_remove_from_wishlist(:long) %>
@@ -9,8 +10,8 @@
   <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param, :text => text, :list => 1, :source => source, :submit_id => submit_id, :load_color => load_color), :class => 'btn_remove wishlist_button', :title => long_title %>
   <%= '</span>' %>
 <% else %>
-  <% title = title_add_to_wishlist(text) %>
-  <% long_title = title_add_to_wishlist(:long) %>
+  <% title = title_add_to_wishlist(text, type_button) %>
+  <% long_title = title_add_to_wishlist(:long, type_button) %>
   <% submit_id = "p_#{product.to_param}_#{rand(10)}"%>
   <%= link_to title, new_product_wishlist_item_path(:product_id => product.to_param, :source => source, :submit_id => submit_id, :text => text, :load_color => load_color), :class => 'btn add_to_wishlist_button', :id => submit_id, :title => long_title%>
 <% end %>

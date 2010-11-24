@@ -131,6 +131,10 @@ fieldset {
   margin: 8px 17px 0 0;
 }
 
+#header #login li.first{
+  margin: 0 5px 0 0;
+}
+
 * html #header .subnav {
   display: inline;
 }
@@ -1585,15 +1589,16 @@ a#next10 {
 }
 
 #details .cover a.btn {
-  background: url(../images/ajouterbtn.png) 0 -3px no-repeat;
-  display: block;
-  height: 38px;
-  line-height: 34px;
-  width: 130px;
-  padding-left: 36px;
-  color: white;
-  font-size: 1em;
-  text-shadow: 1px 1px 1px #555555;
+  background:url("../images/ajouterbtn.png") no-repeat scroll 0 -3px transparent;
+  color:white;
+  display:block;
+  font-size:1em;
+  height:38px;
+  line-height:34px;
+  padding:0 8px 0 30px;
+  text-align:center;
+  text-shadow:1px 1px 1px #555555;
+  width:127px;
 }
 
 #details .cover a.streaming_btn {
@@ -2547,7 +2552,10 @@ h3.hp-ttls {
   font-size: 1.09em;
   padding:0 9px 0 18px;
   text-decoration: none;
-  background: url(../images/ajouter-btn-mid.png) 0 0 no-repeat;
+  background: url(../images/ajouter-btn-mid.png) 0 -2px no-repeat;
+}
+.top10 .btn:hover {
+  background: url(../images/ajouter-btn-mid.png) 0 -31px no-repeat;
 }
 .top10 .load
 {
@@ -2579,9 +2587,11 @@ h3.hp-ttls {
   text-align: center;
   font-size: 1.09em;
   text-decoration: none;
-  background: url(../images/drop-btn-mid.png) 0 0 no-repeat;
+  background: url(../images/drop-btn-mid.png) 0 -1px no-repeat;
 }
-
+.top10 .btn_remove:hover {
+  background: url(../images/drop-btn-mid.png) 0 -30px no-repeat;
+}
 div.top10.last {
   background: transparent;
 }
@@ -2609,7 +2619,11 @@ div.top10.first .number {
 div.top10.first a.btn {
   left: 27px;
   top: 164px;
-  background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
+  background: url(../images/ajouter-btn-top10-1.png) 0 -1px no-repeat;
+}
+div.top10.first a.btn:hover {
+  background: url(../images/ajouter-btn-top10-1.png) 0 -30px no-repeat;
+
 }
 div.top10.first .load {
   left: 27px;
@@ -2721,10 +2735,12 @@ div.top10.first p a {
   font-size: 1.09em;
   margin: 7px 0 3px;
   text-decoration: center;
-  background: url(../images/ajouter-btn-top10-1.png) 0 0 no-repeat;
+  background: url(../images/ajouter-btn-top10-1.png) 0 -1px no-repeat;
   text-decoration: none;  
 }
-
+#new-m li a.btn:hover {
+  background: url(../images/ajouter-btn-top10-1.png) 0 -30px no-repeat;
+}
 #new-m li a.btn_remove {
   background:url("../images/drop-btn-mid.png") no-repeat scroll 0 0 transparent;
   color:white;

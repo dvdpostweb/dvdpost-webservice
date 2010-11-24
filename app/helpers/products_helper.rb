@@ -234,12 +234,20 @@ module ProductsHelper
     title
   end
 
-  def title_add_to_wishlist(type_text)
-    if type_text == :short
-      t('products.wishlist.short_add')
+  def title_add_to_wishlist(type_text, type_button)
+    if type_button == :reserve
+      if type_text == :short
+        t('products.wishlist.short_reserve')
+      else
+        t('products.wishlist.reserve')
+      end
     else
-      t('products.wishlist.add')
-    end
+      if type_text == :short
+        t('products.wishlist.short_add')
+      else
+        t('products.wishlist.add')
+      end
+    end  
   end
 
   def title_remove_from_wishlist(type_text)
