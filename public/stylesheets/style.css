@@ -4076,8 +4076,9 @@ width:62px;
 }
 #not_available
 {
- border: solid #CC0000 1px;
- margin: 14px 0 5px; 
+  border:1px solid #CC0000;
+  height:77px;
+  margin:14px 0 5px;
 }
 #not_available #not_available_title
 {

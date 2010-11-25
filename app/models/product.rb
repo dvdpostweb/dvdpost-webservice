@@ -137,7 +137,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
-  sphinx_scope(:popular)            {{:with =>          {:popular => 1}}}
+  sphinx_scope(:popular_new)        {{:with =>          {:popular => 1}}}
+  sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3..5, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   
   
@@ -213,7 +214,13 @@ class Product < ActiveRecord::Base
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
-        products.popular.limit(800) 
+        popular = products.popular_new.limit(800) 
+        logger.debug("@@@#{popular.count}")
+        if popular.count == 0
+          popular = products.popular.limit(800) 
+          
+        end
+        popular
       else
         products
       end
