@@ -4080,6 +4080,11 @@ width:62px;
   height:77px;
   margin:14px 0 5px;
 }
+#not_available.fr
+{
+  height:62px;
+}
+
 #not_available #not_available_title
 {
   background:none repeat scroll 0 0 #CC0000;
@@ -4091,4 +4096,8 @@ width:62px;
 {
   font-size:11px;
   margin:2px 7px;
+}
+#not_available.en #not_available_description, #not_available.nl #not_available_description
+{
+  margin:7px 7px;
 }
