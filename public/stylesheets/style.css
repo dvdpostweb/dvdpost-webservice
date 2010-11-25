@@ -3795,9 +3795,9 @@ padding:0 3px 0 20px;
   font-size:13px;
   height:27px;
   margin:15px 0 0;
-  padding:7px 0 0 0;
+  padding:7px 25px 0 2px;
   text-align:center;
-  width:202px;
+  width:175px;
 }
 .bouton_confirm {padding-right:31px;}
 .step31_image:hover { background:url("http://www.dvdpost.be/images/submit_step31.png") no-repeat scroll 0 -38px transparent;}
