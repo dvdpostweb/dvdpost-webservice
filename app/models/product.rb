@@ -214,13 +214,13 @@ class Product < ActiveRecord::Base
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
-        products.popular_new.limit(800)
-        products = if products.count == 0
-          products = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]})
-          products = products.with_subtitles(options[:subtitles]) if options[:subtitles] 
-          products = products.with_languages(options[:audio]) if options[:audio] 
-          products.popular.limit(800) 
+        test = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]}).popular_new
+        if test.count != 0
+          products.popular_new.limit(800)
+        else
+          products.popular.limit(800)
         end
+        products
       else
         products
       end
