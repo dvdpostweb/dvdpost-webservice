@@ -237,7 +237,9 @@ class Product < ActiveRecord::Base
       sort = sort_by("streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular_streaming
       sort = sort_by("count_tokens desc, streaming_id desc", options)
-    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :popular)
+    elsif options[:view_mode] && options[:view_mode].to_sym == :popular
+      sort = sort_by("rating DESC, available_at desc", options)
+    elsif options[:view_mode] && options[:view_mode].to_sym == :recent 
       sort = sort_by("available_at desc", options)
     elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
       sort = sort_by("available_at asc", options)
