@@ -46,9 +46,9 @@
   <% type_button = @wishlist_item.product.next.to_i == 1 ? :reserve : :normal %>
   
   <%= f.submit title_add_to_wishlist(:long, type_button), :class => 'item', :title => title_add_to_wishlist(:long, type_button) %>
-  <%= f.submit t('.add_serie'), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if @wishlist_item.product.series? %>
+  <%= f.submit title_add_all_to_wishlist(type_button), :class => 'serie', :name => 'add_all_from_series', :title => t('.add_serie') if @wishlist_item.product.series? %>
   </p>
-  <% if @wishlist_item.product.products_next == 1 && @wishlist_item.product.available_at %>
+  <% if @wishlist_item.product.next == 1 && @wishlist_item.product.available_at %>
     <p class="align">
       <strong>
         <%= t '.available' %>

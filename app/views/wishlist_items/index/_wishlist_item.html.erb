@@ -10,7 +10,7 @@
     </div>
   <% else %>  
     <div class="availability">
-      <%= wishlist_item.product.products_next == 1 && wishlist_item.product.available_at ? wishlist_item.product.available_at.strftime("%d/%m/%Y") : '&nbsp;' %>
+      <%= wishlist_item.product.next == 1 && wishlist_item.product.available_at ? wishlist_item.product.available_at.strftime("%d/%m/%Y") : '&nbsp;' %>
     </div>
   <% end %>
   <ul class="HML" id="<%= wishlist_item.to_param %>">

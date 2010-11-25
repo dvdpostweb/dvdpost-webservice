@@ -95,6 +95,12 @@ class Product < ActiveRecord::Base
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
     has "(select count(*) as count_tokens from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
+    has "case 
+    when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) > 3 and products_quantity > 2 then 1
+    when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH)  and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) > 4 and products_quantity > 2 then 1
+    else 0 end", :type => :integer, :as => :popular
+
+    
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
     set_property :enable_star => true
@@ -116,7 +122,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:by_language)        {|language|         {:order =>      language.to_s == 'fr' ? :french : :dutch, :sort_mode => :desc}}
   sphinx_scope(:by_kind)            {|kind|             {:conditions => {:products_type => DVDPost.product_kinds[kind]}}}
   sphinx_scope(:by_media)           {|media|            {:conditions => {:products_media => media}}}
-  sphinx_scope(:by_special_media)   {|media|            {:with => {:special_media => media}}}
+  sphinx_scope(:by_special_media)   {|media|            {:with =>       {:special_media => media}}}
   sphinx_scope(:by_period)          {|min, max|         {:with =>       {:year => min..max}}}
   sphinx_scope(:by_products_list)   {|product_list|     {:with =>       {:products_list_ids => product_list.to_param}}}
   sphinx_scope(:by_ratings)         {|min, max|         {:with =>       {:rating => min..max}}}
@@ -131,7 +137,7 @@ class Product < ActiveRecord::Base
   sphinx_scope(:streaming)          {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available => 1}}}
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
-  sphinx_scope(:popular)            {{:with => {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
+  sphinx_scope(:popular)            {{:with =>          {:popular => 1}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   
   
@@ -207,7 +213,7 @@ class Product < ActiveRecord::Base
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
-        products.popular.limit(800)
+        products.popular.limit(800) 
       else
         products
       end
