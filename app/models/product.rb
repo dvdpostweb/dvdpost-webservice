@@ -293,7 +293,13 @@ class Product < ActiveRecord::Base
   end
 
   def rate!(value)
-    update_attributes({:rating_count => (rating_count + 1), :rating_users => (rating_users + value)})
+    if imdb_id > 0
+      Product.find_all_by_imdb_id(imdb_id).each {|product| 
+        product.update_attributes(:rating_count => product.rating_count+1, :rating_users => product.rating_users + value)
+      }
+    else
+      update_attributes({:rating_count => (rating_count + 1), :rating_users => (rating_users + value)})
+    end
   end
 
   def is_new?

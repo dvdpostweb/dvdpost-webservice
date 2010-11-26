@@ -8,7 +8,7 @@
     </ul>
   <% end %>
   <!-- Tabs rotattor -->
-  <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel} %>
+  <%= render :partial => 'home/index/carousel', :locals => {:carousel => @carousel, :filter => @filter} %>
   <!-- BIENVENUE  -->
   <%= render :partial => '/home/index/wishlist', :locals => {:wishlist_count => @wishlist_size, :transit_items => @transit_items, :streaming_available => @streaming_available} %>
   <!-- popular movie -->

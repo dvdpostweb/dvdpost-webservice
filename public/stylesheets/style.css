@@ -2056,6 +2056,12 @@ html ul.tabs li.active a:hover {
   position: relative;
 }
 
+#tabs-search {
+  width: 552px;
+  float: right;
+  position: relative;
+}
+
 * html #tabs-rotator {
   display: inline;
 }
@@ -2773,12 +2779,15 @@ div.top10.first p a {
   display: inline;
 }
 
-#leftcolumn form#search {
+#leftcolumn form#search, #tabs-search form#search {
   background: url(../images/search-fld-bg.png) 0 0 no-repeat;
   display: block;
 }
-
-#leftcolumn form#search #search-field {
+#tabs-search form#search {
+ height:35px;
+ width:331px;
+}
+#leftcolumn form#search #search-field, #tabs-search form#search #search-field  {
   background: transparent;
   border: none;
   color: white;
@@ -2789,8 +2798,10 @@ div.top10.first p a {
   outline: none;
   width: 126px;
 }
-
-#leftcolumn form#search button {
+#tabs-search form#search #search-field {
+  width: 274px;
+}
+#leftcolumn form#search button, #tabs-search form#search button {
   background: url(../images/search-btn.png) 0 0 no-repeat;
   border: none;
   cursor: pointer;
@@ -4100,4 +4111,8 @@ width:62px;
 #not_available.en #not_available_description, #not_available.nl #not_available_description
 {
   margin:7px 7px;
+}
+#add_new_review
+{
+  color:#FF4B00;
 }

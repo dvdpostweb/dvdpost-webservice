@@ -65,8 +65,13 @@ class ProductsController < ApplicationController
     @filter = current_customer.filter || current_customer.build_filter
     @product = Product.normal_available.find(params[:id])
     @product.views_increment
-    @reviews = @product.reviews.approved.by_language.paginate(:page => params[:reviews_page])
-    @reviews_count = @product.reviews.approved.by_language.count
+    if @product.imdb_id == 0
+      @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
+      @reviews_count = @product.reviews.approved.by_language(I18n.locale).count
+    else  
+      @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
+      @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
+    end
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
     if params[:recommendation].to_i == 1
       @source = DVDPost.source_wishlist[:recommandation]

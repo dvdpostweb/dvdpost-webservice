@@ -21,13 +21,15 @@ class Review < ActiveRecord::Base
   validates_inclusion_of :rating, :in => 0..5
 
   belongs_to :customer, :foreign_key => :customers_id
-  belongs_to :product, :foreign_key => :product_id
+  belongs_to :product, :foreign_key => :products_id
 
   has_many :review_ratings, :foreign_key => :reviews_id
 
   default_scope :order => 'customers_best_rating DESC, customers_bad_rating ASC, date_added DESC'
   named_scope :approved, :conditions => :reviews_check
-  named_scope :by_language, :conditions => {:languages_id => DVDPost.product_languages[I18n.locale]}
+  named_scope :by_language, lambda {|language| {:conditions => {:languages_id => DVDPost.product_languages[language]}}}
+  named_scope :by_imdb_id, lambda {|imdb_id| {:conditions => ['products.imdb_id = ?',  imdb_id]}}
+  
   
 
   def likeable_count
