@@ -2,6 +2,8 @@ class Address < ActiveRecord::Base
   set_table_name :address_book
   set_primary_key :customers_id
 
+  before_save :replace_semicolon
+
   alias_attribute :first_name, :entry_firstname
   alias_attribute :last_name, :entry_lastname
   alias_attribute :street, :entry_street_address
@@ -14,7 +16,11 @@ class Address < ActiveRecord::Base
   validates_length_of :street, :minimum => 5
   validates_length_of :postal_code, :minimum => 4
   validates_length_of :city, :minimum => 1
-  
+
+  def replace_semicolon
+    self.street = self.street.gsub(/;/, ' ').gsub(/   /,' ').gsub(/  /,' ')
+  end
+
   def belgian?
     country_id == 21
   end
