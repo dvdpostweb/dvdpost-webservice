@@ -4,5 +4,5 @@
   <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param, :product_id => product.to_param, :popular => 1), :class => 'btn_remove wishlist_button' %>
 <% else %>
   <% title = title_add_to_wishlist(text, :normal) %>
-    <%= link_to title, wishlist_items_path(:wishlist_item => {:product_id => product.to_param, :priority => 1, :source_added => DVDPost.source_wishlist[:popular_start]}), :class => 'btn add_to_wishlist_button' %>
+    <%= link_to title, wishlist_items_path(:wishlist_item => {:product_id => product.to_param, :priority => 1, :wishlist_source_id => DVDPost.source_wishlist[:popular_start]}), :class => 'btn add_to_wishlist_button' %>
 <% end %>

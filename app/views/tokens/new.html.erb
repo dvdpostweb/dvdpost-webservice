@@ -3,7 +3,9 @@
   <div id="addwishlist_title"><%= "#{@product.title} (#{@product.year})" %></div>
   <div id="addwishlist_explain">
     <%= t '.intro' %><br /><br />
-	  <% if current_customer.credits > 0 %>
+  	<% if current_customer.abo_active == 0 %>  
+  	  <%= t '.abo_not_active' %>
+	  <% elsif current_customer.credits > 0 %>
       <%= t '.credit_left', :credit => current_customer.credits %>
       <br />
       <% unless @product_in_wishlist.blank? %>

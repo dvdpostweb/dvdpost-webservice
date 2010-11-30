@@ -1,4 +1,4 @@
-<% path = product_path(:id => recommendation_product.to_param, :recommendation => 1) %>
+<% path = product_path(:id => recommendation_product.to_param, :recommendation => DVDPost.source_wishlist[:recommendation]) %>
 <li>
   <div class="stars" id="rating-stars-<%= recommendation_product.to_param %>" product_id ="<%= recommendation_product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => recommendation_product, :background => :white, :size => :small} %>
@@ -7,6 +7,6 @@
     <%= product_image_tag recommendation_product.image, :width => 76, :height => 118, :alt => "#{recommendation_product.title} (#{recommendation_product.year})" %>
     <%= content_tag(:span, '', :class => 'new') if recommendation_product.is_new? %>
   <% end %>
-  <%= render :partial => 'products/hybrid', :locals => {:product => recommendation_product, :text => :short, :source => DVDPost.source_wishlist[:recommandation]} %>
+  <%= render :partial => 'products/hybrid', :locals => {:product => recommendation_product, :text => :short, :source => DVDPost.source_wishlist[:recommendation]} %>
   <%= link_to recommendation_product.title, path, :class => 'more' %>
 </li>

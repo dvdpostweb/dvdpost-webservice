@@ -46,7 +46,7 @@ class WishlistItemsController < ApplicationController
 
   def create
     if params[:type] == 'classic'
-      @source = params[:wishlist_item][:source_added]
+      @source = params[:wishlist_item][:wishlist_source_id]
       @submit_id = params[:submit_id]
       @type = params[:type]
       @text = params[:text].to_sym

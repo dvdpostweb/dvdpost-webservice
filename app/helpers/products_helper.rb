@@ -95,14 +95,16 @@ module ProductsHelper
   end
 
   def rating_image_links(product, background=nil, size=nil, replace=nil)
-    rating = product.rating(current_customer)
-    links = []
-    5.times do |i|
-      i += 1
-      links << rating_image_link(product, rating, i, background, size, replace)
-      rating -= 2
+    if product
+      rating = product.rating(current_customer) 
+      links = []
+      5.times do |i|
+        i += 1
+        links << rating_image_link(product, rating, i, background, size, replace)
+        rating -= 2
+      end
+      links
     end
-    links
   end
 
   def rating_review_image_link(product, value, replace)

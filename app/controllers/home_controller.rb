@@ -31,7 +31,6 @@ class HomeController < ApplicationController
         @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
         @carousel += Landing.by_language(I18n.locale).expirated.private.order(:desc).limit(5 - @carousel.count) if @carousel.count < 5
         @streaming_available = current_customer.get_all_tokens
-        @filter = current_customer.filter || current_customer.build_filter
       }
       format.js {
         if params[:news_page]

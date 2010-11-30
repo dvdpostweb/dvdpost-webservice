@@ -1,3 +1,4 @@
+<% if advertising_product %>
 <li>
   <div class="stars" id="rating-stars-<%= advertising_product.to_param %>" product_id ="<%= advertising_product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => advertising_product, :background => :black, :size => :small} %>
@@ -9,3 +10,4 @@
   <%= render :partial => 'products/wishlist', :locals => {:product => advertising_product, :text => :short, :source => DVDPost.source_wishlist[:else], :load_color => :black} %>
   <%= link_to advertising_product.title, product_path(:id => advertising_product.to_param), :class => 'more'  %>
 </li>
+<% end %>

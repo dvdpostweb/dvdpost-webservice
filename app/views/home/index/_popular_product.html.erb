@@ -1,4 +1,4 @@
-<% path = product_path(:id => popular_product.to_param, :recommendation => 4) %>
+<% path = product_path(:id => popular_product.to_param, :recommendation => DVDPost.source_wishlist[:popular]) %>
 <li>
   <div class="stars" id="rating-stars-<%= popular_product.to_param %>" product_id ="<%= popular_product.to_param %>">
     <%= render :partial => 'products/rating', :locals => {:product => popular_product, :background => :white, :size => :small} %>

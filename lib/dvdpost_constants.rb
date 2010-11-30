@@ -198,19 +198,20 @@ module DVDPost
 
     def source_wishlist
       HashWithIndifferentAccess.new.merge({
-        :recommandation    => 'RECOMMANDATION',
-        :recommandation_product    => 'RECOMMANDATION_PRODUCT',
-        :recommandation_mail    => 'RECOMMANDATION_MAIL',
-        :popular    => 'POPULAR',
-        :top    => 'TOP',
-        :theme    => 'THEME',
-        :search    => 'POPULAR',
-        :categorie    => 'CATEGORIE',
-        :popular_start    => 'POPULAR_START',
-        :new    => 'POPULAR',
-        :recent    => 'RECENT',
-        :cinema    => 'CINEMA',
-        :else    => 'ELSEWHERE',
+        :recommendation             => '3',
+        :recommendation_product     => '4',
+        :recommendation_mail        => '5',
+        :popular                    => '6',
+        :else                       => '7',
+        :top                        => '8',
+        :theme                      => '9',
+        :search                     => '10',
+        :categorie                  => '11',
+        :popular_start              => '12',
+        :new                        => '13',
+        :recent                     => '14',
+        :cinema                     => '15',
+        :vod_suggestion             => '16',
       })
     end
 
