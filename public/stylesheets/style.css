@@ -4116,3 +4116,11 @@ width:62px;
 {
   color:#FF4B00;
 }
+#abo_not_active
+{
+  background:url("../images/attention_icon.png") no-repeat scroll 4px 9px transparent;
+  border:2px solid #FF3300;
+  padding:4px 4px 4px 44px;
+  text-align:left;
+  min-height:40px;
+}
