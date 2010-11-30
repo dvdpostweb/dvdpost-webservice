@@ -211,7 +211,8 @@ module DVDPost
         :new                        => '13',
         :recent                     => '14',
         :cinema                     => '15',
-        :vod_suggestion             => '16',
+        :old                        => '16',
+        :vod_suggestion             => '17',
       })
     end
 

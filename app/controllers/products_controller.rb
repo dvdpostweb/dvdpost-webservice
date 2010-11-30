@@ -73,7 +73,7 @@ class ProductsController < ApplicationController
       @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
     end
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-    @source = (!params[:recommendation].nil? ? params[:recommendation] : 7)
+    @source = (!params[:recommendation].nil? ? params[:recommendation] : DVDPost.source_wishlist[:else])
     respond_to do |format|
       format.html do
         @categories = @product.categories
