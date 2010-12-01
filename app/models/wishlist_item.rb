@@ -8,6 +8,7 @@ class WishlistItem < ActiveRecord::Base
 
   belongs_to :customer, :foreign_key => :customers_id
   belongs_to :product, :foreign_key => :product_id
+  belongs_to :wishlist_source
 
   before_create :set_created_at
   before_validation :set_defaults
@@ -28,6 +29,41 @@ class WishlistItem < ActiveRecord::Base
   named_scope :include_products, :include => :product
   named_scope :by_product, lambda {|product| {:conditions => {:product_id => product.to_param}}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
+
+  def self.wishlist_source(params, wishlist_source)
+    if params[:view_mode] == 'recommended'
+      source = wishlist_source[:recommendation]
+    elsif params[:view_mode] == 'recent'
+      source = wishlist_source[:new]
+    elsif params[:view_mode] == 'soon'
+      source = wishlist_source[:soon]
+    elsif params[:view_mode] == 'cinema'
+      source = wishlist_source[:cinema]
+    elsif params[:search]
+      source = wishlist_source[:search]
+    elsif params[:category_id]
+      source = wishlist_source[:category]
+    elsif params[:list_id] && !params[:list_id].blank?
+      list = ProductList.find(params[:list_id]) 
+      if list.theme?
+        source = wishlist_source[:theme]
+      else
+        source = wishlist_source[:top]
+      end
+    else
+      source = wishlist_source[:product_index]
+    end
+    source
+  end
+
+  def self.notify_hoptoad(message)
+    begin
+      HoptoadNotifier.notify(:error_message => "wishlist_items : #{message}")
+    rescue => e
+      logger.error("wishlist_items : #{message}")
+      logger.error(e.backtrace)
+    end
+  end
 
   private
   def set_created_at

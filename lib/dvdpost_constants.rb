@@ -196,26 +196,6 @@ module DVDPost
       })
     end
 
-    def source_wishlist
-      HashWithIndifferentAccess.new.merge({
-        :recommendation             => '3',
-        :recommendation_product     => '4',
-        :recommendation_mail        => '5',
-        :popular                    => '6',
-        :else                       => '7',
-        :top                        => '8',
-        :theme                      => '9',
-        :search                     => '10',
-        :categorie                  => '11',
-        :popular_start              => '12',
-        :new                        => '13',
-        :recent                     => '14',
-        :cinema                     => '15',
-        :old                        => '16',
-        :vod_suggestion             => '17',
-      })
-    end
-
     def flash_player_link
       'http://get.adobe.com/fr/flashplayer/'
     end

@@ -18,12 +18,7 @@ class ProductsController < ApplicationController
         else
           Product.filter(@filter, params)
         end
-
-        if params[:view_mode] == 'recommended'
-          @source = DVDPost.source_wishlist[:recommendation]
-        else
-          @source = DVDPost.source_wishlist[:else]
-        end
+        @source = WishlistItem.wishlist_source(params, @wishlist_source)
         @category = Category.find(params[:category_id]) if params[:category_id] && !params[:category_id].empty?
         @countries = ProductCountry.visible.order
         
@@ -73,7 +68,7 @@ class ProductsController < ApplicationController
       @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
     end
     @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
-    @source = (!params[:recommendation].nil? ? params[:recommendation] : DVDPost.source_wishlist[:else])
+    @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
     respond_to do |format|
       format.html do
         @categories = @product.categories
@@ -85,7 +80,7 @@ class ProductsController < ApplicationController
           @cinopsis_error = true
           logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
         end
-        if params[:recommendation].to_i == DVDPost.source_wishlist[:recommendation] || params[:recommendation].to_i == DVDPost.source_wishlist[:recommendation_product]
+        if params[:recommendation].to_i == @wishlist_source[:recommendation] || params[:recommendation].to_i == @wishlist_source[:recommendation_product]
           DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
         DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)

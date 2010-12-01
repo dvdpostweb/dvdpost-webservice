@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_after_registration
   before_filter :set_locale_from_params
   before_filter :set_country
+  before_filter :get_wishlist_source
   before_filter :last_login, :unless => :is_it_js?
   
 
@@ -49,6 +50,14 @@ class ApplicationController < ActionController::Base
         current_customer.last_login
         session[:last_login] = true
       end
+    end
+  end
+
+  def get_wishlist_source
+    @wishlist_source = {}
+    wl_source = WishlistSource.find(:all)
+    wl_source.each do |item| 
+      @wishlist_source[item.name.downcase.to_sym] = item.to_param 
     end
   end
 

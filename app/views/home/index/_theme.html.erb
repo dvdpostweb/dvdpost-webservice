@@ -3,5 +3,5 @@
   <span class='theme_title'><%= t ".#{id}" %></span><span class="theme_link"><%= link_to t(".see_all"), products_path(:view_mode => view_mode), :class => :small %></span>
 </h3>
 <ul class="clearfix">
-  <%= render :partial => 'home/index/advertising_product', :collection => products %>
+  <%= render :partial => 'home/index/advertising_product', :collection => products, :locals => { :id => id } %>
 </ul>

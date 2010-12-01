@@ -51,9 +51,12 @@ class WishlistItemsController < ApplicationController
       @type = params[:type]
       @text = params[:text].to_sym
       @load_color = params[:load_color].to_sym if params[:load_color]
-      
     end
-
+    
+    if params[:wishlist_item][:wishlist_source_id].to_i == 0
+      WishlistItem.notify_hoptoad("add to wishlist without source")
+    end
+    
     begin
       if params[:add_all_from_series]
         product = Product.normal_available.find(params[:wishlist_item][:product_id])
