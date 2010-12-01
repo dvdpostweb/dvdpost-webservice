@@ -54,7 +54,7 @@ class WishlistItemsController < ApplicationController
     end
     
     if params[:wishlist_item][:wishlist_source_id].to_i == 0
-      WishlistItem.notify_hoptoad("add to wishlist without source")
+      WishlistItem.notify_hoptoad("add to wishlist without source url => #{request.request_uri} params : #{params.inspect} referer : #{request.env['HTTP_REFERER'] if request.env['HTTP_REFERER']}")
     end
     
     begin
