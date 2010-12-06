@@ -49,7 +49,7 @@
     <div class="links" id="seen-uninterested-<%= product.to_param %>">
       <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => product} %>
     </div>
-    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' %>
+    <%= render :partial => 'products/wishlist', :locals => {:product => product, :text => :long, :source => @source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
     <%= render :partial => 'products/streaming', :locals => {:product => product, :token => @token } if product.streaming? and streaming_access? %>
     
   </div>

@@ -13,6 +13,13 @@ class FiltersController < ApplicationController
 
   def destroy
     current_customer.filter.destroy if current_customer.filter
+    redirect_back_or(products_path)
+  end
+
+  private
+  def redirect_back_or(path)
     redirect_to :back
+  rescue ::ActionController::RedirectBackError
+    redirect_to path
   end
 end

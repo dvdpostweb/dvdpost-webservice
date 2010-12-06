@@ -43,6 +43,10 @@ class WishlistItem < ActiveRecord::Base
       source = wishlist_source[:search]
     elsif params[:category_id]
       source = wishlist_source[:category]
+    elsif params[:actor_id]
+      source = wishlist_source[:actor]
+    elsif params[:director_id]
+      source = wishlist_source[:director]
     elsif params[:list_id] && !params[:list_id].blank?
       list = ProductList.find(params[:list_id]) 
       if list.theme?

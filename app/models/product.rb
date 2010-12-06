@@ -76,6 +76,7 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
+    has "(select created_at as streaming_created_at from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
     
     
     has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),'é','e'),'ç','c'),'à','a'),'ö','o'),'è','e'),'ô','o'),'ë','e'),'ê','e'),'î','i'),'ï','i'),'ù','u'),'û','u'),'à','a'),'ä','a'),'ú','u'),'â','a'),'ó','o'),'á','a'),'í','i'),'ñ','n'),'å','a'),'ä','a'),'ü','u'),'ò','o'),'ì','i'))  AS products_name_ord from products_description where  language_id = 1 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr
@@ -138,6 +139,8 @@ class Product < ActiveRecord::Base
   sphinx_scope(:streaming_test)     {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_available_test => 1}}}
   sphinx_scope(:random)             {{:order =>         '@random'}}
   sphinx_scope(:popular_new)        {{:with =>          {:popular => 1}}}
+  sphinx_scope(:weekly_streaming)   {{:without =>       {:streaming_imdb_id => 0}, :with => {:streaming_created_at => 7.days.ago..Time.now, :streaming_available => 1 }}}
+  
   sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   
@@ -209,18 +212,14 @@ class Product < ActiveRecord::Base
         else
           products.streaming_test
         end
+      when :weekly_streaming
+        products.weekly_streaming
       when :popular_streaming
           products.streaming.limit(10)
       when :recommended
         products.by_recommended_ids(filter.recommended_ids)
       when :popular
-        test = search_clean(options[:search], {:page => options[:page], :per_page => options[:per_page]}).popular_new
-        if test.count != 0
-          products.popular_new.limit(800)
-        else
-          products.popular.limit(800)
-        end
-        products
+        products.popular_new.limit(800)
       else
         products
       end
@@ -239,7 +238,7 @@ class Product < ActiveRecord::Base
       sort = sort_by("count_tokens desc, streaming_id desc", options)
     elsif options[:view_mode] && options[:view_mode].to_sym == :popular
       sort = sort_by("rating DESC, available_at desc", options)
-    elsif options[:view_mode] && options[:view_mode].to_sym == :recent 
+    elsif options[:view_mode] && (options[:view_mode].to_sym == :recent || options[:view_mode].to_sym == :weekly_streaming)
       sort = sort_by("available_at desc", options)
     elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
       sort = sort_by("available_at asc", options)
@@ -247,7 +246,7 @@ class Product < ActiveRecord::Base
       sort = sort_by("in_stock DESC, rating DESC", options)
     end
     if sort !=""
-      if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming )
+      if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming )
         products = products.group('imdb_id', sort)
       else
         products = products.order(sort, :extended)
@@ -406,7 +405,7 @@ class Product < ActiveRecord::Base
         jacket_mode = :streaming
       end
     end
-    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming))
+    if (params[:view_mode] && (params[:view_mode].to_sym == :streaming || params[:view_mode].to_sym == :popular_streaming || params[:view_mode].to_sym == :weekly_streaming))
       jacket_mode = :streaming
     end
     if jacket_mode.nil?
