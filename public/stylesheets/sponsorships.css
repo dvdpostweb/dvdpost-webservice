@@ -320,10 +320,9 @@ font-weight: bold;
 
 #tool-wrap .tab-content #gifts li {
   width: 270px;
-  height: 290px;
+  height: 260px;
   float: left;
   text-align: center;
-  margin: 10px 0;
 }
 * html #tool-wrap .tab-content #gifts li {
   display: inline;
@@ -361,7 +360,7 @@ font-weight: bold;
   float:left;
   font-size:14px;
   height:26px;
-  margin:6px 0 0 37px;
+  margin:0 0 0 50px;
   padding:8px 0 0;
   width:170px;
 }

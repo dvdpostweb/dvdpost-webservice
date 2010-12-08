@@ -4,6 +4,8 @@ class AdditionalCard < ActiveRecord::Base
   belongs_to :customer,         :foreign_key => :customers_id
   validates_inclusion_of :number, :in => 0..5
 
+  named_scope :gfc, :conditions => {:campaign => DVDPostConfig[:default_campaign_gfc]}
+
   before_save :init_status
   
   def init_status

@@ -3,7 +3,7 @@ class RatingsController < ApplicationController
     @product = Product.normal_available.find(params[:product_id])
     @product.ratings.create(:customer => current_customer, :value => params[:value])
     current_customer.seen_products << @product
-    DVDPost.send_evidence_recommendations('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
+    Customer.send_evidence('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
     
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product)}

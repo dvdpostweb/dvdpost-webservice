@@ -194,10 +194,14 @@ module ApplicationHelper
   end
 
   def product_assigned_title(product)
-    if product.products_type == DVDPost.product_kinds[:adult]
-      t('wishlit_items.index.adult_title')
+    if product
+      if product.products_type == DVDPost.product_kinds[:adult]
+        t('wishlit_items.index.adult_title')
+      else
+        product.title
+      end
     else
-      product.title
+      ''
     end
   end
 

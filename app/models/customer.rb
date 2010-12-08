@@ -181,6 +181,14 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def self.send_evidence(type, product_id, customer, ip, args=nil)
+    begin
+      Customer.send_evidence(type, product_id, customer, ip, args=nil)
+    rescue => e
+      logger.error("Failed to send evidence: #{e.message}")
+    end
+  end
+
   def popular(options={})
     options.merge!(:subtitles => [2]) if I18n.locale == :nl
     options.merge!(:audio => [1]) if I18n.locale == :fr
@@ -228,7 +236,7 @@ class Customer < ActiveRecord::Base
   end
 
   def credit_empty?
-    credits == 0 && suspension_status == 0 && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
+    credits == 0 && suspension_status == 0 && subscription_type && subscription_type.credits > 0 && subscription_expiration_date && subscription_expiration_date.to_date != Time.now.to_date
   end
 
   def suspended?
@@ -390,7 +398,7 @@ class Customer < ActiveRecord::Base
     unless wl.blank?
       wl.each do |item|
         item.destroy()
-        DVDPost.send_evidence_recommendations('RemoveFromWishlist', item.to_param, self, current_ip)   
+        Customer.send_evidence('RemoveFromWishlist', item.to_param, self, current_ip)   
       end
     end
   end
@@ -432,6 +440,24 @@ class Customer < ActiveRecord::Base
     customer_attribute.update_attributes(:number_of_logins  =>  (init + 1), :last_login_at => Time.now.to_s(:db) )
   end
 
+  def credit_per_month
+    if subscription_type
+      subscription_type.credits
+    else
+      notify_hoptoad()
+      '0'
+    end
+  end
+  
+  def price_per_month 
+    if subscription_type
+      subscription_type.product.price
+    else
+      notify_hoptoad()
+      '0'
+    end
+  end
+
   private
   def convert_created_at
     begin
@@ -443,5 +469,14 @@ class Customer < ActiveRecord::Base
 
   def validate_created_at
     errors.add("Created at date", "is invalid.") unless convert_created_at
+  end
+
+  def notify_hoptoad()
+    begin
+      HoptoadNotifier.notify(:error_message => "customer dont abo abo_type : #{to_param}")
+    rescue => e
+      logger.error("customer dont abo abo_type : #{to_param}")
+      logger.error(e.backtrace)
+    end
   end
 end

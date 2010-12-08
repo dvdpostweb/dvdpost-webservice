@@ -67,7 +67,8 @@ class ProductsController < ApplicationController
       @reviews = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).paginate(:page => params[:reviews_page], :per_page => 3)
       @reviews_count = Review.by_imdb_id(@product.imdb_id).approved.by_language(I18n.locale).find(:all, :joins => :product).count
     end
-    @recommendations = @product.recommendations.paginate(:page => params[:recommendation_page], :per_page => 6)
+    product_recommendations = @product.recommendations
+    @recommendations = product_recommendations.paginate(:page => params[:recommendation_page], :per_page => 6) if product_recommendations
     @source = (!params[:recommendation].nil? ? params[:recommendation] : @wishlist_source[:elsewhere])
     respond_to do |format|
       format.html do
@@ -81,9 +82,9 @@ class ProductsController < ApplicationController
           logger.error("Failed to retrieve critic of cinopsis: #{e.message}")
         end
         if params[:recommendation].to_i == @wishlist_source[:recommendation] || params[:recommendation].to_i == @wishlist_source[:recommendation_product]
-          DVDPost.send_evidence_recommendations('UserRecClick', @product.to_param, current_customer, request.remote_ip)
+          Customer.send_evidence('UserRecClick', @product.to_param, current_customer, request.remote_ip)
         end
-        DVDPost.send_evidence_recommendations('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
+        Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
       @token = current_customer.get_token(@product.imdb_id)
       format.js {
@@ -99,7 +100,7 @@ class ProductsController < ApplicationController
   def uninterested
     unless current_customer.rated_products.include?(@product) || current_customer.seen_products.include?(@product)
       @product.uninterested_customers << current_customer
-      DVDPost.send_evidence_recommendations('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
+      Customer.send_evidence('NotInterestedItem', @product.to_param, current_customer, request.remote_ip)
     end
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param)}
@@ -109,7 +110,7 @@ class ProductsController < ApplicationController
 
   def seen
     @product.seen_customers << current_customer
-    DVDPost.send_evidence_recommendations('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
+    Customer.send_evidence('AlreadySeen', @product.to_param, current_customer, request.remote_ip)
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product.to_param)}
       format.js   {render :partial => 'products/show/seen_uninterested', :locals => {:product => @product}}

@@ -7,13 +7,13 @@
       <tr>
         <td width="207" align="right"><strong><%= t '.abo' %></strong></td>
         <td width="141" align="left">
-          <%= customer.subscription_type.credits == 0 ? t('.unlimited') : "#{customer.subscription_type.credits} DVD" %>
+          <%= customer.credit_per_month == 0 ? t('.unlimited') : "#{customer.credit_per_month} DVD" %>
         </td>
       </tr>
       <tr>
-        <td align="right"><strong><%= current_customer.subscription_type.credits == 0 ? t('.credit_vod') : t('.credit') %></strong></td>
+        <td align="right"><strong><%= current_customer.credit_per_month == 0 ? t('.credit_vod') : t('.credit') %></strong></td>
         <td align="left">
-          <%= current_customer.subscription_type.credits == 0 ? customer.credits : "#{customer.credits} DVD" %>
+          <%= current_customer.credit_per_month == 0 ? customer.credits : "#{customer.credits} DVD" %>
         </td>
       </tr>
       <tr>

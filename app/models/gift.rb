@@ -6,4 +6,8 @@ class Gift < ActiveRecord::Base
   named_scope :status, :conditions => {:status => true}
 
   belongs_to :product, :primary_key => :products_id, :foreign_key => :products_id
+
+  def image
+    File.join(DVDPost.images_path, 'gifts', I18n.locale.to_s, "#{to_param}.jpg")
+  end
 end

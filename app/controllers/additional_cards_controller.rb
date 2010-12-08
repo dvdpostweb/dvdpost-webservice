@@ -1,6 +1,6 @@
 class AdditionalCardsController < ApplicationController
   def new
-    @number = current_customer.additional_card.sum('number')
+    @number = current_customer.additional_card.gfc.sum('number')
     @addition_card = AdditionalCard.new
     respond_to do |format|
       format.html
@@ -10,7 +10,7 @@ class AdditionalCardsController < ApplicationController
 
   def create
     @addition_card = AdditionalCard.new(params[:additional_card].merge(:customer => current_customer))
-    @number = current_customer.additional_card.sum('number')
+    @number = current_customer.additional_card.gfc.sum('number')
     if @addition_card.save
       respond_to do |format|
         format.html

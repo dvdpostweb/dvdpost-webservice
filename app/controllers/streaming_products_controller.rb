@@ -83,7 +83,7 @@ class StreamingProductsController < ApplicationController
             current_customer.remove_product_from_wishlist(params[:id], request.remote_ip)
             StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])
             filename =  streaming_version.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")
-            DVDPost.send_evidence_recommendations('PlayStart', @product.to_param, current_customer, request.remote_ip)
+            Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip)
             render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => filename}, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
             filename =  streaming_version.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")

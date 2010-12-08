@@ -29,7 +29,7 @@
         </table>
       </p>
       <p align="center">
-        <%= f.hidden_field :campaign, :value => 'summer2010' %>
+        <%= f.hidden_field :campaign, :value => DVDPostConfig[:default_campaign_gfc] %>
         <%= submit_tag t('.confirm'), :id => 'submit_additional' %>
       </p>
     <% end %>
