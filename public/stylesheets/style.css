@@ -250,6 +250,10 @@ fieldset {
   background: url(../images/nav-bg.png) 0 0 no-repeat;
   text-shadow: 1px 1px 1px #000000;
 }
+#nav.noel li a
+{
+  background: url(../images/nav-bg_xmas.png) 0 100% no-repeat;
+}
 
 #nav li a:hover {
   text-decoration: none;
