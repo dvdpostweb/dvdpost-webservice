@@ -1,6 +1,6 @@
 <li>
 	<span class="pic-wrap"><%= image_tag item.image %></span>
-	<h3><%= item.gift_name_fr %></h3>
+	<h3><%= item.name(I18n.locale) %></h3>
   <% if current_customer.inviation_points >= item.points %>
     <% form_for :gifts_history, :url => sponsorships_gifts_history_path do |f| %>
       <%= f.hidden_field :gift_id, :value => item.to_param %>
