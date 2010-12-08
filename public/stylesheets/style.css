@@ -252,7 +252,7 @@ fieldset {
 }
 #nav.noel li a
 {
-  background: url(../images/nav-bg_xmas.png) 0 100% no-repeat;
+  background: url(../images/nav-bg_xmas.png) 0 0 no-repeat;
 }
 
 #nav li a:hover {
