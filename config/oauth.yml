@@ -1,7 +1,7 @@
 development:
   client_id: dvdpost_rails_development_client
   client_secret: 'dvdpost_rails_development_client_secret'
-  site: 'https://staging.sso.dvdpost.be'
+  site: 'http://sso.dvdpost.dev'
   authorize_path: 'authorization/new'
   access_token_path: 'authorization/token'
 test:

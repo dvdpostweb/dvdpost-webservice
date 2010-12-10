@@ -28,7 +28,7 @@
   <%= javascript_include_tag 'DD_belatedPNG' %>
   <%= javascript_include_tag 'ie6-dd-decl' %>
   <![endif]-->
-
+	<%= yield :facebook %>
   <%= yield :head %>
 </head>
 <body id="<%= yield :body_id %>">
