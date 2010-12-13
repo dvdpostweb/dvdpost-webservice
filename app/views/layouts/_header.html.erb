@@ -1,15 +1,15 @@
-<div id="header" <%= "class='small'" if @hide_menu %>
-  <h1><%= link_to t('.tagline'), root_path, :class => 'like-btn' %></h1>
+<div id="header" <%= "class='small'" if @hide_menu %>>
+  <h1>
+    <%= link_to t('.tagline'), root_path, :class => 'like-btn' %>
+  </h1>
   <ul id="login" class="subnav">
     <li class="first">
       <% if current_customer %>
         <%= "#{link_to t('.logout'), sign_out_path} (#{current_customer.email})" %>
-      <% else %>
-        <%= link_to t('.login'), sign_in_path %>
       <% end %>
     </li>
     <li>
-      <%= link_to t('.help'), faq_path %>
+      <%= link_to t('.help'), faq_path if current_customer %>
     </li>
     <li>
       <%= switch_locale_link I18n.locale, {:id => 'lang'} %>
@@ -20,7 +20,7 @@
       </span>
     </li>
   </ul>
-  <%  unless @hide_menu%>
+  <%  unless @hide_menu %>
   <ul id="subnav" class="subnav">
     <li class="first">
       <%= link_to content_tag(:strong, t('.rent')) %>
