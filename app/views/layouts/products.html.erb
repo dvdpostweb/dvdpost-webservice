@@ -6,6 +6,9 @@
     <meta property="og:type" content="movie">
     <meta property="og:title" content="<%= @product.description.title %>">
     <meta property="og:url" content="<%= @public_url %>">
+    <meta property="og:site_name" content="DVDPost"/>
+    <meta property="fb:admins" content="542538810,586983921"/>
+    <meta property="og:description" content="<%= @product.description.text %>">
   <% end %>
   <% content_for :description do %>
     <%= @product.description.text %>

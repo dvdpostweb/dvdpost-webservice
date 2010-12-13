@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
     @filter = current_customer.filter || current_customer.build_filter
     @product = Product.normal_available.find(params[:id])
     @product.views_increment
-    @public_url = "http://www.dvdpost.be/#{I18n.locale}/movies/test_#{@product.to_param}"
+    @public_url = "http://www.dvdpost.be/product_info_public.php?products_id=#{@product.to_param}"
     if @product.imdb_id == 0
       @reviews = @product.reviews.approved.by_language(I18n.locale).paginate(:page => params[:reviews_page], :per_page => 3)
       @reviews_count = @product.reviews.approved.by_language(I18n.locale).count
