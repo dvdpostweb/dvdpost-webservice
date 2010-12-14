@@ -169,10 +169,6 @@ module ApplicationHelper
     php_path carousel
   end
 
-  def customers_reviews_path(customer)
-    php_path "reviews_member.php?custid=#{customer.to_param}"
-  end
-
   def shop_path(url)
     php_path url
   end

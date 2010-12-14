@@ -1,4 +1,11 @@
 class ReviewsController < ApplicationController
+
+  def index
+    @reviews = Review.by_customer_id(params[:customer_id]).approved.ordered.paginate(:page => params[:page], :per_page => 10)
+    @customer = Customer.find(params[:customer_id])
+    @source = @wishlist_source[:reviews]
+  end
+
   def new
     @product = Product.normal_available.find(params[:product_id])
     @review = Review.new(:products_id => params[:product_id])

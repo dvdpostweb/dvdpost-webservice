@@ -3,7 +3,7 @@
     <span class="right">
       <%= "#{review.like_count} #{t '.members'} #{review.likeable_count} #{t '.found_useful'}" %>
     </span>
-    <%= link_to review.customer ? review.customer.first_name : review.customers_name, customers_reviews_path(review.customer) %>
+    <%= link_to review.customer ? review.customer.first_name : review.customers_name, customer_reviews_path(:customer_id => review.customer.to_param) %>
     <span>
       <img src="/images/delimiter.gif" alt="" />
     </span>

@@ -87,6 +87,8 @@ ActionController::Routing::Routes.draw do |map|
       customer.resource 'addresses', :only => [:edit, :update]
       customer.resource 'suspension', :only => [:new, :create, :destroy]
       customer.resource 'reconduction', :only => [:edit, :update]
+      customer.resources :reviews, :only => [:index]
+      
       
     end
 

@@ -13,7 +13,13 @@ class ReviewRatingsController < ApplicationController
                            :customers_id => current_customer.to_param,
                            :value => rate)
     respond_to do |format|
-       format.js {render :partial => 'products/show/review', :locals => {:review => @review}}
+       format.js do
+         if params[:all]
+           render :partial => 'reviews/index/critics', :locals => {:review => @review}
+         else
+           render :partial => 'products/show/review', :locals => {:review => @review}
+         end
+       end
     end
   end
 end
