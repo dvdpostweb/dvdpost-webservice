@@ -1,0 +1,8 @@
+<% s = message.communication.to_s %>
+<tr>
+  <td><%= message.date_reconduction.strftime("%d/%m/%Y") %></td>  
+  <td><%=  number_to_currency(message.amount, :unit => '&euro;', :separator => ",", :delimiter => "", :format => "%n %u", :locale => :en) %> </td>  
+  <td><%= offline_reason(message.reason) %></td>  
+  <td><%= "+++#{s[0,3]}/#{s[3,4]}/#{s[7,5]}+++" %></td>  
+  <td><%= DVDPostConfig[:account_iban] %></td>  
+</tr>

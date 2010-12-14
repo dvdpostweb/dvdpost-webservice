@@ -2374,7 +2374,7 @@ h3.hp-ttls {
 
 #flash-news li {
   width: 282px;
-  height: 105px;
+  height: 102px;
   margin: 12px 0 0 10px;
   float: left;
   display: block;
@@ -4163,7 +4163,7 @@ position:relative;
   float:right;
   margin:0 58px 0 0;
 }
-#title.reviews
+#title.reviews,#title.urgent
 {
   margin: 20px 0 0 30px;
 }

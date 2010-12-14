@@ -50,4 +50,8 @@ class MessagesController < ApplicationController
       format.js   {render :status => :ok, :layout => false}
     end
   end
+
+  def urgent
+    @offline_request = current_customer.payment_offline_request.recovery
+  end
 end

@@ -66,11 +66,26 @@
 #contact-wrap #messages #date {
   width: 105px;
 }
+#contact-wrap #messages #date2 {
+  width: 70px;
+}
 #contact-wrap #messages #response {
   width: 95px;
 }
 #contact-wrap #messages #details {
   width: 60px;
+}
+#contact-wrap #messages #amount {
+  width: 70px;
+}
+#contact-wrap #messages #reason {
+  width: 200px;
+}
+#contact-wrap #messages #comm {
+  width: 200px;
+}
+#contact-wrap #messages #account {
+  width: 200px;
 }
 #contact-wrap #messages #delete {
   /*width: 50px;*/
@@ -423,12 +438,19 @@ color:#e78c15 !important;
 font-size:0.9em !important; 
 margin:0 !important;
 }
-
-
-
-
-
-
-
-
-
+#contact-wrap.urgent {
+  margin:18px auto;
+  padding:0;
+  width:859px;
+}
+#contact-wrap.urgent #tabs-content {
+  min-height: 80px;
+}
+#titles-wrap.urgent {
+background:url("../images/content-bg-wishlist.gif") repeat-y scroll 0 0 transparent;
+padding:18px 24px 5px 20px;
+position:relative;
+}
+#titles-wrap.urgent {
+margin:25px 25px 0;
+}

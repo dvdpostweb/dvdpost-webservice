@@ -149,10 +149,6 @@ module ApplicationHelper
     type ? "#{path}&payment=#{type}" : path
   end
 
-  def reconduction_path
-    php_path 'basic_reconduction_info.php'
-  end
-
   def urgent_messages_path
     php_path 'messages_urgent.php'
   end

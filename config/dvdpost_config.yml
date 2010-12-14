@@ -1,2 +1,5 @@
 default_wishlist_priority: :high
 default_campaign_gfc: 'gfc2010'
+account_iban: 'BE62.0682.4168.8661'
+account_bic: 'GKCCBEBB'
+phone_number: '02/503.68.11'
