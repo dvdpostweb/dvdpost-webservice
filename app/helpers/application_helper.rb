@@ -149,10 +149,6 @@ module ApplicationHelper
     type ? "#{path}&payment=#{type}" : path
   end
 
-  def urgent_messages_path
-    php_path 'messages_urgent.php'
-  end
-
   def adult_path
     php_path 'mydvdxpost.php'
   end

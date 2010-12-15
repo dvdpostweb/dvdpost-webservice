@@ -9,18 +9,23 @@
       <% end %>
     </p>
   </td>
-    <% qualities = ['LOW'] %>
+  <td align='center'>
+    <% qualities = kind.high_available == true ? ['LOW','HIGH'] : ['LOW'] %>
     <% qualities.each do |quality| %>
-  <td>
-    <div class="quality_vod">
+  
+    <div class="<%= qualities.count == 2 ? 'quality_vod' : '' %>">
       <%= link_to t(".#{quality.downcase}"), streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality), :class => "btn qualityvod", :id =>  quality %>
     </div>
+    
+    
+  
+    <% end %>
+  </td>
+  <td>
     <div class="status_vod">
        <%= link_to t('.alert'), new_streaming_product_report_path(:streaming_product_id => params[:id],:reference_id => kind.to_param), :class => :connect_linkpc, :id => :report %>   
     </div>
-    
-  </td>
-    <% end %>
+  </td>  
 </tr>
 <tr class="choose_empty">
   <td></td>

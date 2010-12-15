@@ -205,15 +205,13 @@ font-size:11px;
 
 .status_vod { 
 padding-right:7px;
-padding-top:10px;
 float:right;
-
 }
 
 
 
-.quality_vod { float:left;
-padding-left:105px;
+.quality_vod { float:right;
+padding-left:17px;
 
 }
 
