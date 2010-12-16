@@ -4,8 +4,8 @@ class HomeController < ApplicationController
       format.html {
         @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
         @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
-        @soon = Product.by_kind(:normal).available.soon.random.limit(3)
-        @recent = Product.by_kind(:normal).available.recent.random.limit(3)
+        @soon = Product.get_soon(I18n.locale)
+        @recent = Product.get_recent(I18n.locale)
         @quizz = QuizzName.find_last_by_focus(1)
         @offline_request = current_customer.payment_offline_request.recovery
         if @offline_request.count == 0

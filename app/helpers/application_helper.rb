@@ -174,10 +174,12 @@ module ApplicationHelper
   end
 
   def product_assigned_path(product)
-    if product.products_type == DVDPost.product_kinds[:adult]
-      php_path "product_info_adult.php?products_id=#{product.to_param}"
-    else
-      product_path(:id => product.to_param)
+    if product
+      if product.products_type == DVDPost.product_kinds[:adult]
+        php_path "product_info_adult.php?products_id=#{product.to_param}"
+      else
+        product_path(:id => product.to_param)
+      end
     end
   end
 

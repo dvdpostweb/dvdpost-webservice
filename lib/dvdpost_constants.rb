@@ -249,5 +249,14 @@ module DVDPost
       })
       
     end
+
+    def bluray_link
+      HashWithIndifferentAccess.new.merge({
+        :fr => 'http://www.blurayfrance.net/definition-blu-ray.html',
+        :nl => 'http://en.wikipedia.org/wiki/Blu-ray_Disc',
+        :en => 'http://en.wikipedia.org/wiki/Blu-ray_Disc'
+      })
+      
+    end
   end
 end

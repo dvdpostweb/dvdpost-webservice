@@ -434,6 +434,11 @@ class Customer < ActiveRecord::Base
     customer_attribute.update_attributes(:list_indicator_close => status)
   end
 
+  def bluray_owner(status)
+    build_customer_attribute unless customer_attribute
+    customer_attribute.update_attributes(:bluray_owner => status)
+  end
+
   def last_login
     build_customer_attribute unless customer_attribute
     init = (customer_attribute && customer_attribute.number_of_logins ? customer_attribute.number_of_logins : 0)

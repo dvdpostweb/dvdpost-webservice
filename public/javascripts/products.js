@@ -353,4 +353,11 @@ $(function() {
     $('form.#new_wishlist_item').ajaxSubmit(options);
     return false; // prevent default behaviour
   });
+  $('#bluray_ok').live('click', function(){
+    url = $(this).attr('href');
+    $.getScript(url);
+    $('#attention_bluray').hide();
+    return false;
+  });
+  
 });

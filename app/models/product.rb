@@ -413,5 +413,27 @@ class Product < ActiveRecord::Base
     end
     jacket_mode
   end
-  
+
+  def self.get_soon(locale)
+    case locale
+      when :fr
+        Product.by_kind(:normal).available.soon.with_languages(1).random.limit(3)
+      when :nl
+        Product.by_kind(:normal).available.soon.with_subtitles(2).random.limit(3)
+      when :en
+        Product.by_kind(:normal).available.soon.random.limit(3)
+      end
+  end
+
+  def self.get_recent(locale)
+    case locale
+      when :fr
+        Product.by_kind(:normal).available.recent.with_languages(1).random.limit(3)
+      when :nl
+        Product.by_kind(:normal).available.recent.with_subtitles(2).random.limit(3)
+      when :en
+        Product.by_kind(:normal).available.recent.random.limit(3)
+      end
+  end
+
 end

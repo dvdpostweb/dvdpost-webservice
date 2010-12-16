@@ -3586,7 +3586,7 @@ a#change_password
   color: #990000;
 }
 
-#attention_langues {
+#attention_langues,#attention_bluray {
   border:1px solid #FF4B00;
   color:#FF4B00;
   font-family:Arial,Helvetica,sans-serif;
@@ -3595,7 +3595,26 @@ a#change_password
   width:370px;
   margin: 15px 0;
 }
-
+#attention_bluray span
+{
+  border:1px solid #FF4B00;
+  color:#FF4B00;
+  padding:3px;
+}
+#attention_bluray ul
+{
+  list-style:square inside none;
+}
+#attention_bluray li
+{
+  padding: 4px 0;
+}
+#attention_bluray a
+{
+  color: #FF4B00;
+  font-weight: bold;
+  text-decoration:underline;
+}
 .subtitle_hide, .audio_hide
 {
   display:none;
