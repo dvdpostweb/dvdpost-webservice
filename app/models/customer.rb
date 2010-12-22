@@ -50,6 +50,7 @@ class Customer < ActiveRecord::Base
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
   has_one :filter
   has_one :beta_test
+  has_one :cable_order
   has_one :customer_attribute
   has_many :wishlist_items, :foreign_key => :customers_id
   has_many :wishlist_products, :through => :wishlist_items, :source => :product

@@ -94,6 +94,16 @@
 	font-size:37px;
 	line-height:95%;
 }
+#middle_box
+{
+  background: #fff;
+}
+#middle_box.popup
+{
+  margin:20px 50px;
+  padding:3px;
+}
+
 #top_box h3, #middle_box .options_top h3, #middle_box .list_options p, #middle_box .suggestion h3, #middle_box p.cable_name {
 	font-size:14px;
 }
@@ -224,8 +234,18 @@ a:hover, a:active, a:link, a {
 	background:url("../images/composite.gif") no-repeat scroll 0 0px #FFFFFF;
 }
 .vga {
-	background:url("../images/vga.gif") no-repeat scroll 0 0px #FFFFFF;
+	background:url("../images/fr/vga.gif") no-repeat scroll 0 0px #FFFFFF;
 }
+.vga_fr {
+	background:url("../images/fr/vga.gif") no-repeat scroll 0 0px #FFFFFF;
+}
+.vga_en {
+	background:url("../images/en/vga.gif") no-repeat scroll 0 0px #FFFFFF;
+}
+.vga_nl {
+	background:url("../images/nl/vga.gif") no-repeat scroll 0 0px #FFFFFF;
+}
+
 .hdmi {
 	background:url("../images/hdmi.gif") no-repeat scroll 0 0px #FFFFFF;
 }
@@ -242,7 +262,7 @@ a:hover, a:active, a:link, a {
 	background:url("../images/component.gif") no-repeat scroll 0 0px #FFFFFF;
 }
 .li_selected, .li_chosen {
-	background-position:0 -70px;
+	background-position:0 -72px;
 }
 
 #middle_box ul.list_options li {
@@ -292,4 +312,26 @@ p.cable_name {
 .guide_selected, .guide_chosen {
 background-color:#A82D24;
 border:1px solid #FFFFFF;
+}
+#order span
+{
+  margin:0 10px;
+  border: 1px solid #87BC14;
+  padding: 5px;
+  cursor: pointer;
+  background: #f3f3f3;
+}
+#order_new
+{
+  background:url("../images/bouton_cable.png") no-repeat scroll 0 0 #FFFFFF;
+  color:#FFFFFF;
+  display:block;
+  height:50px;
+  padding:18px 9px 0 55px;
+  width:224px;
+}
+#order_description
+{
+  font-size:15px;
+  text-decoration:underline;
 }

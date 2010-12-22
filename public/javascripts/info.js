@@ -40,7 +40,42 @@ $(function() {
   $('#in_svideo').live('click', function(){
     menu2_selected($(this))
   })
-
+  $('#order_new').live('click', function(){
+    url = $(this).attr('href');
+    url += '?in='+in_name+'&out='+out_name+'&cable='+cable_type+'&image_in='+in_image+'&image_out='+out_image
+    jQuery.facebox(function() {
+      $.getScript(url, function(data) {
+        jQuery.facebox(data);
+      });
+    });
+    return false;
+  });
+  $('#order #yes').live('click', function(){
+    url = $(this).children('a').attr('href');
+    html_item = $(this).parent()
+    content =  html_item.html()
+    loader = 'ajax-loader.gif';
+    html_item.html("<img src='/images/"+loader+"'/>");
+    $.ajax({
+      url: url+"?cable="+cable_type,
+      type: 'POST',
+      data: {},
+      success: function(data) {
+        
+        $(".content").html("<p>"+data+"</p>");
+      },
+      error: function() {
+        html_item.html(content);
+      }
+    });
+    return false;
+  })
+  
+  $('#order #no').live('click', function(){
+    $("body").trigger('close.facebox')
+    return false;
+  })
+  
   function menu1_selected(self)
   {
     $('#guide_output li').removeClass('li_chosen');
@@ -198,4 +233,5 @@ $(function() {
       }
       return vars;
   }
+  
 });

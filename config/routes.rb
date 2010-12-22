@@ -75,6 +75,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     localized.resources :phone_requests, :only => [:new, :create]
+    localized.resources :cable_orders, :only => [:create, :new]
 
     localized.faq 'faq', :controller => :messages, :action => :faq
 

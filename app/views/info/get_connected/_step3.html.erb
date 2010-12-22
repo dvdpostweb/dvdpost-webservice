@@ -1,4 +1,7 @@
 <div style="display: none;" id="video_suggestion" class="suggestion">
+  <% if current_customer && !current_customer.cable_order && params['order'] == 1 %>
+    <a href="<%= new_cable_order_path %>" id ='order_new'><%= t'.order' %></a>
+  <% end %>
   <h3><%= t '.video_connect'%>:</h3>
   <div id="video_result" class="guide_result">
     <div id="video_output" class="result_card"> <img alt="VGA" src="/images/res_vga.gif">

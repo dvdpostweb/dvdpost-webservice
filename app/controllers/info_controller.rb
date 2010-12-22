@@ -9,8 +9,4 @@ class InfoController < ApplicationController
       end
     end
   end
-  protected
-  def is_customer?
-    
-  end
 end

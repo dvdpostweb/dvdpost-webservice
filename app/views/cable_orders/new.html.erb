@@ -1,0 +1,22 @@
+<% if @visible %>
+  <p id='order_description' align='center'><%= t '.description'%></p>
+  <div id='middle_box' class="popup">
+  <div class="guide_result" id="video_result">
+      <div class="result_card" id="video_output"> <img src="/images/res_<%= @image_out %>.gif" alt="<%= @out %>">
+        <p><%= @out %></p>
+      </div>
+      <div class="result_card" id="video_input"> <img src="/images/res_<%= @image_in %>.gif" alt="<%= @in %>">
+        <p><%= @in %></p>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <p class="cable_name"><%= @cable %></p>
+  </div>
+  
+  <p id='order' align="center">
+    <%= t '.confirm' %>  <br /><br />
+    <span id="yes"><a href='<%= cable_orders_path %>'><%= t '.yes' %></a></span><span id ='no'><a href=''><%= t '.no' %></a></span>
+  </p>
+<% else %>
+ <p align="center"><%= t ('.already', :free_phone_number => DVDPostConfig[:phone_number]) %></p>
+<% end %>
