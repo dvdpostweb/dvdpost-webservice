@@ -1,6 +1,6 @@
 class InfoController < ApplicationController
 
-  skip_before_filter :authenticate! 
+   
 
   def index
     if params[:page_name] == 'get_connected' || params[:page_name] == 'get_connected_order'

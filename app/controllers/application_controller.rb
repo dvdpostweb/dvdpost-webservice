@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_customer
 
   before_filter :save_attempted_path
-  before_filter :authenticate!
+  before_filter :authenticate!, :unless => :is_special_page?
   before_filter :wishlist_size
   before_filter :indicator_close?
   before_filter :delegate_locale
@@ -37,7 +37,11 @@ class ApplicationController < ActionController::Base
   def is_it_js?
     request.format.js?
   end
-  
+
+  def is_special_page?
+   request.parameters['page_name'] =='get_connected'
+  end
+
   def set_locale_from_params
     locale = extract_locale_from_params
     locale = current_customer.update_locale(locale) if current_customer
