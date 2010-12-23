@@ -16,6 +16,11 @@ body.halloween
 {
   background:url("../images/overlay.jpg") no-repeat fixed center 0 #18162e;
 }
+body.xmas
+{
+  background:url("../images/special/magorium.jpg") no-repeat fixed center 0 #e8373d;
+}
+
 img {
   border: 0px;
 }

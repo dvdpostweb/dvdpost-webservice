@@ -314,6 +314,24 @@ class Customer < ActiveRecord::Base
   end
 
   def create_token(imdb_id, product, current_ip)
+    if StreamingProductsFree.find_by_imdb_id(imdb_id).available
+      Token.transaction do
+        token = Token.create(
+          :customer_id => id,
+          :imdb_id     => imdb_id
+        )
+        token_ip = TokenIp.create(
+          :token_id => token.id,
+          :ip => current_ip
+        )
+        if token.id.blank? || token_ip.id.blank? 
+          error = Token.error[:query_rollback]
+          raise ActiveRecord::Rollback
+          return {:token => nil, :error => Token.error[:query_rollback]}
+        end
+        return {:token => token, :error => nil}
+      end
+    end
     if credits > 0
       abo_process = AboProcess.today.last
       if abo_process 

@@ -34,9 +34,11 @@
         <% end %>
          <div class="clear"></div>
       </div>
-      
+      <% if @streaming_free %>
+        <p align="center" class="choice_quality"><%= t '.streaming_free' %></p>
+      <% end %>
       <% if !current_customer.payment_suspended? %>
-        <% if current_customer.credits > 0 || (@token && @token_valid) %>
+        <% if current_customer.credits > 0 || (@token && @token_valid) || @streaming_free %>
           <%= render :partial => '/streaming_products/show/kinds', :locals => {:streaming => @streaming, :token => @token}  %>
         <% end %>
       <% end %>
