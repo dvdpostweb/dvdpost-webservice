@@ -11,7 +11,7 @@ class StreamingProductsController < ApplicationController
           @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
           if streaming_access?
             if !@streaming.blank?
-             @streaming_free = StreamingProductsFree.find_by_imdb_id(@product.imdb_id).available  
+             @streaming_free = StreamingProductsFree.by_imdb_id(@product.imdb_id).available.count > 0 
              render :action => :show
             else
               flash[:error] = t('streaming_products.not_available.not_available')

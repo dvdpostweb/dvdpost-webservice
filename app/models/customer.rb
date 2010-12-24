@@ -314,7 +314,7 @@ class Customer < ActiveRecord::Base
   end
 
   def create_token(imdb_id, product, current_ip)
-    if StreamingProductsFree.find_by_imdb_id(imdb_id).available
+    if StreamingProductsFree.by_imdb_id(imdb_id).available.count > 0
       Token.transaction do
         token = Token.create(
           :customer_id => id,
