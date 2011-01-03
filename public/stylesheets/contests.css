@@ -16,6 +16,7 @@
   background: white;
   border: 1px solid #939393;
   padding: 20px 35px 35px 40px;
+  min-height:265px;
 }
 #concours-wrap form fieldset {
   float: right;
@@ -63,7 +64,6 @@
   padding: 15px;
   background: white url(../images/quizz-shadow.gif) 0 100% repeat-x;
   border: 1px solid #939393;
-  border-bottom: none;
   font-size: 1.17em;
   margin-bottom: 35px;
 }
@@ -92,7 +92,7 @@
 #concours-wrap #carousel ul {
   top: 12px;
   left: 8px;
-  width: 999em;
+  width: 660px;
   display: block;
 }
 #concours-wrap #carousel ul li {
