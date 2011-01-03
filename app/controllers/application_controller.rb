@@ -73,23 +73,21 @@ class ApplicationController < ActionController::Base
   end
 
   def set_country
-     #if session[:country_code].nil? || session[:country_code].empty?
-     #  begin
-     #    GeoIp.api_key = DVDPost.geo_ip_key
-     #    geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
-     #    country_code = geo[:country_code]
-     #    session[:country_code] = country_code
-     #    if country_code.nil? || country_code.empty?
-     #      notify_hoptoad("country code is empty ip : #{request.remote_ip}")
-     #    end
-     #  rescue => e
-     #    notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
-     #  end
-     #else
-     #  country_code = session[:country_code]
-     #end
-     session[:country_code] = 'BE'
-     
+     if session[:country_code].nil? || session[:country_code].empty?
+       begin
+         GeoIp.api_key = DVDPost.geo_ip_key
+         geo = GeoIp.geolocation(request.remote_ip, {:precision => :country})
+         country_code = geo[:country_code]
+         session[:country_code] = country_code
+         if country_code.nil? || country_code.empty?
+           notify_hoptoad("country code is empty ip : #{request.remote_ip}")
+         end
+       rescue => e
+         notify_hoptoad("geo_ip gem generate a error : #{e} ip #{request.remote_ip}")
+       end
+     else
+       country_code = session[:country_code]
+     end
   end
   
   def available_locales

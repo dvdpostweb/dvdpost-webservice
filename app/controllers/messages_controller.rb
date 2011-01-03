@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
         format.js {@error = false}
       end
     else
-      flash[:error] = t 'message..create.message_not_sent' # "Message not sent successfully"
+      flash[:error] = t 'message.create.message_not_sent' # "Message not sent successfully"
       respond_to do |format|
         format.html {render :action => :new}
         format.js {@error = true}

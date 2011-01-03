@@ -2,7 +2,7 @@ class StreamingProductsController < ApplicationController
   def show
     @streaming = StreamingProduct.get_streaming_by_imdb_id(params[:id], I18n.locale)
     @product = Product.normal_available.find_by_imdb_id(params[:id])
-    
+    @streaming_free = StreamingProductsFree.by_imdb_id(@product.imdb_id).available.count > 0 
    
     respond_to do |format|
       format.html do
@@ -11,7 +11,6 @@ class StreamingProductsController < ApplicationController
           @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
           if streaming_access?
             if !@streaming.blank?
-             @streaming_free = StreamingProductsFree.by_imdb_id(@product.imdb_id).available.count > 0 
              render :action => :show
             else
               flash[:error] = t('streaming_products.not_available.not_available')
@@ -39,7 +38,12 @@ class StreamingProductsController < ApplicationController
               error = creation[:error]
               
               if @token
-                mail_object = Email.by_language(I18n.locale).find(DVDPost.email[:streaming_product])
+                if @streaming_free
+                  mail_id = DVDPost.email[:streaming_product_free]
+                else
+                  mail_id = DVDPost.email[:streaming_product]
+                end
+                mail_object = Email.by_language(I18n.locale).find(mail_id)
                 recipient = current_customer.email
                 product_id = @product.id
                 mail_history= MailHistory.create(:date => Time.now().to_s(:db), :customers_id => current_customer.to_param, :mail_messages_id => DVDPost.email[:streaming_product], :language_id => DVDPost.customer_languages[I18n.locale], :customers_email_address=> current_customer.email)
