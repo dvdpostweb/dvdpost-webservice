@@ -98,7 +98,7 @@ class Product < ActiveRecord::Base
     has "(select count(*) as count_tokens from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has "case 
     when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
-    when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH)  and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
+    when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH)  and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
 
     
