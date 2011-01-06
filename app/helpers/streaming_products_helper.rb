@@ -1,7 +1,7 @@
 module StreamingProductsHelper
   def flowplayer(source_file, token_name)
     script = <<-script
-    $f("player", "/flowplayer/flowplayer.commercial-3.2.4.swf",
+    $f("player", {src: '/flowplayer/flowplayer.commercial-3.2.4.swf', wmode: 'opaque'},
     {
       key: '\#$dcba96641dab5d22c24',
       version: [10, 0],

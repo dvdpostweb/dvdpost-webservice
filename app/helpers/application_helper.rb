@@ -107,7 +107,7 @@ module ApplicationHelper
   end
 
   def php_path(path=nil)
-    country_id = current_customer ? current_customer.addresses.first.entry_country_id : nil
+    country_id = current_customer && current_customer.addresses ? current_customer.addresses.first.entry_country_id : nil
     host = case  Rails.env
       when 'development'
         'http://localhost/'
