@@ -1550,13 +1550,16 @@ a#next10 {
 }
 
 #detail-wrap .action #acheter-btn {
-  background: white url(../images/acheter-btn.png) 0 0 no-repeat;
-  display: block;
-  float: left;
-  height: 28px;
-  margin-right: 9px;
-  vertical-align: middle;
-  width: 88px;
+  background:url("../images/acheter-btn.png") no-repeat scroll 0 0 white;
+  color:#FFFFFF;
+  display:block;
+  float:left;
+  height:28px;
+  margin-right:9px;
+  padding:0 10px 0 1px;
+  text-align:center;
+  vertical-align:middle;
+  width:78px;
 }
 
 #detail-wrap .action #acheter-btn:hover {
