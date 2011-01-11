@@ -19,7 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 env :MAILTO, 'cronmaster@dvdpost.be' 
-
 every :reboot do  
   rake "thinking_sphinx:start"  
 end
