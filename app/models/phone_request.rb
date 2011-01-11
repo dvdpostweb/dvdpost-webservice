@@ -53,6 +53,15 @@ class PhoneRequest < ActiveRecord::Base
   end
 
   def requested_date=(date)
-    date.nil? ? 0 : self.call_me_day = Time.parse(date).to_i
+    if date.nil?
+        0 
+    else
+      regex = /\d{2}\/\d{2}\/\d{4}/
+      if date =~ regex
+        self.call_me_day = Time.parse(date).to_i
+      else
+        0
+      end
+    end
   end
 end
