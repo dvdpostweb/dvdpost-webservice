@@ -1,0 +1,18 @@
+<% if params[:type] == 'modification' %>
+<div id="title" class="payment align_center">
+  <%= t '.title_modification' %>
+</div>
+<div class='payment_confirm' id='payment_ogone'>
+<p>
+  <%= t '.change_sucess_modification' %>
+</p>
+<% else %>
+<div id="title" class="payment align_center">
+  <%= t '.title' %>
+</div>
+<div class='payment_confirm' id='payment_ogone'>
+<p>
+  <%= t '.change_sucess' %>
+</p>
+
+<% end %>

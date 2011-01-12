@@ -1,0 +1,9 @@
+<%= stylesheet 'payment_method', :media => :all %>
+<% content_for :body_id do %>moncompte<% end %>
+<% if request.parameters[:action] == 'update2' %>
+  <% content_for :option do %>
+    onLoad='$("#checkout_confirmation").submit();'
+  <% end %>
+<% end %>
+<%= yield %>
+<% parent_layout 'application' %>

@@ -31,7 +31,7 @@
 	<%= yield :facebook %>
   <%= yield :head %>
 </head>
-<body id="<%= yield :body_id %>" class="xmas">
+<body id="<%= yield :body_id %>" class="xmas" <%= yield :option %>>
   <div id="wrap">
     <!--   ==============   HEADER   ==============   -->
     <%= render :partial => 'layouts/header' %>

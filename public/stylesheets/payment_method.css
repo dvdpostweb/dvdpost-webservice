@@ -1,0 +1,57 @@
+.payment_body {
+border:1px solid #DDDDDD;
+margin:20px auto;
+padding:10px 10px 10px 20px;
+width:650px;
+font-size: 1.1em;
+}
+.payment_confirm
+{
+  margin:20px auto;
+  padding:10px 10px 0 20px;
+  width:650px;
+  font-size: 1.1em;
+  
+}
+.light {
+background:none repeat scroll 0 0 #FFFBEB;
+}
+
+#title_redirect
+{
+  margin:50px 0 0 30px;
+  color:#303030;
+  font-size:1.33em;
+  font-weight:bold;
+}
+#submit_payment
+{
+margin:0 136px 0 0;
+width:170px;
+text-align:center;
+padding:5px 0 0 3px;
+font-size:1.2em;
+}
+#submit_payment_confirm
+{
+margin:0 136px 2px 0;
+width:170px;
+text-align:center;
+font-size:1.2em;
+height:35px;
+}
+a#submit_payment, a:hover#submit_payment,a#submit_payment_confirm, a:hover#submit_payment_confirm 
+{
+  text-decoration: none !important;
+}
+.align_center
+{
+  text-align:center;
+}
+#back
+{
+  color:#100F0F;
+  font-size: 18px; 
+  text-decoration: none; 
+  padding: 10px;
+}

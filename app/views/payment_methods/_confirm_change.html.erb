@@ -1,0 +1,32 @@
+<div id="title" class="payment align_center">
+  <%= t '.title' %>
+</div>
+<div class='payment_confirm' id='payment_ogone'>
+  <p><%= t '.redirection_warning' %>
+  </p>
+
+  <p>
+    <%= t '.cryptage' %>
+  </p> 
+    
+</div>
+<table align="right">
+  <tbody>
+    <tr>
+      <td align="left">
+        <%= image_tag 'logo_ogone_big.gif', :alt => 'ogone logo', :title => 'ogone logo', :width => 130, :height => 66 %>
+      </td>
+      <td align="right">
+        <%= link_to t('.back'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param), :id => :back %>
+      </td>
+      <td>
+        <%= image_tag 'bg-top-nav-sep.gif' %>
+      </td>
+      <% form_for(:customer, :url => customer_payment_methods_path(:customer_id => current_customer.to_param), :html => { :method => :put }) do |f| %>
+      <td style="padding-top: 10px; padding-left: 10px;"  class="bouton_probleme">
+        <%= submit_tag t('.confirm'), :id => "submit_payment_confirm", :class => :submit %>
+      </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,14 @@
+<div id="title" class="payment align_center">
+  <%= t '.title' %>
+</div>
+
+<div class='payment_body light' id='payment_ogone'>
+
+  <%= image_tag 'credit_card.png', :title => 'logo credit card', :alt => 'logo credit card', :align => 'absmiddle' %> <%= t '.type' %><br />
+  <p>
+    <%= t '.description' %>
+  </p>
+</div>
+<p align="right" class="bouton_probleme">
+  <%= link_to  t('.continue'), edit_customer_payment_methods_path(:customer_id => current_customer.to_param, :type => :confirm_change), :id => :submit_payment, :class => :submit %>
+</p>
