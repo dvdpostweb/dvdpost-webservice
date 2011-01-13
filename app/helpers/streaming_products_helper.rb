@@ -47,7 +47,7 @@ module StreamingProductsHelper
         "<div class ='attention_vod' id ='old_token'>#{t '.old_token'}</div>"
       end
     else
-      "<div class='attention_vod' id='suspended'>#{t '.customer_suspended'}</div>"
+      "<div class='attention_vod' id=''>#{t '.customer_suspended'}</div>"
     end
   end
       
