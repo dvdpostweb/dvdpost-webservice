@@ -9,7 +9,7 @@
     </div>
     <p>
       <%= t '.by' %>
-      <%= link_to top_product.director.name, director_products_path(:director_id => top_product.director.to_param) %>
+      <%= link_to top_product.director.name, director_products_path(:director_id => top_product.director.to_param) if top_product.director %>
     </p>
     <p>
       <%= t '.actors' %>
