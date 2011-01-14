@@ -35,7 +35,7 @@
             <td><p class="text_yes"><span class="big_yes"><%= t '.yes' %></span> <%= current_customer.is_freetest? ? t('.now_plus') : t('.now_plus_payed')%>.</p></td>
         </table>
         <table cellpadding="0" cellspacing="0"  border="0" width="400" class="table_abo">
-          <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.credit_per_month} %>
+          <%= render :partial => 'reconductions/edit/abo', :collection => @list_abo, :locals => {:current_abo_credit => current_customer.credit_per_month, :selected_abo => current_customer.next_abo_type_id} %>
           <tr>
             <td colspan="5" class="text-more" id ="show_all"><a href=""><img src="/images/plus.png" alt="Plus" align="absmiddle"></a> <%= t '.plus' %></td>
           </tr>

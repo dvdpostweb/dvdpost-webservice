@@ -9,8 +9,8 @@ class Subscription < ActiveRecord::Base
   def self.action
     action = OrderedHash.new
     action.push(:reconduction_ealier, 13)
-    action.push(:abo_downgrade, 3)
-    action.push(:abo_upgrade, 2)
+    action.push(:abo_downgrade, 25)
+    action.push(:abo_upgrade, 24)
 
     action
   end

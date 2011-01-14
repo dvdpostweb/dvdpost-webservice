@@ -1,9 +1,9 @@
 class ReconductionsController < ApplicationController
   def edit
     @reconduction_earlier = current_customer.recondutction_ealier?
-    group = (current_customer.nederlands? ? 2 : 1)
+    @list_abo =  current_customer.get_list_abo
     @showing_abo = 3
-    @list_abo = ProductAbo.get_list(group)
+    
     if @reconduction_earlier
       flash[:error] = t('reconduction.reconduction_earlier_already')
       redirect_to root_path

@@ -45,6 +45,7 @@ class Customer < ActiveRecord::Base
   before_validation_on_update :email_change
   
   belongs_to :subscription_type, :foreign_key => :customers_abo_type
+  belongs_to :next_subscription_type, :class_name => 'SubscriptionType', :foreign_key => :customers_next_abo_type
   belongs_to :address, :foreign_key => :customers_id, :conditions => {:address_book_id => '#{address_id}'} # Nasty hack for composite keys: http://gem-session.com/2010/03/using-dynamic-has_many-conditions-to-save-nested-forms-within-a-scope
   belongs_to :subscription_payment_method, :foreign_key => :customers_abo_payment_method
   has_one :subscription, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC'
@@ -482,6 +483,29 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def next_credit_per_month
+    if next_subscription_type
+      next_subscription_type.credits
+    else
+      notify_hoptoad()
+      '0'
+    end
+  end
+  
+  def next_price_per_month 
+    if next_subscription_type
+      next_subscription_type.product.price
+    else
+      notify_hoptoad()
+      '0'
+    end
+  end
+
+  def get_list_abo
+    group = (nederlands? ? 2 : 1)
+    ProductAbo.get_list(group)
+  end
+  
   private
   def convert_created_at
     begin
