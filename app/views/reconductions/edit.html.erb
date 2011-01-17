@@ -2,7 +2,7 @@
 <div id="bg_anticipation" class="<%= I18n.locale %>">
   <% if @reconduction_earlier %>
   <div id="left_content">
-    vous avez deja reconduit anticiapativement
+   <%= t('reconduction.reconduction_earlier_already') %>
   </div>
   <% else %>
     <% form_for(:customer, :url => customer_reconduction_path(:customer_id => current_customer.to_param), :id => :form_account, :html => {:method => :put}) do |f| %>
@@ -16,9 +16,9 @@
           <tr>
             <td colspan="3"><table cellpadding="0" cellspacing="0"  border="0" height="114" width="260" class="abo_actu" >
                 <tr>
-                  <td valign="top"><%= t('.film', :count => current_customer.credit_per_month) %>
+                  <td valign="top"><%= t('.film', :count => current_customer.is_freetest? ? current_customer.next_credit_per_month : current_customer.credit_per_month) %>
                     <br />
-                    <span class="text_prices"><strong>&euro; <%= current_customer.price_per_month %></strong></span></td>
+                    <span class="text_prices"><strong>&euro; <%= current_customer.is_freetest? ? current_customer.next_price_per_month : current_customer.price_per_month %></strong></span></td>
                 </tr>
               </table></td>
           </tr>
