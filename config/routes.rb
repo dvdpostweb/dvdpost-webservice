@@ -31,10 +31,14 @@ ActionController::Routing::Routes.draw do |map|
       product.trailer      'trailer',      :controller => :products, :action => :trailer, :conditions => {:method => :get}
       product.uninterested 'uninterested', :controller => :products, :action => :uninterested
     end
-    localized.resources :streaming_products, :only => [:show] do |stream|
+    localized.resources :streaming_products, :only => [:show], :requirements => { :id => /\d+/ } do |stream|
       stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
       stream.resource :report, :controller => :streaming_reports, :only => [:new, :create]
     end 
+
+    localized.resource :streaming_products, :only => [] do |stream|
+      stream.faq 'faq', :controller => :streaming_products, :action => :faq, :conditions => {:method => :get}
+    end
 
     localized.resources :categories, :only => [] do |category|
       category.resources :products, :only => :index

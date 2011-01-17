@@ -25,7 +25,7 @@
           <%= image_tag 'icon_tv.gif', :align => :absmiddle, :alt => 'icon tv' %>
           <%= link_to t('.connected'), info_path(:page_name => 'get_connected'), :class => 'connect_linkpc' %><br />
           <%= image_tag 'icon_infos.gif', :align => :absmiddle, :alt => 'icon info' %>
-          <%= link_to t('.info'), streaming_product_faq_path(:streaming_product_id => @product.imdb_id), :class => 'connect_linkpc' %>
+          <%= link_to t('.info'), streaming_products_faq_path(), :class => 'connect_linkpc' %>
         </div>
         <% unless DVDPost.streaming_poll_url[I18n.locale].empty? %>
           <div class="icon_right">

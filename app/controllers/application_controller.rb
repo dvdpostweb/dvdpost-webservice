@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_special_page?
-   request.parameters['page_name'] == 'get_connected'
+   request.parameters['page_name'] == 'get_connected' || ( request.parameters['controller'] == 'streaming_products' && request.parameters['action'] == 'faq')
   end
 
   def set_locale_from_params
