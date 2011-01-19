@@ -379,28 +379,41 @@ class Customer < ActiveRecord::Base
   end
 
   def create_more_ip(token, current_ip)
-    if credits > 0
-      abo_process = AboProcess.today.last
-      if abo_process 
-        customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
-      end
-      if !abo_process || (customer_abo_process || abo_process.finished?)
-        Token.transaction do
-          more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
-          result_history = remove_credit(1,13)
-          token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
-          if more_ip == false || token_ip.id.blank? || result_history == false
-            raise ActiveRecord::Rollback
-            return {:token => nil, :error => Token.error[:query_rollback]}
-          else
-            return {:token => token, :error => nil}
-          end
+    if StreamingProductsFree.by_imdb_id(token.imdb_id).available.count > 0
+      Token.transaction do
+        more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
+        token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
+        if more_ip == false || token_ip.id.blank? 
+          raise ActiveRecord::Rollback
+          return {:token => nil, :error => Token.error[:query_rollback]}
+        else
+          return {:token => token, :error => nil}
         end
-      else
-        return {:token => nil, :error => Token.error[:abo_process_error]}
       end
     else
-      return {:token => nil, :error => Token.error[:not_enough_credit]}
+      if credits > 0
+        abo_process = AboProcess.today.last
+        if abo_process 
+          customer_abo_process = customer_abo_process_stats.find_by_aboProcess_id(abo_process.to_param)
+        end
+        if !abo_process || (customer_abo_process || abo_process.finished?)
+          Token.transaction do
+            more_ip = token.update_attributes(:count_ip => (token.count_ip + 2), :updated_at => Time.now.to_s(:db))
+            result_history = remove_credit(1,13)
+            token_ip = TokenIp.create(:token_id => token.id,:ip => current_ip)
+            if more_ip == false || token_ip.id.blank? || result_history == false
+              raise ActiveRecord::Rollback
+              return {:token => nil, :error => Token.error[:query_rollback]}
+            else
+              return {:token => token, :error => nil}
+            end
+          end
+        else
+          return {:token => nil, :error => Token.error[:abo_process_error]}
+        end
+      else
+        return {:token => nil, :error => Token.error[:not_enough_credit]}
+      end
     end
   end
 
