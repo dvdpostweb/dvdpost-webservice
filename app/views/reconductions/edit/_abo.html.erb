@@ -1,4 +1,4 @@
-<% if selected_abo != abo.id %>
+<% if (current_customer.free_upgrade == 0 && selected_abo != abo.id) || (current_customer.free_upgrade == 1 && selected_abo < abo.id ) %>
   <% showing = @showing_abo > 0 ? true : false %>
   <% style = @all_style ? 'table_row' : get_style(current_abo_credit, abo.credits, showing)%>
   <% @showing_abo = @showing_abo - 1 if style == 'table-row' %>
@@ -6,7 +6,8 @@
   <tr class="abo" style="display:<%= style %>">
     <td width="33"><div class="check" id ='<%= abo.id %>'></div></td>
     <td><img src="/images/dvd<%= abo.credits %>.png" align="absmiddle" /></td>
-    <td width="155"><%= t '.film', :count => abo.credits %></td>
+    <td width="155"><%= t '.film', :count => abo.credits %> <%= 'free upgrade' if free_upgrade > 1 and abo.ordered == free_upgrade %></td>
+    
     <td align="right"><strong><span class="title_prices">&euro; <%= abo.product.price %></span></strong></td>
   </tr>
   <tr class="abo" style="display:<%= style %>">

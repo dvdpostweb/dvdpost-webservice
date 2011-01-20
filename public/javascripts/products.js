@@ -10,7 +10,7 @@ $(function() {
     $(document).trigger("fragmentChange.reviews_page");
   }
 
-  $("#tab1 #pagination a").live("click", function() {
+  $("#tab1 #pagination a, #trailer_pagination a").live("click", function() {
     html_item = $(this);
     content = html_item.html();
     html_item.html("Loading...");

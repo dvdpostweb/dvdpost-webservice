@@ -4,7 +4,15 @@ $(function() {
     $(this).hide();
     return false;
   });
-  selected = 0
+  sel=parseInt($('#div_selected').html());
+  if(sel > 0)
+  {
+    selected= sel;
+  }
+  else
+  {
+    selected = 0
+  }
   $('#left_content .choice').live('click',function(){
     selected=1
     $('#left_content').addClass('active');

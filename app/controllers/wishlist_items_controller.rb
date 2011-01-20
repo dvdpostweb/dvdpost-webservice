@@ -6,11 +6,11 @@ class WishlistItemsController < ApplicationController
     
     @transit_or_history = params[:transit_or_history] || 'transit'
     if @transit_or_history == 'history'
-      @history_items = current_customer.orders(:include => [:status, :product]).in_history.ordered.paginate(:page => params['history_page'], :per_page => 20)
+      @history_items = current_customer.orders(:include => [:status, :product], :conditions => {"orders_status.language_id" => DVDPost.product_languages[I18n.locale]}).in_history.ordered.paginate(:page => params['history_page'], :per_page => 20)
       @count = current_customer.orders.in_history.count
       locals = {:transit_items => nil, :history_items => @history_items, :history_count => @count}
     else
-      @transit_items = current_customer.orders.in_transit.ordered.all(:include => [:product, :status])
+      @transit_items = current_customer.orders.in_transit.ordered.all(:include => [:product, :status], :conditions => {"orders_status.language_id" => DVDPost.product_languages[I18n.locale]})
       locals = {:transit_items => @transit_items, :history_items => nil, :history_count => nil}
     end
     respond_to do |format|

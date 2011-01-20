@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   alias_attribute :created_at, :date_purchased
 
   belongs_to :customer, :foreign_key => :customers_id
-  belongs_to :status, :class_name => 'OrderStatus', :foreign_key => :orders_status, :conditions => {:language_id => DVDPost.product_languages[I18n.locale]}
+  belongs_to :status, :class_name => 'OrderStatus', :foreign_key => :orders_status
   has_one :order_product, :foreign_key => :orders_id
   has_one :product, :through => :order_product, :source => :product
   has_many :status_histories, :class_name => 'OrderStatusHistory', :foreign_key => :orders_id

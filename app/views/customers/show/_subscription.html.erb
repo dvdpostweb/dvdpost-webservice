@@ -30,7 +30,7 @@
                   <%= link_to t('.modify_abo'), path, :class => 'modif' %>
                   <span><%= image_tag 'delimiter.gif' %></span>
                 <% end %>
-                <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' if current_customer.suspension_status != 2 %>
+                <%= link_to t('.suspend_abo'), new_customer_suspension_path(:customer_id => current_customer.to_param), :class => 'suppendre' if current_customer.suspension_status == 0 %>
               </li>
             </ul>
           <% end %>

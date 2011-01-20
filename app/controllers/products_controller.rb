@@ -125,9 +125,10 @@ class ProductsController < ApplicationController
   end
 
   def trailer
+    trailer = @product.trailers.by_language(I18n.locale).paginate(:per_page => 1, :page => params[:trailer_page])
     respond_to do |format|
-      format.js   {render :partial => 'products/trailer', :locals => {:product => @product}}
-      format.html {redirect_to @product.trailer.url}
+      format.js   {render :partial => 'products/trailer', :locals => {:trailer => trailer.first, :trailers => trailer}}
+      format.html {redirect_to trailer.first.url}
     end
   end
 
