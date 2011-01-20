@@ -345,7 +345,11 @@ class Product < ActiveRecord::Base
   end
 
   def media_alternative(media)
-    self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).by_language(I18n.locale).limit(1).first
+    if I18n.locale == :nl
+      self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).with_subtitles(DVDPost.product_languages[I18n.locale]).limit(1).first
+    else
+      self.class.available.by_kind(:normal).by_imdb_id(imdb_id).by_media([media]).with_languages(DVDPost.product_languages[I18n.locale]).limit(1).first
+    end
   end
   
   def self.sort_by(default, options={})

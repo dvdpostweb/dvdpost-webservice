@@ -153,7 +153,7 @@ module ProductsHelper
   def available_on_other_media(product, recommendation)
     unless product.series?
       if product.dvd?
-        bluray = product.media_alternative(:bluray)
+        bluray = product.media_alternative(:blueray)
         if bluray
           path = recommendation.to_i > 0 ? product_path(:id => bluray, :recommendation => recommendation) : product_path(:id => bluray)
           link_to(t('.dispo_bluray'), path, :id => 'bluray-btn') 
