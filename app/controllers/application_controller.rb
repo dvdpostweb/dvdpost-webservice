@@ -112,6 +112,28 @@ class ApplicationController < ActionController::Base
     "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
   end  
 
+  def retrieve_recommendations(page, options = {})
+    fragment_name = fragment_name_by_customer
+    Product.search()
+    recommendation_items_serialize = when_fragment_expired fragment_name, 1.hour.from_now do
+      begin
+        Marshal.dump(current_customer.recommendations(options))
+      rescue => e
+        logger.error "Homepage recommendations unavailable: #{e.message}"
+        expire_fragment_with_meta(fragment_name)
+        false
+      end
+    end
+    recommendation_items = Marshal.load(recommendation_items_serialize)
+    data = recommendation_items.paginate(:per_page => 8, :page => page)
+    page = params[:recommendation_page].to_i
+    while data.size == 0 && page > 1
+      page = page - 1
+      data = recommendation_items.paginate(:per_page => 8, :page => page)
+    end
+    data
+  end
+
   private
   def http_authenticate
     authenticate_or_request_with_http_basic do |id, password|

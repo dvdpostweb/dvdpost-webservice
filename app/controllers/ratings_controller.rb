@@ -4,9 +4,7 @@ class RatingsController < ApplicationController
     @product.ratings.create(:customer => current_customer, :value => params[:value])
     current_customer.seen_products << @product
     Customer.send_evidence('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
-    logger.debug("@@@#{params[:recommendation]}")
-    if params[:recommendation] == 1
-      logger.debug("reload")
+    if params[:recommendation].to_i == 1
       expiration_recommendation_cache
     end
     respond_to do |format|

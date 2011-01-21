@@ -10,7 +10,7 @@ class HomeController < ApplicationController
         if params[:news_page]
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
         elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations}
+          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}
         elsif params[:popular_page]
           render :partial => 'home/index/popular', :locals => {:products => retrieve_popular}
         else
@@ -51,7 +51,7 @@ class HomeController < ApplicationController
     rescue => e
       logger.error("Failed to retrieve news: #{e.message}")
     end
-    @recommendations = retrieve_recommendations
+    @recommendations = retrieve_recommendations(params[:recommendation_page])
     @popular = retrieve_popular
     
     @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
@@ -71,24 +71,6 @@ class HomeController < ApplicationController
       end
     end
     news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_items
-  end
-
-  def retrieve_recommendations
-    fragment_name = fragment_name_by_customer
-    #data=current_customer.recommendations()
-    Product.search()
-    recommendation_items_serialize = when_fragment_expired fragment_name, 10.minutes.from_now do
-      begin
-        Marshal.dump(current_customer.recommendations())
-      rescue => e
-        logger.error "Homepage recommendations unavailable: #{e.message}"
-        expire_fragment_with_meta(fragment_name)
-        false
-      end
-    end
-    Rails.logger.debug { recommendation_items_serialize }
-    recommendation_items = Marshal.load(recommendation_items_serialize)
-    recommendation_items.paginate(:per_page => 8, :page => params[:recommendation_page])
   end
 
   def retrieve_popular

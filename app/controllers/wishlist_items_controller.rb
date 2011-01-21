@@ -51,6 +51,9 @@ class WishlistItemsController < ApplicationController
       @type = params[:type]
       @text = params[:text].to_sym
       @load_color = params[:load_color].to_sym if params[:load_color]
+      if @source.to_i == 3
+        expiration_recommendation_cache
+      end
     end
     
     if params[:wishlist_item][:wishlist_source_id].to_i == 0

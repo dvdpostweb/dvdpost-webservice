@@ -14,7 +14,13 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html do
         @products = if params[:view_mode] == 'recommended'
-          current_customer.recommendations({:page => params[:page], :sort => params[:sort], :sort_type => params[:sort_type]})
+          if(session[:sort_type] != params[:sort_type] || session[:sort] != params[:sort])
+            expiration_recommendation_cache()
+          end
+          session[:sort_type]=params[:sort_type]
+          session[:sort]=params[:sort]
+          
+          retrieve_recommendations(params[:page], { :sort => params[:sort], :sort_type => params[:sort_type]})
         else
           Product.filter(@filter, params)
         end
