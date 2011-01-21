@@ -1,3 +1,5 @@
+
+
 class HomeController < ApplicationController
   def index
     respond_to do |format|
@@ -25,6 +27,7 @@ class HomeController < ApplicationController
 
   private
   def get_data
+    expiration_recommendation_cache()
     @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
     @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
     @soon = Product.get_soon(I18n.locale)
@@ -71,11 +74,25 @@ class HomeController < ApplicationController
   end
 
   def retrieve_recommendations
-    current_customer.recommendations({:per_page => 8, :page => params[:recommendation_page]})
+    fragment_name = fragment_name_by_customer
+    #data=current_customer.recommendations()
+    Product.search()
+    recommendation_items_serialize = when_fragment_expired fragment_name, 10.minutes.from_now do
+      begin
+        Marshal.dump(current_customer.recommendations())
+      rescue => e
+        logger.error "Homepage recommendations unavailable: #{e.message}"
+        expire_fragment_with_meta(fragment_name)
+        false
+      end
+    end
+    Rails.logger.debug { recommendation_items_serialize }
+    recommendation_items = Marshal.load(recommendation_items_serialize)
+    recommendation_items.paginate(:per_page => 8, :page => params[:recommendation_page])
   end
 
   def retrieve_popular
     current_customer.popular.paginate(:per_page => 8, :page => params[:popular_page])
   end
-
+  
 end

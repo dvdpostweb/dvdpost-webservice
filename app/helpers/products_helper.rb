@@ -94,13 +94,13 @@ module ProductsHelper
     links
   end
 
-  def rating_image_links(product, background=nil, size=nil, replace=nil)
+  def rating_image_links(product, background = nil, size = nil, replace = nil, recommendation = nil)
     if product
       rating = product.rating(current_customer) 
       links = []
       5.times do |i|
         i += 1
-        links << rating_image_link(product, rating, i, background, size, replace)
+        links << rating_image_link(product, rating, i, background, size, replace, recommendation)
         rating -= 2
       end
       links
@@ -116,7 +116,7 @@ module ProductsHelper
     link_to image, product_rating_path(:product_id => product, :value => value, :background => :white, :replace => replace)
   end
 
-  def rating_image_link(product, rating, value, background=nil, size=nil, replace=nil)
+  def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
     if current_customer.has_rated?(product)
       name = 'star-voted'
       class_name = ''
@@ -147,7 +147,7 @@ module ProductsHelper
       end
     end
     image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace))
+    link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
   end
 
   def available_on_other_media(product, recommendation)

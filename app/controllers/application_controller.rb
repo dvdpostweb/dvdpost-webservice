@@ -103,6 +103,15 @@ class ApplicationController < ActionController::Base
     options.keys.include?(:locale) ? options : options.merge(:locale => I18n.locale)
   end
 
+  def expiration_recommendation_cache()
+    fragment_name = fragment_name_by_customer
+    expire_fragment(fragment_name)
+  end
+
+  def fragment_name_by_customer()
+    "#{I18n.locale.to_s}/home/recommendations/customers/#{current_customer.to_param}"
+  end  
+
   private
   def http_authenticate
     authenticate_or_request_with_http_basic do |id, password|

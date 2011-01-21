@@ -439,5 +439,4 @@ class Product < ActiveRecord::Base
         Product.by_kind(:normal).available.recent.random.limit(3)
       end
   end
-
 end
