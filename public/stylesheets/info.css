@@ -299,7 +299,7 @@ p.cable_name {
 	float: right;
 }
 .guide_result {
-	background:url("../images/blank.gif") no-repeat scroll 0 0 #FFFFFF;
+	background:scroll 0 0 #FFFFFF;
 	display:block;
 	height:90px;
 	width:200px;
