@@ -1,3 +1,5 @@
+
+
 class HomeController < ApplicationController
   def index
     respond_to do |format|
@@ -8,7 +10,7 @@ class HomeController < ApplicationController
         if params[:news_page]
           render :partial => '/home/index/news', :locals => {:news_items => retrieve_news}
         elsif params[:recommendation_page]
-          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations}
+          render :partial => 'home/index/recommendations', :locals => {:products => retrieve_recommendations(params[:recommendation_page])}
         elsif params[:popular_page]
           render :partial => 'home/index/popular', :locals => {:products => retrieve_popular}
         else
@@ -25,6 +27,7 @@ class HomeController < ApplicationController
 
   private
   def get_data
+    expiration_recommendation_cache()
     @top10 = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).products.all(:include => [:director, :actors], :limit=> 10)
     @top_title = ProductList.top.by_language(DVDPost.product_languages[I18n.locale]).find_by_home_page(true).name
     @soon = Product.get_soon(I18n.locale)
@@ -48,7 +51,7 @@ class HomeController < ApplicationController
     rescue => e
       logger.error("Failed to retrieve news: #{e.message}")
     end
-    @recommendations = retrieve_recommendations
+    @recommendations = retrieve_recommendations(params[:recommendation_page])
     @popular = retrieve_popular
     
     @carousel = Landing.by_language(I18n.locale).not_expirated.private.order(:asc).limit(5)
@@ -70,12 +73,8 @@ class HomeController < ApplicationController
     news_items.paginate(:per_page => 3, :page => params[:news_page] || 1) if news_items
   end
 
-  def retrieve_recommendations
-    current_customer.recommendations({:per_page => 8, :page => params[:recommendation_page]})
-  end
-
   def retrieve_popular
     current_customer.popular.paginate(:per_page => 8, :page => params[:popular_page])
   end
-
+  
 end

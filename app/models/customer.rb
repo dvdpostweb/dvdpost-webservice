@@ -31,6 +31,7 @@ class Customer < ActiveRecord::Base
   alias_attribute :abo_type_id,                  :customers_abo_type
   alias_attribute :auto_stop,                    :customers_abo_auto_stop_next_reconduction
   alias_attribute :next_abo_type_id,             :customers_next_abo_type
+  alias_attribute :free_upgrade,                 :customers_locked__for_reconduction
   
 
   validates_length_of :first_name, :minimum => 2
@@ -185,7 +186,7 @@ class Customer < ActiveRecord::Base
 
   def self.send_evidence(type, product_id, customer, ip, args=nil)
     begin
-      DVDPost.send_evidence_recommendations(type, product_id, customer, ip, args)
+      DVDPost.send_evidence_recommendations(type, product_id, customer, ip, args) 
     rescue => e
       logger.error("Failed to send evidence: #{e.message}")
     end
@@ -264,6 +265,31 @@ class Customer < ActiveRecord::Base
   def get_credits()
     credit_histories.last
   end
+
+  def add_credit(quantity, action)
+    credit_history = self.get_credits()
+    if credit_history
+      credit_free = credit_history.credit_free + credit_history.quantity_free
+    else
+      credit_free = 0
+    end
+    history = CreditHistory.create( :customers_id => to_param.to_i, :credit => credits, :credit_free => credit_free, :user_modified => 55, :credit_action_id => action, :date_added => Time.now().to_s(:db), :quantity_free => quantity, :abo_type => abo_type_id)
+    if history.id.blank?
+      status = false
+    else
+      status = true
+    end
+    if status == true
+      credit = self.update_attribute(:credits, (self.credits + quantity))
+      if credit == false
+        false
+      else
+        true
+      end
+    else
+      false  
+    end
+  end
   
   def remove_credit(quantity, action)
     credit_history = self.get_credits()
@@ -303,7 +329,7 @@ class Customer < ActiveRecord::Base
     end
     
     if status == true
-      credit = self.update_attribute(:credits, (self.credits - 1))
+      credit = self.update_attribute(:credits, (self.credits - quantity))
       if credit == false
         false
       else

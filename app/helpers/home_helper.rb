@@ -52,5 +52,5 @@ module HomeHelper
         eval(t(".url_#{carousel.id}"))
       end
   end
-
+  
 end

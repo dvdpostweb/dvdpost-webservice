@@ -4,7 +4,9 @@ class RatingsController < ApplicationController
     @product.ratings.create(:customer => current_customer, :value => params[:value])
     current_customer.seen_products << @product
     Customer.send_evidence('Rating', params[:product_id], current_customer, request.remote_ip, {:rating => params[:value]})
-    
+    if params[:recommendation].to_i == 1
+      expiration_recommendation_cache
+    end
     respond_to do |format|
       format.html {redirect_to product_path(:id => @product)}
       format.js   {

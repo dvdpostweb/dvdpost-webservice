@@ -1,7 +1,8 @@
-<% if product.trailer.youtube? %>
-<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/<%= product.trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/<%= product.trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
-<% elsif product.trailer.dailymotion? %>
-<object width="480" height="285"><param name="movie" value="http://www.dailymotion.com/swf/video/<%= product.trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<%= product.trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation" width="480" height="285" allowfullscreen="true" allowscriptaccess="always"></embed></object>
+<% if trailer.youtube? %>
+<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/<%= trailer.remote_id %>&amp;hl=en_US&amp;fs=1?rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
+<% elsif trailer.dailymotion? %>
+<object width="480" height="285"><param name="movie" value="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<%= trailer.remote_id %>_space-symphony-maetel-bande-annonce_creation" width="480" height="285" allowfullscreen="true" allowscriptaccess="always"></embed></object>
 <% else %>
-  <%= link_to product.trailer.url, product.trailer.broadcast_service.humanize, :target => :_blank %>
+  <%= link_to trailer.url, trailer.broadcast_service.humanize, :target => :_blank %>
 <% end %>
+<%= will_paginate trailers, :class => 'products-pagination', :previous_label => '&nbsp;', :next_label => '&nbsp;', :param_name => 'trailer_page', :id => 'trailer_pagination' %>
