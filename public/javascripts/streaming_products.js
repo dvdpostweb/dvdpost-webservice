@@ -116,7 +116,6 @@ $(function() {
  else if ($('#warning').html()!=undefined)
   {
     jQuery.facebox(function() {
-      alert($('#warning').html())
       $.getScript($('#warning').html(), function(data) {
         jQuery.facebox(data);
       });
