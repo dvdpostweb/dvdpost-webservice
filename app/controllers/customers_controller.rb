@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   def show
     @customer = current_customer
     @streaming_available = current_customer.get_all_tokens
-    
+    @review_count = current_customer.reviews.approved.ordered.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [0,1]}}).count
   end
 
   def edit
