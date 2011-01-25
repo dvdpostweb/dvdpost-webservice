@@ -67,7 +67,7 @@ class Customer < ActiveRecord::Base
   has_many :messages, :foreign_key => :customers_id
   has_many :compensations, :foreign_key => :customers_id
   has_many :addresses, :foreign_key => :customers_id
-  has_many :payment_offline_request, :foreign_key => :customers_id
+  has_many :payment, :foreign_key => :customers_id
   has_many :subscriptions, :foreign_key => :customerid, :conditions => {:action => [1, 6, 8]}, :order => 'date DESC', :limit => 1
   has_many :actions, :foreign_key => :customerid, :class_name => 'Subscription'
   has_many :contests, :foreign_key => :customers_id

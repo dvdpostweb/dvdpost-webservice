@@ -7,16 +7,14 @@ module MessagesHelper
     tab == active ? 'active' : ''
   end
 
-  def offline_reason(reason)
-    case reason
-      when 'OGONE'
+  def offline_payment_type(type)
+    case type
+      when 1
   			t '.message_payment_ogone_failed'
-  		when 'BANK_TRANSFER'
+  		when 3
   			t '.message_payment_bank_transfer_failed'
-  		when 'DOMICILIATION', 'domiciliation_payment_id'
+  		when 2
   			t '.message_payment_dom_failed'
-  		when 'abo_stopped_with_dvdathome_id'
-  			t '.message_payment_abo_stopped_dvd_at_home'
   		else
   			t '.unspecified'
   	end

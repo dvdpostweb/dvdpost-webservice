@@ -65,7 +65,7 @@
       </tr>
       <tr>
         <td align="right"><strong><%= t '.critiques' %></strong></td>
-        <td align="left"><%= customer.reviews.count %></td>
+        <td align="left"><%= customer.reviews.count %> (<%= link_to t('.see_all'), customer_reviews_path(:customer_id => current_customer.to_param), :class => :modif %>)</td>
       </tr>
       <tr>
         <td align="right" class="adresse"><strong><%= t '.newsletters' %></strong></td>

@@ -33,7 +33,7 @@ class HomeController < ApplicationController
     @soon = Product.get_soon(I18n.locale)
     @recent = Product.get_recent(I18n.locale)
     @quizz = QuizzName.find_last_by_focus(1)
-    @offline_request = current_customer.payment_offline_request.recovery
+    @offline_request = current_customer.payment.recovery
     if @offline_request.count == 0
       if current_customer.credit_empty?
         @renew_subscription = true

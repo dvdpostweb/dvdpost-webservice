@@ -52,6 +52,6 @@ class MessagesController < ApplicationController
   end
 
   def urgent
-    @offline_request = current_customer.payment_offline_request.recovery
+    @offline_request = current_customer.payment.recovery
   end
 end
