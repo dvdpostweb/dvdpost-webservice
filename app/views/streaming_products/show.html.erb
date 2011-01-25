@@ -52,8 +52,6 @@
   </div>
   
   <% if params[:warning].to_i == 1 && (@token.nil? || !@token_valid)%>
-    <div id='warning' style='display:none'>
-      <%= new_product_token_path(:product_id => @product.to_param, :imdb_id => @product.imdb_id, :btn => :hide) %>
-    </div>
+    <div id='warning' style='display:none'><%= new_product_token_path(:product_id => @product.to_param, :imdb_id => @product.imdb_id, :btn => :hide) %></div>
   <% end %>
 </div>
