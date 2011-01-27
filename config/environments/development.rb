@@ -17,6 +17,7 @@ config.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
+
 config.after_initialize do
   Bullet.enable = true
   Bullet.bullet_logger = true

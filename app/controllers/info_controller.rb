@@ -8,5 +8,10 @@ class InfoController < ApplicationController
         @hide_menu = true
       end
     end
+    if params[:page_name] == 'whoweare'
+      @locale = false
+    else
+      @locale = true
+    end
   end
 end

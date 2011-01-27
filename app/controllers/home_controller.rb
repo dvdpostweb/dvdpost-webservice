@@ -66,7 +66,7 @@ class HomeController < ApplicationController
         DVDPost.home_page_news
       rescue => e
         logger.error "Homepage news unavailable: #{e.message}"
-        expire_fragment_with_meta(fragment_name)
+        expire_fragment(fragment_name)
         nil
       end
     end
