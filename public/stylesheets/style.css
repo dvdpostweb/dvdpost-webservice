@@ -3035,7 +3035,10 @@ div.top10.first p a {
   margin-bottom: 19px;
   padding: 4px 40px 2px 11px;
 }
-
+#subfooter h3 a
+{
+  color: #00a3d6;
+}
 #subfooter #footer-nav {
   float: left;
   margin: 20px 0 0 7px;
@@ -3544,7 +3547,7 @@ a#all_categorie, a#all_categorie:hover {
 {
   background: url(/images/icon_deaf.png) no-repeat;
   width: 28px;
-  padding: 5px 0 0 18px;
+  padding: 4px 0 0 18px;
 }
 .subtitle.small{
   font-size: 7pt; 
@@ -4192,4 +4195,19 @@ position:relative;
 #title.reviews,#title.urgent, #title.payment
 {
   margin: 20px 0 0 30px;
+}
+.presse a
+{
+  color:black;
+  text-decoration:none;
+}
+.presse a:hover
+{
+  color:black;
+  text-decoration:none;
+}
+
+.presse li
+{
+  padding: 2px 0;
 }

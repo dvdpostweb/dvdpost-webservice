@@ -120,22 +120,6 @@ module ApplicationHelper
     "#{result}#{result.include?('?') ? '&' : '?'}language=#{I18n.locale}"
   end
 
-  def who_we_are_path
-    php_path 'whoweare.php'
-  end
-
-  def press_path
-    php_path 'presse.php'
-  end
-
-  def privacy_path
-    php_path 'privacy.php'
-  end
-
-  def conditions_path
-    php_path 'conditions.php'
-  end
-
   def limited_subscription_change_path
     php_path 'subscription_change_limited.php'
   end

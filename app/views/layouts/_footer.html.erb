@@ -5,10 +5,10 @@
         <%= t '.quick_links' %>
       </h3>
       <ul>
-        <li><%= link_to t('.who'), who_we_are_path %></li>
-        <li><%= link_to t('.press'), press_path %></li>
-        <li><%= link_to t('.privacy'), privacy_path %></li>
-        <li><%= link_to t('.conditions'), conditions_path %></li>
+        <li><%= link_to t('.who'), info_path(:page_name => 'whoweare') %></li>
+        <li><%= link_to t('.press'), info_path(:page_name => 'presse') %></li>
+        <li><%= link_to t('.privacy'), info_path(:page_name => 'privacy') %></li>
+        <li><%= link_to t('.conditions'), info_path(:page_name => 'conditions') %></li>
       </ul>
       <ul id="contacts">
         <li>

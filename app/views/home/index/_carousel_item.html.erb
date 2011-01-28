@@ -7,7 +7,7 @@
       <li>
         <%= link_to t(".link_#{carousel_item.id}"), path, :class => :rent %>
       </li>
-      <% if carousel_item.type == 'MOVIE' && carousel_item.product.trailer %>
+      <% if carousel_item.kind == 'MOVIE' && carousel_item.product.trailer %>
       <li class="delim"></li>
       <li>
         <%= link_to(t('.trailer'), carousel_item.product.trailer.url, {:class => 'trailer', :target => :_blank}) %>
