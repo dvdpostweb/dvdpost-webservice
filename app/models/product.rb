@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   cattr_reader :per_page
+  attr_reader :sort
   @@per_page = 20
 
   set_primary_key :products_id
@@ -30,6 +31,7 @@ class Product < ActiveRecord::Base
   has_many :uninteresteds, :foreign_key => :products_id
   has_many :uninterested_customers, :through => :uninteresteds, :source => :customer, :uniq => true
   has_many :wishlist_items
+  has_many :product_views
   has_many :streaming_products, :foreign_key => :imdb_id, :primary_key => :imdb_id, :conditions => {:available => 1}
   has_many :tokens, :foreign_key => :imdb_id, :primary_key => :imdb_id
   has_and_belongs_to_many :actors, :join_table => :products_to_actors, :foreign_key => :products_id, :association_foreign_key => :actors_id
@@ -76,6 +78,9 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
+    has 'cast((SELECT sum(number) FROM `product_views` WHERE (`product_views`.product_id = products.products_id) and created_at > date_sub(now(), INTERVAL 1 MONTH) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed
+    has 'cast((SELECT sum(number) FROM `product_views` WHERE (`product_views`.product_id = products.products_id) and created_at > date_sub(now(), INTERVAL 1 YEAR) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
+    
     has "(select created_at as streaming_created_at from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
     
     
@@ -97,8 +102,8 @@ class Product < ActiveRecord::Base
     else 0 end", :type => :integer, :as => :streaming_available_test
     has "(select count(*) as count_tokens from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has "case
-    when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) > 3 and products_quantity > 2 then 1
-    when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) > 4 and products_quantity > 2 then 1
+    when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
+    when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
 
     
@@ -149,6 +154,17 @@ class Product < ActiveRecord::Base
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
   
   sphinx_scope(:limit)              {|limit|            {:limit => limit}}
+
+  def self.list_sort
+     sort = OrderedHash.new
+     sort.push(:default, 'default')
+     sort.push(:alpha_az, 'alpha_az')
+     sort.push(:alpha_za, 'alpha_za')
+     sort.push(:rating, 'rating')
+     sort.push(:most_viewed, 'most_viewed')
+     sort.push(:most_viewed_last_year, 'most_viewed_last_year')
+     sort
+  end
 
   def self.filter(filter, options={})
     
@@ -245,6 +261,7 @@ class Product < ActiveRecord::Base
     else
       sort = sort_by("in_stock DESC, rating DESC", options)
     end
+    Rails.logger.debug { "@@@ #{sort} #{options.inspect}" }
     if sort !=""
       if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming )
         products = products.group('imdb_id', sort)
@@ -341,6 +358,13 @@ class Product < ActiveRecord::Base
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
     connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{to_param}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    day = product_views.daily.first
+    if !day.nil?
+      day.update_attributes(:number => (day.number + 1))
+    else
+      ProductView.create(:product_id => to_param,
+                          :number     => 1)
+    end
     description.viewed
   end
 
@@ -353,20 +377,20 @@ class Product < ActiveRecord::Base
   end
   
   def self.sort_by(default, options={})
-    if options[:sort]
-      type = case options[:sort_type]
-        when 'asc' then  options[:sort_type]
-        when 'desc' then  options[:sort_type]
-        else 
-          'desc'
-        end   
+    if options[:product][:sort]
       type =
-      if options[:sort] == 'alpha'
-        "descriptions_title_#{I18n.locale} #{type}"
-      elsif options[:sort] == 'rating'
-        "rating #{type}, in_stock DESC"
-      elsif options[:sort] == 'token'
-        "count_tokens #{type}, streaming_id desc"
+      if options[:product][:sort] == 'alpha_az'
+        "descriptions_title_#{I18n.locale} asc"
+      elsif options[:product][:sort] == 'alpha_za'
+        "descriptions_title_#{I18n.locale} desc"
+      elsif options[:product][:sort] == 'rating'
+        "rating desc, in_stock DESC"
+      elsif options[:product][:sort] == 'token'
+        "count_tokens desc, streaming_id desc"
+      elsif options[:product][:sort] == 'most_viewed'
+        "most_viewed desc"
+      elsif options[:product][:sort] == 'most_viewed_last_year'
+        "most_viewed_last_year desc"
       else
         default
       end

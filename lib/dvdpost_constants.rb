@@ -209,22 +209,6 @@ module DVDPost
       })
     end
     
-    def sort_by
-      HashWithIndifferentAccess.new.merge({
-        :alpha   => 'alpha',
-        :rating => 'rating',
-        :default    => 'default'
-      })
-    end
-
-    def sort_type_next
-      HashWithIndifferentAccess.new.merge({
-        :alpha   => 'asc',
-        :rating => 'desc',
-        :default    => 'desc'
-      })
-    end
-
     def dvdpost_ip
       HashWithIndifferentAccess.new.merge({
         :external   => ['217.112.190.73', '217.112.190.101', '217.112.190.177', '217.112.190.178', '217.112.190.179', '217.112.190.180', '217.112.190.181', '217.112.190.182'],
