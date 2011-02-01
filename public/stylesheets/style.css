@@ -20,6 +20,10 @@ body.xmas
 {
   background:url("../images/special/magorium.jpg") no-repeat fixed center 0 #e8373d;
 }
+body.darco
+{
+  background:url("../images/special/darko.jpg") no-repeat fixed center 0 #000000;
+}
 
 img {
   border: 0px;
