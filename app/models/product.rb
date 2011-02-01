@@ -77,6 +77,9 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
+    has 'cast((SELECT sum(number) FROM `product_views` WHERE (`product_views`.product_id = products.products_id) and created_at > date_sub(now(), INTERVAL 1 MONTH) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed
+    has 'cast((SELECT sum(number) FROM `product_views` WHERE (`product_views`.product_id = products.products_id) and created_at > date_sub(now(), INTERVAL 1 YEAR) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
+    
     has "(select created_at as streaming_created_at from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
     
     
@@ -342,6 +345,13 @@ class Product < ActiveRecord::Base
     # Dirty raw sql.
     # This could be fixed with composite_primary_keys but version 2.3.5.1 breaks all other associations.
     connection.execute("UPDATE products_description SET products_viewed = #{description.viewed + 1} WHERE (products_id = #{to_param}) AND (language_id = #{DVDPost.product_languages[I18n.locale]})")
+    day = product_views.daily.first
+    if !day.nil?
+      day.update_attributes(:number => (day.number + 1))
+    else
+      ProductView.create(:product_id => to_param,
+                          :number     => 1)
+    end
     description.viewed
   end
 
