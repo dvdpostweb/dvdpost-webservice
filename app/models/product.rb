@@ -377,7 +377,7 @@ class Product < ActiveRecord::Base
   end
   
   def self.sort_by(default, options={})
-    if options[:product][:sort]
+    if options[:product] && options[:product][:sort]
       type =
       if options[:product][:sort] == 'alpha_az'
         "descriptions_title_#{I18n.locale} asc"
