@@ -32,10 +32,6 @@ class ProductsController < ApplicationController
           session[:menu_categories] = true
           session[:menu_tops] = false
         end
-        @class_sort = Hash.new
-        if !params[:sort]
-          params[:sort] = 'default'
-        end
       end
       format.js {
         if params[:category_id]

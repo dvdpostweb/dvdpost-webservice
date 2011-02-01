@@ -285,7 +285,7 @@ module ApplicationHelper
   def sort_collection_for_select
     options = []
     codes_hash = Product.list_sort
-    codes_hash.each {|key, code| options.push [key, t(".#{key}")]}
+    codes_hash.each {|key, code| options.push [t(".#{key}"), key]}
     options
   end
 

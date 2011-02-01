@@ -1,9 +1,10 @@
 <div class="bysort">
   <div class="bysort_title"><%= t '.title'%> : </div>
   <div class="bysort_choice">
-    <% form_for :product, :html => { :method => :get } do |f| %>
-      <%= f.collection_select(:sort, sort_collection_for_select, :first, :last, {:include_blank => false}) %>
-      <%= submit_tag "create", :id => "submit_address", :class => "submit submit_#{I18n.locale}" %>
+    <% var = params[:product] && params[:product][:sort] ?  params[:product][:sort].to_sym : nil %>
+    <% form_for(:product, :html => { :method => :get, :id => :sort_form  }) do |f| %>
+      <% f.collection_select(:sort, sort_collection_for_select, :first, :last, {:include_blank => false}, { :onchange => '$("#sort_form").submit()'}) %>
+      <%= select_tag('product[sort]', options_for_select(sort_collection_for_select, var), { :onchange => '$("#sort_form").submit()'}) %>
     <% end %>
   </div>
   <div style="clear:both"></div>
