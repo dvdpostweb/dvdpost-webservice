@@ -147,6 +147,7 @@ class Product < ActiveRecord::Base
   
   sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
+  sphinx_scope(:not_recent)         {{:with =>          {:next => 0}}}
   
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
@@ -162,6 +163,8 @@ class Product < ActiveRecord::Base
      sort.push(:rating, 'rating')
      sort.push(:most_viewed, 'most_viewed')
      sort.push(:most_viewed_last_year, 'most_viewed_last_year')
+     sort.push(:new, 'new')
+     
      sort
   end
 
@@ -239,6 +242,9 @@ class Product < ActiveRecord::Base
         products
       end
     end
+    if options[:product] && options[:product][:sort].to_sym == :new
+      products = products.not_recent
+    end
     products = products.by_kind(:normal).available
 
     if options[:list_id] && !options[:list_id].blank?
@@ -261,7 +267,6 @@ class Product < ActiveRecord::Base
       sort = sort_by("in_stock DESC, rating DESC", options)
     end
     if sort !=""
-      logger.debug("@@@#{sort}")
       if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming )
         products = products.group('imdb_id', sort)
       else
@@ -379,9 +384,9 @@ class Product < ActiveRecord::Base
     if options[:product] && options[:product][:sort]
       type =
       if options[:product][:sort] == 'alpha_az'
-        "descriptions_title_fr asc"
+        "descriptions_title_#{I18n.locale} asc"
       elsif options[:product][:sort] == 'alpha_za'
-        "descriptions_title_fr desc"
+        "descriptions_title_#{I18n.locale} desc"
       elsif options[:product][:sort] == 'rating'
         "rating desc, in_stock DESC"
       elsif options[:product][:sort] == 'token'
@@ -390,6 +395,8 @@ class Product < ActiveRecord::Base
         "most_viewed desc"
       elsif options[:product][:sort] == 'most_viewed_last_year'
         "most_viewed_last_year desc"
+      elsif options[:product][:sort] == 'new'
+        "available_at DESC, rating desc"
       else
         default
       end

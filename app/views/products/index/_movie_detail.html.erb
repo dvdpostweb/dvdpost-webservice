@@ -7,7 +7,7 @@
 <div class="<%= jacket_mode == :streaming ? 'vod' : product_media_id(product.media) %> clearfix">
   <div class="movie-descr">
     <h2>
-      <%= link_to product.title, path %>
+      <%= link_to product.title, path %><%= product.available_at%>
     </h2>
     <p>
       <%= product_description_text(product) %>
