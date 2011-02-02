@@ -1,9 +1,13 @@
 <div class="bysort">
   <div class="bysort_title"><%= t '.title'%> : </div>
   <div class="bysort_choice">
-    <% var = params[:product] && params[:product][:sort] ?  params[:product][:sort].to_sym : nil %>
-    <% form_for(:product, :html => { :method => :get, :id => :sort_form  }) do |f| %>
-      <%= select_tag('product[sort]', options_for_select(sort_collection_for_select, var), { :onchange => '$("#sort_form").submit()'}) %>
+    <% var = params[:sort].to_sym %>
+    <% form_for(:product, :html => { :method => :get, :id => :sort_form  } ) do |f| %>
+      <%= hidden_field_tag(:view_mode, params[:view_mode]) if params[:view_mode] %>
+      <%= hidden_field_tag(:search, params[:search]) if params[:search] %>
+      <%= hidden_field_tag(:list_id, params[:list_id]) if params[:list_id] %>
+      <%= hidden_field_tag(:category_id, params[:category_id]) if params[:category_id] %>
+      <%= select_tag(:sort, options_for_select(sort_collection_for_select, var), { :onchange => '$("#sort_form").submit()'}) %>
     <% end %>
   </div>
   <div style="clear:both"></div>

@@ -1,6 +1,5 @@
 class Product < ActiveRecord::Base
   cattr_reader :per_page
-  attr_reader :sort
   @@per_page = 20
 
   set_primary_key :products_id
@@ -78,14 +77,14 @@ class Product < ActiveRecord::Base
     has "min(streaming_products.id)", :type => :integer, :as => :streaming_id
     has streaming_products(:available_from), :as => :available_from
     has streaming_products(:expire_at), :as => :expire_at
-    has 'cast((SELECT sum(number) FROM `product_views` WHERE (`product_views`.product_id = products.products_id) and created_at > date_sub(now(), INTERVAL 1 MONTH) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed
-    has 'cast((SELECT sum(number) FROM `product_views` WHERE (`product_views`.product_id = products.products_id) and created_at > date_sub(now(), INTERVAL 1 YEAR) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
+    has 'cast((SELECT sum(number) FROM `product_views` pw WHERE pw.product_id = products.products_id and created_at > date_sub(now(), INTERVAL 1 MONTH) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed
+    has 'cast((SELECT sum(number) FROM `product_views` pw WHERE pw.product_id = products.products_id and created_at > date_sub(now(), INTERVAL 1 YEAR) group by product_id) AS SIGNED)', :type => :integer, :as => :most_viewed_last_year
     
-    has "(select created_at as streaming_created_at from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
+    has "(select created_at s from streaming_products where imdb_id = products.imdb_id order by id desc limit 1)", :type => :datetime, :as => :streaming_created_at
 
-    has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'),char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description where  language_id = 1 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr
-    has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'),char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description where  language_id = 2 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_nl
-    has "(select hex(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(lower(products_name),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'),char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description where  language_id = 3 and products_description.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
+    has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 1 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_fr
+    has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 2 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_nl
+    has "(select hex(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(replace(replace(replace(replace(replace (replace(replace(replace(replace(replace(lower(products_name),char(0xe6),'ae'),char(0xe9),'e'),char(0xe7),'c'),char(0xe0),'a'),char(0xf6),'o'),char(0xe8),'e'),char(0xf4),'o'),char(0xeb),'e'),char(0xea),'e'),char(0xee),'i'),char(0xef),'i'),char(0xf9),'u'),char(0xfb),'u'),char(0xe0),'a'),char(0xe4),'a'), char(0xfa),'u'),char(0xe2),'a'),char(0xf3),'o'),char(0xe1),'a'),char(0xed),'i'),char(0xf1),'n'),char(0xe5),'a'),char(0xe4),'a'),char(0xfc),'u'),char(0xf2),'o'),char(0xec),'i'))  AS products_name_ord from products_description pd where  language_id = 3 and pd.products_id = products.products_id)", :type => :string, :as => :descriptions_title_en
     
     has "case 
     when products_media = 'DVD' and streaming_products.imdb_id is null then 1 
@@ -99,12 +98,12 @@ class Product < ActiveRecord::Base
     has "case 
     when  streaming_products.available_from < now() and streaming_products.expire_at > now() then 1
     else 0 end", :type => :integer, :as => :streaming_available_test
-    has "(select count(*) as count_tokens from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
+    has "(select count(*) c from tokens where tokens.imdb_id = products.imdb_id and (datediff(now(),created_at) < 8))", :type => :integer, :as => :count_tokens
     has "case
     when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
-
+    has 'concat(if(products_quantity>0,1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :recent_in_stock_order
     
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
@@ -148,7 +147,6 @@ class Product < ActiveRecord::Base
   sphinx_scope(:popular)            {{:with =>          {:available_at => 8.months.ago..2.months.ago, :rating => 3.0..5.0, :series_id => 0, :in_stock => 3..1000}}}
   sphinx_scope(:popular_streaming)  {{:without =>       {:streaming_imdb_id => 0, :count_tokens =>0}, :with => {:streaming_available => 1 }}}
   sphinx_scope(:not_recent)         {{:with =>          {:next => 0}}}
-  
   
   sphinx_scope(:order)              {|order, sort_mode| {:order => order, :sort_mode => sort_mode}}
   sphinx_scope(:group)              {|group,sort|       {:group_by => group, :group_function => :attr, :group_clause   => sort}}
@@ -242,7 +240,7 @@ class Product < ActiveRecord::Base
         products
       end
     end
-    if options[:product] && options[:product][:sort].to_sym == :new
+    if options[:sort] && options[:sort].to_sym == :new
       products = products.not_recent
     end
     products = products.by_kind(:normal).available
@@ -264,7 +262,7 @@ class Product < ActiveRecord::Base
     elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
       sort = sort_by("available_at asc", options)
     else
-      sort = sort_by("in_stock DESC, rating DESC", options)
+      sort = sort_by("recent_in_stock_order desc, in_stock DESC", options)
     end
     if sort !=""
       if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming )
@@ -381,21 +379,21 @@ class Product < ActiveRecord::Base
   end
   
   def self.sort_by(default, options={})
-    if options[:product] && options[:product][:sort]
+    if options[:sort]
       type =
-      if options[:product][:sort] == 'alpha_az'
+      if options[:sort] == 'alpha_az'
         "descriptions_title_#{I18n.locale} asc"
-      elsif options[:product][:sort] == 'alpha_za'
+      elsif options[:sort] == 'alpha_za'
         "descriptions_title_#{I18n.locale} desc"
-      elsif options[:product][:sort] == 'rating'
+      elsif options[:sort] == 'rating'
         "rating desc, in_stock DESC"
-      elsif options[:product][:sort] == 'token'
+      elsif options[:sort] == 'token'
         "count_tokens desc, streaming_id desc"
-      elsif options[:product][:sort] == 'most_viewed'
+      elsif options[:sort] == 'most_viewed'
         "most_viewed desc"
-      elsif options[:product][:sort] == 'most_viewed_last_year'
+      elsif options[:sort] == 'most_viewed_last_year'
         "most_viewed_last_year desc"
-      elsif options[:product][:sort] == 'new'
+      elsif options[:sort] == 'new'
         "available_at DESC, rating desc"
       else
         default

@@ -9,7 +9,9 @@ class ProductsController < ApplicationController
     if params[:category_id]
       @popular = current_customer.streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
     end
-    
+    if params[:sort].nil?
+      params[:sort] = 'normal'
+    end
     
     respond_to do |format|
       format.html do
@@ -17,7 +19,7 @@ class ProductsController < ApplicationController
           if(session[:sort] != params[:sort])
             expiration_recommendation_cache()
           end
-          session[:sort]=params[:product][:sort]
+          session[:sort]=params[:sort] 
           
           retrieve_recommendations(params[:page], { :sort => params[:sort]})
         else
