@@ -24,6 +24,10 @@ body.darco
 {
   background:url("../images/special/darko.jpg") no-repeat center 0 #000000;
 }
+body.valentine
+{
+  background:url("../images/special/stvalentin.jpg") no-repeat fixed center 0 #c51e15;
+}
 
 img {
   border: 0px;
@@ -132,6 +136,9 @@ fieldset {
 }
 #header h1 a.halloween {
   background: url(../images/logo_dvdpost_halloween.gif) 0 0 no-repeat;
+}
+body.valentine #header h1 a {
+  background: url(../images/logo_valentine.gif) 0 0 no-repeat;
 }
 
 #header .subnav {
@@ -2902,6 +2909,9 @@ div.top10.first p a {
 #leftcolumn p#special.halloween {
   background: url(../images/specialhalloween-banner-bg.jpg) 0 0 no-repeat;
 }
+body.valentine #leftcolumn p#special {
+  background: url(../images/stvalentin-banner-bg.jpg) 0 0 no-repeat;
+}
 #leftcolumn p#special a {
   color: #303030;
 }
@@ -4214,4 +4224,52 @@ position:relative;
 .presse li
 {
   padding: 2px 0;
+}
+.text_intro_theme {
+	width:848px;
+	color: #454545;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	text-align:justify;
+	margin: 20px 60px;
+	
+}
+
+.category_theme h3 {
+background:url(http://www.dvdpost.be/images/themes/valentine_title.gif) no-repeat;
+color:#FFFFFF;
+text-transform:uppercase;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 18px;
+margin:20px;
+padding: 10px 42px 10px;
+}
+
+.category_theme {
+	width:915px;
+	margin:10px;
+}
+.selection_theme { 
+border:#d61b2b solid 1px;
+height:270px;
+ width: 915px;
+margin-top:-24px;
+margin-left:20px;
+}
+.selection_theme#carousel
+{
+  background: none;
+  width:855px;
+}
+.selection_theme#carousel li .dvd {
+  background: url(../images/dvd-cover-theme.png) 0 0 no-repeat;
+}
+.selection_theme#carousel li .bluray {
+  background: url(../images/bluray-cover-theme.png) 0 0 no-repeat;
+}
+.selection_theme#carousel li .vod {
+  background: url(../images/vod-cover-theme.png) 0 0 no-repeat;
+}
+.selection_theme#carousel li {
+  width:98px;
 }

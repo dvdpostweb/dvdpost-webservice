@@ -7,6 +7,8 @@ module HomeHelper
         link_to image_tag(@contest.image), new_contest_path
       when 'shop'
         link_to image_tag(@shop.image), shop_path(@shop.url)
+      when 'stvalentin'
+        link_to image_tag("#{I18n.locale}/stvalentin.gif", :alt => 'Theme st-valentin'), themes_path(:page_name => 'stvalentin')
       when 'community'
         case rand(4)
         when 0
