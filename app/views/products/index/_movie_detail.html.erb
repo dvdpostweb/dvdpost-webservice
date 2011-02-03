@@ -29,7 +29,7 @@
       <h3>
         <%= t '.actors' %>
       </h3>
-      <p><%= product.actors.collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
+      <p><%= product.actors.limit(8).collect{|actor| link_to actor.name, actor_products_path(:actor_id => actor.to_param)}.join(', ') %></p>
     </div>
     <% end %>
     <% if product.director %>
