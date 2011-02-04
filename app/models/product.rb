@@ -103,7 +103,7 @@ class Product < ActiveRecord::Base
     when products_date_available > DATE_SUB(now(), INTERVAL 8 MONTH) and products_date_available < DATE_SUB(now(), INTERVAL 2 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 3 and products_quantity > 0 then 1
     when products_date_available < DATE_SUB(now(), INTERVAL 8 MONTH) and products_series_id = 0 and cast((cast((rating_users/rating_count)*2 AS SIGNED)/2) as decimal(2,1)) >= 4 and products_quantity > 2 then 1
     else 0 end", :type => :integer, :as => :popular
-    has 'concat(if(products_quantity>0,1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :recent_in_stock_order
+    has 'concat(if(products_quantity>0,1,0),date_format(products_date_available,"%Y%m%d"))', :type => :integer, :as => :default_order
     
     has products_quantity,          :type => :integer, :as => :in_stock
     has products_series_id,          :type => :integer, :as => :series_id
@@ -396,11 +396,11 @@ class Product < ActiveRecord::Base
       elsif options[:sort] == 'new'
         "available_at DESC, rating desc"
       elsif options[:sort] == 'recent1'
-        "recent_in_stock_order desc"
+        "default_order desc"
       elsif options[:sort] == 'recent2'
         "in_stock desc"
       elsif options[:sort] == 'recent3'
-        "recent_in_stock_order desc, in_stock desc"
+        "default_order desc, in_stock desc"
       else
         default
       end
