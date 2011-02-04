@@ -395,6 +395,12 @@ class Product < ActiveRecord::Base
         "most_viewed_last_year desc"
       elsif options[:sort] == 'new'
         "available_at DESC, rating desc"
+      elsif options[:sort] == 'recent1'
+        "recent_in_stock_order desc"
+      elsif options[:sort] == 'recent2'
+        "in_stock desc"
+      elsif options[:sort] == 'recent3'
+        "recent_in_stock_order desc, in_stock desc"
       else
         default
       end
