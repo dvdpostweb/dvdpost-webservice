@@ -262,7 +262,7 @@ class Product < ActiveRecord::Base
     elsif options[:view_mode] && (options[:view_mode].to_sym == :soon || options[:view_mode].to_sym == :cinema)
       sort = sort_by("available_at asc", options)
     else
-      sort = sort_by("recent_in_stock_order desc, in_stock DESC", options)
+      sort = sort_by("available_at desc, in_stock DESC", options)
     end
     if sort !=""
       if options[:view_mode] && (options[:view_mode].to_sym == :streaming || options[:view_mode].to_sym == :popular_streaming || options[:view_mode].to_sym == :weekly_streaming )
