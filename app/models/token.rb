@@ -20,11 +20,14 @@ class Token < ActiveRecord::Base
     token = self.available.find_by_token(token_param)
     if token
       filename = "mp4:#{filename}" 
-      filename = filename.sub(/_LOW\.mp4/,'.mp4').sub(/_HIGH\.mp4/,'.mp4')
       filename_select = StreamingProduct.by_filename(filename).all(:include => :tokens, :conditions => ['tokens.id = ?', token.id])
       token_ips = token.token_ips
       select = token_ips.find_by_ip(ip)
     end
+    logger.debug('@@@')
+    logger.debug(token.inspect)
+    logger.debug(select)
+    logger.debug(filename_select)
     if token && select && !filename_select.blank?
       1
     else

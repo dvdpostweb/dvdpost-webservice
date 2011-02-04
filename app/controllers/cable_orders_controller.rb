@@ -4,6 +4,10 @@ class CableOrdersController < ApplicationController
       CableOrder.create(:name => params[:cable], 
                              :customer_id => current_customer.to_param,
                              :sent => 0)
+      if current_customer.subscription_type.to_param.to_i == 17
+        Subscription.subscription_change(current_customer, 18)
+        current_customer.update_attribute(:free_upgrade, 1)
+      end
     end
     render :layout => false
   end

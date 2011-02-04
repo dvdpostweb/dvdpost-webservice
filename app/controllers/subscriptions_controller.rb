@@ -15,25 +15,8 @@ class SubscriptionsController < ApplicationController
 
   def update
       if(params[:customer] != nil && params[:customer][:next_abo_type_id] && !params[:customer][:next_abo_type_id].empty?)
-        new_abo = ProductAbo.find(params[:customer][:next_abo_type_id])
-        action = (current_customer.subscription_type.qty_credit > new_abo.credits ? Subscription.action[:abo_downgrade] : Subscription.action[:abo_upgrade])
-        current_customer.update_attribute(:next_abo_type_id, params[:customer][:next_abo_type_id].to_i)
-        current_customer.abo_history(action, params[:customer][:next_abo_type_id].to_i)
-        #***********************
-        #*     free upgrade    *
-        #***********************
-        
-        diff_order = new_abo.ordered - current_customer.subscription_type.ordered
-        
-        if current_customer.free_upgrade == 0 && diff_order == 1
-          diff_credit = new_abo.credits - current_customer.subscription_type.credits
-          
-          status = current_customer.add_credit(diff_credit, 6)
-          if status 
-            current_customer.update_attribute(:free_upgrade, 1)
-          end
-        end
-        #***********************
+        new_abo = Subscription.subscription_change(current_customer, params[:customer][:next_abo_type_id])
+        Subscription.freetest(new_abo)
       end
   end
 end

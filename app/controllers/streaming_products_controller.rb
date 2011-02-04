@@ -1,6 +1,6 @@
 class StreamingProductsController < ApplicationController
   def show
-    @streaming = StreamingProduct.get_streaming_by_imdb_id(params[:id], I18n.locale)
+    @streaming = StreamingProduct.group_by_version.get_streaming_by_imdb_id(params[:id], I18n.locale)
     @product = Product.normal_available.find_by_imdb_id(params[:id])
     @streaming_free = StreamingProductsFree.by_imdb_id(@product.imdb_id).available.count > 0 
    
@@ -86,13 +86,11 @@ class StreamingProductsController < ApplicationController
           end
           if @token
             current_customer.remove_product_from_wishlist(params[:id], request.remote_ip)
-            StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => params[:quality])
-            filename =  streaming_version.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")
+            StreamingViewingHistory.create(:streaming_product_id => params[:streaming_product_id],:token_id => @token.to_param, :quality => streaming_version.quality)
             Customer.send_evidence('PlayStart', @product.to_param, current_customer, request.remote_ip)
-            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => filename}, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => @token, :filename => streaming_version.filename}, :layout => false
           elsif Token.dvdpost_ip?(request.remote_ip)
-            filename =  streaming_version.filename.sub(/\.mp4/,"_#{params[:quality]}.mp4")
-            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => filename}, :layout => false
+            render :partial => 'streaming_products/player', :locals => {:token => nil, :filename => streaming_version.filename}, :layout => false
           else
             render :partial => 'streaming_products/no_player', :locals => {:token => @token, :error => error}, :layout => false
           end

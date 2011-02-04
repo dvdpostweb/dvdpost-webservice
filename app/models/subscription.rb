@@ -20,5 +20,24 @@ class Subscription < ActiveRecord::Base
   named_scope :reconduction,  {:conditions => {:action => [7, 17]}}
 
   belongs_to :type, :class_name => 'SubscriptionType', :foreign_key => :product_id
-  
+
+  def self.subscription_change(current_customer, next_abo_type_id)
+    new_abo = ProductAbo.find(next_abo_type_id)
+    action = (current_customer.subscription_type.qty_credit > new_abo.credits ? Subscription.action[:abo_downgrade] : Subscription.action[:abo_upgrade])
+    current_customer.update_attribute(:next_abo_type_id, next_abo_type_id.to_i)
+    current_customer.abo_history(action, next_abo_type_id)
+    new_abo
+  end
+
+  def self.freetest(new_abo)
+    diff_order = new_abo.ordered - current_customer.subscription_type.ordered
+    if current_customer.free_upgrade == 0 && diff_order == 1
+      diff_credit = new_abo.credits - current_customer.subscription_type.credits
+      status = current_customer.add_credit(diff_credit, 6)
+      if status 
+        current_customer.update_attribute(:free_upgrade, 1)
+      end
+    end
+  end
+
 end
