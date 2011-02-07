@@ -1,7 +1,7 @@
 <div id='title' class="urgent"><%= t '.title' %></div>
 <div id="titles-wrap" class="urgent">
   <div class="top"></div>
-    <%= t('.description', :full_name => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", :phone_number => DVDPostConfig[:phone_number], :account_iban => DVDPostConfig[:account_iban], :account_bic => DVDPostConfig[:account_bic], :url_condiction => conditions_path) %>
+    <%= t('.description', :full_name => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", :phone_number => DVDPostConfig[:phone_number], :account_iban => DVDPostConfig[:account_iban], :account_bic => DVDPostConfig[:account_bic], :url_condiction => info_path(:page_name => 'conditions')) %>
     
     <div id="contact-wrap" class="urgent">
       <div id="tabs-content">
