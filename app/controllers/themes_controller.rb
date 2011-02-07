@@ -9,7 +9,7 @@ class ThemesController < ApplicationController
         when :en
           list = [67,70,73,76,79,82,85]
       end
-      @count = 5 
+      @count = 7 
       @themes = Array.new
       @titles = Array.new
       @count.times do |i|

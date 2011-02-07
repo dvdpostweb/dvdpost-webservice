@@ -10,7 +10,7 @@
     <div class="box">
       <div class="box-content clearfix">
         <img src="/images/right-shadow-top.gif" alt="" class="right" />
-        <div id="details">
+        <div id="details"><%= ((@product.rating_users.to_f / @product.rating_count) * 2)  %>
           <div id="movie-info" class="<%= @product.streaming? ? 'height-stream' : 'height-classic' %>">
             <%= render :partial => 'products/show/product', :object => @product %>
           </div>
