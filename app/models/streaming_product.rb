@@ -5,10 +5,13 @@ class StreamingProduct < ActiveRecord::Base
   has_many :products, :primary_key => :imdb_id, :foreign_key => :imdb_id, :limit => 1
   
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
+  named_scope :by_version, lambda {|language_id, subtitle_id| {:conditions => {:language_id => language_id, :subtitle_id => subtitle_id}}}
   named_scope :available, lambda {{:conditions => ['available = ? and available_from < ? and streaming_products.expire_at > ? and status = "online_test_ok"', 1, Time.now.to_s(:db), Time.now.to_s(:db)]}}
   named_scope :prefered_audio, lambda {|language_id| {:conditions => {:language_id => language_id }}}
   named_scope :prefered_subtitle, lambda {|subtitle_id| {:conditions => ['subtitle_id = ? and language_id <> ?', subtitle_id, subtitle_id ]}}
   named_scope :not_prefered, lambda {|language_id| {:conditions => ["language_id != :language_id and (subtitle_id != :language_id or subtitle_id is null)",{:language_id => language_id}]}}
+  named_scope :group_by_version, :group => 'language_id, subtitle_id'
+  named_scope :ordered, :order => 'quality asc'
   
   def self.get_streaming_by_imdb_id(imdb_id, local)
     if Rails.env == "production"

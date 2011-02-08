@@ -23,9 +23,10 @@ class AuthenticationController < ActionController::Base
 
   def Authenticate(strAccount, strToken, strReferrer, strSourceURL, strClientIP)
     begin
+      test_filename = strSourceURL =~ CDN.source_file_regexp
       if Token.dvdpost_ip?(strClientIP)
         1
-      elsif Rails.env != "production" || strSourceURL =~ CDN.source_file_regexp
+      elsif test_filename
         # $3, which represents the filename will be nil for now. It's commented out in the validation of token.
         Token.validate(strToken, $3, strClientIP.strip)
       else

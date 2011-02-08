@@ -10,15 +10,11 @@
     </p>
   </td>
   <td align='center'>
-    <% qualities = kind.high_available == true ? ['LOW','HIGH'] : ['LOW'] %>
-    <% qualities.each do |quality| %>
-  
-    <div class="<%= qualities.count == 2 ? 'quality_vod' : '' %>">
-      <%= link_to t(".#{quality.downcase}"), streaming_product_path(:streaming_product_id => kind.to_param, :quality => quality), :class => "btn qualityvod", :id =>  quality %>
+    <% qualities = StreamingProduct.by_version(kind.language_id,kind.subtitle_id).ordered.find_all_by_imdb_id(kind.imdb_id) %>
+    <% qualities.collect do | quality | %>
+    <div class="<%= qualities.count > 1 ? 'quality_vod' : '' %>">
+      <%= link_to t(".#{quality.quality.downcase}"), streaming_product_path(:streaming_product_id => quality.to_param), :class => "btn qualityvod", :id =>  quality.quality %>
     </div>
-    
-    
-  
     <% end %>
   </td>
   <td>
