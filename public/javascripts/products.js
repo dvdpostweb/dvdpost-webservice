@@ -359,5 +359,20 @@ $(function() {
     $('#attention_bluray').hide();
     return false;
   });
-  
+  if ($('#add').html()!=undefined)
+  {
+    jQuery.facebox(function() {
+      $.getScript($('#add').html(), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+  }
+  if ($('#review').html()!=undefined)
+  {
+    jQuery.facebox(function() {
+      $.getScript($('#review').html(), function(data) {
+        jQuery.facebox(data);
+      });
+    });
+  }
 });
