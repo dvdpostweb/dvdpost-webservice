@@ -20,9 +20,9 @@ class MessagesController < ApplicationController
     @message.messagesent = 0
     if @message.save
       if @message.category_id == DVDPost.message_categories[:vod]
-         MessageReference.create(:name => 'streaming_product_id', 
-                               :reference_id => params[:reference_id],
-                               :message_id => @message.to_param)
+         #MessageReference.create(:name => 'streaming_product_id', 
+         #                      :reference_id => params[:reference_id],
+         #                      :message_id => @message.to_param)
       end
       flash[:notice] = t 'message.create.message_sent' #"Message sent successfully"
       
@@ -47,7 +47,7 @@ class MessagesController < ApplicationController
     @message = Message.destroy(params[:id])
     respond_to do |format|
       format.html {redirect_to messages_path}
-      format.js   {render :status => :ok, :layout => false}
+      format.js   {render :status => :ok, :nothing => true}
     end
   end
 

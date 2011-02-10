@@ -241,6 +241,7 @@ module ApplicationHelper
     end
   end
   require 'rexml/parsers/pullparser.rb'
+
   def truncate_html2(input, len = 30, extension = "...")  
     def attrs_to_s(attrs)  
       return '' if attrs.empty?  
@@ -271,7 +272,9 @@ module ApplicationHelper
       results << "</#{tag}>"  
     end  
     
-    results.to_s + (input.length > len ? extension : '')  
+    r=results.to_s + (input.length > len ? extension : '')
+    r=r.gsub(/<\/br>/, '')  
+    r
   end
 
   def streaming_btn_title(type, text)

@@ -241,7 +241,15 @@ module DVDPost
         :nl => 'http://en.wikipedia.org/wiki/Blu-ray_Disc',
         :en => 'http://en.wikipedia.org/wiki/Blu-ray_Disc'
       })
-      
     end
+
+    def vod_file_size
+      HashWithIndifferentAccess.new.merge({
+        :hd     => 2.8,
+        :high   => 1.8,
+        :low    => 1
+      })
+    end
+    
   end
 end

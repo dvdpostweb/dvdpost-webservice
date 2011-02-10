@@ -195,7 +195,7 @@ module ProductsHelper
   def awards(product)
     content = ''
     if !product.description.products_awards.empty?
-      awards = product.description.products_awards.split('<br>')
+      awards = product.description.products_awards.split(/<br>|<br \/>/)
       if count_awards(awards) > 3
         content += '<p id ="oscars_text">'
         3.times do |i|

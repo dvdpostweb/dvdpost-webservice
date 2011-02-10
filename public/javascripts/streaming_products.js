@@ -206,5 +206,10 @@ $(function() {
     $("body").trigger('close.facebox')
     return false;
   });
-  
+  $("#more").live("click", function(){
+    $(".choose_color").show();
+    $(".choose_empty").show();
+    $(this).parent().parent().hide();
+    return false;
+  });
 });
