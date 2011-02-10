@@ -1,6 +1,7 @@
 class StreamingProductsController < ApplicationController
   def show
-    @streaming = StreamingProduct.group_by_version.get_streaming_by_imdb_id(params[:id], I18n.locale)
+    @streaming_prefered = StreamingProduct.group_by_version.get_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
+    @streaming_not_prefered = StreamingProduct.group_by_version.get_not_prefered_streaming_by_imdb_id(params[:id], I18n.locale)
     @product = Product.normal_available.find_by_imdb_id(params[:id])
     @streaming_free = StreamingProductsFree.by_imdb_id(@product.imdb_id).available.count > 0 
    
@@ -10,7 +11,7 @@ class StreamingProductsController < ApplicationController
           @token = current_customer.get_token(@product.imdb_id)
           @token_valid = @token.nil? ? false : @token.validate?(request.remote_ip)
           if streaming_access?
-            if !@streaming.blank?
+            if !@streaming_prefered.blank? || !@streaming_not_prefered.blank?
              render :action => :show
             else
               flash[:error] = t('streaming_products.not_available.not_available')

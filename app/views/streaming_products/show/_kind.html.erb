@@ -1,28 +1,35 @@
-<tr class="choose_color">
-  <td class="choose_padding">
-    <p>
-      AUDIO : <%= kind.language.by_language(I18n.locale).first.name %> <br />
-      <% if kind.subtitle.count > 0 %>
-        <%= t '.subtitle' %> : <%= kind.subtitle.by_language(I18n.locale).first.name %>
-      <% else %>
-        <%= t '.without_subtitle' %>
-      <% end %>
-    </p>
-  </td>
-  <td align='center'>
-    <% qualities = StreamingProduct.by_version(kind.language_id,kind.subtitle_id).ordered.find_all_by_imdb_id(kind.imdb_id) %>
-    <% qualities.collect do | quality | %>
-    <div class="<%= qualities.count > 1 ? 'quality_vod' : '' %>">
-      <%= link_to t(".#{quality.quality.downcase}"), streaming_product_path(:streaming_product_id => quality.to_param), :class => "btn qualityvod", :id =>  quality.quality %>
-    </div>
-    <% end %>
-  </td>
-  <td>
-    <div class="status_vod">
-       <%= link_to t('.alert'), new_streaming_product_report_path(:streaming_product_id => params[:id],:reference_id => kind.to_param), :class => :connect_linkpc, :id => :report %>   
-    </div>
-  </td>  
-</tr>
-<tr class="choose_empty">
-  <td></td>
-</tr>
+	<tr class="choose_color" style="<%= "display:none;" if visibility == false %>">
+		<td class="choose_padding" width='230'>
+			<p>
+				<strong>AUDIO :</strong> <%= kind.language.by_language(I18n.locale).first.name %>
+			</p>
+			<p>
+				<strong>
+  				<% if kind.subtitle.count > 0 %>
+            <%= t '.subtitle' %> : <%= kind.subtitle.by_language(I18n.locale).first.name %>
+          <% else %>
+            <%= t '.without_subtitle' %>
+          <% end %>
+        </strong> 
+			</p>
+		</td>
+		<td bgcolor="#FFFFFF" width="10"></td>
+		<td align="center">
+			<table cellpadding="0" cellspacing="0">
+        <tr>
+					<% qualities = StreamingProduct.by_version(kind.language_id,kind.subtitle_id).ordered.find_all_by_imdb_id(kind.imdb_id) %>
+          <% qualities.collect do | quality | %>
+          <td align="center"> 
+            <div class="quality_vod">
+              <%= link_to t(".#{quality.quality.downcase}"), streaming_product_path(:streaming_product_id => quality.to_param), :class => "btn qualityvod", :id =>  quality.quality %>
+              <span class="taille_vod"><%= DVDPost.vod_file_size[quality.quality.downcase] %> GB</span>
+            </div>
+          </td>
+          <% end %>
+        </tr>
+			</table>
+		</td>
+	</tr>
+  <tr class="choose_empty" style="<%= "display:none;" if visibility == false %>">
+		<td></td>
+	</tr>

@@ -13,16 +13,24 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :group_by_version, :group => 'language_id, subtitle_id'
   named_scope :ordered, :order => 'quality asc'
   
-  def self.get_streaming_by_imdb_id(imdb_id, local)
+  def self.get_prefered_streaming_by_imdb_id(imdb_id, local)
     if Rails.env == "production"
       streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
       streaming += available.prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
-      streaming += available.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
     else
       streaming = prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
       streaming += prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
-      streaming += not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
     end
     streaming
   end
+
+  def self.get_not_prefered_streaming_by_imdb_id(imdb_id, local)
+    if Rails.env == "production"
+      streaming = available.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    else
+      streaming = not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+    end
+    streaming
+  end
+
 end
