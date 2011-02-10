@@ -13,7 +13,7 @@
     </tr>
     <tbody>
     <%= render :partial => '/streaming_products/show/kind', :collection => streaming_prefered, :locals => { :token => token, :visibility => true } %>
-    <% visible = params['more'] == '1' || streaming_prefered.count == 0 ? true : false %>
+    <% visible = params['more'] == '1' || streaming_prefered.count == 0 || streaming_not_prefered.count == 0 ? true : false %>
     <%= render :partial => '/streaming_products/show/kind', :collection => streaming_not_prefered, :locals => { :token => token, :visibility => visible } %>
     <tr style="<%= "display:none;" if visible == true %>">
       <td colspan="3" align="left" class="moreversion_vod"><img src="/images/plus.png" align="absmiddle" /> <a href="?more=1" id='more'><%= t('.more')%></a> </td>
