@@ -3919,9 +3919,9 @@ padding-left:8px;
 .bysort_choice { float:left;}
 
 .bysort { 
-  width:461px;
-  padding: 0 0 5px 0;
-  margin:0 0 0 449px;
+  margin:0 0 0 434px;
+  padding:0 0 5px;
+  width:233px;
 }
 #carousel_vod{
 background-color:#FFFFFF;
