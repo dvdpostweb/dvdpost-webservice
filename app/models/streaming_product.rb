@@ -7,6 +7,7 @@ class StreamingProduct < ActiveRecord::Base
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
   named_scope :by_version, lambda {|language_id, subtitle_id| {:conditions => {:language_id => language_id, :subtitle_id => subtitle_id}}}
   named_scope :available, lambda {{:conditions => ['available = ? and available_from < ? and streaming_products.expire_at > ? and status = "online_test_ok"', 1, Time.now.to_s(:db), Time.now.to_s(:db)]}}
+  named_scope :available_beta, lambda {{:conditions => ['available = ? and available_from < ? and streaming_products.expire_at > ?', 1, Time.now.to_s(:db), Time.now.to_s(:db)]}}
   named_scope :prefered_audio, lambda {|language_id| {:conditions => {:language_id => language_id }}}
   named_scope :prefered_subtitle, lambda {|subtitle_id| {:conditions => ['subtitle_id = ? and language_id <> ?', subtitle_id, subtitle_id ]}}
   named_scope :not_prefered, lambda {|language_id| {:conditions => ["language_id != :language_id and (subtitle_id != :language_id or subtitle_id is null)",{:language_id => language_id}]}}
@@ -18,8 +19,8 @@ class StreamingProduct < ActiveRecord::Base
       streaming = available.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
       streaming += available.prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
     else
-      streaming = prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
-      streaming += prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming = available_beta.prefered_audio(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming += available_beta.prefered_subtitle(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
     end
     streaming
   end
@@ -28,7 +29,7 @@ class StreamingProduct < ActiveRecord::Base
     if Rails.env == "production"
       streaming = available.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
     else
-      streaming = not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
+      streaming = available_beta.not_prefered(DVDPost.customer_languages[local]).find_all_by_imdb_id(imdb_id)
     end
     streaming
   end
