@@ -6,7 +6,7 @@
     <p id="special">
       <% special = ProductList.status.theme.highlighted.by_language(DVDPost.product_languages[I18n.locale]).first %>
       <% link_to special.name, list_products_path(:list_id => special) %>
-      <%= link_to t('.valentine'), themes_path(:page_name => 'stvalentin')%>
+      <%= link_to t('.oscar'), themes_path(:page_name => 'oscars_cesar')%>
     </p>
     <ul id="left-nav">
       <li><%= link_to t('.streaming'), products_path(:view_mode => :streaming), :class => ((params[:view_mode] == 'streaming') ? 'active_close new' : 'close new') if streaming_access? %></li>

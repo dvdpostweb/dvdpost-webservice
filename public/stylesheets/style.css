@@ -28,6 +28,10 @@ body.valentine
 {
   background:url("../images/special/stvalentin.jpg") no-repeat fixed center 0 #c51e15;
 }
+body.oscar
+{
+  background:url("../images/special/oscar.jpg") no-repeat fixed center 0 #000;*/
+}
 
 img {
   border: 0px;
@@ -137,8 +141,13 @@ fieldset {
 #header h1 a.halloween {
   background: url(../images/logo_dvdpost_halloween.gif) 0 0 no-repeat;
 }
+
 body.valentine #header h1 a {
   background: url(../images/logo_valentine.gif) 0 0 no-repeat;
+}
+
+body.oscar #header h1 a {
+  background: url(../images/logo_oscar.gif) 0 0 no-repeat;
 }
 
 #header .subnav {
@@ -2912,10 +2921,16 @@ div.top10.first p a {
 body.valentine #leftcolumn p#special {
   background: url(../images/stvalentin-banner-bg.jpg) 0 0 no-repeat;
 }
+body.oscar #leftcolumn p#special {
+  background: url(../images/special-banner-oscar.gif) 0 0 no-repeat;
+}
+
 #leftcolumn p#special a {
   color: #303030;
 }
-
+body.oscar #leftcolumn p#special a {
+  color: #fff;
+}
 #leftcolumn #left-links {
   background: url(../images/left-links-bg.jpg) 0 0 no-repeat;
   display: block;
