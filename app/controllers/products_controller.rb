@@ -2,12 +2,16 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:uninterested, :seen, :awards, :trailer]
 
   def index
-    @filter = current_customer.filter || current_customer.build_filter
+    customer = current_customer ?  current_customer : Customer.find(1)
+    @filter = customer.filter || customer.build_filter
     params.delete(:search) if params[:search] == t('products.left_column.search')
-    
+    if params['actor_id']
+      actor = Actor.find(params['actor_id'])
+      params['actor_id'] = actor.id
+    end
     
     if params[:category_id]
-      @popular = current_customer.streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page])
+      @popular = current_customer.streaming({:category_id => params[:category_id]}).paginate(:per_page => 6, :page => params[:popular_streaming_page]) if current_customer
     end
     if params[:sort].nil?
       params[:sort] = 'normal'
@@ -44,7 +48,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @filter = current_customer.filter || current_customer.build_filter
+    customer = current_customer ?  current_customer : Customer.find(1)
+    @filter = customer.filter || customer.build_filter
     @product = Product.normal_available.find(params[:id])
     @product.views_increment
     @public_url = "http://www.dvdpost.be/product_info_public.php?products_id=#{@product.to_param}"
@@ -61,7 +66,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html do
         @categories = @product.categories
-        @already_seen = current_customer.assigned_products.include?(@product)
+        @already_seen = current_customer.assigned_products.include?(@product) if current_customer
         begin
           @cinopsis = DVDPost.cinopsis_critics(@product.imdb_id.to_s)
           @cinopsis_error = false
@@ -74,7 +79,7 @@ class ProductsController < ApplicationController
         end
         Customer.send_evidence('ViewItemPage', @product.to_param, current_customer, request.remote_ip)
       end
-      @token = current_customer.get_token(@product.imdb_id)
+      @token = current_customer ? current_customer.get_token(@product.imdb_id) : nil
       format.js {
         if params[:reviews_page]
           render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews}

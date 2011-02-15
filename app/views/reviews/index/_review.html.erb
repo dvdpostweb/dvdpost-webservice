@@ -29,9 +29,11 @@
     <div class="stars" id="rating-stars-<%= review.product.to_param %>" product_id="<%= review.product.to_param %>">
       <%= render :partial => 'products/rating', :locals => {:product => review.product, :background => :white} %>
     </div>
-    <div class="links" id="seen-uninterested-<%= review.product.to_param %>">
-      <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => review.product} %>
-    </div>
+    <% if current_customer %>
+      <div class="links" id="seen-uninterested-<%= review.product.to_param %>">
+        <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => review.product} %>
+      </div>
+    <% end %>
     <%= render :partial => 'products/wishlist', :locals => {:product => review.product, :text => :long, :source => source} unless params[:view_mode] == 'streaming' || params[:view_mode] == 'popular_streaming' || params[:view_mode] == 'weekly_streaming' %>
     <%= render :partial => 'products/streaming', :locals => {:product => review.product, :token => @token } if review.product.streaming? and streaming_access? %>
     

@@ -9,13 +9,18 @@ class ThemesController < ApplicationController
         when :en
           list = [67,70,73,76,79,82,85]
       end
-      @count = 7 
+      @count = 7
       @themes = Array.new
       @titles = Array.new
       @count.times do |i|
-        product_list = ProductList.find(list[i])
-        @themes[i] = product_list.products
-        @titles[i] = product_list.name
+        product_list = ProductList.find_by_id(list[i])
+        if !product_list.nil?
+          @themes[i] = product_list.products
+          @titles[i] = product_list.name
+        else
+          i = i - 1
+          
+        end
       end
       
     end

@@ -18,7 +18,6 @@ class Product < ActiveRecord::Base
   alias_attribute :price,           :products_price
   alias_attribute :next,            :products_next
   
-
   belongs_to :director, :foreign_key => :products_directors_id
   belongs_to :country, :class_name => 'ProductCountry', :foreign_key => :products_countries_id
   belongs_to :picture_format, :foreign_key => :products_picture_format, :conditions => {:language_id => DVDPost.product_languages[I18n.locale.to_s]}

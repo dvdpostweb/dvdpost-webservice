@@ -7,6 +7,8 @@
       <%= hidden_field_tag(:search, params[:search]) if params[:search] %>
       <%= hidden_field_tag(:list_id, params[:list_id]) if params[:list_id] %>
       <%= hidden_field_tag(:category_id, params[:category_id]) if params[:category_id] %>
+      <%= hidden_field_tag(:actor_id, params[:actor_id]) if params[:actor_id] %>
+      <%= hidden_field_tag(:director_id, params[:category_id]) if params[:director_id] %>
       <%= select_tag(:sort, options_for_select(sort_collection_for_select, var), { :onchange => '$("#sort_form").submit()'}) %>
     <% end %>
   </div>

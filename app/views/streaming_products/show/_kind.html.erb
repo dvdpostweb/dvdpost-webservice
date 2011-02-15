@@ -4,13 +4,12 @@
 				<strong>AUDIO :</strong> <%= kind.language.by_language(I18n.locale).first.name %>
 			</p>
 			<p>
-				<strong>
+				
   				<% if kind.subtitle.count > 0 %>
-            <%= t '.subtitle' %> : <%= kind.subtitle.by_language(I18n.locale).first.name %>
+            <strong><%= t '.subtitle' %></strong> : <%= kind.subtitle.by_language(I18n.locale).first.name %>
           <% else %>
             <%= t '.without_subtitle' %>
           <% end %>
-        </strong> 
 			</p>
 		</td>
 		<td bgcolor="#FFFFFF" width="10"></td>

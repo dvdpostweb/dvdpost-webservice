@@ -5,12 +5,14 @@
   </div>
   <div class="category_theme">
     <% @count.times do |i| %>
-    <h3><%= @titles[i] %></h3>
-    <div class="selection_theme" id ="carousel">
-      <ul>
-        <%= render :partial => 'themes/product', :collection => @themes[i] %>
-      </ul>                                                              
-    </div>                
+      <% if !@titles[i].nil? %>
+        <h3><%= @titles[i] %></h3>
+        <div class="selection_theme" id ="carousel">
+          <ul>
+            <%= render :partial => 'themes/product', :collection => @themes[i] %>
+          </ul>                                                              
+        </div>      
+      <% end %>        
     <% end %>                                               
   </div>
 </div>

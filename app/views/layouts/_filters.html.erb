@@ -1,4 +1,6 @@
-<% filter = current_customer.filter %>
+<% customer = current_customer ?  current_customer : Customer.find(1) %>
+<% @filter = customer.filter || customer.build_filter %>
+<% filter = customer.filter %>
 <% if filter && filter.used? %>
   <div id="filtered_content">
     <div id="filter_title"><%= image_tag 'icon_filtres.gif' %> <%= t '.active' %></div>

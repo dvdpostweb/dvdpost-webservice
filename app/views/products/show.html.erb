@@ -1,4 +1,4 @@
-<!--   ==============   MAIN CONTENT   ==============   -->
+prod<!--   ==============   MAIN CONTENT   ==============   -->
 <div id="maincontent">
   <%= render :partial => 'layouts/filters' %>
   <div id="detail-wrap">
@@ -29,9 +29,11 @@
               <li class="stars" id="rating-stars-<%= @product.to_param %>" product_id ="<%= @product.to_param %>">
                 <%= render :partial => 'products/rating', :locals => {:product => @product, :background => :white} %>
               </li>
-              <li class="links" id="seen-uninterested-<%= @product.to_param %>">
-                <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
-              </li>
+              <% if current_customer %>
+                <li class="links" id="seen-uninterested-<%= @product.to_param %>">
+                  <%= render :partial => 'products/show/seen_uninterested', :locals => {:product => @product} %>
+                </li>
+              <% end %>
             </ul>
             <%= available_on_other_media(@product, params[:recommendation]) %>
             <%= available_on_other_language(@product, params[:recommendation]) %>
@@ -76,10 +78,12 @@
             <% if @reviews_count > 0 %>
               <%= render :partial => 'products/show/reviews', :locals => {:product => @product, :reviews_count => @reviews_count, :reviews => @reviews} %>
             <% else %>
-            <p>
-              <%= t '.no_review' %>
-              <%= link_to "#{t('.be_the_first')} #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'add_new_review' %>
-            </p>
+              <% if current_customer %>
+                <p>
+                  <%= t '.no_review' %>
+                  <%= link_to "#{t('.be_the_first')} #{@product.title}!", new_product_review_path(:product_id => @product.to_param), :id => 'add_new_review' %>
+                </p>
+                <% end %>
             <% end %>
           </div>
           <div id="tab2" class="tab_content" style="display:none">
@@ -90,7 +94,7 @@
               </p>
             <% else %>
               <%= @cinopsis %>
-            <% end %>
+            <% end %>1
           </div>
         </div>
       </div>

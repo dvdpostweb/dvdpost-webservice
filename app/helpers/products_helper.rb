@@ -117,12 +117,17 @@ module ProductsHelper
   end
 
   def rating_image_link(product, rating, value, background = nil, size = nil, replace = nil, recommendation = nil)
-    if current_customer.has_rated?(product)
-      name = 'star-voted'
-      class_name = ''
+    if current_customer
+      if current_customer.has_rated?(product)
+        name = 'star-voted'
+        class_name = ''
+      else
+        name = 'star'
+        class_name = 'star'
+      end
     else
-      name = 'star'
-      class_name = 'star'
+       name = 'star'
+       class_name = ''
     end
     if size == 'small' || size == :small
       name = "small-#{name}"
@@ -146,8 +151,12 @@ module ProductsHelper
         "#{name}-off.jpg"
       end
     end
-    image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
-    link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
+    if current_customer 
+      image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+      link_to(image, product_rating_path(:product_id => product, :value => value, :background => background, :size => size, :replace => replace, :recommendation => recommendation))
+    else
+      image = image_tag(image_name, :class => class_name, :id => "star_#{product.to_param}_#{value}", :name => image_name)
+    end
   end
 
   def available_on_other_media(product, recommendation)
