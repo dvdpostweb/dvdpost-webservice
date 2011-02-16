@@ -3,7 +3,8 @@ class Director < ActiveRecord::Base
 
   alias_attribute :name, :directors_name
   
-  has_friendly_id :name, :use_slug => true, :approximate_ascii => true
+  has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :cache_column => 'cached_slug'
 
   has_many :products, :foreign_key => :products_directors_id
+  
 end
