@@ -9,7 +9,7 @@
     <% i = i + 1%>
     <span class='<%= i >= 7 ? 'cesar' : 'oscar' %>'>
     <h3><%= item.name %></h3>
-    <span>
+    </span>
     <div class="selection_theme selection_theme_oscar" id ="carousel">
       <ul>
         <%= render :partial => 'themes/product', :collection => item.products %>
