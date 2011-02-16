@@ -1,12 +1,16 @@
 <br />
 <div>
   <div>
-    <%= image_tag "#{DVDPost.images_path}/themes/stvalentinheader_#{I18n.locale}.jpg", :width => 970 %>
+    <%= image_tag "#{DVDPost.images_path}/themes/theme_3_#{I18n.locale}.jpg", :width => 970 %>
   </div>
   <div class="category_theme">
+    <% i = 0 %>
     <% @list.collect do | item |%>
+    <% i = i + 1%>
+    <span class='<%= i >= 7 ? 'cesar' : 'oscar' %>'>
     <h3><%= item.name %></h3>
-    <div class="selection_theme" id ="carousel">
+    <span>
+    <div class="selection_theme selection_theme_oscar" id ="carousel">
       <ul>
         <%= render :partial => 'themes/product', :collection => item.products %>
       </ul>                                                              
