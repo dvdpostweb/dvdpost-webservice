@@ -8,6 +8,8 @@ class ProductList < ActiveRecord::Base
   named_scope :highlighted, :conditions => {:home_page => true}
   named_scope :by_language, lambda {|language| {:conditions => {:language => language}}}
   named_scope :ordered, :order => "id desc"
+  named_scope :special_theme, lambda {|theme| {:conditions => {:theme_event_id => theme}}}
+  
 
   def top?
     kind == 'TOP'

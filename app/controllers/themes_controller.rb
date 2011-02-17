@@ -1,28 +1,9 @@
 class ThemesController < ApplicationController
   def index
     if params[:page_name] == 'stvalentin'
-      case I18n.locale
-        when :fr
-          list = [65,68,71,74,77,80,83]
-        when :nl
-          list = [66,69,72,75,78,81,84]
-        when :en
-          list = [67,70,73,76,79,82,85]
-      end
-      @count = 7
-      @themes = Array.new
-      @titles = Array.new
-      @count.times do |i|
-        product_list = ProductList.find_by_id(list[i])
-        if !product_list.nil?
-          @themes[i] = product_list.products
-          @titles[i] = product_list.name
-        else
-          i = i - 1
-          
-        end
-      end
-      
+      @list = ProductList.theme.special_theme(2).by_language(DVDPost.product_languages[I18n.locale])
+    else
+      @list = ProductList.theme.special_theme(3).by_language(DVDPost.product_languages[I18n.locale])
     end
   end
 end
