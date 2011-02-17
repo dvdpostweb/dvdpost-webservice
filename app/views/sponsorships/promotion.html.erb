@@ -1,2 +1,0 @@
-<% options = {"\\$\\$\\$godfather_name\\$\\$\\$" => "#{current_customer.first_name.capitalize} #{current_customer.last_name.capitalize}", "\\$\\$\\$son_name\\$\\$\\$" => "John Doe"} %>
-<%= email_data_replace(@email.body, options) %>

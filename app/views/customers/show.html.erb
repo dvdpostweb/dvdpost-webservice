@@ -1,7 +1,0 @@
-<%= stylesheet 'customers', :media => :all %>
-<!--   ==============   MAIN CONTENT   ==============   -->
-<div class="account">
-  <%= render :partial => 'customers/show/account', :locals => {:customer => @customer} %>
-  <%= render :partial => 'customers/show/subscription', :locals => {:customer => @customer, :streaming_available => @streaming_available} %>
-</div>
-<!--   ==============   END MAIN CONTENT   ==============   -->

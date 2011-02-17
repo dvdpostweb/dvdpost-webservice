@@ -1,6 +1,0 @@
-<% load_color = load_color || :normal %>
-<%= render :partial => 'products/wishlist', :locals => {:product => product, :text => text, :source => source, :load_color => load_color} %>
-<% if product.streaming? and streaming_access? %>
-  <% token = current_customer ? current_customer.get_token(product.imdb_id) : nil %>
-  <%= render :partial => 'products/streaming', :locals => {:product => product, :token => token, :text => text } %>
-<% end %>

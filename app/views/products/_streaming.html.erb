@@ -1,6 +1,0 @@
-<% text = text || :long %>
-<% if token && !token.expired? %>
-  <%= link_to streaming_btn_title(:replay, text), streaming_product_path(:id => product.imdb_id), :class => "streaming_btn_replay #{I18n.locale}", :title => t('.replay') %>
-<% else %>
-  <%= link_to streaming_btn_title(:buy, text), new_product_token_path(:product_id => product.to_param, :imdb_id => product.imdb_id), :class => "streaming_btn streaming_action #{I18n.locale}", :title => t('.buy') %>
-<% end %>

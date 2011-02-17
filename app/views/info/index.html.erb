@@ -1,3 +1,0 @@
-<% params[:order] = 1 if params['page_name'] == 'get_connected_order' %>
-<% path = params['page_name'] == 'get_connected_order'? 'get_connected' : params['page_name'] %>
-<%= @locale == true ? render(:partial => "info/#{I18n.locale}/#{path}") : render(:partial => "info/#{path}") %>

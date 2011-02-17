@@ -1,9 +1,0 @@
-<% if active == 1 %>
-<%= t '.active_status' %>
-<span><%= image_tag 'delimiter.gif' %></span>
-<%= link_to t('.deactive_status'), customer_newsletter_path(I18n.locale, current_customer, :value => 0, :type => type), :class => "suppendre_#{type} modif" %>
-<% else %>
-<%= link_to t('.active_status'), customer_newsletter_path(I18n.locale, current_customer, :value => 1, :type => type), :class => "suppendre_#{type} modif" %>
-<span><%= image_tag 'delimiter.gif' %></span>
-<%= t '.deactive_status' %>
-<% end %>

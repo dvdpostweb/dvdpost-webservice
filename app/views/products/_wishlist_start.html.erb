@@ -1,8 +1,0 @@
-<% if current_customer.wishlist_products.include?(product) %>
-  <% title = title_remove_from_wishlist(text) %>
-  <% wishlist_item = current_customer.wishlist_items.find_by_product_id(product.to_param) %>
-  <%= link_to title, wishlist_item_path(:id => wishlist_item.to_param, :product_id => product.to_param, :popular => 1), :class => 'btn_remove wishlist_button' %>
-<% else %>
-  <% title = title_add_to_wishlist(text, :normal) %>
-    <%= link_to title, wishlist_items_path(:wishlist_item => {:product_id => product.to_param, :priority => 1, :wishlist_source_id => @wishlist_source[:popular_start]}), :class => 'btn add_to_wishlist_button' %>
-<% end %>

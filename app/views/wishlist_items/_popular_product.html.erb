@@ -1,7 +1,0 @@
-<%= render :partial => 'wishlist_items/popular_product_item', :collection => products, :locals => {:html_id => html_id} %>
-<% if html_id == :wishlist_tab %>
-  <% invisible_number = (@wishlist_size<8) ? (8 - @wishlist_size) : 0 %>
-  <% invisible_number.times do |i| %>
-    <%= "<li>#{image_tag 'dvd_invisible.png'}</li>" %>
-  <% end %>
-<% end %>
