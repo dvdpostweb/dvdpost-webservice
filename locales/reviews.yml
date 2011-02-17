@@ -1,6 +1,0 @@
-fr:
-  reviews:
-    new:
-      review_title: 'Votre critique'
-      review_warning: "Les critiques seront en ligne après vérification.<br />Seul votre prénom apparaîtra dans la liste des critiques.<br />Le HTML n'est pas traduit!"
-      review_note: "Votre note"
