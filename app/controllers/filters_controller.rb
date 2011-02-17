@@ -1,6 +1,7 @@
 class FiltersController < ApplicationController
   def create
     if params[:filter]
+      expiration_recommendation_cache()
       filter = current_customer.filter || current_customer.build_filter
       filter.update_with_defaults(params[:filter])
     end
