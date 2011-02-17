@@ -1,50 +1,16 @@
-GIT
-  remote: git://github.com/jeroenj/geo_ip.git
-  revision: 665a32b8cb2196a9f1a110ed1bd8c1b5eee7f6fa
-  specs:
-    geo_ip (0.3.0)
-      json (~> 1.4.6)
-
-GIT
-  remote: git://github.com/mrs/rails_warden.git
-  revision: d224a5f39ad1ffe9a29e4bfae62c269bada2e728
-  specs:
-    rails_warden (0.5.2)
-      warden
-
-GIT
-  remote: git://github.com/mrs/warden_oauth.git
-  revision: b5326284833ff0d7b6e07d48714a6e148659afbe
-  branch: oauth2
-  specs:
-    warden_oauth (0.2.0)
-      oauth2
-      warden (>= 0.8.1)
-
-GIT
-  remote: git://github.com/redstorm/oauth2.git
-  revision: bdd30ea98405405924a674a66a58426747105700
-  specs:
-    oauth2 (0.0.10)
-      faraday (~> 0.4.1)
-      multi_json (>= 0.0.4)
-
 GEM
   remote: http://rubygems.org/
   specs:
-    aaronh-chronic (0.3.9)
-    actionmailer (2.3.10)
-      actionpack (= 2.3.10)
-    actionpack (2.3.10)
-      activesupport (= 2.3.10)
-      rack (~> 1.1.0)
-    activerecord (2.3.10)
-      activesupport (= 2.3.10)
-    activeresource (2.3.10)
-      activesupport (= 2.3.10)
-    activesupport (2.3.10)
-    addressable (2.2.4)
-    babosa (0.2.2)
+    actionmailer (2.3.5)
+      actionpack (= 2.3.5)
+    actionpack (2.3.5)
+      activesupport (= 2.3.5)
+      rack (~> 1.0.0)
+    activerecord (2.3.5)
+      activesupport (= 2.3.5)
+    activeresource (2.3.5)
+      activesupport (= 2.3.5)
+    activesupport (2.3.5)
     builder (3.0.0)
     bullet (2.0.1)
       uniform_notifier (~> 1.0.0)
@@ -56,18 +22,11 @@ GEM
       net-ssh-gateway (>= 1.0.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    faraday (0.4.6)
-      addressable (>= 2.1.1)
-      rack (>= 1.0.1)
-    friendly_id (3.2.1)
-      babosa (~> 0.2.1)
     highline (1.6.1)
     hoptoad_notifier (2.4.5)
       activesupport
       builder
-    hpricot (0.8.3)
     json (1.4.6)
-    multi_json (0.0.5)
     mysql (2.8.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -76,26 +35,19 @@ GEM
     net-ssh (2.1.0)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
-    orderedhash (0.0.6)
-    rack (1.1.0)
-    rails (2.3.10)
-      actionmailer (= 2.3.10)
-      actionpack (= 2.3.10)
-      activerecord (= 2.3.10)
-      activeresource (= 2.3.10)
-      activesupport (= 2.3.10)
+    panztel-actionwebservice (2.3.5)
+      actionpack (= 2.3.5)
+      activerecord (= 2.3.5)
+    rack (1.0.1)
+    rails (2.3.5)
+      actionmailer (= 2.3.5)
+      actionpack (= 2.3.5)
+      activerecord (= 2.3.5)
+      activeresource (= 2.3.5)
+      activesupport (= 2.3.5)
       rake (>= 0.8.3)
     rake (0.8.7)
-    rmagick (2.13.1)
-    timed_fragment_cache (0.0.1)
-    truncate_html (0.5.0)
     uniform_notifier (1.0.1)
-    warden (1.0.3)
-      rack (>= 1.0.0)
-    whenever (0.6.2)
-      aaronh-chronic (>= 0.3.9)
-      activesupport (>= 2.3.4)
-    will_paginate (2.3.15)
 
 PLATFORMS
   ruby
@@ -103,20 +55,8 @@ PLATFORMS
 DEPENDENCIES
   bullet
   capistrano-ext
-  friendly_id (~> 3.2.1)
-  geo_ip!
   hoptoad_notifier (~> 2.4.0)
-  hpricot (~> 0.8.2)
   json
   mysql
-  oauth2!
-  orderedhash
-  rails (= 2.3.10)
-  rails_warden!
-  rmagick
-  timed_fragment_cache
-  truncate_html
-  warden
-  warden_oauth!
-  whenever
-  will_paginate (~> 2.3.12)
+  panztel-actionwebservice (>= 2.3.5)
+  rails (= 2.3.5)
