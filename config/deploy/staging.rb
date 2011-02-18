@@ -2,8 +2,8 @@
 #	Application
 #############################################################
 
-set :application, "dvdpostapp"
-set :deploy_to, "/home/webapps/dvdpostapp/staging"
+set :application, "dvdpost-webservice"
+set :deploy_to, "/home/webapps/dvdpost-webservice/staging"
 
 #############################################################
 #	Settings
@@ -19,8 +19,8 @@ set :rails_env, "staging"
 #	Servers
 #############################################################
 
-set :user, "dvdpostapp"
-set :domain, "staging.dvdpost.be"
+set :user, "dvdpost-webservice"
+set :domain, "staging.ws.dvdpost.com"
 set :port, 22012
 server domain, :app, :web
 role :db, domain, :primary => true
@@ -33,7 +33,7 @@ set :scm, :git
 set :branch, "master"
 set :scm_user, 'dvdpost'
 set :scm_passphrase, "[y'|\E7U158]9*"
-set :repository, "git@github.com:dvdpost/dvdpost.git"
+set :repository, "git@github.com:dvdpost/dvdpost-webservice.git"
 set :deploy_via, :remote_cache
 
 #############################################################
