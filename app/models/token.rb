@@ -2,7 +2,7 @@ class Token < ActiveRecord::Base
   has_many :streaming_product, :primary_key => :imdb_id, :foreign_key => :imdb_id
   has_many :token_ips
 
-  named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago..0.hours.ago}}}
+  named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago.localtime..0.hours.ago.localtime}}}
 
   
   def self.validate(token_param, filename, ip)
