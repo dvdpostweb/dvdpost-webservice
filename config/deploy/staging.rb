@@ -66,4 +66,13 @@ namespace :deploy do
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
   end
+  
+  after "deploy:symlink", "deploy:update_crontab"  
+
+  namespace :deploy do  
+    desc "Update the crontab file"  
+    task :update_crontab, :roles => :db do  
+      run "cd #{release_path} && whenever --update-crontab #{application}"  
+    end  
+  end
 end
