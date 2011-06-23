@@ -13,8 +13,10 @@
 #   rake "some:great:rake:task"
 # end
 #
- every 1.day, :at => '10:38 am' do
-   runner "HighlightReview.run_reviews(3)"
+ every 1.day, :at => '10:55 am' do
+   runner "HighlightReview.run_reviews"
+   runner "HighlightProduct.run_best_rating"
+   runner "HighlightProduct.run_controverse_rating"
  end
 
 # Learn more: http://github.com/javan/whenever

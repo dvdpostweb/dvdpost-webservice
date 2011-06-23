@@ -2,7 +2,15 @@ class HighlightReview < ActiveRecord::Base
 
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => language}}}
 
-  def self.run_reviews(language_id)
+  def self.run_reviews
+    3.times do |i|
+      language = i+1
+      self.run_reviews_by_language(language)
+    end 
+  end
+
+  private
+  def self.run_reviews_by_language(language_id)
     HighlightReview.by_language(language_id).destroy_all
     rank = 0
     Review.approved.by_language(language_id).ordered.limit(10).collect do |review|
