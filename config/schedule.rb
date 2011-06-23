@@ -13,7 +13,7 @@
 #   rake "some:great:rake:task"
 # end
 #
- every 1.day, :at => '5:30 pm' do
+ every 1.day, :at => '10:38 am' do
    runner "HighlightReview.run_reviews(3)"
  end
 
