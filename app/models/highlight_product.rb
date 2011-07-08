@@ -45,8 +45,7 @@ private
     sql += " WHERE (date(now()) < DATE_ADD( r.products_rating_date, INTERVAL 30 DAY )) and products_type='dvd_norm' and products_status !=-1
     having (minder + plus) >3 and minder > 1 and plus > 1 and abs(minder - plus) <4
     order by   plus desc,abs(minder - plus) asc
-    limit 30"
-    Rails.logger.debug { "@@@@#{sql}" }
+    limit 27"
     HighlightProduct.day(0).by_language(language_id).by_kind('controverse').destroy_all
     results = ActiveRecord::Base.connection.execute(sql)
     rank = 0

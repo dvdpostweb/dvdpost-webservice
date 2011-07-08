@@ -13,7 +13,7 @@ class HighlightReview < ActiveRecord::Base
   def self.run_reviews_by_language(language_id)
     HighlightReview.by_language(language_id).destroy_all
     rank = 0
-    Review.approved.by_language(language_id).ordered.limit(12).all(:joins => "left join products on products.products_id = reviews.products_id and products_status !=1 and products_type='dvd_norm'").collect do |review|
+    Review.approved.by_language(language_id).ordered.limit(16).all(:joins => "left join products on products.products_id = reviews.products_id and products_status !=1 and products_type='dvd_norm'").collect do |review|
       rank += 1
       HighlightReview.create(:review_id => review.to_param, :language_id => language_id, :rank => rank)
     end

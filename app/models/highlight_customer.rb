@@ -69,13 +69,13 @@ class HighlightCustomer < ActiveRecord::Base
     
     CustomerPoint.recent.limit(50).sum(:points, :group => :customer_id, :order => 'points desc', :joins => "left join customers on customers_id = customer_id and customers_abo =1").collect do |customer_point|
       rank += 1
-      old_position = HighlightCustomer.day(1).by_kind('month').find_by_customer_id(customer_point[1])
+      old_position = HighlightCustomer.day(1).by_kind('month').find_by_customer_id(customer_point[0])
       if old_position
         position = old_position.rank - rank
       else
         position = nil
       end
-      HighlightCustomer.create(:customer_id => customer_point[1], :rank => rank, :position => position, :day => 0, :kind => 'MONTH')
+      HighlightCustomer.create(:customer_id => customer_point[0], :rank => rank, :position => position, :day => 0, :kind => 'MONTH')
     end
   end
 
