@@ -12,6 +12,9 @@ class Rating < ActiveRecord::Base
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :ordered, :order => 'count_all desc'
   named_scope :group_by_product, :group => 'products_id'
-  named_scope :recent,  lambda {{:conditions => {:products_rating_date => 30.days.ago.localtime.midnight..Time.now.localtime.end_of_day}}}  
+  named_scope :recent,  lambda {{:conditions => {:products_rating_date => 30.days.ago.localtime.midnight..Time.now.localtime.end_of_day}}}
+  named_scope :yesterday,  lambda {{:conditions => {:products_rating_date => 1.day.ago.localtime.localtime.midnight..1.day.ago.localtime.end_of_day}}} 
+  
+  belongs_to :product, :foreign_key => :products_id
   
 end
