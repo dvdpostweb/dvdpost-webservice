@@ -26,13 +26,13 @@
  every 1.day, :at => '12:05 pm' do
    runner "HighlightProduct.run_best_rating"
  end
- every 1.day, :at => '12:05 pm' do
+ every 1.day, :at => '12:10 pm' do
    runner "HighlightProduct.run_controverse_rating"
  end
- every 1.day, :at => '12:10 pm' do
+ every 1.day, :at => '12:15 pm' do
    runner "HighlightCustomer.run_best_customer_all"
  end
- every 1.day, :at => '12:15 pm' do
+ every 1.day, :at => '12:20 pm' do
    runner "HighlightCustomer.run_best_customer_month"
  end
 
