@@ -6,8 +6,9 @@ class HighlightReview < ActiveRecord::Base
     3.times do |i|
       language = i+1
       self.run_reviews_by_language(language)
+      puts "#{Time.now} reviews language : #{language} success"
     end 
-    "reviews success"
+    
   end
 
   private

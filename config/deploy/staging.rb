@@ -48,8 +48,8 @@ namespace :deploy do
       adapter: mysql
       encoding: utf8
       database: dvdpost_test
-      username: test_devuser
-      password: 1nterD3nt
+      username: root
+      password: (:melissa:)
       host: matadi
       port: 3306
     EOF

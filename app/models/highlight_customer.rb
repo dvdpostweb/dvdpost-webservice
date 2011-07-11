@@ -33,7 +33,7 @@ class HighlightCustomer < ActiveRecord::Base
         end
       end
     end
-    "add point by day success"
+    puts "#{Time.now} add point by day success"
   end
 
   def self.add_point
@@ -43,7 +43,7 @@ class HighlightCustomer < ActiveRecord::Base
       customer_point.update_attribute(:treated, 1)
       customer.customer_attribute.update_attribute(:points, new_point)
     end 
-    "add point success"
+    puts "#{Time.now} add point success"
     
   end
 
@@ -63,7 +63,7 @@ class HighlightCustomer < ActiveRecord::Base
       end
       HighlightCustomer.create(:customer_id => rating[:customer_id], :rank => rank, :position => position, :day => 0, :kind => 'ALL')
     end
-    "best customer all success"
+    puts "#{Time.now} best customer all success"
   end
 
   def self.run_best_customer_month
@@ -84,7 +84,7 @@ class HighlightCustomer < ActiveRecord::Base
       end
       HighlightCustomer.create(:customer_id => customer_point[0], :rank => rank, :position => position, :day => 0, :kind => 'MONTH', :ratings_count => ratings_count, :reviews_count => reviews_count)
     end
-    "best customer month success"
+    puts "#{Time.now} best customer month success"
   end
 
 end

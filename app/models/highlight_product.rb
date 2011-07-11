@@ -19,20 +19,20 @@ class HighlightProduct < ActiveRecord::Base
       end
       HighlightProduct.create(:product_id => rating[0], :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count)
     end
-    "best rating success"
+    puts "#{Time.now} best rating success"
   end
 
   def self.run_controverse_rating
     3.times do |i|
       language = i+1
       self.run_controverse_rating_by_language(language)
+      puts "#{Time.now} controvese language : #{language} success"
     end 
-    "controvese success"
+    
   end
 private  
   def self.run_controverse_rating_by_language(language_id)
-    sql = "select distinct(r.products_id), (SELECT count(*) nb FROM dvdpost_be_prod.`products_rating` r2 WHERE date(now()) < DATE_ADD( r2.products_rating_date, INTERVAL 30 DAY ) and r2.products_rating <3 and r2.products_id = r.products_id ) minder
-    ,(SELECT count(*) nb FROM dvdpost_be_prod.`products_rating` r2 WHERE date(now()) < DATE_ADD( r2.products_rating_date, INTERVAL 30 DAY ) and r2.products_rating >3 and r2.products_id = r.products_id ) plus FROM dvdpost_be_prod.`products_rating` r 
+    sql = "select distinct(r.products_id), (SELECT count(*) nb FROM dvdpost_be_prod.`products_rating` r2 WHERE date(now()) < DATE_ADD( r2.products_rating_date, INTERVAL 30 DAY ) and r2.products_rating <3 and r2.products_id = r.products_id ) minder ,(SELECT count(*) nb FROM dvdpost_be_prod.`products_rating` r2 WHERE date(now()) < DATE_ADD( r2.products_rating_date, INTERVAL 30 DAY ) and r2.products_rating >3 and r2.products_id = r.products_id ) plus FROM dvdpost_be_prod.`products_rating` r 
     join products p on p.products_id = r.products_id "
     if language_id == 1
       sql += 'join dvdpost_be_prod.products_to_languages pl on r.products_id = pl.products_id and products_languages_id = 1'
