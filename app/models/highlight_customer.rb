@@ -8,11 +8,22 @@ class HighlightCustomer < ActiveRecord::Base
     Rating.yesterday.count(:group => 'customers_id').collect do |rating| 
       CustomerPoint.create(:customer_id => rating[0], :points => rating[1])
     end
-    Review.yesterday.count(:group => :customers_id).collect do |rating| 
-      if customer_point = CustomerPoint.today.find_by_customer_id(rating[0])
-        customer_point.update_attribute(:points, customer_point.points + rating[1])
+    Review.yesterday.approved.collect do |review| 
+      points = 2
+    	case review.dvdpost_rating
+    		when 2
+    			points += 5
+    		when 3
+    			points += 12
+    		when 4
+    			points += 25
+    		when 5
+    			points += 40
+    	end
+      if customer_point = CustomerPoint.today.find_by_customer_id(review.customers_id)
+        customer_point.update_attribute(:points, customer_point.points + points)
       else
-        CustomerPoint.create(:customer_id => rating[0], :points => rating[1])
+        CustomerPoint.create(:customer_id => review.customers_id, :points => points)
       end
     end
     ReviewRating.yesterday.collect do |review_rating| 
