@@ -6,4 +6,6 @@ class Customer < ActiveRecord::Base
   alias_attribute :abo_active,                   :customers_abo
 
   has_one :customer_attribute
+  has_many :ratings, :foreign_key => :customers_id
+  has_many :reviews, :foreign_key => :customers_id
 end

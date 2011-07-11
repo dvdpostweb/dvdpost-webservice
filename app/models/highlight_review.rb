@@ -7,6 +7,7 @@ class HighlightReview < ActiveRecord::Base
       language = i+1
       self.run_reviews_by_language(language)
     end 
+    "reviews success"
   end
 
   private

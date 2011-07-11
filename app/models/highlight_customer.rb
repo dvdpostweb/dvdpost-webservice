@@ -33,6 +33,7 @@ class HighlightCustomer < ActiveRecord::Base
         end
       end
     end
+    "add point by day success"
   end
 
   def self.add_point
@@ -42,6 +43,8 @@ class HighlightCustomer < ActiveRecord::Base
       customer_point.update_attribute(:treated, 1)
       customer.customer_attribute.update_attribute(:points, new_point)
     end 
+    "add point success"
+    
   end
 
   def self.run_best_customer_all
@@ -60,6 +63,7 @@ class HighlightCustomer < ActiveRecord::Base
       end
       HighlightCustomer.create(:customer_id => rating[:customer_id], :rank => rank, :position => position, :day => 0, :kind => 'ALL')
     end
+    "best customer all success"
   end
 
   def self.run_best_customer_month
@@ -67,16 +71,20 @@ class HighlightCustomer < ActiveRecord::Base
     HighlightCustomer.day(0).by_kind('month').update_all(:day => 1)
     rank = 0
     
-    CustomerPoint.recent.limit(50).sum(:points, :group => :customer_id, :order => 'points desc', :joins => "left join customers on customers_id = customer_id and customers_abo =1").collect do |customer_point|
+    CustomerPoint.recent.limit(50).sum(:points, :group => :customer_id, :order => 'points desc', :joins => "left join customers c on c.customers_id = customer_id and customers_abo =1 right join reviews r on r.customers_id = customer_id and reviews_check = 1 and date(now()) < DATE_ADD( r.last_modified, INTERVAL 30 DAY )").collect do |customer_point|
       rank += 1
+      ratings_count = Customer.find(customer_point[0]).ratings.recent.count
+      reviews_count = Customer.find(customer_point[0]).reviews.approved.recent.count
+      
       old_position = HighlightCustomer.day(1).by_kind('month').find_by_customer_id(customer_point[0])
       if old_position
         position = old_position.rank - rank
       else
         position = nil
       end
-      HighlightCustomer.create(:customer_id => customer_point[0], :rank => rank, :position => position, :day => 0, :kind => 'MONTH')
+      HighlightCustomer.create(:customer_id => customer_point[0], :rank => rank, :position => position, :day => 0, :kind => 'MONTH', :ratings_count => ratings_count, :reviews_count => reviews_count)
     end
+    "best customer month success"
   end
 
 end
