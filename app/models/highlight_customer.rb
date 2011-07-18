@@ -81,19 +81,26 @@ class HighlightCustomer < ActiveRecord::Base
     HighlightCustomer.day(1).by_kind('month').destroy_all
     HighlightCustomer.day(0).by_kind('month').update_all(:day => 1)
     rank = 0
-    
-    CustomerPoint.recent.limit(50).sum(:points, :group => :customer_id, :order => 'points desc', :joins => "left join customers c on c.customers_id = customer_id and customers_abo =1 right join reviews r on r.customers_id = customer_id and reviews_check = 1 and date(now()) < DATE_ADD( r.last_modified, INTERVAL 30 DAY )").collect do |customer_point|
+    sql= "SELECT  customer_id ,sum(`cp`.points) sum_points
+    FROM `customer_points` cp
+    left join customers c on c.customers_id = customer_id and customers_abo =1 
+    WHERE date(now()) < DATE_ADD( cp.created_on, INTERVAL 30 DAY )
+    and (select count(*) from reviews r  where customers_id = customer_id and reviews_check = 1 and date(now()) < DATE_ADD( r.last_modified, INTERVAL 30 DAY ) )>0
+    GROUP BY customer_id 
+    ORDER BY sum_points desc LIMIT 50;"
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |customer_point|
       rank += 1
-      ratings_count = Customer.find(customer_point[0]).ratings.recent.count
-      reviews_count = Customer.find(customer_point[0]).reviews.approved.recent.count
+      ratings_count = Customer.find(customer_point['customer_id']).ratings.recent.count
+      reviews_count = Customer.find(customer_point['customer_id']).reviews.approved.recent.count
       
-      old_position = HighlightCustomer.day(1).by_kind('month').find_by_customer_id(customer_point[0])
+      old_position = HighlightCustomer.day(1).by_kind('month').find_by_customer_id(customer_point['customer_id'])
       if old_position
         position = old_position.rank - rank
       else
         position = nil
       end
-      HighlightCustomer.create(:customer_id => customer_point[0], :rank => rank, :position => position, :day => 0, :kind => 'MONTH', :ratings_count => ratings_count, :reviews_count => reviews_count)
+      HighlightCustomer.create(:customer_id => customer_point['customer_id'], :rank => rank, :position => position, :day => 0, :kind => 'MONTH', :ratings_count => ratings_count, :reviews_count => reviews_count)
     end
     puts "#{Time.now} best customer month success"
   end
