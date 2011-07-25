@@ -5,10 +5,14 @@ class HighlightCustomer < ActiveRecord::Base
   
   def self.add_point_by_day
     CustomerPoint.today.destroy_all
-    Rating.yesterday.count(:group => 'customers_id').collect do |rating| 
-      CustomerPoint.create(:customer_id => rating[0], :points => rating[1])
+    Rating.yesterday.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).collect do |rating| 
+      if customer_point = CustomerPoint.today.find_by_customer_id(rating.customers_id)
+        customer_point.update_attribute(:points, customer_point.points + 1)
+      else
+        CustomerPoint.create(:customer_id => rating.customers_id, :points => 1)
+      end
     end
-    Review.yesterday.approved.collect do |review| 
+    Review.yesterday.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).collect do |review| 
       points = 2
     	case review.dvdpost_rating
     		when 2
@@ -26,7 +30,7 @@ class HighlightCustomer < ActiveRecord::Base
         CustomerPoint.create(:customer_id => review.customers_id, :points => points)
       end
     end
-    ReviewRating.yesterday.collect do |review_rating| 
+    ReviewRating.yesterday.find(:all, :joins => :products, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).collect do |review_rating| 
       if customer_point = CustomerPoint.today.find_by_customer_id(review_rating.customer_id)
         customer_point.update_attribute(:points, customer_point.points + 1)
       else
@@ -67,12 +71,15 @@ class HighlightCustomer < ActiveRecord::Base
     CustomerAttribute.ordered.limit(50).all(:include => :customer, :conditions => {:customers => {:customers_abo => 1}}).collect do |rating|
       rank += 1
       old_position = HighlightCustomer.day(1).by_kind('all').find_by_customer_id(rating[:customer_id])
+      ratings_count = Customer.find(rating[:customer_id]).ratings.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+      reviews_count = Customer.find(rating[:customer_id]).reviews.approved.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+      
       if old_position
         position = old_position.rank - rank
       else
         position = nil
       end
-      HighlightCustomer.create(:customer_id => rating[:customer_id], :rank => rank, :position => position, :day => 0, :kind => 'ALL')
+      HighlightCustomer.create(:customer_id => rating[:customer_id], :rank => rank, :position => position, :day => 0, :kind => 'ALL', :ratings_count => ratings_count, :reviews_count => reviews_count)
     end
     puts "#{Time.now} best customer all success"
   end
@@ -91,8 +98,8 @@ class HighlightCustomer < ActiveRecord::Base
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |customer_point|
       rank += 1
-      ratings_count = Customer.find(customer_point['customer_id']).ratings.recent.count
-      reviews_count = Customer.find(customer_point['customer_id']).reviews.approved.recent.count
+      ratings_count = Customer.find(customer_point['customer_id']).ratings.recent.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
+      reviews_count = Customer.find(customer_point['customer_id']).reviews.approved.recent.find(:all,:joins => :product, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).count
       
       old_position = HighlightCustomer.day(1).by_kind('month').find_by_customer_id(customer_point['customer_id'])
       if old_position

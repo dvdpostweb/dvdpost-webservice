@@ -12,6 +12,7 @@ class Review < ActiveRecord::Base
   alias_attribute :rating,        :reviews_rating
 
   belongs_to :customer, :foreign_key => :customers_id
+  belongs_to :product, :foreign_key => :products_id
 
   named_scope :approved, :conditions => :reviews_check
   named_scope :recent,  lambda {{:conditions => {:last_modified => 30.days.ago.localtime.midnight..Time.now.localtime.end_of_day}}}
