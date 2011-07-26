@@ -89,12 +89,16 @@ class HighlightCustomer < ActiveRecord::Base
     HighlightCustomer.day(0).by_kind('month').update_all(:day => 1)
     rank = 0
     sql= "SELECT  customer_id ,sum(`cp`.points) sum_points
-    FROM `customer_points` cp
-    left join customers c on c.customers_id = customer_id and customers_abo =1 
-    WHERE date(now()) < DATE_ADD( cp.created_on, INTERVAL 30 DAY )
-    and (select count(*) from reviews r  where customers_id = customer_id and reviews_check = 1 and date(now()) < DATE_ADD( r.last_modified, INTERVAL 30 DAY ) )>0
-    GROUP BY customer_id 
-    ORDER BY sum_points desc LIMIT 50;"
+        FROM `customer_points` cp
+        left join customers c on c.customers_id = customer_id and customers_abo =1 
+        WHERE date(now()) < DATE_ADD( cp.created_on, INTERVAL 30 DAY )
+        and (
+        select count(*) from reviews r
+        join products p on p.products_id = r.products_id 
+        where customers_id = customer_id and reviews_check = 1 and date(now()) < DATE_ADD( r.last_modified, INTERVAL 30 DAY ) and products_type='dvd_norm'
+        )>0
+        GROUP BY customer_id 
+        ORDER BY sum_points desc LIMIT 50;"
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |customer_point|
       rank += 1
