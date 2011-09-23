@@ -90,7 +90,7 @@ class HighlightCustomer < ActiveRecord::Base
     rank = 0
     sql= "SELECT  customer_id ,sum(`cp`.points) sum_points
         FROM `customer_points` cp
-        left join customers c on c.customers_id = customer_id and customers_abo =1 
+        join customers c on c.customers_id = customer_id and customers_abo =1 
         WHERE date(now()) < DATE_ADD( cp.created_on, INTERVAL 30 DAY )
         and (
         select count(*) from reviews r

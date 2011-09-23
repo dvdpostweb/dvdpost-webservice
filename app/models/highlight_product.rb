@@ -3,12 +3,26 @@ class HighlightProduct < ActiveRecord::Base
   named_scope :day, lambda {|day| {:conditions => {:day => day}}}
   named_scope :by_kind, lambda {|kind| {:conditions => {:kind => kind}}}
   named_scope :by_language, lambda {|language| {:conditions => {:language_id => language}}}
-  
   def self.run_best_rating
-    HighlightProduct.day(1).by_kind('best').destroy_all
-    HighlightProduct.day(0).by_kind('best').update_all(:day => 1)
+    3.times do |i|
+      language = i+1
+      self.run_best_rating_by_language(language)
+      puts "#{Time.now} best language : #{language} success"
+    end 
+    
+  end
+  def self.run_best_rating_by_language(language_id)
+    HighlightProduct.day(1).by_language(language_id).by_kind('best').destroy_all
+    HighlightProduct.day(0).by_language(language_id).by_kind('best').update_all(:day => 1)
+    if language_id == 1
+      join  = 'join dvdpost_be_prod.products_to_languages  on products.products_id = products_to_languages.products_id and products_languages_id = 1'
+    elsif language_id == 2
+      join = 'join dvdpost_be_prod.products_to_undertitles  on products.products_id = products_to_undertitles.products_id and products_undertitles_id = 2'
+    else
+      join = 'join dvdpost_be_prod.products_to_languages  on products.products_id = products_to_languages.products_id and products_languages_id = 3'
+    end
     rank = 0
-    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.products_id", :order => 'avg_products_rating desc, count(*) desc', :having => 'count(*)>3', :joins => "left join products on products.products_id = products_rating.products_id and products_status !=1 and products_type='dvd_norm'").collect do |rating|
+    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.products_id", :order => 'avg_products_rating desc, count(*) desc', :having => 'count(*)>3', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
       count = Rating.recent.find_all_by_products_id(rating[0]).count
       rank += 1
       old_position = HighlightProduct.day(1).by_kind('best').find_by_product_id(rating[0])
@@ -17,9 +31,9 @@ class HighlightProduct < ActiveRecord::Base
       else
         position = nil
       end
-      HighlightProduct.create(:product_id => rating[0], :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count)
+      HighlightProduct.create(:product_id => rating[0], :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
     end
-    puts "#{Time.now} best rating success"
+    
   end
 
   def self.run_controverse_rating
