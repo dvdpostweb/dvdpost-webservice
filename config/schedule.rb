@@ -23,8 +23,8 @@
  every 1.day, :at => '11:55 am' do
    runner "HighlightReview.run_reviews"
  end
- every 1.day, :at => '12:05 pm' do
-   runner "HighlightProduct.run_best_rating_by_language"
+ every 1.day, :at => '12:32 pm' do
+   runner "HighlightProduct.run_best_rating"
  end
  every 1.day, :at => '12:10 pm' do
    runner "HighlightProduct.run_controverse_rating"
