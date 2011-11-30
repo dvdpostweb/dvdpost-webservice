@@ -24,7 +24,7 @@
    runner "HighlightReview.run_reviews"
  end
  every 1.day, :at => '12:05 pm' do
-   runner "HighlightProduct.run_best_rating"
+   runner "HighlightProduct.run_best_rating_by_language"
  end
  every 1.day, :at => '12:10 pm' do
    runner "HighlightProduct.run_controverse_rating"
