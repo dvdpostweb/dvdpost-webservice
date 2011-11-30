@@ -10,4 +10,4 @@ gem 'hoptoad_notifier', '~> 2.4.0'
 gem 'json'
 gem 'panztel-actionwebservice', '>= 2.3.5'
 gem 'bullet', :group => :development
-gem 'whenever'
+gem 'whenever', '0.7.0'
