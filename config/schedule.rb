@@ -23,7 +23,7 @@
  every 1.day, :at => '11:55 am' do
    runner "HighlightReview.run_reviews"
  end
- every 1.day, :at => '12:32 pm' do
+ every 1.day, :at => '12:35 pm' do
    runner "HighlightProduct.run_best_rating"
  end
  every 1.day, :at => '12:10 pm' do
@@ -34,6 +34,9 @@
  end
  every 1.day, :at => '12:20 pm' do
    runner "HighlightCustomer.run_best_customer_month"
+ end
+ every 1.day, :at => '12:30 pm' do
+   runner "Category.vod_available"
  end
 
 # Learn more: http://github.com/javan/whenever
