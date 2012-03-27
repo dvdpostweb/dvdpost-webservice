@@ -22,7 +22,7 @@ class HighlightProduct < ActiveRecord::Base
       join = 'join dvdpost_be_prod.products_to_languages  on products.products_id = products_to_languages.products_id and products_languages_id = 3'
     end
     rank = 0
-    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.products_id", :order => 'avg_products_rating desc, count(*) desc', :having => 'count(*)>3', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
+    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.products_id", :order => 'count(*) desc, avg_products_rating desc', :having => 'count(*)>3 and avg_products_rating >= 4', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
       count = Rating.recent.find_all_by_products_id(rating[0]).count
       rank += 1
       old_position = HighlightProduct.day(1).by_kind('best').find_by_product_id(rating[0])
