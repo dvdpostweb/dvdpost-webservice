@@ -25,7 +25,7 @@ class HighlightProduct < ActiveRecord::Base
     Rating.recent.limit(27).average(:products_rating, :group => "products_rating.products_id", :order => 'count(*) desc, avg_products_rating desc', :having => 'count(*)>3 and avg_products_rating >= 4', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
       count = Rating.recent.find_all_by_products_id(rating[0]).count
       rank += 1
-      old_position = HighlightProduct.day(1).by_kind('best').find_by_product_id(rating[0])
+      old_position = HighlightProduct.day(1).by_kind('best').by_language(language_id).find_by_product_id(rating[0])
       if old_position
         position = old_position.rank - rank
       else
