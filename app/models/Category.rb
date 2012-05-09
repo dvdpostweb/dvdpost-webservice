@@ -16,9 +16,9 @@ class Category < ActiveRecord::Base
   
   def self.vod_available
     sql = "select  distinct c.categories_id  from products p
-    join streaming_products sp on sp.imdb_id = p.imdb_id 
-    join products_to_categories c on c.products_id = p.products_id
-    where p.imdb_id != 0 and sp.available = 1  and status = 'online_test_ok' and available_from < now() and expire_at > now();"
+        join streaming_products sp on sp.imdb_id = p.imdb_id 
+        join products_to_categories c on c.products_id = p.products_id
+        where p.imdb_id != 0 and sp.available = 1  and status = 'online_test_ok' and ((available_from < now() and expire_at > now()) or (`available_backcatalogue_from`<now() and `expire_backcatalogue_at`>now()))"
     
     results = ActiveRecord::Base.connection.execute(sql)
     puts results.inspect
