@@ -22,8 +22,9 @@ class HighlightProduct < ActiveRecord::Base
       join = 'join dvdpost_be_prod.products_to_languages  on products.products_id = products_to_languages.products_id and products_languages_id = 3'
     end
     rank = 0
-    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(*) desc, avg_products_rating desc', :having => 'count(*)>3 and avg_products_rating >= 4', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
-      count = Rating.recent.find_all_by_products_id(rating[0]).count
+    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>3 and avg_products_rating >= 4', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
+      count = Rating.recent.by_imdb_id(rating[0]).all(:select => 'distinct(customers_id)').count
+      product = Rating.recent.find_all_by_imdb_id(rating[0]).first
       rank += 1
       old_position = HighlightProduct.day(1).by_kind('best').by_language(language_id).find_by_product_id(rating[0])
       if old_position
@@ -31,7 +32,7 @@ class HighlightProduct < ActiveRecord::Base
       else
         position = nil
       end
-      HighlightProduct.create(:product_id => rating[0], :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
+      HighlightProduct.create(:product_id => product.products_id, :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
     end
   end
 
