@@ -33,7 +33,6 @@ class HighlightProduct < ActiveRecord::Base
       end
       HighlightProduct.create(:product_id => rating[0], :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
     end
-    
   end
 
   def self.run_controverse_rating
