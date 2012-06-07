@@ -1,6 +1,6 @@
 class EmailVisionCustomer < ActiveRecord::Base
   def self.add_all
-    Customer.limit(5000).each do |c|
+    Customer.all.each do |c|
       add(c)
     end
     return nil
