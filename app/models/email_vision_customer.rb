@@ -1,5 +1,6 @@
 class EmailVisionCustomer < ActiveRecord::Base
-  def self.add_all
+  def self.add_all(id = 0)
+    query = id == 0 ? Customer.all : Customer.by_custmomer(id)
     Customer.all.each do |c|
       add(c)
     end
@@ -78,7 +79,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     if address
       street = address.street
       postal_code = address.postal_code
-      country = address.country.name
+      country = address.country ? address.country.name : nil
     else
       street = nil
       postal_code = nil
