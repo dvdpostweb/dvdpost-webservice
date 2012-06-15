@@ -26,7 +26,7 @@ class HighlightProduct < ActiveRecord::Base
       count = Rating.recent.by_imdb_id(rating[0]).all(:select => 'distinct(customers_id)').count
       product = Rating.recent.find_all_by_imdb_id(rating[0]).first
       rank += 1
-      old_position = HighlightProduct.day(1).by_kind('best').by_language(language_id).find_by_product_id(rating[0])
+      old_position = HighlightProduct.day(1).by_kind('best').by_language(language_id).find_by_product_id(product.products_id)
       if old_position
         position = old_position.rank - rank
       else
