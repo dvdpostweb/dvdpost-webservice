@@ -23,6 +23,8 @@ GEM
       capistrano (>= 1.0.0)
     chronic (0.6.7)
     highline (1.6.12)
+    hpricot (0.8.4)
+    htmlentitties (4.2.1)
     json (1.7.3)
     mysql (2.8.1)
     net-scp (1.0.4)
@@ -52,6 +54,8 @@ PLATFORMS
 DEPENDENCIES
   bullet
   capistrano-ext
+  hpricot (~> 0.8.2)
+  htmlentitties
   json
   mysql
   rails (~> 2.3.11)

@@ -11,3 +11,5 @@ gem 'json'
 #gem 'panztel-actionwebservice', '>= 2.3.5'
 gem 'bullet', :group => :development
 gem 'whenever', '0.7.0'
+gem 'hpricot', '~> 0.8.2'
+gem "htmlentitties"
