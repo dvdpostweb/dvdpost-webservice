@@ -3,8 +3,7 @@ class Token < ActiveRecord::Base
   has_many :token_ips
 
   named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago.localtime..0.hours.ago.localtime}}}
-
-  
+    
   def self.validate(token_param, filename, ip)
     token = self.available.find_by_token(token_param)
     if token
