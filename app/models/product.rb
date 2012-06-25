@@ -45,8 +45,10 @@ class Product < ActiveRecord::Base
     cat_count = categories.count
     if cat_count >= 4
       min_cat = cat_count-2
+      min_cat2 = cat_count-1
     else
       min_cat = cat_count
+      min_cat2 = cat_count
     end
     rank="0"
     actors_id = actors.collect(&:actors_id).join(', ')
@@ -115,7 +117,7 @@ class Product < ActiveRecord::Base
       "select p.*  from products p
       join `products_to_categories` pt on pt.products_id = p.products_id
       join products_availability pa on pa.products_id = p.products_id
-      where products_status != -1 and categories_id in (#{cat_ids})  and p.products_id not in (#{rank}) and rating_users/rating_count > 3 and imdb_id !=#{imdb_id} group by  p.products_id having count(distinct categories_id)>=#{cat_count} order by ratio desc limit 50";
+      where products_status != -1 and categories_id in (#{cat_ids})  and p.products_id not in (#{rank}) and rating_users/rating_count > 3 and imdb_id !=#{imdb_id} group by  p.products_id having count(distinct categories_id)>=#{min_cat2} order by ratio desc limit 50";
       results = ActiveRecord::Base.connection.execute(sql_rank1)
       results.each_hash do |h|
         rank = "#{rank},#{h['products_id']}"
