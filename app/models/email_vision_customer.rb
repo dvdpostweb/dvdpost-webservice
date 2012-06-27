@@ -1,7 +1,7 @@
 class EmailVisionCustomer < ActiveRecord::Base
   def self.add_all(id = 0)
-    query = id == 0 ? Customer.all : Customer.by_custmomer(id)
-    Customer.all.each do |c|
+    query = id == 0 ? Customer.active.all : Customer.active.by_custmomer(id)
+    query.each do |c|
       add(c)
     end
     return nil
@@ -25,17 +25,19 @@ class EmailVisionCustomer < ActiveRecord::Base
         "step_customer"
       end
     end
-    newsx = c.customer_attribute.newsletters_x
-    last_log = c.customer_attribute.last_login_at
-    vod_only = c.customer_attribute.only_vod
+    attribute = c.customer_attribute
+    newsx = attribute.newsletters_x
+    last_log = attribute.last_login_at
+    vod_only = attribute.only_vod
     count_vod = c.tokens.count
     address = c.address
-    vod_at = 
-    if count_vod > 0
-      c.tokens.last.created_at.to_s(:db)
-    else
-      nil
-    end
+    vod_at = nil
+    #vod_at = 
+    #if count_vod > 0
+    #  c.tokens.last.created_at.to_s(:db)
+    #else
+    #  nil
+    #end
     payment_type = 
     case c.customers_abo_payment_method 
       when 1
@@ -46,23 +48,25 @@ class EmailVisionCustomer < ActiveRecord::Base
         "bank_account"
     end
     next_reconduction_at = c.subscription_expiration_date ? c.subscription_expiration_date.to_s(:db) : nil
-    if client_type == "payed_customer" || client_type == "freetest_customer"
-      sql = "select IFNULL(group_concat(categories_id),0) cat from (select categories_id from (select product_id from wishlist where customers_id = #{c.to_param}
-      union
-      select products_id product_id from wishlist_assigned where customers_id =#{c.to_param}
-      union
-      select p.products_id from tokens t 
-      join products p on t.imdb_id = p.imdb_id where customer_id = #{c.to_param}
-      group by p.imdb_id ) p
-      join products_to_categories c on p.product_id = c.products_id
-      group by categories_id
-      order by count(*) desc limit 3)t"
-      results = ActiveRecord::Base.connection.execute(sql)
-      rental_cat = results.fetch_row.first
-    else
-      rental_cat = 0
-    end
-    last_dvd_at = c.assigned_items.count > 0 ? c.assigned_items.last.date_assigned.to_s(:db) : nil
+    #if client_type == "payed_customer" || client_type == "freetest_customer"
+    #  sql = "select IFNULL(group_concat(categories_id),0) cat from (select categories_id from (select product_id from wishlist where customers_id = #{c.to_param}
+    #  union
+    #  select products_id product_id from wishlist_assigned where customers_id =#{c.to_param}
+    #  union
+    #  select p.products_id from tokens t 
+    #  join products p on t.imdb_id = p.imdb_id where customer_id = #{c.to_param}
+    #  group by p.imdb_id ) p
+    #  join products_to_categories c on p.product_id = c.products_id
+    #  group by categories_id
+    #  order by count(*) desc limit 3)t"
+    #  results = ActiveRecord::Base.connection.execute(sql)
+    #  rental_cat = results.fetch_row.first
+    #else
+    #  rental_cat = 0
+    #end
+    rental_cat = 0
+    last_dvd_at = nil
+    #last_dvd_at = c.assigned_items.count > 0 ? c.assigned_items.last.date_assigned.to_s(:db) : nil
     vod_habit = 
     if vod_only == 1
       "vod_only"
