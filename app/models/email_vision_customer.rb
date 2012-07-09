@@ -18,7 +18,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   
   def self.update_with_new_custmers
     sql = 'select customers_id from customers c
-    left join email_vision_customers e on customers_email_address = email
+    left join email_vision_customers e on customers_id = customer_id
     where customers_abo=1 and email is null;'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
@@ -27,18 +27,18 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
   
   def self.update_unsubscription
-    sql = 'select customers_email_address as email from customers c
-    join email_vision_customers e on customers_email_address = email
+    sql = 'select customers_id from customers c
+    join email_vision_customers e on customers_id = customer_id
     where customers_abo=0 and abo=1;'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
-      email_vision = self.find_by_email(h['email'])
+      email_vision = self.find_by_customer_id(h['customers_id'])
       email_vision.update_data
     end
   end
   
   def update_data
-    c = Customer.find_by_customers_email_address(self.email)
+    c = Customer.find(self.customer_id)
     if c
       nb_recondution = 0
       client_type = 
@@ -123,6 +123,8 @@ class EmailVisionCustomer < ActiveRecord::Base
         country = nil
       end
       self.update_attributes(:phone => c.phone, :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :rental_cat => rental_cat, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx)
+    else
+      puts "error #{self.customer_id}"
     end
   end
 
@@ -209,6 +211,6 @@ class EmailVisionCustomer < ActiveRecord::Base
       postal_code = nil
       country = nil
     end
-    EmailVisionCustomer.create(:phone => c.phone, :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :rental_cat => rental_cat, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx)
+    EmailVisionCustomer.create(:customer_id => c.to_param,:phone => c.phone, :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :rental_cat => rental_cat, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx)
   end
 end
