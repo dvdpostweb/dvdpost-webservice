@@ -43,19 +43,19 @@ class EmailVisionCustomer < ActiveRecord::Base
       nb_recondution = 0
       client_type = 
       if c.abo_active == 1
-        sql2 = "select count(*)nb from abo where customerid = #{c.to_param} and action = 7 and abo_id > (select abo_id from abo where `customerid`= #{c.to_param} and action in (6,8,1) order by abo_id desc limit 1)"
+        sql2 = "select count(*) nb from abo where customerid = #{c.to_param} and action = 7 and abo_id > (select abo_id from abo where `customerid`= #{c.to_param} and action in (6,8,1) order by abo_id desc limit 1)"
         results_free = ActiveRecord::Base.connection.execute(sql2)
         nb_recondution = results_free.fetch_row.first
         if nb_recondution.to_i > 0
-          "payed_customer"
+          "payed"
         else
-          "freetest_customer"
+          "freetest"
         end
       else
         if c.step == 90
-          "old_customer"
+          "old"
         else
-          "step_customer"
+          "step"
         end
       end
       attribute = c.customer_attribute
@@ -136,15 +136,15 @@ class EmailVisionCustomer < ActiveRecord::Base
       results_free = ActiveRecord::Base.connection.execute(sql2)
       nb_recondution = results_free.fetch_row.first
       if nb_recondution.to_i > 0
-        "payed_customer"
+        "payed"
       else
-        "freetest_customer"
+        "freetest"
       end
     else
       if c.step == 90
-        "old_customer"
+        "old"
       else
-        "step_customer"
+        "step"
       end
     end
     attribute = c.customer_attribute
