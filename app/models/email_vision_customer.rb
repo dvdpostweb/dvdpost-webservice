@@ -16,7 +16,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     return nil
   end
   
-  def update_with_new_custmers
+  def self.update_with_new_custmers
     sql = 'select customers_id from customers c
     left join email_vision_customers e on customers_email_address = email
     where customers_abo=1 and email is null;'
