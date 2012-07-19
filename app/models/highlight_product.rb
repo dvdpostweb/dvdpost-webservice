@@ -22,7 +22,7 @@ class HighlightProduct < ActiveRecord::Base
       join = 'join dvdpost_be_prod.products_to_languages  on products.products_id = products_to_languages.products_id and products_languages_id = 3'
     end
     rank = 0
-    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>3 and avg_products_rating >= 4', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' #{join}").collect do |rating|
+    Rating.recent.limit(27).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>3 and avg_products_rating >= 4', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' and products.imdb_id > 0 #{join}").collect do |rating|
       count = Rating.recent.by_imdb_id(rating[0]).all(:select => 'distinct(customers_id)').count
       product = Rating.recent.find_all_by_imdb_id(rating[0]).first
       rank += 1
@@ -56,7 +56,7 @@ private
       sql += 'join dvdpost_be_prod.products_to_languages pl on r.products_id = pl.products_id and products_languages_id = 3'
     end
     
-    sql += " WHERE (date(now()) < DATE_ADD( r.products_rating_date, INTERVAL 30 DAY )) and products_type='dvd_norm' and products_status !=-1
+    sql += " WHERE (date(now()) < DATE_ADD( r.products_rating_date, INTERVAL 30 DAY )) and products_type='dvd_norm' and p.imdb_id > 0 and products_status !=-1
     having (minder + plus) >3 and minder > 1 and plus > 1 and abs(minder - plus) <4
     order by   plus desc,abs(minder - plus) asc
     limit 27"
