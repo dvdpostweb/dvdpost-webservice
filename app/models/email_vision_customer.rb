@@ -9,14 +9,14 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.update_all
-    query = EmailVisionCustomer.all
+    query = EmailVisionCustomer.find(:all , :conditions => "id > 416596 and customer_id >0 and abo!=1")
     query.each do |e|
       e.update_data
     end
     return nil
   end
   
-  def self.update_with_new_custmers
+  def self.insert_new_data
     sql = 'select customers_id from customers c
     left join email_vision_customers e on customers_id = customer_id
     where customers_abo=1 and email is null;'
@@ -25,7 +25,21 @@ class EmailVisionCustomer < ActiveRecord::Base
       add(Customer.find(h['customers_id']))
     end
   end
-  
+
+  def self.modify_abo_data
+    query = EmailVisionCustomer.find_by_sql('select e.* from email_vision_customers e join customers c on customers_id = customer_id where customers_abo != abo')
+    query.each do |e| 
+      e.update_data
+    end
+  end
+
+  def self.update_language
+    query = EmailVisionCustomer.find_by_sql('select e.* from email_vision_customers e join customers c on customers_id = customer_id where customers_language != language_id')
+    query.each do |e| 
+      e.update_data
+    end
+  end
+
   def self.update_unsubscription
     sql = 'select customers_id from customers c
     join email_vision_customers e on customers_id = customer_id
@@ -36,9 +50,29 @@ class EmailVisionCustomer < ActiveRecord::Base
       email_vision.update_data
     end
   end
-  
+
+  def self.update_category
+      EmailVisionCustomer.find(:all, :conditions => ["client_type != 'prospet' and client_type != 'step'"]).each do |c|
+      sql = "select IFNULL(group_concat(categories_id),0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
+      union
+      select products_id product_id from wishlist_assigned where customers_id =#{c.customer_id}
+      union
+      select p.products_id from tokens t 
+      join products p on t.imdb_id = p.imdb_id where customer_id = #{c.customer_id}
+      group by p.imdb_id ) p
+      join products_to_categories c on p.product_id = c.products_id
+      join categories ca on ca.categories_id = c.categories_id
+      where parent_id != 0
+      group by categories_id
+      order by count(*) desc limit 2)t"
+      results = ActiveRecord::Base.connection.execute(sql)
+      rental_cat = results.fetch_row.first
+      c.update_attribute(:rental_cat, rental_cat)
+    end
+  end
+
   def update_data
-    c = Customer.find(self.customer_id)
+    c = Customer.find_by_customers_id(self.customer_id)
     if c
       nb_recondution = 0
       client_type = 
