@@ -1,6 +1,6 @@
 class EmailVisionCustomer < ActiveRecord::Base
   def self.add_all
-    EmailVisionCustomer.destroy_all
+    #EmailVisionCustomer.destroy_all
     query = Customer.active.all
     query.each do |c|
       add(c)
@@ -9,7 +9,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.update_all
-    query = EmailVisionCustomer.find(:all , :conditions => "id > 416596 and customer_id >0 and abo!=1")
+    query = EmailVisionCustomer.find(:all , :conditions => "client_type = 'shop'")
     query.each do |e|
       e.update_data
     end
@@ -53,7 +53,7 @@ class EmailVisionCustomer < ActiveRecord::Base
 
   def self.update_category
       EmailVisionCustomer.find(:all, :conditions => ["client_type != 'prospet' and client_type != 'step'"]).each do |c|
-      sql = "select IFNULL(group_concat(categories_id),0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
+      sql = "select IFNULL(group_concat(concat('$',categories_id,'$')),0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
       union
       select products_id product_id from wishlist_assigned where customers_id =#{c.customer_id}
       union
@@ -88,6 +88,8 @@ class EmailVisionCustomer < ActiveRecord::Base
       else
         if c.step == 90
           "old"
+        elsif c.step == 80
+          "shop"
         else
           "step"
         end
@@ -178,6 +180,8 @@ class EmailVisionCustomer < ActiveRecord::Base
     else
       if c.step == 90
         "old"
+      elsif c.step == 80
+        "shop"
       else
         "step"
       end

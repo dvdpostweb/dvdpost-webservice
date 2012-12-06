@@ -26,6 +26,9 @@
  every 1.day, :at => '12:35 pm' do
    runner "HighlightProduct.run_best_rating"
  end
+ every 1.day, :at => '12:40 pm' do
+   runner "HighlightProduct.run_best_rating_vod"
+ end
  every 1.day, :at => '12:10 pm' do
    runner "HighlightProduct.run_controverse_rating"
  end

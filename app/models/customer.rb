@@ -45,6 +45,8 @@ class Customer < ActiveRecord::Base
   has_many :assigned_items, :foreign_key => :customers_id
   has_many :vod_wishlists
   named_scope :by_custmomer, lambda {|id| {:conditions => ["customers_id > ?", id ]}}
+  named_scope :shop, lambda {|id| {:conditions => ["customers_registration_step = ?", id ]}}
+  
   named_scope :active, :conditions => ["customers_abo = 1"]
   named_scope :limit, lambda {|limit| {:limit => limit}}
 end
