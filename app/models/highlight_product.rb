@@ -45,7 +45,7 @@ class HighlightProduct < ActiveRecord::Base
     
   end
   def self.run_best_rating_vod_by_language(language_id, country)
-    kind = country=='LU' ? 'best_vod_lu' : 'best_vod_be'
+    kind = country=='LU' ? 'BEST_VOD_LU' : 'BEST_VOD_BE'
     HighlightProduct.day(1).by_language(language_id).by_kind(kind).destroy_all
     HighlightProduct.day(0).by_language(language_id).by_kind(kind).update_all(:day => 1)
     join = "join streaming_products on products.imdb_id = streaming_products.imdb_id 
