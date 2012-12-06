@@ -38,30 +38,35 @@ class HighlightProduct < ActiveRecord::Base
   def self.run_best_rating_vod
     3.times do |i|
       language = i+1
-      self.run_best_rating_vod_by_language(language)
+      self.run_best_rating_vod_by_language(language,'BE')
+      self.run_best_rating_vod_by_language(language,'LU')
       puts "#{Time.now} best language : #{language} success"
     end 
     
   end
-  def self.run_best_rating_vod_by_language(language_id)
-    HighlightProduct.day(1).by_language(language_id).by_kind('best_vod_be').destroy_all
-    HighlightProduct.day(0).by_language(language_id).by_kind('best_vod_be').update_all(:day => 1)
+  def self.run_best_rating_vod_by_language(language_id, country)
+    kind = country=='LU' ? 'best_vod_lu' : 'best_vod_be'
+    HighlightProduct.day(1).by_language(language_id).by_kind(kind).destroy_all
+    HighlightProduct.day(0).by_language(language_id).by_kind(kind).update_all(:day => 1)
     join = "join streaming_products on products.imdb_id = streaming_products.imdb_id 
     and streaming_products.status = 'online_test_ok' and available = 1 and (language_id =#{language_id} or subtitle_id=#{language_id}) and
     ((streaming_products.available_from <= date(now())  and streaming_products.expire_at >= date(now())) or
     (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now())))"
+    if country=='LU'
+      join = "#{join} join studio on streaming_products.studio_id = studio.studio_id and vod_lux=1"
+    end
     rank = 0
     Rating.recent.limit(40).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>=2 and avg_products_rating >= 3.6', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' and products.imdb_id > 0 #{join}").collect do |rating|
       count = Rating.recent.by_imdb_id(rating[0]).all(:select => 'distinct(customers_id)').count
       product = Rating.recent.find_all_by_imdb_id(rating[0]).first
       rank += 1
-      old_position = HighlightProduct.day(1).by_kind('best_vod_be').by_language(language_id).find_by_product_id(product.products_id)
+      old_position = HighlightProduct.day(1).by_kind().by_language(language_id).find_by_product_id(product.products_id)
       if old_position
         position = old_position.rank - rank
       else
         position = nil
       end
-      HighlightProduct.create(:product_id => product.products_id,:kind =>'best_vod_be', :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
+      HighlightProduct.create(:product_id => product.products_id,:kind =>kind, :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
     end
   end
   def self.run_controverse_rating
