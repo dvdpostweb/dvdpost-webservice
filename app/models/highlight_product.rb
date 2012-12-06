@@ -45,9 +45,9 @@ class HighlightProduct < ActiveRecord::Base
     
   end
   def self.run_best_rating_vod_by_language(language_id, country)
-    kind = country=='LU' ? 'BEST_VOD_LU' : 'BEST_VOD_BE'
-    HighlightProduct.day(1).by_language(language_id).by_kind(kind).destroy_all
-    HighlightProduct.day(0).by_language(language_id).by_kind(kind).update_all(:day => 1)
+    kind_key = country=='LU' ? 'BEST_VOD_LU' : 'BEST_VOD_BE'
+    HighlightProduct.day(1).by_language(language_id).by_kind(kind_key).destroy_all
+    HighlightProduct.day(0).by_language(language_id).by_kind(kind_key).update_all(:day => 1)
     join = "join streaming_products on products.imdb_id = streaming_products.imdb_id 
     and streaming_products.status = 'online_test_ok' and available = 1 and (language_id =#{language_id} or subtitle_id=#{language_id}) and
     ((streaming_products.available_from <= date(now())  and streaming_products.expire_at >= date(now())) or
@@ -66,7 +66,7 @@ class HighlightProduct < ActiveRecord::Base
       else
         position = nil
       end
-      HighlightProduct.create(:product_id => product.products_id,:kind =>kind, :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
+      HighlightProduct.create(:product_id => product.products_id,:kind =>kind_key, :rank => rank, :position => position, :day => 0, :average => ((rating[1]*100).round).to_f/100, :count => count, :language_id => language_id)
     end
   end
   def self.run_controverse_rating
