@@ -9,7 +9,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.update_all
-    query = EmailVisionCustomer.find(:all , :conditions => "client_type = 'shop'")
+    query = EmailVisionCustomer.find(:all , :conditions => "updated_at > '2012-12-20 16:00:00'")
     query.each do |e|
       e.update_data
     end
@@ -19,7 +19,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   def self.insert_new_data
     sql = 'select customers_id from customers c
     left join email_vision_customers e on customers_id = customer_id
-    where customers_abo=1 and email is null;'
+    where email is null;'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       add(Customer.find(h['customers_id']))

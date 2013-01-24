@@ -17,7 +17,7 @@ class Review < ActiveRecord::Base
   named_scope :approved, :conditions => :reviews_check
   named_scope :recent,  lambda {{:conditions => {:last_modified => 30.days.ago.localtime.midnight..Time.now.localtime.end_of_day}}}
   named_scope :ordered, :order => 'dvdpost_rating desc, date_added desc'
-  named_scope :by_language, lambda {|language| {:conditions => {:languages_id => 1}}}
+  named_scope :by_language, lambda {|language| {:conditions => {:languages_id => language}}}
   named_scope :limit, lambda {|limit| {:limit => limit}}
   named_scope :yesterday,  lambda {{:conditions => {:last_modified => 1.day.ago.localtime.localtime.midnight..1.day.ago.localtime.end_of_day}}} 
 end
