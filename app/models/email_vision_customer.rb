@@ -52,8 +52,8 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.update_category
-      EmailVisionCustomer.find(:all, :conditions => ["client_type != 'prospet' and client_type != 'step'"]).each do |c|
-      sql = "select IFNULL(group_concat(concat('$',categories_id,'$')),0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
+      EmailVisionCustomer.find(:all, :conditions => ["client_type != 'prospet' and client_type != 'step' and updated_at > '2013-02-08'"]).each do |c|
+      sql = "select IFNULL(categories_id,0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
       union
       select products_id product_id from wishlist_assigned where customers_id =#{c.customer_id}
       union
@@ -62,12 +62,14 @@ class EmailVisionCustomer < ActiveRecord::Base
       group by p.imdb_id ) p
       join products_to_categories c on p.product_id = c.products_id
       join categories ca on ca.categories_id = c.categories_id
-      where parent_id != 0
+      where parent_id = 0
       group by categories_id
-      order by count(*) desc limit 2)t"
+      order by count(*) desc limit 1)t"
       results = ActiveRecord::Base.connection.execute(sql)
-      rental_cat = results.fetch_row.first
-      c.update_attribute(:rental_cat, rental_cat)
+      if data = results.fetch_row
+        rental_cat = data.first
+        c.update_attribute(:rental_cat, rental_cat)
+      end
     end
   end
 
