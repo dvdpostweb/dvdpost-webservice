@@ -72,6 +72,53 @@ class EmailVisionCustomer < ActiveRecord::Base
       end
     end
   end
+  def self.update_prospect
+    sql = 'select e.id, c.customers_id from `email_vision_customers` e
+    join customers c on e.email = c.customers_email_address
+    where client_type="prospet"';
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |h| 
+      email_vision = self.find(h['id'])
+      email_vision.update_attributes(:customer_id => h['customers_id'])
+      email_vision.update_data
+    end
+    
+  end
+  
+  def self.update_status
+    EmailVisionCustomer.all.each do |e|
+      if !e.customer_id.nil?
+        c = Customer.find_by_customers_id(e.customer_id)
+        if c
+          
+          client_type = nil
+          if c.abo_active == 1
+            sql2 = "select count(*) nb from abo where customerid = #{c.to_param} and action = 7 and abo_id > (select abo_id from abo where `customerid`= #{c.to_param} and action in (6,8,1) order by abo_id desc limit 1)"
+            results_free = ActiveRecord::Base.connection.execute(sql2)
+            nb_recondution = results_free.fetch_row.first
+            if nb_recondution.to_i > 0
+              client_type = "payed"
+            else
+              client_type = "freetest"
+            end
+          else
+            if c.step == 90
+              client_type = "old"
+            elsif c.step == 80
+              client_type = "shop"
+            else
+              client_type = "step"
+            end
+          end
+          
+          if !client_type.nil?
+            e.update_attributes(:client_type => client_type, :suspended => c.suspension_status, :abo => c.abo_active)
+          end
+        end
+      end
+    end
+    return nil
+  end
 
   def update_data
     c = Customer.find_by_customers_id(self.customer_id)
@@ -97,10 +144,16 @@ class EmailVisionCustomer < ActiveRecord::Base
         end
       end
       attribute = c.customer_attribute
-      newsx = attribute.newsletters_x
+      if attribute
+        newsx = attribute.newsletters_x
+        last_log = attribute.last_login_at
+        vod_only = attribute.only_vod
+      else
+        newsx = 0
+        last_log = nil
+        vod_only = 0
+      end
       news = c.customers_newsletter
-      last_log = attribute.last_login_at
-      vod_only = attribute.only_vod
       count_vod = c.tokens.count
       address = c.address
       vod_at = nil
