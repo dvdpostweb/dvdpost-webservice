@@ -40,23 +40,29 @@ class HighlightProduct < ActiveRecord::Base
       language = i+1
       self.run_best_rating_vod_by_language(language,'BE')
       self.run_best_rating_vod_by_language(language,'LU')
+      self.run_best_rating_vod_by_language(language,'NL')
       puts "#{Time.now} best language : #{language} success"
     end 
     
   end
   def self.run_best_rating_vod_by_language(language_id, country)
-    kind_key = country=='LU' ? 'BEST_VOD_LU' : 'BEST_VOD_BE'
+    kind_key = 
+    case country
+      when 'LU' 
+        'BEST_VOD_LU'
+      when 'NL'
+        'BEST_VOD_NL'
+      else
+        'BEST_VOD_BE'
+    end
     HighlightProduct.day(1).by_language(language_id).by_kind(kind_key).destroy_all
     HighlightProduct.day(0).by_language(language_id).by_kind(kind_key).update_all(:day => 1)
     join = "join streaming_products on products.imdb_id = streaming_products.imdb_id 
     and streaming_products.status = 'online_test_ok' and available = 1 and (language_id =#{language_id} or subtitle_id=#{language_id}) and
     ((streaming_products.available_from <= date(now())  and streaming_products.expire_at >= date(now())) or
-    (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now())))"
-    if country=='LU'
-      join = "#{join} join studio on streaming_products.studio_id = studio.studio_id and vod_lux=1"
-    end
+    (streaming_products.available_backcatalogue_from <= date(now()) and streaming_products.expire_backcatalogue_at >= date(now()))) and country= '#{country}'"
     rank = 0
-    Rating.recent.limit(40).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>=2 and avg_products_rating >= 3.6', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' and products.imdb_id > 0 #{join}").collect do |rating|
+    Rating.recent.limit(40).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>=1 and avg_products_rating >= 3.6', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' and products.imdb_id > 0 #{join}").collect do |rating|
       count = Rating.recent.by_imdb_id(rating[0]).all(:select => 'distinct(customers_id)').count
       product = Rating.recent.find_all_by_imdb_id(rating[0]).first
       rank += 1

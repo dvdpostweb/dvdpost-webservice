@@ -8,7 +8,16 @@ class EmailVisionCustomer < ActiveRecord::Base
     end
     return nil
   end
-
+  def self.min_update
+    insert_new_data
+    modify_abo_data
+    update_language
+    update_unsubscription
+    update_newsletters
+    update_prospect
+    update_status
+    add_public_prospects
+  end
   def self.update_all
     query = EmailVisionCustomer.find(:all, :conditions => ["email in ('henri.coremans@skynet.be','mariella.braccialini@skynet.be','dusepulchre_cedric@hotmail.com','barbara_beken@yahoo.com','Goitte@gmail.com','werner.vandeneede@telenet.be','colette.delvigne@dynaphar.be')"])
     query.each do |e|
@@ -25,6 +34,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     results.each_hash do |h| 
       add(Customer.find(h['customers_id']))
     end
+    return nil
   end
 
   def self.modify_abo_data
@@ -32,6 +42,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     query.each do |e| 
       e.update_data
     end
+    return nil
   end
 
   def self.update_language
@@ -39,6 +50,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     query.each do |e| 
       e.update_data
     end
+    return nil
   end
 
   def self.update_unsubscription
@@ -50,6 +62,7 @@ class EmailVisionCustomer < ActiveRecord::Base
       email_vision = self.find_by_customer_id(h['customers_id'])
       email_vision.update_data
     end
+    return nil
   end
   def self.update_newsletters
     sql = 'select customers_id from customers c
@@ -60,10 +73,11 @@ class EmailVisionCustomer < ActiveRecord::Base
       email_vision = self.find_by_customer_id(h['customers_id'])
       email_vision.update_data
     end
+    return nil
   end
 
   def self.update_category
-      EmailVisionCustomer.find(:all, :conditions => ["client_type != 'prospet' and client_type != 'step' and updated_at > '2013-02-08'"]).each do |c|
+      EmailVisionCustomer.find(:all, :conditions => ["customer_id > 0"]).each do |c|
       sql = "select IFNULL(categories_id,0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
       union
       select products_id product_id from wishlist_assigned where customers_id =#{c.customer_id}
@@ -93,7 +107,7 @@ class EmailVisionCustomer < ActiveRecord::Base
       email_vision.update_attributes(:customer_id => h['customers_id'])
       email_vision.update_data
     end
-    
+    return nil
   end
   
   def self.update_status
@@ -118,8 +132,9 @@ class EmailVisionCustomer < ActiveRecord::Base
             client_type = "step"
           end
         end
+        next_reconduction_at = e.customer.subscription_expiration_date ? e.customer.subscription_expiration_date.to_s(:db) : nil
         if !client_type.nil?
-          e.update_attributes(:client_type => client_type, :suspended => e.customer.suspension_status, :abo => e.customer.abo_active, :newsletters => e.customer.newsletter, :newsletters_adult => e.customer.customer_attribute.newsletters_x)
+          e.update_attributes(:client_type => client_type, :suspended => e.customer.suspension_status, :abo => e.customer.abo_active, :newsletters => e.customer.newsletter, :newsletters_adult => e.customer.customer_attribute.newsletters_x, :next_reconduction_at => next_reconduction_at)
         end
       end
       
@@ -197,7 +212,7 @@ class EmailVisionCustomer < ActiveRecord::Base
       #else
       #  rental_cat = 0
       #end
-      rental_cat = 0
+      #rental_cat = 0
       last_dvd_at = nil
       #last_dvd_at = c.assigned_items.count > 0 ? c.assigned_items.last.date_assigned.to_s(:db) : nil
       vod_habit = 
@@ -289,7 +304,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     #else
     #  rental_cat = 0
     #end
-    rental_cat = 0
+    #rental_cat = 0
     last_dvd_at = nil
     #last_dvd_at = c.assigned_items.count > 0 ? c.assigned_items.last.date_assigned.to_s(:db) : nil
     vod_habit = 
@@ -314,7 +329,7 @@ class EmailVisionCustomer < ActiveRecord::Base
       postal_code = nil
       country = nil
     end
-    EmailVisionCustomer.create(:customer_id => c.to_param,:phone => c.phone.gsub(/[^0-9]/,''), :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :rental_cat => rental_cat, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx, :newsletters => news)
+    EmailVisionCustomer.create(:customer_id => c.to_param,:phone => c.phone.gsub(/[^0-9]/,''), :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx, :newsletters => news)
   end
 
   def self.add_public_prospects
