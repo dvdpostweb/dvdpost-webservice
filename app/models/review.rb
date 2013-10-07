@@ -1,8 +1,7 @@
 class Review < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 3
-
-  set_primary_key :reviews_id
+  establish_connection "common_#{Rails.env}"
 
   alias_attribute :created_at,    :date_added
   alias_attribute :text,          :reviews_text
@@ -12,7 +11,7 @@ class Review < ActiveRecord::Base
   alias_attribute :rating,        :reviews_rating
 
   belongs_to :customer, :foreign_key => :customers_id
-  belongs_to :product, :foreign_key => :products_id
+  belongs_to :product, :foreign_key => :imdb_id, :primary_key => :imdb_id
 
   named_scope :approved, :conditions => :reviews_check
   named_scope :recent,  lambda {{:conditions => {:last_modified => 30.days.ago.localtime.midnight..Time.now.localtime.end_of_day}}}

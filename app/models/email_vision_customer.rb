@@ -9,17 +9,25 @@ class EmailVisionCustomer < ActiveRecord::Base
     return nil
   end
   def self.min_update
-    insert_new_data
-    modify_abo_data
-    update_language
-    update_unsubscription
-    update_newsletters
+    puts "update_prospect"
     update_prospect
+    puts "insert_new_data"
+    insert_new_data
+    puts "modify_abo_data"
+    modify_abo_data
+    puts "update_language"
+    update_language
+    puts "update_unsubscription"
+    update_unsubscription
+    puts "update_newsletters"
+    update_newsletters
+    puts "update_status"
     update_status
+    puts "add_public_prospects"
     add_public_prospects
   end
   def self.update_all
-    query = EmailVisionCustomer.find(:all, :conditions => ["email in ('henri.coremans@skynet.be','mariella.braccialini@skynet.be','dusepulchre_cedric@hotmail.com','barbara_beken@yahoo.com','Goitte@gmail.com','werner.vandeneede@telenet.be','colette.delvigne@dynaphar.be')"])
+    query = EmailVisionCustomer.find(:all, :conditions => ["source = 'DVDPOST' and email in ('henri.coremans@skynet.be','mariella.braccialini@skynet.be','dusepulchre_cedric@hotmail.com','barbara_beken@yahoo.com','Goitte@gmail.com','werner.vandeneede@telenet.be','colette.delvigne@dynaphar.be')"])
     query.each do |e|
       e.update_data
     end
@@ -28,7 +36,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   
   def self.insert_new_data
     sql = 'select customers_id from customers c
-    left join email_vision_customers e on customers_id = customer_id
+    left join email_vision_customers e on customers_id = customer_id and source ="DVDPOST"
     where email is null;'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
@@ -38,7 +46,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.modify_abo_data
-    query = EmailVisionCustomer.find_by_sql('select e.* from email_vision_customers e join customers c on customers_id = customer_id where customers_abo != abo')
+    query = EmailVisionCustomer.find_by_sql('select e.* from email_vision_customers e join customers c on customers_id = customer_id and source ="DVDPOST" where customers_abo != abo')
     query.each do |e| 
       e.update_data
     end
@@ -46,7 +54,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.update_language
-    query = EmailVisionCustomer.find_by_sql('select e.* from email_vision_customers e join customers c on customers_id = customer_id where customers_language != language_id')
+    query = EmailVisionCustomer.find_by_sql('select e.* from email_vision_customers e join customers c on customers_id = customer_id and source ="DVDPOST" where customers_language != language_id')
     query.each do |e| 
       e.update_data
     end
@@ -55,7 +63,7 @@ class EmailVisionCustomer < ActiveRecord::Base
 
   def self.update_unsubscription
     sql = 'select customers_id from customers c
-    join email_vision_customers e on customers_id = customer_id
+    join email_vision_customers e on customers_id = customer_id and source ="DVDPOST"
     where customers_abo != abo;'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
@@ -66,7 +74,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
   def self.update_newsletters
     sql = 'select customers_id from customers c
-    join email_vision_customers e on customers_id = customer_id
+    join email_vision_customers e on customers_id = customer_id and source ="DVDPOST"
     where customers_newsletter != newsletters;'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
@@ -77,7 +85,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
 
   def self.update_category
-      EmailVisionCustomer.find(:all, :conditions => ["customer_id > 0"]).each do |c|
+      EmailVisionCustomer.find(:all, :conditions => ["customer_id > 0 and source = 'dvdpost' "]).each do |c|
       sql = "select IFNULL(categories_id,0) cat from (select c.categories_id from (select product_id from wishlist where customers_id = #{c.customer_id}
       union
       select products_id product_id from wishlist_assigned where customers_id =#{c.customer_id}
@@ -99,8 +107,8 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
   def self.update_prospect
     sql = 'select e.id, c.customers_id from `email_vision_customers` e
-    join customers c on e.email = c.customers_email_address
-    where client_type="prospet"';
+    join customers c on e.email = c.customers_email_address and source ="DVDPOST"
+    where client_type="prospet" or client_type="public"';
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       email_vision = self.find(h['id'])
@@ -111,37 +119,15 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
   
   def self.update_status
-    EmailVisionCustomer.find(:all, :include => [:customer => :customer_attribute], :conditions => { :customers => {:customers_abo => 1}}).collect do |e|
-      if e.customer.customers_id > 0
-        client_type = nil
-        if e.customer.abo_active == 1
-          sql2 = "select count(*) nb from abo where customerid = #{e.customer_id} and action = 7 and abo_id > (select abo_id from abo where `customerid`= #{e.customer_id} and action in (6,8,1) order by abo_id desc limit 1)"
-          results_free = ActiveRecord::Base.connection.execute(sql2)
-          nb_recondution = results_free.fetch_row.first
-          if nb_recondution.to_i > 0
-            client_type = "payed"
-          else
-            client_type = "freetest"
-          end
-        else
-          if e.customer.step == 90
-            client_type = "old"
-          elsif e.customer.step == 80
-            client_type = "shop"
-          else
-            client_type = "step"
-          end
-        end
-        next_reconduction_at = e.customer.subscription_expiration_date ? e.customer.subscription_expiration_date.to_s(:db) : nil
-        if !client_type.nil?
-          e.update_attributes(:client_type => client_type, :suspended => e.customer.suspension_status, :abo => e.customer.abo_active, :newsletters => e.customer.newsletter, :newsletters_adult => e.customer.customer_attribute.newsletters_x, :next_reconduction_at => next_reconduction_at)
-        end
-      end
-      
-      
+    sql ='select * from email_vision_customers e join customers c on c.customers_id = e.customer_id and customers_abo=1 and source ="DVDPOST"'
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |e|
+      email_vision = self.find_by_customer_id(e['customers_id'])
+      email_vision.update_data
     end
     return nil
   end
+      
 
   def update_data
     c = Customer.find_by_customers_id(self.customer_id)
@@ -177,6 +163,8 @@ class EmailVisionCustomer < ActiveRecord::Base
         vod_only = 0
       end
       news = c.customers_newsletter
+      news_partners = c.customers_newsletterpartner
+      
       count_vod = c.tokens.count
       address = c.address
       vod_at = nil
@@ -237,7 +225,7 @@ class EmailVisionCustomer < ActiveRecord::Base
         postal_code = nil
         country = nil
       end
-      self.update_attributes(:phone => c.phone.gsub(/[^0-9]/,''), :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx, :newsletters => news)
+      self.update_attributes(:phone => c.phone.gsub(/[^0-9]/,''), :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx, :newsletters => news, :newsletters_partners => news_partners)
     else
       puts "error customer #{self.customer_id}"
     end
@@ -267,6 +255,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     attribute = c.customer_attribute
     newsx = attribute.newsletters_x
     news = c.customers_newsletter
+    news_partners = c.customers_newsletterpartner
     last_log = attribute.last_login_at
     vod_only = attribute.only_vod
     count_vod = c.tokens.count
@@ -329,16 +318,17 @@ class EmailVisionCustomer < ActiveRecord::Base
       postal_code = nil
       country = nil
     end
-    EmailVisionCustomer.create(:customer_id => c.to_param,:phone => c.phone.gsub(/[^0-9]/,''), :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx, :newsletters => news)
+    EmailVisionCustomer.create(:customer_id => c.to_param,:phone => c.phone.gsub(/[^0-9]/,''), :email => c.email, :firstname => c.first_name, :lastname => c.last_name, :client_type => client_type, :language_id => c.language, :gender => c.gender, :vod_habit => vod_habit, :nb_vod_views => count_vod, :birthday => c.birthday, :last_login_at => last_log, :street => street, :postal_code => postal_code, :country => country, :suspended => c.suspension_status, :abo => c.abo_active, :abo_type => c.abo_type_id, :size_wl_dvd => c.wishlist_items.count, :size_wl_dvd_assigned => c.assigned_items.count, :size_wl_vod => c.vod_wishlists.count, :cpt_reconduction => nb_recondution, :cpt_reconduction_all => c.actions.count, :auto_stop => c.auto_stop, :next_reconduction_at => next_reconduction_at, :last_vod_view_at => vod_at, :last_post_send_at => last_dvd_at, :cpt_payment_recovery => 0, :blacklisted => c.black_listed, :sleep => c.sleep, :payment_type => payment_type, :newsletters_adult => newsx, :newsletters => news, :newsletters_partners => news_partners)
   end
 
   def self.add_public_prospects
-    sql = 'select * from public_newsletters
-    left join customers on email = `customers_email_address`
-    where customers_email_address is null'
+    sql = 'select public_newsletters.* from public_newsletters
+        left join customers on public_newsletters.email = `customers_email_address`
+        left join `email_vision_customers` on email_vision_customers.email = public_newsletters.email and source ="DVDPOST"
+        where customers_email_address is null and email_vision_customers.email is null'
     results = ActiveRecord::Base.connection.execute(sql)
-    results.each_hash do |h| 
-      EmailVisionCustomer.create( :email => h['email'], :client_type => 'public', :language_id => h['language_id'])
+    results.each_hash do |h|
+      EmailVisionCustomer.create( :email => h['email'], :client_type => 'public', :language_id => h['language_id'], :newsletters_partners => 0)
     end
   
   end

@@ -8,9 +8,9 @@ class Actor < ActiveRecord::Base
   alias_attribute :top, :top_actors
   def self.get_all_data(id = nil)
     if id.nil?
-      actor = Actor.all(:conditions => ['image_active = 0 and actors_type = "dvd_norm"'])
+      actor = Actor.all(:conditions => ['image_active = 0 and actors_type = "dvd_norm" and actors_id >24832'])
     else
-      actor = Actor.all(:conditions => ['actors_id > 4142 and actors_type = "dvd_norm" and actors_id < ?', id])
+      actor = Actor.all(:conditions => ['actors_type = "dvd_norm" and actors_id = ?', id])
     end
     actor.each do |a|
       a.get_url3
@@ -39,12 +39,11 @@ class Actor < ActiveRecord::Base
       birth = hp.search('a[@href*=birth_place]')
       if title.empty? && birth.empty?
         if url_start.nil?
-          title = hp.search("p[@style*=0 0 0.5em 0]").search('b')
-          eval = title.text.include?('Media')
+          eval = hp.search(".primary_photo a").first
           if eval
-            string= title.search('a').first['onclick'].gsub(/.*link=/,"\1")
-            t = string.gsub(/[^0-9]/,'').to_s
-            get_url3('http://www.imdb.com/name/nm'+t)
+            string= eval.attributes['href']
+            #t = string.gsub(/[^0-9]/,'').to_s
+            get_url3('http://www.imdb.com'+string)
             #get_url3('http://www.imdb.fr/name/nm0000169/')
           else
             puts "error search #{name} #{to_param}"

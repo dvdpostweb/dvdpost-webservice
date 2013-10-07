@@ -1,7 +1,7 @@
 class ReviewRating < ActiveRecord::Base
   set_table_name :reviews_rating
   set_primary_key :reviews_id
-
+  establish_connection "common_#{Rails.env}"
   alias_attribute :value, :reviews_interesting
   alias_attribute :customer_id, :customers_id
 

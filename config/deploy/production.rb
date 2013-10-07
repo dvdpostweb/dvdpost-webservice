@@ -20,8 +20,8 @@ set :rails_env, "production"
 #############################################################
 
 set :user, "dvdpost-webservice"
-set :domain, "ws.dvdpost.com"
-set :port, 22012
+set :domain, "192.168.102.15"
+set :port, 22
 server domain, :app, :web
 role :db, domain, :primary => true
 
@@ -52,7 +52,16 @@ namespace :deploy do
       password: 3gallfir-
       host: matadi
       port: 3306
+    common_production:
+      adapter: mysql
+      encoding: utf8
+      database: common_staging
+      username: webuser
+      password: 3gallfir-
+      host: matadi
+      port: 3306
     EOF
+    
     put db_config, "#{release_path}/config/database.yml"
   end
   
