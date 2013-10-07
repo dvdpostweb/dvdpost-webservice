@@ -17,7 +17,6 @@ class HighlightReview < ActiveRecord::Base
     rank = 0
     Review.approved.by_language(language_id).ordered.limit(16).all(:joins => "join dvdpost_be_prod.products on products.imdb_id = reviews.imdb_id and products_status !=-1 and products_type='dvd_norm'").collect do |review|
       rank += 1
-      Rails.logger.debug { "@@@#{review.inspect}" }
       HighlightReview.create(:review_id => review.id, :language_id => language_id, :rank => rank)
     end
   end

@@ -55,7 +55,7 @@ namespace :deploy do
     common_production:
       adapter: mysql
       encoding: utf8
-      database: common_staging
+      database: common_production
       username: webuser
       password: 3gallfir-
       host: matadi
