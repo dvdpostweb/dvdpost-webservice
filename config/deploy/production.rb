@@ -60,6 +60,14 @@ namespace :deploy do
       password: 3gallfir-
       host: matadi
       port: 3306
+    plush_production:
+     adapter: mysql
+     encoding: utf8
+     database: plush_production
+     username: webuser
+     password: 3gallfir-
+     host: matadi
+     port: 3306
     EOF
     
     put db_config, "#{release_path}/config/database.yml"

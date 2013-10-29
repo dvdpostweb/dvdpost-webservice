@@ -35,7 +35,8 @@ Rails::Initializer.run do |config|
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'Brussels'
   config.active_record.default_timezone = :local
-  
+  config.active_record.time_zone_aware_attributes = false
+  config.autoload_paths += %W(#{Rails.root}/app/models/plush)
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]

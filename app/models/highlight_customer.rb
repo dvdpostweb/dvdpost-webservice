@@ -30,7 +30,7 @@ class HighlightCustomer < ActiveRecord::Base
         CustomerPoint.create(:customer_id => review.customers_id, :points => points)
       end
     end
-    ReviewRating.yesterday.find(:all, :joins => :products, :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).collect do |review_rating| 
+    ReviewRating.yesterday.find(:all, :joins => [:review => :product], :conditions => { :products => {:products_type => 'DVD_NORM', :products_status => [-2,0,1]}}).collect do |review_rating| 
       if customer_point = CustomerPoint.today.find_by_customer_id(review_rating.customer_id)
         customer_point.update_attribute(:points, customer_point.points + 1)
       else

@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
 #  before_filter :get_wishlist_source
 #  before_filter :last_login, :unless => :is_it_js?
   
-
   rescue_from ::ActionController::MethodNotAllowed do |exception|
     logger.warn "*** #{exception} Path: #{request.path} ***"
     render :file => "#{Rails.root}/public/404.html", :status => 404
