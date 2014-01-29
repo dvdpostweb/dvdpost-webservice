@@ -93,8 +93,8 @@ class HighlightCustomer < ActiveRecord::Base
         join customers c on c.customers_id = customer_id and customers_abo =1 
         WHERE date(now()) < DATE_ADD( cp.created_on, INTERVAL 30 DAY )
         and (
-        select count(*) from reviews r
-        join products p on p.products_id = r.products_id 
+        select count(*) from common_production.reviews r
+        join products p on p.imdb_id = r.imdb_id 
         where customers_id = customer_id and reviews_check = 1 and date(now()) < DATE_ADD( r.last_modified, INTERVAL 30 DAY ) and products_type='dvd_norm'
         )>0
         GROUP BY customer_id 

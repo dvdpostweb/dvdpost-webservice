@@ -201,7 +201,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
   
   def self.update_status
-    sql ='select * from email_vision_customers e join customers c on c.customers_id = e.customer_id and customers_abo=1 and source ="DVDPOST"'
+    sql ='select e.* from email_vision_customers e join customers c on c.customers_id = e.customer_id and customers_abo=1 and source ="DVDPOST"'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |e|
       email_vision = self.find(e['id'])
@@ -211,7 +211,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   end
       
   def self.update_status_plush
-    sql ='select * from email_vision_customers e join plush_'+(Rails.env == 'production' || Rails.env == 'pre_production' ? 'production': 'staging')+'.customers c on c.customers_id = e.customer_id and customers_abo=1 and source ="PLUSH"'
+    sql ='select e.* from email_vision_customers e join plush_'+(Rails.env == 'production' || Rails.env == 'pre_production' ? 'production': 'staging')+'.customers c on c.customers_id = e.customer_id and customers_abo=1 and source ="PLUSH"'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |e|
       email_vision = self.find(e['id'])
