@@ -1,6 +1,6 @@
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
-   :address => "192.168.100.11",
+   :address => "mail.dvdpost.local",
    :port => "25",
    :authentication => :none,
    :domain => "dvdpost.be"

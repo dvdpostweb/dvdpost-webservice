@@ -41,5 +41,11 @@
  every 1.day, :at => '12:30 pm' do
    runner "Category.vod_available"
  end
+ every 1.day, :at => '12:30 pm' do
+   runner "Category.vod_available"
+ end
+ every 1.day, :at => '9:30 pm' do
+   runner "Payment.verify_paypal"
+ end
 
 # Learn more: http://github.com/javan/whenever
