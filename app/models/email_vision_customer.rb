@@ -21,6 +21,8 @@ class EmailVisionCustomer < ActiveRecord::Base
     update_unsubscription
     puts "update_newsletters"
     update_newsletters
+    puts "update_email"
+    update_email
     puts "update_status"
     update_status
     puts "add_public_prospects"
@@ -38,6 +40,8 @@ class EmailVisionCustomer < ActiveRecord::Base
     update_unsubscription_plush
     puts "update_newsletters_plush"
     update_newsletters_plush
+    puts "update_email_plush"
+    update_email_plush
     puts "update_status_plush"
     update_status_plush
     puts "add_public_prospects_plush"
@@ -117,6 +121,28 @@ class EmailVisionCustomer < ActiveRecord::Base
     return nil
   end
 
+  def self.update_email
+    sql = 'select e.id from customers c
+    join `email_vision_customers` e on e.customer_id = c.customers_id
+    where email !=customers_email_address and source="dvdpost";'
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |h| 
+      email_vision = self.find(h['id'])
+      email_vision.update_data
+    end
+    return nil
+  end
+  def self.update_email_plush
+    sql = 'select customer_id,  c.email ,e.email, client_type from plush_production.customers c
+    join `email_vision_customers` e on e.customer_id = c.customers_id
+    where c.email !=e.email and source="plush";'
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |h| 
+      email_vision = self.find(h['id'])
+      email_vision.update_data_plush
+    end
+    return nil
+  end
   def self.update_unsubscription_plush
     sql = 'select e.id from plush_'+(Rails.env == 'production' || Rails.env == 'pre_production' ? 'production': 'staging')+'.customers c
     join email_vision_customers e on customers_id = customer_id and source ="PLUSH"
@@ -190,7 +216,7 @@ class EmailVisionCustomer < ActiveRecord::Base
   def self.update_prospect_plush
     sql = 'select e.id, c.customers_id from `email_vision_customers` e
     join plush_'+(Rails.env == 'production' || Rails.env == 'pre_production' ? 'production': 'staging')+'.customers c on e.email = c.email and source ="PLUSH"
-    where client_type="public"';
+    where client_type="public" or client_type="prospet"';
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       email_vision = self.find(h['id'])
@@ -634,6 +660,17 @@ class EmailVisionCustomer < ActiveRecord::Base
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h|
       EmailVisionCustomer.create( :email => h['email'], :client_type => 'public', :language_id => h['language_id'], :newsletters_partners => 0, :source => 'PLUSH')
+    end
+  
+  end
+  def self.add_prospects_plush
+    sql = 'select prospects.* from plush_production.prospects
+            left join plush_production.customers on prospects.email = customers.email
+            left join `email_vision_customers` on email_vision_customers.email = prospects.email and source ="PLUSH"
+            where customers.email is null and email_vision_customers.email is null group by prospects.email'
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |h|
+      EmailVisionCustomer.create( :email => h['email'], :client_type => 'prospet', :language_id => h['locale_id'], :gender => h['gender'].downcase , :newsletters => h['newsletters'], :newsletters_partners => h['newsletters_partners'], :source => 'PLUSH')
     end
   
   end
