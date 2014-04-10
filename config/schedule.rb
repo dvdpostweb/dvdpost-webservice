@@ -47,10 +47,10 @@
  every 1.day, :at => '9:30 pm' do
    runner "Payment.verify_paypal"
  end
- every '30	9,12,15,17	*	*	1,2,3,4,5' do
+ every '30 9,12,15,17	*	*	1,2,3,4,5' do
    runner "Customer.abo_missing"
  end
- every '30	12,21	*	*	0,6' do
+ every '30 12,21 * * 0,6' do
    runner "Customer.abo_missing"
  end
  
