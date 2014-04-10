@@ -53,7 +53,11 @@
  every '30	12,21	*	*	0,6' do
    runner "Customer.abo_missing"
  end
-
+ 
+ every 1.day, :at => '1:30 pm' do
+   runner "Session.delete_old_sessions"
+ end
+ 
 
 
 # Learn more: http://github.com/javan/whenever
