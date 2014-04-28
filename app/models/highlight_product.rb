@@ -22,7 +22,7 @@ class HighlightProduct < ActiveRecord::Base
       join = 'join dvdpost_be_prod.products_to_languages  on products.products_id = products_to_languages.products_id and products_languages_id = 3'
     end
     rank = 0
-    Rating.recent.limit(40).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>=3 and avg_products_rating >= 3.6', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' and products_next = 0 and products.imdb_id > 0 #{join}").collect do |rating|
+    Rating.recent.limit(40).average(:products_rating, :group => "products_rating.imdb_id", :order => 'count(distinct products_rating.customers_id) desc, avg_products_rating desc', :having => 'count(distinct products_rating.customers_id)>=3 and avg_products_rating >= 3.6', :joins => "join products on products.products_id = products_rating.products_id and products_status !=-1 and products_type='dvd_norm' and products_next = 0 and products.imdb_id > 0 and products_status != -1 #{join}").collect do |rating|
       count = Rating.recent.by_imdb_id(rating[0]).all(:select => 'distinct(customers_id)').count
       product = Rating.recent.find_all_by_imdb_id(rating[0]).first
       rank += 1

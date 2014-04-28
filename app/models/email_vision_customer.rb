@@ -47,6 +47,27 @@ class EmailVisionCustomer < ActiveRecord::Base
     puts "add_public_prospects_plush"
     add_public_prospects_plush
   end
+  
+  def self.min_update_plush
+    puts "update_prospect_plush"
+    update_prospect_plush
+    puts "insert_new_data_plush"
+    insert_new_data_plush
+    puts "modify_abo_data_plush"
+    modify_abo_data_plush
+    puts "update_language_plush"
+    update_language_plush
+    puts "update_unsubscription_plush"
+    update_unsubscription_plush
+    puts "update_newsletters_plush"
+    update_newsletters_plush
+    puts "update_email_plush"
+    update_email_plush
+    puts "update_status_plush"
+    update_status_plush
+    puts "add_public_prospects_plush"
+    add_public_prospects_plush
+  end 
   def self.update_all
     query = EmailVisionCustomer.find(:all, :conditions => ["source = 'DVDPOST' and email in ('henri.coremans@skynet.be','mariella.braccialini@skynet.be','dusepulchre_cedric@hotmail.com','barbara_beken@yahoo.com','Goitte@gmail.com','werner.vandeneede@telenet.be','colette.delvigne@dynaphar.be')"])
     query.each do |e|
@@ -133,7 +154,7 @@ class EmailVisionCustomer < ActiveRecord::Base
     return nil
   end
   def self.update_email_plush
-    sql = 'select customer_id,  c.email ,e.email, client_type from plush_production.customers c
+    sql = 'select e.id, customer_id,  c.email ,e.email, client_type from plush_production.customers c
     join `email_vision_customers` e on e.customer_id = c.customers_id
     where c.email !=e.email and source="plush";'
     results = ActiveRecord::Base.connection.execute(sql)
