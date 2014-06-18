@@ -46,6 +46,8 @@ class EmailVisionCustomer < ActiveRecord::Base
     update_status_plush
     puts "add_public_prospects_plush"
     add_public_prospects_plush
+    puts "add_prospects_plush"
+    add_prospects_plush
   end
   
   def self.min_update_plush
@@ -384,10 +386,14 @@ class EmailVisionCustomer < ActiveRecord::Base
         sql2 = "select count(*) nb from plush_#{Rails.env == 'production' || Rails.env == 'pre_production' ? 'production': 'staging'}.abo where customerid = #{c.to_param} and action = 7 and abo_id > (select (abo_id-2) from plush_#{Rails.env == 'production' || Rails.env == 'pre_production' ? 'production': 'staging'}.abo where `customerid`= #{c.to_param} and action in (6,8,1) order by abo_id desc limit 1)"
         results_free = ActiveRecord::Base.connection.execute(sql2)
         nb_recondution = results_free.fetch_row.first
-        if nb_recondution.to_i > 0
-          "payed"
+        if c.abo_type_id == 6
+          "tvod"
         else
-          "freetest"
+          if nb_recondution.to_i > 0
+            "payed"
+          else
+            "freetest"
+          end
         end
       else
         if c.step == 90
@@ -578,10 +584,14 @@ class EmailVisionCustomer < ActiveRecord::Base
       sql2 = "select count(*)nb from abo where customerid = #{c.to_param} and action = 7 and abo_id > (select abo_id from abo where `customerid`= #{c.to_param} and action in (6,8,1) order by abo_id desc limit 1)"
       results_free = ActiveRecord::Base.connection.execute(sql2)
       nb_recondution = results_free.fetch_row.first
-      if nb_recondution.to_i > 0
-        "payed"
+      if c.abo_type_id == 6
+        "tvod"
       else
-        "freetest"
+        if nb_recondution.to_i > 0
+          "payed"
+        else
+          "freetest"
+        end
       end
     else
       if c.step == 90
@@ -691,7 +701,8 @@ class EmailVisionCustomer < ActiveRecord::Base
             where customers.email is null and email_vision_customers.email is null group by prospects.email'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h|
-      EmailVisionCustomer.create( :email => h['email'], :client_type => 'prospet', :language_id => h['locale_id'], :gender => h['gender'].downcase , :newsletters => h['newsletters'], :newsletters_partners => h['newsletters_partners'], :source => 'PLUSH')
+      gender = h['gender'] ? h['gender'].downcase : nil
+      EmailVisionCustomer.create( :email => h['email'], :client_type => 'prospet', :language_id => h['locale_id'], :gender => gender , :newsletters => h['newsletters'], :newsletters_partners => h['newsletters_partners'], :source => 'PLUSH')
     end
   
   end
