@@ -41,5 +41,8 @@
  every 1.day, :at => '12:30 pm' do
    runner "Category.vod_available"
  end
+ every 1.day, :at => '12:42 pm' do
+   runner "Customer.check_activation_code"
+ end
 
 # Learn more: http://github.com/javan/whenever

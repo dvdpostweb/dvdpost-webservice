@@ -49,4 +49,13 @@ class Customer < ActiveRecord::Base
   
   named_scope :active, :conditions => ["customers_abo = 1"]
   named_scope :limit, lambda {|limit| {:limit => limit}}
+  def self.check_activation_code
+    sql = "SELECT count(*)nb ,substring(name ,1,3) name FROM plush_production.streaming_codes WHERE (name like '%EXP%') AND (email is null) AND ((expiration_at > '2014-06-23 16:28:54' or expiration_at is null) and (used_at > '2014-06-23 14:28:54' or used_at is null)) group by substring(name ,1,3) having nb<100"
+    
+    results = ActiveRecord::Base.connection.execute(sql)
+    puts results.inspect
+    results.each_hash do |h|
+      Emailer.deliver_contact("gs@dvdpost.be", 'alert activation_code', h['name'])
+    end
+  end
 end
