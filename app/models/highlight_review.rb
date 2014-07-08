@@ -15,7 +15,7 @@ class HighlightReview < ActiveRecord::Base
   def self.run_reviews_by_language(language_id)
     HighlightReview.by_language(language_id).destroy_all
     rank = 0
-    Review.approved.by_language(language_id).ordered.limit(16).all(:joins => "join dvdpost_be_prod.products on products.imdb_id = reviews.imdb_id and products_status !=-1 and products_type='dvd_norm'", :group => 'customers_id, products.imdb_id').collect do |review|
+    Review.approved.good_rating.by_language(language_id).ordered.limit(16).all(:joins => "join dvdpost_be_prod.products on products.imdb_id = reviews.imdb_id and products_status !=-1 and products_type='dvd_norm'", :group => 'customers_id, products.imdb_id').collect do |review|
       rank += 1
       HighlightReview.create(:review_id => review.id, :language_id => language_id, :rank => rank)
     end
