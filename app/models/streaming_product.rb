@@ -5,7 +5,7 @@ class StreamingProduct < ActiveRecord::Base
   def self.zen_coder
     
     myFile = File.open("log/myFile.txt", "w")
-    sql = 'select x.*, pl.short_alpha short_lang, ifnull(pu.short_alpha,'non') short_sub
+    sql = 'select x.*, pl.short_alpha short_lang, ifnull(pu.short_alpha,"non") short_sub
 from
 (select distinct t.imdb_id, language_id, subtitle_id, filename, quality
 from plush_staging.tokens t 
