@@ -26,6 +26,7 @@ GEM
     hpricot (0.8.4)
     htmlentitties (4.2.1)
     json (1.7.3)
+    multi_json (1.10.1)
     mysql (2.8.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -47,6 +48,8 @@ GEM
     whenever (0.7.0)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
+    zencoder (2.4.6)
+      multi_json
 
 PLATFORMS
   ruby
@@ -61,3 +64,4 @@ DEPENDENCIES
   rails (~> 2.3.11)
   uniform_notifier (= 1.0.1)
   whenever (= 0.7.0)
+  zencoder (~> 2.4.6)
