@@ -58,6 +58,8 @@
    runner "Session.delete_old_sessions"
  end
  
-
+every 4.hours do
+   runner "StreamingProduct.zen_coder_s"
+end
 
 # Learn more: http://github.com/javan/whenever
