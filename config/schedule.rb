@@ -58,7 +58,7 @@
    runner "Session.delete_old_sessions"
  end
  
-every 4.hours do
+every 2.hours do
    runner "StreamingProduct.zen_coder_s"
 end
 

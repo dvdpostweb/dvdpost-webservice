@@ -113,14 +113,14 @@ class StreamingProduct < ActiveRecord::Base
       else
         imdb_id = "@#{h['imdb_id']}"
       end
-
-      input = "sftp://PS3user:ps3%40DVDPOST2014@94.139.62.130/home/PS3user/dvdpost/#{h['filename']}#{imdb_id}_Dpc_A#{h['short_lang']}_S#{h['short_sub']}_3000k.f4v"
+      #ps3%40DVDPOST2014
+      input = "sftp://PS3user:nomoreconnection@94.139.62.130/home/PS3user/dvdpost/#{h['filename']}#{imdb_id}_Dpc_A#{h['short_lang']}_S#{h['short_sub']}_3000k.f4v"
       puts "input => #{input}"
       puts "output ftp://hesssvodupload:HESssvod123@homessvod.upload.akamai.com/308707/#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}.ism"
       puts ":media_id: #{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}"
       AkamaiJob.create(:imdb_id => h['imdb_id'], :language_id => h['language_id'], :subtitle_id => h['subtitle_id'])
-      #result = Zencoder::Job.create({:api_key => "6541e219a225b48e901393d73d906091", :region => "europe", :input => input, :outputs => { :audio_bitrate => 64, :audio_sample_rate => 48000, :url => "ftp://hesssvodupload:HESssvod123@homessvod.upload.akamai.com/308707/#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}.ism", :max_frame_rate => 25, :segment_seconds => 2, :type => "segmented", :video_bitrate => bitrate, :width => width, :format => "ism", :drm => { :method => "playready", :provider => "buydrm", :server_key => "89137186-356A-4543-B83F-943699CBD44E", :user_key => "d88e502b-fd8f-4da5-e79b-ea73d132b89f", :media_id => "#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}" }}})
-      #puts result.inspect
+      result = Zencoder::Job.create({:api_key => "6541e219a225b48e901393d73d906091", :region => "europe", :input => input, :outputs => { :audio_bitrate => 64, :audio_sample_rate => 48000, :url => "ftp://hesssvodupload:HESssvod123@homessvod.upload.akamai.com/308707/#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}.ism", :max_frame_rate => 25, :segment_seconds => 2, :type => "segmented", :video_bitrate => bitrate, :width => width, :format => "ism", :drm => { :method => "playready", :provider => "buydrm", :server_key => "89137186-356A-4543-B83F-943699CBD44E", :user_key => "d88e502b-fd8f-4da5-e79b-ea73d132b89f", :media_id => "#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}" }}})
+      puts result.inspect
 
     end
 
