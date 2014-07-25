@@ -93,7 +93,7 @@ class StreamingProduct < ActiveRecord::Base
           where x.imdb_id not in (2024544) and a.id is null
           group by x.imdb_id, x.subtitle_id,x.language_id
           order by products_year desc, x.imdb_id desc
-          limit 0,10'
+          limit 0,25'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       case h['quality']
