@@ -13,4 +13,4 @@ gem 'bullet', :group => :development
 gem 'whenever', '0.7.0'
 gem 'hpricot', '~> 0.8.2'
 gem "htmlentitties"
-gem 'zencoder', '~> 2.4.6'
+gem 'zencoder', '~> 2.5.0'
