@@ -92,7 +92,7 @@ class StreamingProduct < ActiveRecord::Base
           left join akamai_jobs a on a.imdb_id = x.imdb_id and a.language_id = x.language_id and ifnull(a.subtitle_id,0) = ifnull(x.subtitle_id,0)
           where x.imdb_id not in (2024544) and a.id is null
           group by x.imdb_id, x.subtitle_id,x.language_id
-          order by products_year desc, x.imdb_id desc'
+          order by products_year desc, x.imdb_id desc limit 1'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       case h['quality']
