@@ -48,7 +48,7 @@ GEM
     whenever (0.7.0)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
-    zencoder (2.4.6)
+    zencoder (2.5.1)
       multi_json
 
 PLATFORMS
@@ -64,4 +64,4 @@ DEPENDENCIES
   rails (~> 2.3.11)
   uniform_notifier (= 1.0.1)
   whenever (= 0.7.0)
-  zencoder (~> 2.4.6)
+  zencoder (~> 2.5.1)

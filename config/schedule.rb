@@ -58,8 +58,8 @@
    runner "Session.delete_old_sessions"
  end
  
-#every 6.minutes do
-#   runner "StreamingProduct.zen_coder_s"
+#every 1.minute do
+#   rake 'cron'
 #end
 
 # Learn more: http://github.com/javan/whenever
