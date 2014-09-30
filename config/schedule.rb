@@ -57,7 +57,10 @@
  every 1.day, :at => '1:30 pm' do
    runner "Session.delete_old_sessions"
  end
- 
+
+ every 1.day, :at => '12:05 am' do
+   runner "AkamaiMovie.update_list"
+ end 
 #every 1.minute do
 #   rake 'cron'
 #end

@@ -14,3 +14,4 @@ gem 'whenever', '0.7.0'
 gem 'hpricot', '~> 0.8.2'
 gem "htmlentitties"
 gem 'zencoder', '~> 2.5.1'
+gem 'em-ftp-client'

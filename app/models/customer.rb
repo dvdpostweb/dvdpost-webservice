@@ -54,7 +54,7 @@ class Customer < ActiveRecord::Base
     sql = 'select concat(customers_id) list from dvdpost_be_prod.customers where customers_abo = 1 and (customers_abo_type=0 or `customers_next_abo_type`=0);'
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h|
-        Emailer.deliver_send('gs@dvdpost.be, cl@dvdpost.be, custserv@dvdpost.be', "missing abo type #{Date.today}", "Ces clients dvdposts #{h['list']} ont un probleme d'abo")
+        #Emailer.deliver_send('gs@dvdpost.be, cl@dvdpost.be, custserv@dvdpost.be', "missing abo type #{Date.today}", "Ces clients dvdposts #{h['list']} ont un probleme d'abo")
     end
   end
 end

@@ -5,7 +5,7 @@ class StreamingProduct < ActiveRecord::Base
   
   def self.zen_output_status
     Zencoder.api_key = '6541e219a225b48e901393d73d906091'
-    AkamaiJob.all(:conditions => ["zen_id > 0 and (status_input ='finished' and (status_output !='finished' or status_output is null)) or status_input != 'finished' and deleted = 0"]).each do |job|
+    AkamaiJob.all(:conditions => ["zen_id > 0 and ((status_input ='finished' and (status_output !='finished' or status_output is null)) or status_input != 'finished') and deleted = 0"]).each do |job|
       status_o = Zencoder::Job.progress(job.zen_id).body['outputs'][0]['state']
       status_i = Zencoder::Job.progress(job.zen_id).body['input']['state']
 
@@ -15,6 +15,16 @@ class StreamingProduct < ActiveRecord::Base
     end
   end
 
+def self.zen_test
+  Zencoder.api_key = '6541e219a225b48e901393d73d906091'
+  puts 'test'
+  bitrate = 2000
+  width =720
+  input = "sftp://PS3user:nomoreconnection@94.139.62.130/home/PS3user/dvdpost/SAMPLE_HD_2013@0_Dpc_Afre_Snon_3000k.f4v"
+  result = Zencoder::Job.create({:api_key => "6541e219a225b48e901393d73d906091", :region => "europe", :input => input, :outputs => { :audio_bitrate => 64, :audio_sample_rate => 48000, :url => "ftp://hesssvodupload:HESssvod123@homessvod.upload.akamai.com/308707/0_Afre_Snon.ism", :max_frame_rate => 25, :segment_seconds => 2, :type => "segmented", :video_bitrate => bitrate, :width => width, :format => "ism"}}, {:skip_ssl_verify => true})
+  puts result.body
+  return nil
+end
 
   def self.zen_coder_s
     Zencoder.api_key = '6541e219a225b48e901393d73d906091'

@@ -9,6 +9,8 @@ class EmailVisionCustomer < ActiveRecord::Base
     return nil
   end
   def self.min_update
+    puts "change_email_address"
+    change_email_address
     puts "update_prospect"
     update_prospect
     puts "insert_new_data"
@@ -28,29 +30,12 @@ class EmailVisionCustomer < ActiveRecord::Base
     puts "add_public_prospects"
     add_public_prospects
     
-    puts "update_prospect_plush"
-    update_prospect_plush
-    puts "insert_new_data_plush"
-    insert_new_data_plush
-    puts "modify_abo_data_plush"
-    modify_abo_data_plush
-    puts "update_language_plush"
-    update_language_plush
-    puts "update_unsubscription_plush"
-    update_unsubscription_plush
-    puts "update_newsletters_plush"
-    update_newsletters_plush
-    puts "update_email_plush"
-    update_email_plush
-    puts "update_status_plush"
-    update_status_plush
-    puts "add_public_prospects_plush"
-    add_public_prospects_plush
-    puts "add_prospects_plush"
-    add_prospects_plush
+    min_update_plush
   end
   
   def self.min_update_plush
+    puts "change_email_address_plush"
+    change_email_address_plush
     puts "update_prospect_plush"
     update_prospect_plush
     puts "insert_new_data_plush"
@@ -76,6 +61,26 @@ class EmailVisionCustomer < ActiveRecord::Base
       e.update_data
     end
     return nil
+  end
+  def self.change_email_address
+    sql = 'select e.id, customers_id, email, customers_email_address from dvdpost_be_prod.customers c
+    join dvdpost_be_prod.email_vision_customers e on customers_id = customer_id and source ="DVDPOST"
+    where email != `customers_email_address`'
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |h| 
+      email_vision = self.find(h['id'])
+      email_vision.update_attributes(:email => h['customers_email_address'])
+    end
+  end
+  def self.change_email_address_plush
+    sql = 'select e.id, customers_id, c.email from plush_production.customers c
+    join dvdpost_be_prod.email_vision_customers e on customers_id = customer_id and source ="PLUSH"
+    where e.email != c.email'
+    results = ActiveRecord::Base.connection.execute(sql)
+    results.each_hash do |h| 
+      email_vision = self.find(h['id'])
+      email_vision.update_attributes(:email => h['email'])
+    end
   end
   
   def self.insert_new_data
