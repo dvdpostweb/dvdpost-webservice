@@ -48,8 +48,8 @@ end
             select distinct t.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
 
             from plush_production.tokens t 
-            join plush_production.products p on t.imdb_id = p.imdb_id and t.season_id = p.season_id and t.episode_id = p.episode_id and p.products_type = "DVD_NORM"
-            join streaming_products sp on sp.imdb_id = p.imdb_id and sp.season_id = p.season_id and sp.episode_id = p.episode_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
+            join plush_production.products p on t.imdb_id = p.imdb_id and p.products_type = "DVD_NORM"
+            join streaming_products sp on sp.imdb_id = p.imdb_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
 
             where t.created_at > date_add(now(), interval -14 month) and compensed=0
             ) x
@@ -82,6 +82,7 @@ end
         if h['season_id'] == '0'
           season_name = ''
         else
+          
           season_name = "S#{sprintf '%02d', h['season_id']}E#{sprintf '%02d', h['episode_id']}_"
         end
         puts season_name
