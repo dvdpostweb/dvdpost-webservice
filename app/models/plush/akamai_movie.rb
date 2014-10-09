@@ -19,9 +19,12 @@ class AkamaiMovie < ActiveRecord::Base
               filename = details[8].split('.')[0]
               list << filename
               if !AkamaiMovie.find_by_filename(filename)
-                res = filename.match(/([0-9]*)_A([a-z]*)_S([a-z]*)/)
+                res = filename.match(/(S([0-9]*)E([0-9]*)_)?([0-9]*)_A([a-z]*)_S([a-z]*)/)
                 puts "insert #{filename}"
-                AkamaiMovie.create(:imdb_id => res[1], :filename => filename, :audio => res[2], :subtitle => res[3], :status => 0)
+                season_id = res[2] || 0
+                episode_id = res[3] || 0
+                #AkamaiMovie.create(:imdb_id => res[4], :filename => filename, :audio => res[5], :subtitle => res[6], :status => 0)
+                AkamaiMovie.create(:imdb_id => res[4], :filename => filename, :audio => res[5], :subtitle => res[6], :status => 0, :season_id => season_id, :episode_id => episode_id)
               end
               
             end
