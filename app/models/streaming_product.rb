@@ -13,6 +13,10 @@ class StreamingProduct < ActiveRecord::Base
       job.update_attribute(:status_input, status_i)
 
     end
+    count = AkamaiJob.all(:conditions => ["status_output ='failed' and deleted = 0"]).count
+    if count > 2
+      Emailer.deliver_send('gs@dvdpost.be', "zencoder exception #{Date.today}", "movie error")
+    end
   end
 
 def self.zen_test
@@ -49,7 +53,7 @@ end
 
             from plush_production.tokens t 
             join plush_production.products p on t.imdb_id = p.imdb_id and p.products_type = "DVD_NORM"
-            join streaming_products sp on sp.imdb_id = p.imdb_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
+            join streaming_products sp on sp.imdb_id = p.imdb_id and sp.season_id = p.season_id and p.episode_id = sp.episode_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
 
             where t.created_at > date_add(now(), interval -14 month) and compensed=0
             ) x
