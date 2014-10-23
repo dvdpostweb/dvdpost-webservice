@@ -1,7 +1,10 @@
 class PlushToken < ActiveRecord::Base
   establish_connection "plush_#{Rails.env}"
   set_table_name :tokens
+  has_many :plush_products, :primary_key => :imdb_id, :foreign_key => :imdb_id
+
   named_scope :available,  lambda {{:conditions => {:updated_at => 48.hours.ago.localtime..0.hours.ago.localtime}}}
+  
     
   def self.validate(token_param, filename, ip)
     token = self.available.find_by_token(token_param)

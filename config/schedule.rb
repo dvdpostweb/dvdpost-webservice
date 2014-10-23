@@ -60,7 +60,11 @@
 
  every 1.day, :at => '12:05 am' do
    runner "AkamaiMovie.update_list"
- end 
+ end
+
+every 1.day, :at => '2:00 am' do 
+   runner "PlushRecommendation.generate"
+end
 #every 1.minute do
 #   rake 'cron'
 #end
