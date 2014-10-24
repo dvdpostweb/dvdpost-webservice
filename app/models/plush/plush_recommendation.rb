@@ -57,7 +57,7 @@ select  products_countries_id,products_year year,count(*)nb,(select count(*) fro
  where pp.products_status!=-1 and p.imdb_id != #{imdb_id}
  group by p.imdb_id) t
  group by imdb_id 
- order by force_cat asc, cat desc,nb desc,  country_match desc, year desc limit 24;"
+ order by force_cat asc, cat desc,nb desc,  country_match desc, year desc limit 25;"
       i = 0
       PlushRecommendation.by_imdb_id(imdb_id).destroy_all()
       results = ActiveRecord::Base.connection.execute(sql)
@@ -101,7 +101,7 @@ select p.products_countries_id,count(*)nb,p.products_year year,(select count(*) 
  group by t.imdb_id 
  ) t
  group by imdb_id
- order by force_cat asc, cat desc, nb desc,country_match desc, year desc limit 24;
+ order by force_cat asc, cat desc, nb desc,country_match desc, year desc limit 25;
             "
 
 
