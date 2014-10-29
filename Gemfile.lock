@@ -26,6 +26,7 @@ GEM
       eventmachine
       net-ftp-list
     eventmachine (1.0.3)
+    ftpfxp (0.0.4)
     highline (1.6.12)
     hpricot (0.8.4)
     htmlentitties (4.2.1)
@@ -63,6 +64,7 @@ DEPENDENCIES
   bullet
   capistrano-ext
   em-ftp-client
+  ftpfxp
   hpricot (~> 0.8.2)
   htmlentitties
   json

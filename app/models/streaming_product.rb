@@ -1,8 +1,27 @@
+require 'ftpfxp'
+
 class StreamingProduct < ActiveRecord::Base
   has_many :tokens, :primary_key => :imdb_id, :foreign_key => :imdb_id
   named_scope :by_filename, lambda {|filename| {:conditions => {:filename => filename}}}
   named_scope :available, lambda {{:conditions => ['available = ? and available_from < ? and streaming_products.expire_at > ? and status = "online_test_ok"', 1, Time.now.to_s(:db), Time.now.to_s(:db)]}}
-  
+  def self.fxp
+    puts 'conn1'
+    @conn1 = Net::FTPFXPTLS.new
+    @conn1.passive = true
+    @conn1.debug_mode = true
+    @conn1.connect('94.139.62.130', 22)
+    @conn1.login('PS3user', 'nomoreconnection',1)
+    puts 'conn2'
+    @conn2 = Net::FTPFXPTLS.new
+    @conn2.passive = true
+    @conn2.debug_mode = true
+    @conn2.connect('homehlsvod.upload.akamai.com', 21)
+    @conn2.login('heshlsvodupload', 'HEShlsvod321')
+
+    @conn1.close
+    @conn2.close
+  end
+
   def self.zen_output_status
     Zencoder.api_key = '6541e219a225b48e901393d73d906091'
     AkamaiJob.all(:conditions => ["zen_id > 0 and ((status_input ='finished' and (status_output !='finished' or status_output is null)) or status_input != 'finished') and deleted = 0"]).each do |job|
@@ -13,7 +32,7 @@ class StreamingProduct < ActiveRecord::Base
       job.update_attribute(:status_input, status_i)
 
     end
-    count = AkamaiJob.all(:conditions => ["status_output ='failed' and deleted = 0"]).count
+    count = AkamaiJob.all(:conditions => ["(status_input = 'failed' or status_output ='failed') and deleted = 0"]).count
     if count > 2
       Emailer.deliver_send('gs@dvdpost.be', "zencoder exception #{Date.today}", "movie error")
     end

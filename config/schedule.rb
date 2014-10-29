@@ -65,6 +65,10 @@
 every 1.day, :at => '2:00 am' do 
    runner "PlushRecommendation.generate"
 end
+
+every 1.day, :at => '11:14 am' do
+   runner "StreamingProduct.zen_output_status"
+end
 #every 1.minute do
 #   rake 'cron'
 #end
