@@ -2,6 +2,9 @@ require 'eventmachine'
 require 'em-ftp-client'
 require 'timeout'
 
+
+
+
 class AkamaiMovie < ActiveRecord::Base
   establish_connection "plush_#{Rails.env}"
 
@@ -52,6 +55,8 @@ class AkamaiMovie < ActiveRecord::Base
     
     return nil
   end
+
+  
   def self.error
     puts "error"
   end

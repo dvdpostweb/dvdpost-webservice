@@ -69,6 +69,10 @@ end
 every 1.day, :at => '11:14 am' do
    runner "StreamingProduct.zen_output_status"
 end
+
+every 5.minutes do 
+   rake "rake cron" #zencoder management
+end
 #every 1.minute do
 #   rake 'cron'
 #end

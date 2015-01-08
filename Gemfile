@@ -15,4 +15,5 @@ gem 'hpricot', '~> 0.8.2'
 gem "htmlentitties"
 gem 'zencoder', '~> 2.5.1'
 gem 'em-ftp-client'
-gem 'ftpfxp'
+#gem 'ftpfxp'
+gem 'net-sftp'
