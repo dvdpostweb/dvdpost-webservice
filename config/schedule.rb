@@ -66,12 +66,12 @@ every 1.day, :at => '2:00 am' do
    runner "PlushRecommendation.generate"
 end
 
-every 1.day, :at => '11:14 am' do
+every 1.day, :at => '11:18 am' do
    runner "StreamingProduct.zen_output_status"
 end
 
-every 5.minutes do 
-   rake "cron" #zencoder management
+every 10.minutes do 
+   runner "StreamingProduct.zen_coder_s"
 end
 #every 1.minute do
 #   rake 'cron'
