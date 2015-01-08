@@ -20,10 +20,10 @@ set :rails_env, "production"
 #############################################################
 
 set :user, "dvdpost-webservice"
-#set :domain, "192.168.102.15"
-#set :port, 22
-set :domain, "94.139.62.123"
-set :port, 22012
+set :domain, "192.168.102.15"
+set :port, 22
+#set :domain, "94.139.62.123"
+#set :port, 22012
 
 server domain, :app, :web
 role :db, domain, :primary => true
