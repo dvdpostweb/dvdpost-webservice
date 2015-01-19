@@ -50,11 +50,11 @@ class AkamaiHlsContent < ActiveRecord::Base
       }
     rescue Timeout::Error
       puts "Timeout"
-      #Emailer.deliver_send('gs@dvdpost.be', "timeout update_list #{Date.today}", "impossible to load list of movie on akamai ftp")
+      Emailer.deliver_send('it@dvdpost.be', "timeout update_list #{Date.today}", "impossible to load list of movie on akamai ftp")
       return nil
     rescue Exception => ex
       puts "EXCEPTION - #{ex.message}"
-      #Emailer.deliver_send('gs@dvdpost.be', "exceptionupdate_list #{Date.today}", "EXCEPTION - #{ex.message}")
+      Emailer.deliver_send('it@dvdpost.be', "exceptionupdate_list #{Date.today}", "EXCEPTION - #{ex.message}")
       return nil
     end
     

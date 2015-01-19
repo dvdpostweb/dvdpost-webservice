@@ -8,7 +8,7 @@ class Payment < ActiveRecord::Base
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h|
       if h['nb'].to_i > 0
-        Emailer.deliver_send('gs@dvdpost.be, cl@dvdpost.be', "missing paypal transation #{Date.today}", "#{h['nb']} transation are missing")
+        Emailer.deliver_send('it@dvdpost.be, cl@dvdpost.be', "missing paypal transation #{Date.today}", "#{h['nb']} transation are missing")
       end
     end
   end

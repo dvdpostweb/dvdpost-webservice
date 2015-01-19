@@ -34,7 +34,7 @@ class StreamingProduct < ActiveRecord::Base
     end
     count = AkamaiJob.all(:conditions => ["(status_input = 'failed' or status_output ='failed') and deleted = 0"]).count
     if count > 2
-      Emailer.deliver_send('gs@dvdpost.be', "zencoder exception #{Date.today}", "movie error")
+      Emailer.deliver_send('it@dvdpost.be', "zencoder exception #{Date.today}", "movie error")
     end
   end
 
@@ -81,17 +81,18 @@ def self.hls
   sql = 'select x.*, pl.short_alpha short_lang, ifnull(pu.short_alpha,"non") short_sub,products_year, x.season_id , x.episode_id from 
   (select distinct t.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
             from dvdpost_be_prod.tokens t 
-            join dvdpost_be_prod.products p on t.imdb_id = p.imdb_id and p.products_type = "DVD_NORM"
-            join streaming_products sp on sp.imdb_id = p.imdb_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
-            where t.created_at > date_add(now(), interval -14 month) and compensed=0
+            right join dvdpost_be_prod.products p on t.imdb_id = p.imdb_id 
+            right join streaming_products sp on sp.imdb_id = p.imdb_id 
+            where ((t.created_at > date_add(now(), interval -14 month) and compensed=0) or sp.created_at > "2014-01-01")  and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and ((subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2)))) and p.products_type = "DVD_NORM") or (p.products_type = "DVD_ADULT")
             union all
             select distinct t.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
 
             from plush_production.tokens t 
-            join plush_production.products p on t.imdb_id = p.imdb_id and p.products_type = "DVD_NORM"
-            join streaming_products sp on sp.imdb_id = p.imdb_id and sp.season_id = p.season_id and p.episode_id = sp.episode_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
+            right join plush_production.products p on t.imdb_id = p.imdb_id
+            right join streaming_products sp on sp.imdb_id = p.imdb_id and sp.season_id = p.season_id and p.episode_id = sp.episode_id 
 
-            where t.created_at > date_add(now(), interval -14 month) and compensed=0
+            where ((t.created_at > date_add(now(), interval -14 month) and compensed=0) or sp.created_at > "2014-01-01") and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and ((subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2)))) and p.products_type = "DVD_NORM" ) or (p.products_type = "DVD_ADULT")
+
             ) x
             left join products_undertitles pu on subtitle_id = undertitles_id and pu.language_id=1
             left join dvdpost_be_prod.akamai_hls_contents h on h.imdb_id = x.imdb_id and h.kind = "Movie"
@@ -148,19 +149,19 @@ def self.zen_coder_s
     if  status_input == 'finished' || status_input == 'failed'
       puts 'launch new process'
       sql = 'select x.*, pl.short_alpha short_lang, ifnull(pu.short_alpha,"non") short_sub,products_year, x.season_id , x.episode_id from 
-  (select distinct t.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
+  (select distinct sp.created_at, sp.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
             from dvdpost_be_prod.tokens t 
-            join dvdpost_be_prod.products p on t.imdb_id = p.imdb_id and p.products_type = "DVD_NORM"
-            join streaming_products sp on sp.imdb_id = p.imdb_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
-            where t.created_at > date_add(now(), interval -14 month) and compensed=0
+            right join dvdpost_be_prod.products p on t.imdb_id = p.imdb_id
+            right join streaming_products sp on sp.imdb_id = p.imdb_id 
+            where ((t.created_at > date_add(now(), interval -14 month ) and compensed=0) or sp.created_at > "2014-01-01")  and p.products_type = "DVD_NORM" and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
             union all
-            select distinct t.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
+            select distinct sp.created_at, sp.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
 
             from plush_production.tokens t 
-            join plush_production.products p on t.imdb_id = p.imdb_id and p.products_type = "DVD_NORM"
-            join streaming_products sp on sp.imdb_id = p.imdb_id and sp.season_id = p.season_id and p.episode_id = sp.episode_id and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
+            right join plush_production.products p on t.imdb_id = p.imdb_id 
+            right join streaming_products sp on sp.imdb_id = p.imdb_id and sp.season_id = p.season_id and p.episode_id = sp.episode_id 
 
-            where t.created_at > date_add(now(), interval -14 month) and compensed=0
+            where ((t.created_at > date_add(now(), interval -14 month) and compensed=0) or sp.created_at > "2014-01-01")  and p.products_type = "DVD_NORM" and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
             ) x
             left join products_undertitles pu on subtitle_id = undertitles_id and pu.language_id=1
             join products_languages pl on x.language_id = pl.languages_id and languagenav_id=1
