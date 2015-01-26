@@ -33,7 +33,7 @@ class StreamingProduct < ActiveRecord::Base
 
     end
     count = AkamaiJob.all(:conditions => ["(status_input = 'failed' or status_output ='failed') and deleted = 0"]).count
-    if count > 3
+    if count > 5
       Emailer.deliver_send('it@dvdpost.be', "zencoder exception #{Date.today}", " there is #{count} movie error")
     end
   end
