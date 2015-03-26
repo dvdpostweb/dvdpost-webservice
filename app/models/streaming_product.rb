@@ -157,7 +157,7 @@ def self.zen_coder_s
             from dvdpost_be_prod.tokens t 
             right join dvdpost_be_prod.products p on t.imdb_id = p.imdb_id
             right join streaming_products sp on sp.imdb_id = p.imdb_id 
-            where ((t.created_at > date_add(now(), interval -14 month ) and compensed=0) or sp.created_at > "2014-01-01")  and p.products_type = "DVD_NORM" and studio_id !=750 and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
+            where ((t.created_at > date_add(now(), interval -14 month ) and compensed=0) or sp.created_at > "2014-01-01")  and p.products_type = "DVD_NORM" and  (studio_id !=750 || (studio_id = 750 && sp.videoland = 1)) and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null) and available = 1 and status = "online_test_ok" and (subtitle_id in (1,2) or (language_id in (1,2) and (subtitle_id is null or subtitle_id in (1,2))))
             union all
             select distinct sp.created_at, sp.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
 
