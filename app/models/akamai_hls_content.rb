@@ -5,7 +5,7 @@ class AkamaiHlsContent < ActiveRecord::Base
   def self.update_list_hls
     puts "run hls #{Date.today}"
     begin
-      status = Timeout::timeout(600) {
+      status = Timeout::timeout(1800) {
         
           Net::SFTP.start('homehlsvod.upload.akamai.com', 'sshacs', :password => 'password') do |sftp|
             list = []
@@ -24,18 +24,20 @@ class AkamaiHlsContent < ActiveRecord::Base
                     kind = 'Movie'
                   end
                   puts "insert #{filename}"
-                  season_id = res[2] || 0
-                  episode_id = res[3] || 0
-                  puts "#{res[5]} #{res[6]}"
-                  language = Language.find(:first, :conditions => ["short_alpha = '#{res[5]}'"])
-                  subtitle = Subtitle.find(:first, :conditions => ["short_alpha = '#{res[6]}'"])
-                  if language && (subtitle || res[6] == 'non')
-                    language_id = language.id
-                    subtitle_id = res[6] == 'non' ? nil : subtitle.id
-                    
-                    AkamaiHlsContent.create(:imdb_id => res[4], :filename => short_filename[1], :language_id => language_id, :subtitle_id => subtitle_id, :season_id => season_id, :episode_id => episode_id, :kind => kind)
-                  else
-                    puts 'error of content : language or subtitle'
+                  if !res.blank?
+                    season_id = res[2] || 0
+                    episode_id = res[3] || 0
+                    puts "#{res[5]} #{res[6]}"
+                    language = Language.find(:first, :conditions => ["short_alpha = '#{res[5]}'"])
+                    subtitle = Subtitle.find(:first, :conditions => ["short_alpha = '#{res[6]}'"])
+                    if language && (subtitle || res[6] == 'non')
+                      language_id = language.id
+                      subtitle_id = res[6] == 'non' ? nil : subtitle.id
+                      
+                      AkamaiHlsContent.create(:imdb_id => res[4], :filename => short_filename[1], :language_id => language_id, :subtitle_id => subtitle_id, :season_id => season_id, :episode_id => episode_id, :kind => kind)
+                    else
+                      puts 'error of content : language or subtitle'
+                    end
                   end
                 end
               end
