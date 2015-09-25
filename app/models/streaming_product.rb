@@ -161,7 +161,7 @@ x.created_at,
 x.quality,
 x.season_id,
 x.episode_id,
-if(isnull(x.akamai_folder),'',concat(x.akamai_folder,'/')) akamai_folder,
+x.akamai_folder,
 pl.short_alpha short_lang,
 ifnull(pu.short_alpha,"non") short_sub,
 products_year, x.season_id , x.episode_id from
