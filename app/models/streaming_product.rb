@@ -152,23 +152,33 @@ def self.zen_coder_s
     puts body
     if  status_input == 'finished' || status_input == 'failed'
       puts 'launch new process'
-      sql = 'select x.*, pl.short_alpha short_lang,
- ifnull(pu.short_alpha,"non") short_sub,
- products_year, x.season_id , x.episode_id from
+      sql = 'select
+x.imdb_id,
+x.filename,
+x.language_id,
+x.subtitle_id,
+x.created_at,
+x.quality,
+x.season_id,
+x.episode_id,
+if(isnull(x.akamai_folder),'',concat(x.akamai_folder,'/')) akamai_folder,
+pl.short_alpha short_lang,
+ifnull(pu.short_alpha,"non") short_sub,
+products_year, x.season_id , x.episode_id from
 (
 select distinct sp.akamai_folder, sp.created_at, sp.imdb_id, language_id, subtitle_id, filename, quality, products_year, p.season_id, p.episode_id
-            from streaming_products sp join products p on sp.imdb_id = p.imdb_id
-            where sp.created_at > date_add(now(), interval -10 day)
-            and p.products_type = "DVD_NORM"
-            and  studio_id !=750
-            and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null)
-            and available = 1
-            and status = "online_test_ok"
+from streaming_products sp join products p on sp.imdb_id = p.imdb_id
+where sp.created_at > date_add(now(), interval -90 day)
+and p.products_type = "DVD_NORM"
+and studio_id not in (750,804)
+and (`expire_backcatalogue_at` > now() or expire_backcatalogue_at is null)
+and available = 1
+and status = "online_test_ok"
 ) x
 join products_languages pl on x.language_id = pl.languages_id and languagenav_id=1
 left join products_undertitles pu on x.subtitle_id = pu.undertitles_id and pu.language_id=1
 group by x.imdb_id, x.season_id, x.episode_id, x.subtitle_id,x.language_id
-order by products_year desc, x.imdb_id desc limit 1;'
+order by products_year desc, x.imdb_id desc limit 1'
       results = ActiveRecord::Base.connection.execute(sql)
       results.each_hash do |h| 
         case h['quality']
