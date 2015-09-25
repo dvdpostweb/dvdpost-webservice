@@ -150,7 +150,7 @@ def self.zen_coder_s
     last_job.update_attribute(:status_input, status_input)
     puts last_job.inspect
     puts body
-    if  status_input == 'finished' || status_input == 'failed'
+    if  true
       puts 'launch new process'
       sql = 'select
 x.imdb_id,
@@ -187,12 +187,15 @@ order by products_year desc, x.imdb_id desc limit 1'
           when '1080p'
             bitrate = 3000
             width =1920
+            quality = 3000
           when '720p'
             bitrate = 2500
             width =1024
+            quality = 3000
           else
             bitrate = 2000
             width =720
+            quality = 2200
         end
         test = "#{h['filename']}@0#{h['imdb_id']}_Dpc_A#{h['short_lang']}_S#{h['short_sub']}_3000k.f4v"
         if File.readlines("./public/0.txt").grep(/#{test}/).size > 0
@@ -210,7 +213,8 @@ order by products_year desc, x.imdb_id desc limit 1'
         puts season_name
         puts h['season_id']
         folder_path = h['akamai_folder'].present? ? "#{h['akamai_folder']}/" : ''
-        input = "ftp://vlupload:videoland123@homehlsvod.upload.akamai.com/308709/#{folder_path}#{h['filename']}_3000000.f4v"
+
+        input = "ftp://vlupload:videoland123@homehlsvod.upload.akamai.com/308709/#{folder_path}#{h['filename']}_#{quality}000.f4v"
         result = Zencoder::Job.create({:api_key => "6541e219a225b48e901393d73d906091", :region => "europe", :input => input, :outputs => { :audio_bitrate => 64, :audio_sample_rate => 48000, :url => "ftp://hesssvodupload:HESssvod123@homessvod.upload.akamai.com/308707/#{season_name}#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}.ism", :max_frame_rate => 25, :segment_seconds => 2, :type => "segmented", :video_bitrate => bitrate, :width => width, :format => "ism", :drm => { :method => "playready", :provider => "buydrm", :server_key => "89137186-356A-4543-B83F-943699CBD44E", :user_key => "d88e502b-fd8f-4da5-e79b-ea73d132b89f", :media_id => "#{season_name}#{h['imdb_id']}_A#{h['short_lang']}_S#{h['short_sub']}" }}}, {:skip_ssl_verify => true})
         job = AkamaiJob.create(:imdb_id => h['imdb_id'], :language_id => h['language_id'], :subtitle_id => h['subtitle_id'], :zen_id => result.body['id'], :season_id => h['season_id'], :episode_id => h['episode_id'])
         puts result.body
