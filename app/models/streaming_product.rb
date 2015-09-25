@@ -177,6 +177,8 @@ and status = "online_test_ok"
 ) x
 join products_languages pl on x.language_id = pl.languages_id and languagenav_id=1
 left join products_undertitles pu on x.subtitle_id = pu.undertitles_id and pu.language_id=1
+left join akamai_jobs a on a.imdb_id = x.imdb_id and x.season_id = a.season_id and x.episode_id = a.episode_id and a.language_id = x.language_id and ifnull(a.subtitle_id,0) = ifnull(x.subtitle_id,0) and deleted = 0
+where  a.id is null
 group by x.imdb_id, x.season_id, x.episode_id, x.subtitle_id,x.language_id
 order by products_year desc, x.imdb_id desc limit 1'
       results = ActiveRecord::Base.connection.execute(sql)
