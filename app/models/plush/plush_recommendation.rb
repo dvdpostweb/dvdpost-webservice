@@ -97,7 +97,7 @@ select p.products_countries_id,count(*)nb,p.products_year year,(select count(*) 
  (select customer_id from dvdpost_be_prod.products p
  join dvdpost_be_prod.tokens t on t.imdb_id = p.imdb_id
  where p.imdb_id = #{imdb_id}) c on c.customer_id = t.customer_id
- where t.imdb_id !=#{imdb_id} and pp.products_status !=-1
+ where t.imdb_id !=#{imdb_id} and t.imdb_id != 0 and pp.products_status !=-1
  group by t.imdb_id 
  ) t
  group by imdb_id
