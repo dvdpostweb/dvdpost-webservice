@@ -69,6 +69,9 @@ class EmailVisionCustomer < ActiveRecord::Base
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       email_vision = self.find(h['id'])
+      if change = EmailVisionCustomer.find_by_email(h['customers_email_address'])
+        change.update_attribute(:email, Customer.find_by_customers_id(change.customer_id))
+      end
       email_vision.update_attributes(:email => h['customers_email_address'])
     end
   end
@@ -79,6 +82,9 @@ class EmailVisionCustomer < ActiveRecord::Base
     results = ActiveRecord::Base.connection.execute(sql)
     results.each_hash do |h| 
       email_vision = self.find(h['id'])
+      if change = EmailVisionCustomer.find_by_email(h['customers_email_address'])
+        change.update_attribute(:email, Customer.find_by_customers_id(change.customer_id))
+      end
       email_vision.update_attributes(:email => h['email'])
     end
   end

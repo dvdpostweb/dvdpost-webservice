@@ -46,14 +46,14 @@ select  products_countries_id,products_year year,count(*)nb,(select count(*) fro
  ,(select count(*) from plush_#{env}.products_to_categories where products_id = p.products_id and categories_id in (99)) force_cat
  from plush_#{env}.products p 
  left join plush_#{env}.tokens t on t.imdb_id = p.imdb_id
- where products_status!=-1 and p.imdb_id != #{imdb_id}
+ where products_status!=-1 and p.imdb_id != #{imdb_id} and p.imdb_id != 0 
  group by imdb_id
  union
  select  p.products_countries_id,p.products_year year,count(*)nb,(select count(*) from dvdpost_be_prod.products_to_categories where products_id = p.products_id and categories_id in (#{categories})) cat, p.imdb_id , p.products_title, if(p.products_countries_id = #{country},1,0) country_match
  ,(select count(*) from dvdpost_be_prod.products_to_categories where products_id = p.products_id and categories_id in (99)) force_cat
  from dvdpost_be_prod.products p 
  join plush_#{env}.products pp on p.products_id = pp.products_id 
- left join dvdpost_be_prod.tokens t on t.imdb_id = p.imdb_id
+ left join dvdpost_be_prod.tokens t on t.imdb_id = p.imdb_id and p.imdb_id != 0
  where pp.products_status!=-1 and p.imdb_id != #{imdb_id}
  group by p.imdb_id) t
  group by imdb_id 
