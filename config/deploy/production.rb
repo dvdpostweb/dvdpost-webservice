@@ -20,13 +20,13 @@ set :rails_env, "production"
 #############################################################
 
 set :user, "dvdpost-webservice"
-set :domain, "192.168.102.15"
-#set :domain, "94.139.62.122"
+set :domain,  "192.168.102.12" #tokyo
+set :domain2,  "192.168.100.221" #stockholm
 set :port, 22
 #set :port, 22012
 
-server domain, :app, :web
-role :db, domain, :primary => true
+server domain2, :app, :web
+role :db, domain2, :primary => true
 
 #############################################################
 #	Git

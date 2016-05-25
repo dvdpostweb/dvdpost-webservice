@@ -145,9 +145,10 @@ def self.zen_coder_s
     puts 
     zen_id = last_job.zen_id
     body =Zencoder::Job.progress(zen_id).body
-    puts body
-    status_input = body['input']['state']
-    last_job.update_attribute(:status_input, status_input)
+    if body.present?
+      status_input = body['input']['state']
+      last_job.update_attribute(:status_input, status_input)
+    end
     puts last_job.inspect
     puts body
     if  true
