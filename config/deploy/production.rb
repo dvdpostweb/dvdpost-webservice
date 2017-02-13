@@ -19,7 +19,7 @@ set :rails_env, "production"
 #	Servers
 #############################################################
 
-set :user, "dvdpost-webservice"
+set :user, "dvdpost"
 set :domain,  "217.112.190.50" #tokyo
 #set :domain2,  "192.168.100.221" #stockholm
 set :port, 23051
