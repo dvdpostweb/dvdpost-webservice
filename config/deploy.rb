@@ -1,5 +1,5 @@
 set :stages, %w(staging pre_production production)
-set :default_stage, "staging"
+set :default_stage, "production"
 require 'capistrano/ext/multistage'
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems')].each do |vendored_notifier|
