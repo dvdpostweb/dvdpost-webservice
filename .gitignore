@@ -13,3 +13,4 @@ rerun.txt
 public/images/logo
 public/images/tmp
 .bundle
+.ruby-version
