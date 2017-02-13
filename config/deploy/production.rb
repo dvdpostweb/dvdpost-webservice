@@ -25,8 +25,8 @@ set :domain,  "217.112.190.50" #tokyo
 set :port, 23051
 #set :port, 22012
 
-server domain2, :app, :web
-role :db, domain2, :primary => true
+server domain, :app, :web
+role :db, domain, :primary => true
 
 #############################################################
 #	Git
