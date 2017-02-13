@@ -13,16 +13,16 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :use_sudo, false
 set :scm_verbose, true
-set :rails_env, "production" 
+set :rails_env, "production"
 
 #############################################################
 #	Servers
 #############################################################
 
 set :user, "dvdpost-webservice"
-set :domain,  "192.168.102.12" #tokyo
-set :domain2,  "192.168.100.221" #stockholm
-set :port, 22
+set :domain,  "217.112.190.50" #tokyo
+#set :domain2,  "192.168.100.221" #stockholm
+set :port, 23051
 #set :port, 22012
 
 server domain2, :app, :web
@@ -72,16 +72,16 @@ namespace :deploy do
      host: matadi
      port: 3306
     EOF
-    
+
     put db_config, "#{release_path}/config/database.yml"
   end
-  
+
   # Restart passenger on deploy
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => {:no_release => true} do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
+
   [:start, :stop].each do |t|
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
