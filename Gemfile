@@ -2,8 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 2.3.11'
 gem 'mysql', :group => :bundle
-
-
 gem 'capistrano-ext', :require => 'capistrano'
 #gem 'hoptoad_notifier', '~> 2.4.0'
 gem 'uniform_notifier', '1.0.1'
